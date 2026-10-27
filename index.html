@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSC3100 Interactive Notes</title>
+  <meta name="description" content="CSC3100 Data Structures (CUHK-Shenzhen): interactive lecture notes, one site per lecture.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230F6E73'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='15' font-weight='700' text-anchor='middle' fill='%23F6F5F1'%3E%7B%7D%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .lec:hover { transform: none; }
+    .lec .acts { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 4px; }
+    .lec .notes { font-size: 13px; font-weight: 600; text-decoration: none; padding: 6px 10px; border-radius: 7px; border: 1px solid var(--line); }
+    .lec.ready .notes { color: var(--paper); background: var(--teal); border-color: var(--teal); }
+    .lec.soon { opacity: 0.5; filter: grayscale(1); }
+    .lec.soon .notes { color: var(--stone); pointer-events: none; cursor: default; }
+    .lec .watch { font-size: 13px; padding: 6px 10px; border-radius: 7px; border: 1px solid var(--amber); background: var(--mark); color: var(--ink); cursor: pointer; }
+    .lec .watch:hover { filter: brightness(1.05); }
+    .part { font: 600 12px var(--mono); color: var(--amber); letter-spacing: 0.06em; margin: 34px 0 12px; }
+    dialog.player { width: min(1040px, calc(100vw - 32px)); padding: 0; border: 1px solid var(--line); border-radius: 14px; background: var(--card); color: var(--ink); }
+    dialog.player::backdrop { background: rgba(0, 0, 0, 0.6); }
+    dialog.player video { display: block; width: 100%; background: #000; }
+    dialog.player .bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 14px; font-size: 14px; }
+    dialog.player .plist { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 14px 14px; }
+    dialog.player .plist button { font-size: 12.5px; padding: 5px 9px; border-radius: 7px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; text-align: left; }
+    dialog.player .plist button.on { border-color: var(--amber); background: var(--mark); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-mark">{}</span><span class="brand-text"><b>CSC3100</b><span>Data Structures</span></span></a>
+    <span class="spacer" style="flex:1"></span>
+    <button class="iconbtn" id="theme" title="Light / dark">☾</button>
+  </header>
+  <main class="wrap">
+    <section class="hero" style="grid-template-columns:minmax(0,1fr)">
+      <div>
+        <span class="pill">CUHK-Shenzhen · Instructors: Tianshu Yu, Mengmeng Liu, and Li Jiang</span>
+        <h1>Data Structures<small>Interactive lecture notes</small></h1>
+        <p class="lead">One site per lecture. Each one follows the lecture, lets you step through what each data structure does in memory, asks you to predict before it shows you, and ends with a self-check and exercises. Every Java program has been compiled and run, and every output shown is the real output.</p>
+      </div>
+    </section>
+    <div id="lectures"></div>
+    <p class="meta" style="margin:40px 0">Lectures 1–15 each have four videos of 8–12 minutes, with English and Chinese subtitles; they also appear inside each lecture, in the chapter they cover. Greyed-out lectures open later in the term.</p>
+  </main>
+  <footer><div class="wrap"><p>CSC3100 Data Structures · CUHK-Shenzhen · For students of the course; not for redistribution.</p>
+    <p class="ack">Built on the lecture slides by Yixiang Fang, Tianshu Yu, Xiang Wan, Kaiming Shen, Wenye Li (CUHK-Shenzhen), Minming Li (CityU), Zengfeng Huang (Fudan), Jane You (PolyU) and Sibo Wang (CUHK), and the tutorial slides by Xingchao Wang, Panwen Hu and Ziteng Weng (CUHK-Shenzhen).</p><p class="credit"><img class="logo-light" src="assets/peiyu-logo.svg" alt="" width="18" height="18"><img class="logo-dark" src="assets/peiyu-logo-white.svg" alt="" width="18" height="18"><span>Interactive notes powered by <b><a href="https://www.peiyuzhineng.com/">培玉智能</a></b> · Co-designed with <a href="https://boxiyu.github.io/">Boxi Yu</a></span></p></div></footer>
+  <script>
+    // [number, title, summary]. Lectures from LATER on stay grey until the instructors
+    // ask for them (2026-10-26: the class has reached Lecture 15).
+    const LATER = 16;
+    const LECTURES = [
+      ["Getting started", [
+        [0, "Course Introduction", "Why data structures, topics, textbooks, practice and contests"],
+        [1, "Introduction and ADTs", "Data structures, algorithms and abstract data types"],
+        [2, "Java Basics", "Types, control flow, methods, classes and objects in Java"],
+        [3, "Arrays", "Array storage, operations and their costs"],
+      ]],
+      ["Sorting and complexity", [
+        [4, "Insertion Sort and Merge Sort", "Two sorting algorithms and how to reason about them"],
+        [5, "Asymptotic Notations", "Big-O, Big-Omega and Big-Theta"],
+        [6, "Divide and Conquer, Recursion", "Recurrences, recursion trees and the master method"],
+      ]],
+      ["Linear structures", [
+        [7, "Lists", "Singly, doubly and circular linked lists"],
+        [8, "List Applications", "Problems solved with linked lists"],
+        [9, "Stacks", "Last in, first out, and what it is good for"],
+        [10, "Queues", "First in, first out, circular arrays"],
+      ]],
+      ["More sorting", [
+        [11, "Quicksort", "Partitioning, analysis and randomisation"],
+        [12, "More Sorting Algorithms", "Lower bounds and linear-time sorts"],
+      ]],
+      ["Trees", [
+        [13, "Trees and Binary Trees", "Terminology, representation and traversals"],
+        [14, "Binary Search Trees", "Search, insert, delete"],
+        [15, "AVL Trees", "Height balance and rotations"],
+        [16, "Red-Black Trees", "Colour rules and rebalancing"],
+        [17, "Heaps", "Priority queues and heapsort"],
+      ]],
+      ["Hashing and graphs", [
+        [18, "Hashing", "Hash functions and collision handling"],
+        [19, "Graphs, BFS and DFS", "Representations and traversals"],
+        [20, "Minimum Spanning Trees", "Prim and Kruskal"],
+        [21, "Shortest Paths: Dijkstra", "Single-source shortest paths"],
+        [22, "Shortest Paths: Floyd", "All-pairs shortest paths"],
+        [23, "Shortest Paths: Bellman-Ford", "Negative edges and cycles"],
+        [24, "Java Data Structures", "The collections in the Java library"],
+      ]],
+    ];
+    // Video parts per lecture: [title, minutes]. Files are LNN/media/LNN-K.mp4. None yet.
+    const VIDEOS = {"9": [["What a stack is, on a linked list", 8.4], ["A stack on an array", 10.2], ["Balanced symbols", 7.3], ["Evaluating postfix expressions", 9.8]], "2": [["The JVM and the primitive types", 8.6], ["Variables and loops", 10.5], ["Classes, objects and exceptions", 9.6], ["Arrays, strings, casting and files", 10.2]], "4": [["Insertion sort", 8.7], ["Why it is correct, and how long it takes", 9.9], ["Recursion and divide-and-conquer", 8.8], ["Merge sort, and a first look at quicksort", 9.7]], "1": [["Exponents, logarithms and series", 9.5], ["How to prove things", 9.6], ["Data types, abstraction and ADTs", 10.2], ["Data structures, algorithms and the selection problem", 10.5]], "3": [["What an array is, in memory", 11.4], ["Kinds of arrays, and visiting every cell", 10.5], ["Insertion, deletion and search", 10.4], ["Passing arrays and objects to methods", 10.5]], "6": [["Recurrences and binary search", 11.1], ["Linear recursion and recursion trees", 10.5], ["The master theorem", 11.0], ["Maximum subarray", 9.6]], "7": [["The List ADT and the singly linked list", 9.1], ["Inserting and deleting without breaking the chain", 10.9], ["A singly linked list in Java, and two classic exercises", 8.3], ["Doubly, circular and doubly circular lists", 10.9]], "5": [["Counting basic operations", 10.1], ["Big-Oh, an upper bound", 10.3], ["Rules and growth classes", 9.7], ["Big-Omega and Big-Theta", 9.1]], "8": [["Polynomials as term lists", 11.3], ["Sparse matrices", 10.0], ["Where two lists meet", 9.5], ["Cycles and duplicate letters", 11.4]], "10": [["FIFO, and the linear queue", 9.1], ["The circular queue", 9.2], ["Priority queues and deques", 9.7], ["Stacks from queues, queues from stacks", 9.4]], "11": [["Randomized algorithms and the idea of quicksort", 8.3], ["The Lomuto partition and randomized quicksort", 9.6], ["Median-of-three quicksort", 10.5], ["Running time, stability and the lower bound", 10.8]], "12": [["ShellSort, insertion sort with long jumps", 10.2], ["How fast ShellSort is, and CountingSort", 9.6], ["Stable CountingSort, BucketSort and RadixSort by hand", 11.2], ["RadixSort in Java, why it works, and ten sorts compared", 10.5]], "13": [["Tree vocabulary and binary trees", 10.5], ["The binary-tree ADT, linked nodes and arrays", 9.6], ["Preorder, inorder and postorder", 8.5], ["Expression trees, postfix, and rebuilding a tree", 12.1]], "14": [["What a binary search tree is", 11.3], ["Search, minimum, maximum, successor", 11.8], ["Insertion and deletion", 11.8], ["Three classic problems", 11.5]], "15": [["Why balance, and the AVL condition", 10.8], ["The height bound and the single rotation", 11.8], ["Double rotations and insertion", 12.0], ["Deletion", 10.1]]};
+    const pad = (n) => String(n).padStart(2, "0");
+    const total = (n) => Math.round((VIDEOS[n] || []).reduce((a, [, m]) => a + m, 0));
+    document.getElementById("lectures").innerHTML = LECTURES.map(([part, list]) =>
+      `<div class="part">${part.toUpperCase()}</div><div class="chapters">` + list.map(([n, t, s]) =>
+        `<div class="card chapcard lec soon${n >= LATER ? " later" : ""}" data-n="${n}">
+          <span class="num">L${pad(n)}</span><h3>${t}</h3><p>${s}</p>
+          <div class="acts">
+            <a class="notes" href="L${pad(n)}/index.html" aria-disabled="true" tabindex="-1">${n >= LATER ? "Coming later" : "Available later"}</a>
+            ${VIDEOS[n] ? `<button class="watch" hidden data-n="${n}" data-title="${t}">▶ ${VIDEOS[n].length} videos · ${total(n)} min</button>` : ""}
+          </div></div>`).join("") + "</div>").join("");
+    // A lecture is live when its folder has an index.html (publish.py only uploads the
+    // lectures in PUBLISHED). The others stay grey, with no link and no videos.
+    // Over file:// the check can't run, so every lecture shows as live.
+    const local = location.protocol === "file:";
+    document.querySelectorAll(".lec").forEach((card) => {
+      const link = card.querySelector(".notes");
+      const ready = () => {
+        card.classList.replace("soon", "ready");
+        link.textContent = "Open notes →";
+        link.removeAttribute("aria-disabled");
+        link.removeAttribute("tabindex");
+        const watch = card.querySelector(".watch");
+        if (watch) watch.hidden = false;
+      };
+      link.addEventListener("click", (e) => { if (card.classList.contains("soon")) e.preventDefault(); });
+      if (card.classList.contains("later")) return;   // not open yet, whatever is on disk
+      if (local) return ready();
+      fetch(link.getAttribute("href"), { method: "HEAD" })
+        .then((r) => { if (r.ok) ready(); })
+        .catch(() => {});
+    });
+    // One shared player: the lecture's parts are listed under the video, and each part
+    // runs on into the next.
+    const dlg = document.createElement("dialog");
+    dlg.className = "player";
+    dlg.innerHTML = `<video controls preload="none"></video><div class="bar"><b></b><button class="cbtn">Close</button></div><div class="plist"></div>`;
+    document.body.appendChild(dlg);
+    const vid = dlg.querySelector("video");
+    let cur = { n: 0, k: 0, title: "" };
+    function playPart(k) {
+      const parts = VIDEOS[cur.n];
+      cur.k = k;
+      const base = `L${pad(cur.n)}/media/L${pad(cur.n)}-${k + 1}`;   // with English / Chinese subtitles (kit/subs.py)
+      vid.innerHTML = `<track kind="subtitles" srclang="en" label="English" src="${base}.en.vtt" default><track kind="subtitles" srclang="zh" label="中文" src="${base}.zh.vtt">`;
+      vid.src = `${base}.mp4`;
+      dlg.querySelector("b").textContent = `Lecture ${cur.n} · Part ${k + 1} of ${parts.length} — ${parts[k][0]}`;
+      dlg.querySelectorAll(".plist button").forEach((b, j) => b.classList.toggle("on", j === k));
+      vid.play().catch(() => {});
+    }
+    vid.addEventListener("ended", () => { if (cur.k + 1 < VIDEOS[cur.n].length) playPart(cur.k + 1); });
+    dlg.querySelector(".bar button").onclick = () => dlg.close();
+    dlg.addEventListener("close", () => vid.pause());
+    document.querySelectorAll(".watch").forEach((b) => {
+      b.onclick = () => {
+        cur = { n: +b.dataset.n, k: 0, title: b.dataset.title };
+        dlg.querySelector(".plist").innerHTML = VIDEOS[cur.n].map(([t, m], j) =>
+          `<button data-k="${j}">${j + 1}. ${t} · ${m.toFixed(1)} min</button>`).join("");
+        dlg.querySelectorAll(".plist button").forEach((pb) => { pb.onclick = () => playPart(+pb.dataset.k); });
+        dlg.showModal();
+        playPart(0);
+      };
+    });
+    const themeBtn = document.getElementById("theme");
+    function applyTheme(t) {
+      if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
+      const dark = t ? t === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      themeBtn.textContent = dark ? "☀" : "☾";
+    }
+    try { applyTheme(localStorage.getItem("csc3100-theme")); } catch { applyTheme(null); }
+    themeBtn.onclick = () => {
+      const cur = document.documentElement.dataset.theme;
+      const dark = cur ? cur === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      const t = dark ? "light" : "dark";
+      applyTheme(t);
+      try { localStorage.setItem("csc3100-theme", t); } catch { /* storage unavailable */ }
+    };
+  </script>
+</body>
+</html>

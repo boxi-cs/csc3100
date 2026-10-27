@@ -1,0 +1,623 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.324
+Two classic exercises close the lecture.
+
+00:00:03.400 --> 00:00:06.122
+Each builds one structure using only
+
+00:00:06.197 --> 00:00:08.314
+the operations of the other
+
+00:00:08.390 --> 00:00:10.734
+so they test whether you really
+
+00:00:10.809 --> 00:00:12.699
+understand LIFO and FIFO.
+
+00:00:12.699 --> 00:00:15.119
+First, a stack from two queues.
+
+00:00:15.119 --> 00:00:17.311
+Keep the stack in q1
+
+00:00:17.387 --> 00:00:19.277
+with the top of the stack
+
+00:00:19.353 --> 00:00:21.016
+at the front of q1.
+
+00:00:21.016 --> 00:00:22.150
+Why the front?
+
+00:00:22.150 --> 00:00:24.872
+Pop must return the newest element
+
+00:00:24.872 --> 00:00:28.198
+and a queue can only remove from its front
+
+00:00:28.198 --> 00:00:31.525
+so the newest element has to be kept there.
+
+00:00:31.525 --> 00:00:34.020
+q2 is only scratch space.
+
+00:00:34.370 --> 00:00:36.769
+Push(1): q1 is empty
+
+00:00:36.769 --> 00:00:38.976
+so 1 simply goes in.
+
+00:00:38.976 --> 00:00:39.936
+Push(2)
+
+00:00:39.936 --> 00:00:44.062
+first move everything from q1 to q2.
+
+00:00:44.062 --> 00:00:47.229
+Then add 2 to the empty q1
+
+00:00:47.229 --> 00:00:49.436
+so it is at the front
+
+00:00:49.436 --> 00:00:52.891
+and move everything back behind it.
+
+00:00:52.891 --> 00:00:54.810
+Now 2 is the top.
+
+00:00:55.390 --> 00:00:56.468
+Push(3).
+
+00:00:56.468 --> 00:00:57.447
+Step one
+
+00:00:57.447 --> 00:01:01.170
+move every element of q1 to q2
+
+00:01:01.170 --> 00:01:02.933
+2 and then 1.
+
+00:01:02.933 --> 00:01:07.243
+Step two: add 3 to the now empty q1
+
+00:01:07.243 --> 00:01:09.790
+so 3 is at its front.
+
+00:01:10.140 --> 00:01:11.261
+Step three
+
+00:01:11.261 --> 00:01:15.642
+move every element of q2 back to q1
+
+00:01:15.642 --> 00:01:17.069
+behind 3.
+
+00:01:17.069 --> 00:01:21.552
+q1 now reads 3, 2, 1: top first.
+
+00:01:21.552 --> 00:01:25.220
+Six moves so far, for three pushes.
+
+00:01:25.800 --> 00:01:29.463
+Pushing 1 to 5 this way leaves 5
+
+00:01:29.463 --> 00:01:32.680
+4, 3, 2, 1 in q1.
+
+00:01:32.680 --> 00:01:36.254
+Pop is just q1.poll(): 5, 4
+
+00:01:36.254 --> 00:01:37.773
+3, 2, 1.
+
+00:01:37.773 --> 00:01:39.560
+Last in, first out.
+
+00:01:39.910 --> 00:01:41.517
+Pop is O(1).
+
+00:01:41.617 --> 00:01:44.529
+But push moves the k elements
+
+00:01:44.629 --> 00:01:47.340
+already in the stack twice
+
+00:01:47.340 --> 00:01:49.750
+so it costs Θ(k).
+
+00:01:50.100 --> 00:01:53.062
+Pushing n elements costs two times
+
+00:01:53.146 --> 00:01:55.262
+0 plus 1 plus and so
+
+00:01:55.347 --> 00:01:57.124
+on up to n minus 1
+
+00:01:57.124 --> 00:02:00.170
+which is n(n - 1) moves
+
+00:02:00.170 --> 00:02:02.624
+Θ(n²) in total.
+
+00:02:02.624 --> 00:02:05.247
+For five pushes, twenty moves.
+
+00:02:05.247 --> 00:02:08.040
+A real stack pushes in O(1)
+
+00:02:08.040 --> 00:02:11.509
+so this is an exercise in understanding
+
+00:02:11.509 --> 00:02:13.540
+not a structure to use.
+
+00:02:14.120 --> 00:02:16.680
+The slide's test loop has a bug.
+
+00:02:16.760 --> 00:02:18.920
+It pops with i less than or
+
+00:02:19.000 --> 00:02:21.000
+equal to keys.length
+
+00:02:21.000 --> 00:02:23.480
+6 pops from a stack of 5.
+
+00:02:23.830 --> 00:02:29.466
+The first 5 print 5, 4, 3, 2
+
+00:02:29.466 --> 00:02:30.106
+1.
+
+00:02:30.106 --> 00:02:35.230
+The sixth finds q1 empty: underflow.
+
+00:02:35.580 --> 00:02:39.075
+The slide's code then prints Underflow and stops
+
+00:02:39.148 --> 00:02:41.988
+the whole program with System.exit(0).
+
+00:02:42.061 --> 00:02:43.954
+Loop with i less than
+
+00:02:44.027 --> 00:02:45.410
+keys.length instead.
+
+00:02:45.483 --> 00:02:48.760
+Our version throws an IllegalStateException
+
+00:02:48.833 --> 00:02:51.090
+after printing the 5 values
+
+00:02:51.090 --> 00:02:53.420
+so the bug is at least visible.
+
+00:02:54.000 --> 00:02:55.997
+The slides mention another idea
+
+00:02:56.062 --> 00:02:57.736
+that needs only one queue.
+
+00:02:57.736 --> 00:03:00.120
+Enqueue the new element at the rear.
+
+00:03:00.470 --> 00:03:03.210
+Then dequeue each of the elements
+
+00:03:03.293 --> 00:03:05.369
+that were in front of it
+
+00:03:05.369 --> 00:03:08.192
+and enqueue it again at the rear.
+
+00:03:08.192 --> 00:03:10.517
+Push b: b goes in behind a
+
+00:03:10.517 --> 00:03:12.510
+then a goes round once.
+
+00:03:12.860 --> 00:03:16.472
+Push c: c goes in, then b and a go round.
+
+00:03:16.472 --> 00:03:19.820
+The new element ends up at the front.
+
+00:03:19.908 --> 00:03:23.785
+Rotating a queue like this is the same trick
+
+00:03:23.873 --> 00:03:26.780
+as the traffic light in part 2.
+
+00:03:27.130 --> 00:03:29.672
+Pop just takes the front element
+
+00:03:29.672 --> 00:03:30.750
+it returns c.
+
+00:03:30.750 --> 00:03:33.215
+The cost is the same as before
+
+00:03:33.215 --> 00:03:34.756
+push is Θ(n)
+
+00:03:34.756 --> 00:03:36.912
+with n minus 1 rotations
+
+00:03:36.912 --> 00:03:38.530
+and pop is O(1).
+
+00:03:39.110 --> 00:03:42.443
+The mirror image: a queue from two stacks.
+
+00:03:42.443 --> 00:03:44.903
+Keep the queue in stack s1
+
+00:03:44.903 --> 00:03:47.760
+with the front of the queue on top.
+
+00:03:47.760 --> 00:03:51.173
+Here the queue is 1, 2: 1 is on top.
+
+00:03:51.173 --> 00:03:54.030
+Then dequeue is just s1.pop().
+
+00:03:54.380 --> 00:03:56.025
+To enqueue 3
+
+00:03:56.025 --> 00:03:59.410
+it must go to the bottom of s1.
+
+00:03:59.410 --> 00:04:02.312
+So pop everything onto s2
+
+00:04:02.312 --> 00:04:04.054
+1 and then 2.
+
+00:04:04.054 --> 00:04:07.246
+Push 3 onto the empty s1.
+
+00:04:07.246 --> 00:04:11.115
+And pop everything back: 2, then 1
+
+00:04:11.115 --> 00:04:13.340
+which is on top again.
+
+00:04:13.690 --> 00:04:17.430
+Enqueue is Θ(n), dequeue is O(1).
+
+00:04:17.430 --> 00:04:21.257
+Every enqueue moves all the elements twice
+
+00:04:21.344 --> 00:04:23.605
+so n enqueues cost n times
+
+00:04:23.692 --> 00:04:25.258
+n minus 1 moves
+
+00:04:25.258 --> 00:04:28.737
+exactly like the stack from two queues.
+
+00:04:28.737 --> 00:04:32.216
+The slides use java.util.Stack
+
+00:04:32.216 --> 00:04:35.521
+ArrayDeque has the same push and pop
+
+00:04:35.521 --> 00:04:38.130
+and is the recommended class.
+
+00:04:38.710 --> 00:04:41.512
+There is a much better way
+
+00:04:41.512 --> 00:04:44.313
+a standard textbook trick.
+
+00:04:44.313 --> 00:04:47.737
+Use one stack, in, for enqueues
+
+00:04:47.737 --> 00:04:51.057
+and another, out, for dequeues.
+
+00:04:51.057 --> 00:04:55.104
+Enqueue just pushes onto in: 1, 2
+
+00:04:55.104 --> 00:04:55.830
+3.
+
+00:04:56.180 --> 00:04:58.170
+Dequeue pops from out.
+
+00:04:58.260 --> 00:05:01.516
+Only when out is empty does it first
+
+00:05:01.606 --> 00:05:03.777
+pour all of in into out
+
+00:05:03.777 --> 00:05:05.676
+which reverses them
+
+00:05:05.676 --> 00:05:09.112
+so the oldest element ends up on top.
+
+00:05:09.112 --> 00:05:10.740
+Then it pops out.
+
+00:05:11.090 --> 00:05:12.852
+Why is this still FIFO?
+
+00:05:12.928 --> 00:05:15.149
+Every element in out is older
+
+00:05:15.226 --> 00:05:17.141
+than every element in in
+
+00:05:17.217 --> 00:05:19.209
+and out holds its elements
+
+00:05:19.285 --> 00:05:21.047
+with the oldest on top.
+
+00:05:21.124 --> 00:05:24.187
+So popping out always returns the oldest
+
+00:05:24.264 --> 00:05:26.332
+element of the whole queue
+
+00:05:26.409 --> 00:05:29.396
+and only when out runs dry do the newer
+
+00:05:29.472 --> 00:05:31.770
+elements in in get their turn.
+
+00:05:32.350 --> 00:05:36.473
+With the lazy queue: enqueue 1, 2
+
+00:05:36.473 --> 00:05:39.729
+3; dequeue; enqueue 4
+
+00:05:39.729 --> 00:05:42.550
+then dequeue 3 times.
+
+00:05:42.900 --> 00:05:45.600
+What does each dequeue return
+
+00:05:45.600 --> 00:05:48.930
+and which dequeues pour in into out?
+
+00:05:48.930 --> 00:05:51.900
+Pause the video and work it out.
+
+00:05:55.480 --> 00:05:58.255
+The first dequeue finds out empty
+
+00:05:58.255 --> 00:06:01.031
+and pours 3, 2, 1 across
+
+00:06:01.031 --> 00:06:02.092
+3 moves.
+
+00:06:02.092 --> 00:06:05.520
+1 is on top of out, and it is returned.
+
+00:06:05.870 --> 00:06:08.090
+Enqueue 4 goes onto in.
+
+00:06:08.090 --> 00:06:11.848
+The next 2 dequeues return 2 and 3
+
+00:06:11.848 --> 00:06:13.470
+straight from out.
+
+00:06:13.820 --> 00:06:16.857
+The last dequeue finds out empty again
+
+00:06:16.857 --> 00:06:19.427
+and pours 4 across, 1 move.
+
+00:06:19.427 --> 00:06:20.750
+It returns 4.
+
+00:06:20.750 --> 00:06:23.398
+FIFO order 1, 2, 3, 4
+
+00:06:23.398 --> 00:06:26.123
+with 4 moves for 4 elements.
+
+00:06:26.123 --> 00:06:29.627
+Notice that the first dequeue was expensive
+
+00:06:29.627 --> 00:06:32.820
+3 moves, and the next 2 were free.
+
+00:06:33.400 --> 00:06:35.852
+The demo checks both versions.
+
+00:06:35.852 --> 00:06:39.447
+Both are FIFO: dequeue gives 1, then 2.
+
+00:06:39.529 --> 00:06:42.470
+Then it runs 1,000 enqueues and
+
+00:06:42.552 --> 00:06:44.840
+1,000 dequeues on each.
+
+00:06:45.190 --> 00:06:48.549
+The slide version moved elements
+
+00:06:48.640 --> 00:06:51.817
+999,000 times
+
+00:06:51.817 --> 00:06:53.723
+n(n - 1).
+
+00:06:53.723 --> 00:06:57.718
+The lazy one moved them 1000 times
+
+00:06:57.718 --> 00:06:58.218
+n.
+
+00:06:58.340 --> 00:07:01.133
+Each element is pushed onto in once
+
+00:07:01.133 --> 00:07:04.546
+moved to out at most once, and popped once.
+
+00:07:04.623 --> 00:07:06.873
+So a sequence of n operations
+
+00:07:06.950 --> 00:07:08.967
+does O(n) work in total
+
+00:07:09.044 --> 00:07:11.449
+although one particular dequeue
+
+00:07:11.527 --> 00:07:13.311
+may move many elements.
+
+00:07:13.388 --> 00:07:15.405
+The amortised cost of each
+
+00:07:15.483 --> 00:07:17.189
+operation is O(1).
+
+00:07:17.267 --> 00:07:20.214
+It is the same kind of argument as the
+
+00:07:20.292 --> 00:07:22.696
+doubling array of lecture nine
+
+00:07:22.696 --> 00:07:25.024
+an occasional expensive step
+
+00:07:25.024 --> 00:07:27.273
+paid for by many cheap ones.
+
+00:07:27.273 --> 00:07:28.281
+In practice
+
+00:07:28.281 --> 00:07:31.772
+Java's ArrayDeque already gives you a queue
+
+00:07:31.850 --> 00:07:34.021
+the point of these exercises
+
+00:07:34.099 --> 00:07:35.340
+is the analysis.
+
+00:07:35.920 --> 00:07:39.083
+Let's look back over the whole lecture.
+
+00:07:39.164 --> 00:07:41.354
+A queue inserts at the rear
+
+00:07:41.435 --> 00:07:44.273
+and removes at the front: first in
+
+00:07:44.273 --> 00:07:45.166
+first out.
+
+00:07:45.166 --> 00:07:48.166
+On a linked list with head and tail
+
+00:07:48.166 --> 00:07:50.518
+every operation is O(1)
+
+00:07:50.518 --> 00:07:53.600
+A plain array queue runs out of room.
+
+00:07:53.950 --> 00:07:56.601
+The circular queue wraps around
+
+00:07:56.687 --> 00:07:59.167
+with (i + 1) mod capacity
+
+00:07:59.253 --> 00:08:02.417
+and needs a size counter or -1
+
+00:08:02.502 --> 00:08:05.154
+values to tell full from empty.
+
+00:08:05.239 --> 00:08:07.634
+A priority queue removes the
+
+00:08:07.719 --> 00:08:09.686
+highest priority first
+
+00:08:09.772 --> 00:08:12.338
+a heap will make that
+
+00:08:12.423 --> 00:08:14.390
+O(log n) in Lecture 17.
+
+00:08:14.740 --> 00:08:17.180
+And a Deque works at both ends.
+
+00:08:17.180 --> 00:08:20.596
+ArrayDeque is Java's stack and its queue.
+
+00:08:20.596 --> 00:08:21.327
+Finally
+
+00:08:21.409 --> 00:08:25.068
+the two exercises of this part show that LIFO
+
+00:08:25.150 --> 00:08:28.159
+and FIFO can each simulate the other
+
+00:08:28.159 --> 00:08:29.460
+but at a price.
+
+00:08:30.040 --> 00:08:31.415
+And this part.
+
+00:08:31.415 --> 00:08:35.244
+One: a stack from queues rotates every
+
+00:08:35.342 --> 00:08:38.582
+element on each push, Θ(n)
+
+00:08:38.582 --> 00:08:40.840
+while pop is O(1).
+
+00:08:41.190 --> 00:08:45.203
+Two: the slides' queue from two stacks pays
+
+00:08:45.297 --> 00:08:47.910
+Θ(n) on every enqueue.
+
+00:08:48.260 --> 00:08:48.866
+Three
+
+00:08:48.967 --> 00:08:52.804
+the lazy queue with an in stack and an
+
+00:08:52.905 --> 00:08:56.339
+out stack moves each element once
+
+00:08:56.339 --> 00:09:00.580
+so its operations are amortised O(1).
+
+00:09:00.930 --> 00:09:01.659
+Try this.
+
+00:09:01.659 --> 00:09:03.604
+Write a method reverse
+
+00:09:03.685 --> 00:09:06.439
+which reverses a queue of integers
+
+00:09:06.520 --> 00:09:09.193
+using one stack as extra storage.
+
+00:09:09.193 --> 00:09:12.677
+What does the queue 1, 2, 3, 4
+
+00:09:12.677 --> 00:09:13.730
+5 become?
+
+00:09:14.080 --> 00:09:17.720
+Next time, in Lecture 11: quicksort.
+

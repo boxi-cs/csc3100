@@ -1,0 +1,794 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.222
+Now the inside cases.
+
+00:00:02.222 --> 00:00:04.419
+Here is the tree 7
+
+00:00:04.419 --> 00:00:07.257
+with children 4 and 12
+
+00:00:07.257 --> 00:00:09.363
+after inserting 8.
+
+00:00:09.363 --> 00:00:12.017
+7 has balance -2.
+
+00:00:12.017 --> 00:00:16.137
+We went right at 7, then left at 12
+
+00:00:16.137 --> 00:00:18.700
+right-left, the bent shape.
+
+00:00:19.050 --> 00:00:22.571
+Try a single left rotation at 7 anyway.
+
+00:00:22.571 --> 00:00:23.962
+12 comes up
+
+00:00:23.962 --> 00:00:26.337
+7 goes down to the left.
+
+00:00:26.337 --> 00:00:28.793
+But look: the middle subtree
+
+00:00:28.793 --> 00:00:31.167
+11 with its child 8
+
+00:00:31.167 --> 00:00:33.623
+simply moved across to 7.
+
+00:00:33.705 --> 00:00:36.898
+Now 12 has a left subtree of height
+
+00:00:36.980 --> 00:00:39.436
+2 against the leaf 13
+
+00:00:39.436 --> 00:00:40.910
+balance +2.
+
+00:00:40.910 --> 00:00:43.530
+The program agrees: AVL, false.
+
+00:00:43.880 --> 00:00:46.320
+The single rotation just moves the
+
+00:00:46.391 --> 00:00:48.257
+problem to the other side
+
+00:00:48.328 --> 00:00:50.983
+because the middle subtree is exactly
+
+00:00:51.055 --> 00:00:52.921
+the part that is too deep.
+
+00:00:52.921 --> 00:00:55.360
+We need to look one level deeper.
+
+00:00:55.940 --> 00:00:59.403
+Take the mirror image, left-right
+
+00:00:59.403 --> 00:01:01.033
+with triangles.
+
+00:01:01.033 --> 00:01:03.580
+The new key went into B
+
+00:01:03.580 --> 00:01:06.432
+the middle subtree under y.
+
+00:01:06.432 --> 00:01:08.061
+B is not empty
+
+00:01:08.061 --> 00:01:11.219
+it holds at least the new key
+
+00:01:11.321 --> 00:01:13.969
+so call its root x and its
+
+00:01:14.071 --> 00:01:16.618
+subtrees B1 and B2.
+
+00:01:16.618 --> 00:01:20.896
+The keys are in the order A, y, B1, x
+
+00:01:20.896 --> 00:01:22.220
+B2, z, C.
+
+00:01:22.570 --> 00:01:24.962
+The fix makes x the root
+
+00:01:24.962 --> 00:01:29.171
+with y and z as its children, in two steps.
+
+00:01:29.171 --> 00:01:33.475
+First, a left rotation at y lifts x above y.
+
+00:01:33.475 --> 00:01:37.780
+That turns the dog-leg into a straight line
+
+00:01:37.780 --> 00:01:40.650
+z, x, y, the left-left shape.
+
+00:01:41.000 --> 00:01:44.209
+Second, a right rotation at z
+
+00:01:44.209 --> 00:01:48.594
+exactly as in part two, lifts x above z.
+
+00:01:48.594 --> 00:01:52.337
+x, the root of the middle subtree
+
+00:01:52.337 --> 00:01:54.049
+ends up on top.
+
+00:01:54.049 --> 00:01:58.220
+And the keys are still in order: A, y
+
+00:01:58.220 --> 00:02:00.680
+B1, x, B2, z, C.
+
+00:02:01.260 --> 00:02:04.491
+The heights: if A and C have height h
+
+00:02:04.577 --> 00:02:07.383
+then B1 and B2 have heights
+
+00:02:07.468 --> 00:02:10.274
+h and h - 1, in some order.
+
+00:02:10.274 --> 00:02:12.570
+After the double rotation
+
+00:02:12.570 --> 00:02:15.717
+y and z both have height h + 1
+
+00:02:15.717 --> 00:02:18.183
+and x has height h + 2
+
+00:02:18.268 --> 00:02:20.649
+again the height the subtree
+
+00:02:20.734 --> 00:02:22.860
+had before the insertion.
+
+00:02:23.440 --> 00:02:26.195
+In Weiss's code the double rotation is
+
+00:02:26.267 --> 00:02:28.805
+literally the two single rotations.
+
+00:02:28.878 --> 00:02:31.342
+doubleWithLeftChild handles the
+
+00:02:31.415 --> 00:02:33.372
+left-right case at k3.
+
+00:02:33.445 --> 00:02:35.692
+First it rotates k3's left
+
+00:02:35.765 --> 00:02:37.722
+child with its right child
+
+00:02:37.795 --> 00:02:39.680
+and stores the result back
+
+00:02:39.752 --> 00:02:41.202
+in k3.left.
+
+00:02:41.275 --> 00:02:43.305
+Then it rotates k3 with
+
+00:02:43.377 --> 00:02:44.755
+its new left child
+
+00:02:44.755 --> 00:02:46.640
+and returns the new root.
+
+00:02:46.990 --> 00:02:49.648
+The right-left case is the mirror
+
+00:02:49.648 --> 00:02:51.602
+doubleWithRightChild.
+
+00:02:51.680 --> 00:02:53.791
+So the four cases need only
+
+00:02:53.869 --> 00:02:57.230
+two real methods: the two single rotations.
+
+00:02:57.810 --> 00:03:00.273
+Back to 7, 4, 12
+
+00:03:00.273 --> 00:03:02.824
+with 11 and 8 below.
+
+00:03:02.824 --> 00:03:06.079
+7 is z, 12 is y, and 11
+
+00:03:06.079 --> 00:03:09.422
+the root of the middle subtree, is x.
+
+00:03:09.422 --> 00:03:12.412
+First a right rotation at 12
+
+00:03:12.412 --> 00:03:13.908
+11 comes up
+
+00:03:13.908 --> 00:03:16.987
+and 12 goes down to its right
+
+00:03:16.987 --> 00:03:18.570
+keeping 13.
+
+00:03:18.920 --> 00:03:21.405
+Then a left rotation at 7
+
+00:03:21.405 --> 00:03:23.311
+11 comes up again
+
+00:03:23.311 --> 00:03:26.045
+and 7 goes down to its left
+
+00:03:26.045 --> 00:03:27.205
+taking 8.
+
+00:03:27.205 --> 00:03:30.519
+11, with children 7 and 12.
+
+00:03:30.519 --> 00:03:34.081
+Every balance factor is 0 or -1
+
+00:03:34.081 --> 00:03:34.992
+AVL, true.
+
+00:03:34.992 --> 00:03:37.726
+The middle node went to the top
+
+00:03:37.726 --> 00:03:41.040
+as it always does in a double rotation.
+
+00:03:41.620 --> 00:03:42.521
+Your turn.
+
+00:03:42.521 --> 00:03:46.484
+Here is the tree from part two: 3, 2
+
+00:03:46.484 --> 00:03:50.177
+7, 5, 9, after inserting 4.
+
+00:03:50.177 --> 00:03:53.059
+The root has balance -2.
+
+00:03:53.059 --> 00:03:56.032
+Which of the four cases is this?
+
+00:03:56.122 --> 00:03:58.554
+Which node becomes the root
+
+00:03:58.644 --> 00:04:00.806
+of the repaired subtree
+
+00:04:00.806 --> 00:04:03.328
+and what is the final tree?
+
+00:04:03.328 --> 00:04:06.300
+Pause the video and work it out.
+
+00:04:09.880 --> 00:04:12.451
+The deepest unbalanced node
+
+00:04:12.546 --> 00:04:14.261
+is the root 3.
+
+00:04:14.261 --> 00:04:17.498
+We went right at 3, to 7
+
+00:04:17.498 --> 00:04:21.403
+then left at 7, to 5: right-left
+
+00:04:21.403 --> 00:04:25.021
+an inside case, so a double rotation.
+
+00:04:25.021 --> 00:04:28.640
+A right rotation at 7 lifts 5.
+
+00:04:28.990 --> 00:04:31.296
+Then a left rotation at 3
+
+00:04:31.375 --> 00:04:32.727
+lifts 5 again.
+
+00:04:32.727 --> 00:04:34.158
+The result: 5
+
+00:04:34.158 --> 00:04:36.622
+with children 3 and 7
+
+00:04:36.622 --> 00:04:38.530
+3 has 2 and 4
+
+00:04:38.530 --> 00:04:41.154
+and 7 has 9 on the right.
+
+00:04:41.154 --> 00:04:43.777
+The program prints exactly this.
+
+00:04:43.777 --> 00:04:46.799
+5, the root of the middle subtree
+
+00:04:46.799 --> 00:04:48.150
+ended up on top.
+
+00:04:48.730 --> 00:04:50.957
+A common mistake is rotating
+
+00:04:51.036 --> 00:04:52.467
+at the wrong node.
+
+00:04:52.547 --> 00:04:54.932
+The rotation is centred on the
+
+00:04:55.012 --> 00:04:57.159
+deepest unbalanced node, z
+
+00:04:57.159 --> 00:04:59.942
+not on the root of the whole tree
+
+00:04:59.942 --> 00:05:01.930
+and not on the new leaf.
+
+00:05:02.280 --> 00:05:05.564
+And read the names on figures carefully.
+
+00:05:05.646 --> 00:05:08.684
+A right rotation at 12 means that
+
+00:05:08.766 --> 00:05:11.230
+12 goes down to the right
+
+00:05:11.230 --> 00:05:13.611
+and its left child comes up.
+
+00:05:13.693 --> 00:05:15.910
+The rotation is named after
+
+00:05:15.992 --> 00:05:17.880
+the node it happens at.
+
+00:05:18.460 --> 00:05:21.404
+Now the whole insertion algorithm.
+
+00:05:21.404 --> 00:05:25.213
+To insert x into the tree t: if t is empty
+
+00:05:25.213 --> 00:05:26.858
+return a new leaf.
+
+00:05:26.858 --> 00:05:29.455
+If x is smaller than t's key
+
+00:05:29.455 --> 00:05:32.313
+insert it into the left subtree.
+
+00:05:32.399 --> 00:05:35.256
+If that subtree is now two taller
+
+00:05:35.343 --> 00:05:37.940
+than the right one, rebalance.
+
+00:05:38.290 --> 00:05:40.286
+If x is smaller than the
+
+00:05:40.369 --> 00:05:42.199
+key of t's left child
+
+00:05:42.199 --> 00:05:45.027
+x went to the outside: left-left
+
+00:05:45.027 --> 00:05:46.607
+a single rotation.
+
+00:05:46.607 --> 00:05:50.350
+Otherwise it went to the inside: left-right
+
+00:05:50.350 --> 00:05:51.930
+a double rotation.
+
+00:05:52.280 --> 00:05:53.555
+If x is larger
+
+00:05:53.555 --> 00:05:56.444
+do the mirror image on the right
+
+00:05:56.444 --> 00:05:58.823
+if it is equal, do nothing.
+
+00:05:58.823 --> 00:06:02.477
+Finally recompute t's height and return t
+
+00:06:02.562 --> 00:06:05.111
+or the new root of the subtree
+
+00:06:05.196 --> 00:06:06.640
+after a rotation.
+
+00:06:07.220 --> 00:06:09.720
+Here is the code from the slides
+
+00:06:09.720 --> 00:06:11.311
+which follows Weiss.
+
+00:06:11.387 --> 00:06:13.887
+The recursive call stores the new
+
+00:06:13.963 --> 00:06:16.008
+left subtree in t.left
+
+00:06:16.084 --> 00:06:18.205
+and that subtree has already
+
+00:06:18.281 --> 00:06:20.250
+recomputed its own height.
+
+00:06:20.326 --> 00:06:22.372
+Then t compares the heights
+
+00:06:22.447 --> 00:06:23.963
+of its two subtrees.
+
+00:06:23.963 --> 00:06:27.220
+A difference of two means t is unbalanced.
+
+00:06:27.570 --> 00:06:31.287
+Why is comparing x with the key of t's left
+
+00:06:31.373 --> 00:06:34.571
+child enough to tell the cases apart?
+
+00:06:34.571 --> 00:06:38.201
+Because t is the deepest unbalanced node
+
+00:06:38.288 --> 00:06:40.881
+and x is in the taller subtree
+
+00:06:40.967 --> 00:06:42.523
+of t's left child.
+
+00:06:42.610 --> 00:06:44.684
+Which side of that child
+
+00:06:44.770 --> 00:06:46.672
+x went to is the case.
+
+00:06:46.672 --> 00:06:49.524
+Smaller: rotateWithLeftChild.
+
+00:06:49.524 --> 00:06:52.290
+Larger: doubleWithLeftChild.
+
+00:06:52.640 --> 00:06:54.426
+And because the test happens
+
+00:06:54.489 --> 00:06:57.104
+inside the recursion, on the way back up
+
+00:06:57.168 --> 00:06:59.463
+the first unbalanced node we meet is
+
+00:06:59.527 --> 00:07:01.440
+automatically the deepest one.
+
+00:07:02.020 --> 00:07:05.069
+Now trace insertions with heights
+
+00:07:05.069 --> 00:07:08.566
+on the tree 20, 10, 30, 5
+
+00:07:08.566 --> 00:07:10.897
+25, 35.
+
+00:07:10.897 --> 00:07:12.152
+Insert 40.
+
+00:07:12.152 --> 00:07:16.008
+The path goes 20, 30, 35
+
+00:07:16.098 --> 00:07:18.519
+and 40 becomes the right
+
+00:07:18.608 --> 00:07:20.491
+child of 35.
+
+00:07:20.491 --> 00:07:24.347
+Going back up: 35 gets height 1
+
+00:07:24.437 --> 00:07:26.409
+and balance −1.
+
+00:07:26.409 --> 00:07:30.265
+30 gets height 2, balance −1.
+
+00:07:30.265 --> 00:07:34.300
+20 gets height 3, balance −1.
+
+00:07:34.300 --> 00:07:36.900
+All within 1: no rotation.
+
+00:07:37.480 --> 00:07:38.884
+Insert 45
+
+00:07:38.884 --> 00:07:41.770
+it becomes the right child of 40.
+
+00:07:41.770 --> 00:07:45.280
+Going back up, 40 gets balance −1
+
+00:07:45.358 --> 00:07:48.556
+and 35 has an empty left subtree
+
+00:07:48.634 --> 00:07:51.286
+and a right subtree of height 1
+
+00:07:51.286 --> 00:07:52.768
+balance −2.
+
+00:07:52.768 --> 00:07:56.200
+35 is the deepest unbalanced node.
+
+00:07:56.550 --> 00:07:58.989
+We went right at 35
+
+00:07:59.076 --> 00:08:01.864
+and right at 40: right-right
+
+00:08:01.864 --> 00:08:05.261
+a single left rotation at 35.
+
+00:08:05.261 --> 00:08:08.658
+40 is now the root of that subtree
+
+00:08:08.658 --> 00:08:12.316
+with children 35 and 45
+
+00:08:12.316 --> 00:08:13.361
+height 1
+
+00:08:13.361 --> 00:08:17.281
+the height 35's subtree had before.
+
+00:08:17.281 --> 00:08:20.678
+Above it, 30 and 20 keep their
+
+00:08:20.765 --> 00:08:23.030
+heights and their balance.
+
+00:08:23.610 --> 00:08:27.150
+Insert 34: the path goes 20
+
+00:08:27.150 --> 00:08:29.568
+30, 40, 35
+
+00:08:29.654 --> 00:08:31.986
+and 34 becomes the
+
+00:08:32.072 --> 00:08:34.317
+left child of 35.
+
+00:08:34.317 --> 00:08:38.030
+Going back up, 35 has height 1
+
+00:08:38.030 --> 00:08:41.743
+40 has height 2 and balance +1
+
+00:08:41.829 --> 00:08:44.851
+and 30 has the leaf 25
+
+00:08:44.937 --> 00:08:48.650
+against a subtree of height 2: −2.
+
+00:08:49.000 --> 00:08:52.375
+Right at 30, then left at 40
+
+00:08:52.375 --> 00:08:55.281
+right-left, a double rotation.
+
+00:08:55.281 --> 00:08:59.499
+A right rotation at 40 lifts 35.
+
+00:08:59.593 --> 00:09:01.937
+A left rotation at 30
+
+00:09:02.030 --> 00:09:04.280
+lifts 35 again.
+
+00:09:04.630 --> 00:09:07.037
+35 is the subtree root
+
+00:09:07.037 --> 00:09:10.345
+with children 30 and 40, height 2
+
+00:09:10.345 --> 00:09:13.278
+again the height before the insertion.
+
+00:09:13.278 --> 00:09:15.910
+And 20 keeps its height 3.
+
+00:09:16.490 --> 00:09:18.717
+Look at the four cases again.
+
+00:09:18.717 --> 00:09:19.792
+In every one
+
+00:09:19.868 --> 00:09:23.016
+the rotated subtree ends up with the same
+
+00:09:23.093 --> 00:09:25.780
+height it had before the insertion.
+
+00:09:25.857 --> 00:09:28.084
+So every node above it sees a
+
+00:09:28.160 --> 00:09:30.310
+subtree of unchanged height
+
+00:09:30.387 --> 00:09:32.690
+and its height and balance are
+
+00:09:32.767 --> 00:09:34.456
+what they were before
+
+00:09:34.456 --> 00:09:37.220
+when the tree was a valid AVL tree.
+
+00:09:37.220 --> 00:09:38.756
+After an insertion
+
+00:09:38.756 --> 00:09:41.443
+at most one rebalancing is needed
+
+00:09:41.443 --> 00:09:44.130
+one single or one double rotation.
+
+00:09:44.480 --> 00:09:47.934
+The cost: the search down is O(log n).
+
+00:09:47.934 --> 00:09:49.619
+On the way back up
+
+00:09:49.619 --> 00:09:52.315
+each node compares two heights
+
+00:09:52.315 --> 00:09:55.854
+maybe rotates, and recomputes its height
+
+00:09:55.854 --> 00:09:57.708
+all in constant time.
+
+00:09:57.792 --> 00:10:00.151
+So insertion costs O(log n)
+
+00:10:00.235 --> 00:10:01.920
+in the worst case.
+
+00:10:02.500 --> 00:10:05.509
+Sorted keys were the worst case for
+
+00:10:05.595 --> 00:10:07.916
+a plain binary search tree.
+
+00:10:07.916 --> 00:10:09.980
+Insert 1, 2, 3
+
+00:10:09.980 --> 00:10:12.559
+up to 7 into an AVL tree.
+
+00:10:12.559 --> 00:10:14.536
+2 goes right of 1.
+
+00:10:14.536 --> 00:10:18.061
+3 makes 1 unbalanced: right-right
+
+00:10:18.061 --> 00:10:21.500
+one left rotation, and 2 is the root.
+
+00:10:21.850 --> 00:10:24.113
+4 goes to the right.
+
+00:10:24.113 --> 00:10:27.163
+5 unbalances 3: rotate.
+
+00:10:27.163 --> 00:10:30.803
+6 unbalances the root 2: rotate
+
+00:10:30.803 --> 00:10:33.360
+and 4 is the new root.
+
+00:10:33.360 --> 00:10:36.410
+7 unbalances 5: rotate.
+
+00:10:36.760 --> 00:10:39.895
+The result is the perfect tree 4, 2
+
+00:10:39.895 --> 00:10:41.959
+6, after 4 rotations
+
+00:10:41.959 --> 00:10:44.176
+each a single left rotation.
+
+00:10:44.252 --> 00:10:46.928
+With 1023 sorted
+
+00:10:47.004 --> 00:10:49.603
+keys the AVL tree has height 9
+
+00:10:49.680 --> 00:10:51.973
+a plain tree would have height
+
+00:10:52.050 --> 00:10:53.884
+1022.
+
+00:10:53.884 --> 00:10:56.560
+Sorted input is no problem at all.
+
+00:10:57.140 --> 00:10:57.976
+To sum up.
+
+00:10:57.976 --> 00:11:01.654
+One: in the inside cases a double rotation
+
+00:11:01.654 --> 00:11:04.245
+which is two single rotations
+
+00:11:04.245 --> 00:11:07.087
+lifts the middle node to the top.
+
+00:11:07.087 --> 00:11:10.431
+Two: insert as in a binary search tree
+
+00:11:10.431 --> 00:11:12.520
+then on the way back up
+
+00:11:12.520 --> 00:11:15.780
+rotate at the deepest unbalanced node.
+
+00:11:16.130 --> 00:11:19.618
+Three: one rebalancing gives the subtree
+
+00:11:19.706 --> 00:11:22.932
+back its old height, so it is enough
+
+00:11:22.932 --> 00:11:25.810
+and insertion costs O(log n).
+
+00:11:26.160 --> 00:11:27.098
+Try this.
+
+00:11:27.098 --> 00:11:31.790
+Insert 50, 25, 10, 5, 7
+
+00:11:31.790 --> 00:11:35.855
+3, 30, 20, 8, 15
+
+00:11:35.855 --> 00:11:36.585
+60
+
+00:11:36.585 --> 00:11:41.068
+70 and 80 into an empty AVL tree.
+
+00:11:41.172 --> 00:11:44.716
+Draw the tree after each insertion
+
+00:11:44.820 --> 00:11:47.322
+and name every rotation.
+
+00:11:47.322 --> 00:11:49.720
+All four cases appear.
+
+00:11:50.070 --> 00:11:52.054
+In part four: deletion
+
+00:11:52.054 --> 00:11:55.590
+where one rotation is not always enough.
+

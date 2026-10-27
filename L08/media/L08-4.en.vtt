@@ -1,0 +1,764 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.350
+Exercise two of this lecture
+
+00:00:02.350 --> 00:00:05.178
+given the head of a singly linked list
+
+00:00:05.178 --> 00:00:07.793
+decide whether the list has a cycle
+
+00:00:07.793 --> 00:00:08.430
+that is
+
+00:00:08.500 --> 00:00:11.823
+whether following next from the head ever comes
+
+00:00:11.894 --> 00:00:14.580
+back to a node it has already visited.
+
+00:00:14.930 --> 00:00:16.815
+A cyclic list looks like
+
+00:00:16.893 --> 00:00:18.543
+the Greek letter rho.
+
+00:00:18.543 --> 00:00:21.292
+First a tail of t nodes, here two
+
+00:00:21.292 --> 00:00:24.040
+then a cycle of x nodes, here six.
+
+00:00:24.119 --> 00:00:26.711
+The last node of the cycle points
+
+00:00:26.789 --> 00:00:29.852
+back to the cycle's entrance, node two.
+
+00:00:29.852 --> 00:00:32.837
+An acyclic list ends in null instead
+
+00:00:32.915 --> 00:00:35.900
+and a circular list from the review is
+
+00:00:35.978 --> 00:00:38.570
+the case where the tail is empty.
+
+00:00:38.920 --> 00:00:39.661
+Why care?
+
+00:00:39.743 --> 00:00:42.542
+A broken pointer update can create
+
+00:00:42.624 --> 00:00:44.682
+such a cycle by accident
+
+00:00:44.682 --> 00:00:47.399
+and then every loop of the form
+
+00:00:47.399 --> 00:00:50.280
+while (p != null), runs forever.
+
+00:00:50.860 --> 00:00:53.299
+Method one: walk and hope.
+
+00:00:53.299 --> 00:00:55.551
+If the list is acyclic
+
+00:00:55.551 --> 00:00:59.773
+following next reaches null sooner or later.
+
+00:00:59.773 --> 00:01:02.493
+So walk at most limit steps
+
+00:01:02.493 --> 00:01:06.340
+and if no null turned up, answer cyclic.
+
+00:01:06.690 --> 00:01:09.019
+The trouble is choosing limit.
+
+00:01:09.097 --> 00:01:12.357
+It must be larger than the length of every
+
+00:01:12.435 --> 00:01:14.919
+acyclic list you might be given
+
+00:01:14.919 --> 00:01:18.334
+and you don't know that length; if you did
+
+00:01:18.334 --> 00:01:20.042
+you could just count.
+
+00:01:20.042 --> 00:01:23.458
+With too small a limit the answer is wrong
+
+00:01:23.458 --> 00:01:24.778
+with a huge one
+
+00:01:24.778 --> 00:01:27.650
+every cyclic list costs limit steps.
+
+00:01:28.230 --> 00:01:31.314
+Method two: store every node you visit.
+
+00:01:31.393 --> 00:01:33.290
+If you ever reach a node
+
+00:01:33.370 --> 00:01:35.188
+that is already stored
+
+00:01:35.188 --> 00:01:37.481
+you have gone round a cycle
+
+00:01:37.560 --> 00:01:40.011
+the add method of a set returns
+
+00:01:40.090 --> 00:01:42.225
+false in exactly that case.
+
+00:01:42.225 --> 00:01:45.230
+If you reach null, there is no cycle.
+
+00:01:45.580 --> 00:01:47.360
+Kept in a plain list
+
+00:01:47.360 --> 00:01:50.836
+each search costs the size of that list
+
+00:01:50.836 --> 00:01:54.142
+so n nodes cost one plus two, up to n
+
+00:01:54.142 --> 00:01:55.584
+order n squared.
+
+00:01:55.584 --> 00:01:58.805
+In a hash set, from lecture eighteen
+
+00:01:58.890 --> 00:02:01.264
+each search and insert takes
+
+00:02:01.348 --> 00:02:03.298
+constant expected time
+
+00:02:03.298 --> 00:02:05.333
+so the walk is order n
+
+00:02:05.333 --> 00:02:08.300
+but it needs order n extra memory.
+
+00:02:08.880 --> 00:02:11.680
+Here is method two on our list.
+
+00:02:11.680 --> 00:02:14.751
+Node zero is new, so it is added.
+
+00:02:14.751 --> 00:02:18.274
+Then one, two, three, four, five, six
+
+00:02:18.274 --> 00:02:20.080
+and seven, all new.
+
+00:02:20.430 --> 00:02:23.144
+Then next leads back to node two
+
+00:02:23.144 --> 00:02:26.270
+which is already in the set: a cycle.
+
+00:02:26.850 --> 00:02:29.163
+Method three uses two pointers
+
+00:02:29.240 --> 00:02:31.399
+that both start at the head.
+
+00:02:31.399 --> 00:02:34.869
+The tortoise, slow, moves one node per step
+
+00:02:34.869 --> 00:02:36.951
+the hare, fast, moves two.
+
+00:02:36.951 --> 00:02:40.344
+After moving, if they are on the same node
+
+00:02:40.344 --> 00:02:42.040
+the list has a cycle.
+
+00:02:42.040 --> 00:02:45.279
+If fast, or the node after fast, is null
+
+00:02:45.279 --> 00:02:48.209
+the hare has found the end: no cycle.
+
+00:02:48.209 --> 00:02:51.370
+This is Floyd's cycle-finding algorithm.
+
+00:02:51.720 --> 00:02:55.058
+On an acyclic list the hare finds the
+
+00:02:55.148 --> 00:02:57.855
+end in about n/2 steps.
+
+00:02:57.855 --> 00:03:00.200
+Now the interesting case.
+
+00:03:00.780 --> 00:03:02.955
+Both start at node zero.
+
+00:03:02.955 --> 00:03:05.765
+Step one: slow is at node one
+
+00:03:05.765 --> 00:03:07.397
+fast at node two.
+
+00:03:07.397 --> 00:03:10.750
+Step two: slow reaches the entrance
+
+00:03:10.750 --> 00:03:14.013
+node two, and fast is at node four.
+
+00:03:14.013 --> 00:03:16.460
+Now both are on the cycle.
+
+00:03:16.810 --> 00:03:18.291
+Measure the gap
+
+00:03:18.291 --> 00:03:21.253
+how far the hare must still go
+
+00:03:21.253 --> 00:03:23.567
+forward round the cycle
+
+00:03:23.567 --> 00:03:25.696
+to reach the tortoise.
+
+00:03:25.696 --> 00:03:27.270
+Here it is four.
+
+00:03:27.270 --> 00:03:30.972
+Step three: slow at three, fast at six
+
+00:03:30.972 --> 00:03:31.990
+gap three.
+
+00:03:31.990 --> 00:03:35.786
+Step four: fast wraps round to node two
+
+00:03:35.786 --> 00:03:36.619
+gap two.
+
+00:03:36.619 --> 00:03:38.470
+Step five: gap one.
+
+00:03:38.470 --> 00:03:41.432
+Step six: both are on node six.
+
+00:03:41.432 --> 00:03:42.450
+They meet.
+
+00:03:42.800 --> 00:03:45.364
+Each step the hare moves two
+
+00:03:45.456 --> 00:03:47.929
+nodes and the tortoise one
+
+00:03:47.929 --> 00:03:51.134
+so the gap shrinks by exactly one.
+
+00:03:51.134 --> 00:03:54.522
+It goes four, three, two, one, zero
+
+00:03:54.614 --> 00:03:58.094
+the hare cannot jump over the tortoise
+
+00:03:58.185 --> 00:04:00.200
+without landing on it.
+
+00:04:00.780 --> 00:04:03.286
+There is also a neat formula.
+
+00:04:03.373 --> 00:04:06.570
+After s steps the tortoise is at node
+
+00:04:06.656 --> 00:04:09.163
+s and the hare at node 2s.
+
+00:04:09.163 --> 00:04:11.582
+Once both are on the cycle
+
+00:04:11.669 --> 00:04:15.730
+they are on the same node exactly when the hare
+
+00:04:15.817 --> 00:04:19.100
+has gone a whole number of extra laps
+
+00:04:19.100 --> 00:04:21.434
+2s minus s, which is s
+
+00:04:21.434 --> 00:04:23.594
+must be a multiple of x.
+
+00:04:23.681 --> 00:04:26.619
+So they first meet at the smallest
+
+00:04:26.705 --> 00:04:29.557
+multiple of x that is at least t.
+
+00:04:29.557 --> 00:04:31.977
+For tail two and cycle six
+
+00:04:31.977 --> 00:04:33.532
+that is step six.
+
+00:04:33.618 --> 00:04:35.779
+That is never more than t
+
+00:04:35.865 --> 00:04:38.803
+plus x minus one steps, at most n
+
+00:04:38.803 --> 00:04:42.260
+O(n) time, and constant extra space.
+
+00:04:42.840 --> 00:04:44.764
+The demo runs all three
+
+00:04:44.848 --> 00:04:48.028
+methods on five lists, and they agree.
+
+00:04:48.028 --> 00:04:51.123
+The meeting steps match the formula.
+
+00:04:51.123 --> 00:04:54.470
+The acyclic list: fast reaches the end
+
+00:04:54.470 --> 00:04:55.390
+-1.
+
+00:04:55.390 --> 00:04:57.984
+Tail two, cycle six: step six.
+
+00:04:57.984 --> 00:05:00.829
+Tail zero, cycle five: step five.
+
+00:05:00.829 --> 00:05:03.841
+Tail seven, cycle three: step nine
+
+00:05:03.925 --> 00:05:06.184
+the first multiple of three
+
+00:05:06.267 --> 00:05:08.192
+that is at least seven.
+
+00:05:08.192 --> 00:05:11.120
+Tail three, cycle four: step four.
+
+00:05:11.470 --> 00:05:14.513
+The last line shows method one failing
+
+00:05:14.591 --> 00:05:17.009
+a fifty-node list with no cycle
+
+00:05:17.087 --> 00:05:18.804
+is reported as cyclic
+
+00:05:18.804 --> 00:05:20.910
+because limit is only ten.
+
+00:05:21.490 --> 00:05:22.454
+Now you try.
+
+00:05:22.535 --> 00:05:25.026
+A list has a tail of four nodes
+
+00:05:25.106 --> 00:05:28.401
+and a cycle of three, seven nodes in all.
+
+00:05:28.482 --> 00:05:30.732
+After how many steps do slow
+
+00:05:30.812 --> 00:05:33.946
+and fast first meet, and on which node
+
+00:05:33.946 --> 00:05:36.518
+counting from zero at the head?
+
+00:05:36.518 --> 00:05:39.170
+Pause the video and work it out.
+
+00:05:42.750 --> 00:05:45.278
+The smallest multiple of three
+
+00:05:45.362 --> 00:05:47.805
+that is at least four is six
+
+00:05:47.805 --> 00:05:50.332
+so they meet after six steps
+
+00:05:50.332 --> 00:05:52.270
+with slow on node six.
+
+00:05:52.620 --> 00:05:56.069
+Check the hare: it has made twelve moves.
+
+00:05:56.153 --> 00:05:58.508
+Nodes zero to six take it to
+
+00:05:58.592 --> 00:06:00.694
+node six after six moves
+
+00:06:00.694 --> 00:06:04.143
+and the cycle four, five, six brings it
+
+00:06:04.143 --> 00:06:06.666
+six moves and two laps later
+
+00:06:06.666 --> 00:06:08.180
+back to node six.
+
+00:06:08.760 --> 00:06:10.556
+One trap from the slides.
+
+00:06:10.628 --> 00:06:13.215
+Their version tests whether A ==
+
+00:06:13.286 --> 00:06:16.160
+B at the top of the loop, before moving.
+
+00:06:16.160 --> 00:06:18.819
+But both pointers start at the head
+
+00:06:18.890 --> 00:06:20.687
+so on the very first test
+
+00:06:20.758 --> 00:06:22.411
+they are already equal
+
+00:06:22.483 --> 00:06:25.285
+and the method answers cyclic for every
+
+00:06:25.357 --> 00:06:27.440
+list with at least two nodes.
+
+00:06:27.790 --> 00:06:32.279
+On the acyclic list zero, one, two, three
+
+00:06:32.279 --> 00:06:36.020
+four, the slide version says true
+
+00:06:36.020 --> 00:06:38.691
+and hasCycle says false.
+
+00:06:38.691 --> 00:06:41.470
+Move first, then compare.
+
+00:06:42.050 --> 00:06:43.731
+So, three methods.
+
+00:06:43.731 --> 00:06:47.187
+A walk with a limit needs no memory
+
+00:06:47.187 --> 00:06:48.868
+but can be wrong.
+
+00:06:48.868 --> 00:06:51.763
+A visited set is always right
+
+00:06:51.763 --> 00:06:54.098
+in linear expected time
+
+00:06:54.098 --> 00:06:56.993
+but needs linear extra memory.
+
+00:06:56.993 --> 00:06:59.981
+Floyd's method is always right
+
+00:06:59.981 --> 00:07:03.810
+in linear time and constant extra space.
+
+00:07:04.390 --> 00:07:05.966
+The last exercise.
+
+00:07:05.966 --> 00:07:09.119
+Each node holds a lowercase letter.
+
+00:07:09.207 --> 00:07:12.885
+Remove every node whose letter has already
+
+00:07:12.972 --> 00:07:15.512
+appeared earlier in the list
+
+00:07:15.512 --> 00:07:19.453
+keeping the first occurrence of each letter.
+
+00:07:19.453 --> 00:07:22.430
+So a, b, b, a, c becomes a, b, c.
+
+00:07:22.780 --> 00:07:25.721
+Deleting a node from a singly linked list
+
+00:07:25.793 --> 00:07:28.662
+means making the node before it skip it
+
+00:07:28.662 --> 00:07:31.387
+pre.next becomes the node's next.
+
+00:07:31.387 --> 00:07:34.041
+So both methods keep a pointer, pre
+
+00:07:34.041 --> 00:07:36.121
+to the last node that stays.
+
+00:07:36.121 --> 00:07:38.201
+The first node always stays
+
+00:07:38.273 --> 00:07:40.066
+because its letter cannot
+
+00:07:40.137 --> 00:07:41.644
+have appeared before
+
+00:07:41.644 --> 00:07:43.580
+so the head never changes.
+
+00:07:44.160 --> 00:07:46.291
+Method one: for each node a
+
+00:07:46.291 --> 00:07:48.878
+walk the rest of the list with b
+
+00:07:48.878 --> 00:07:50.628
+and pre one behind it.
+
+00:07:50.704 --> 00:07:52.607
+Every later node with the
+
+00:07:52.683 --> 00:07:54.509
+same letter is unlinked
+
+00:07:54.509 --> 00:07:56.563
+and pre stays where it is
+
+00:07:56.563 --> 00:07:59.607
+because the node after pre has changed.
+
+00:07:59.607 --> 00:08:01.814
+Otherwise pre moves up to b.
+
+00:08:01.814 --> 00:08:03.640
+Either way, b moves on.
+
+00:08:03.990 --> 00:08:08.076
+With M nodes the outer loop runs at most M times
+
+00:08:08.161 --> 00:08:11.481
+and the inner loop at most M - 1
+
+00:08:11.481 --> 00:08:15.226
+O(M²) time, constant extra space.
+
+00:08:15.226 --> 00:08:18.376
+The slides' version has three slips
+
+00:08:18.376 --> 00:08:21.866
+all fixed here: it skips the first node
+
+00:08:21.866 --> 00:08:25.015
+its inner loop stops one node early
+
+00:08:25.015 --> 00:08:28.590
+and it forgets to move b after an unlink.
+
+00:08:29.170 --> 00:08:31.996
+Method two uses the fact that there are
+
+00:08:32.069 --> 00:08:34.533
+only 26 lowercase letters.
+
+00:08:34.533 --> 00:08:37.576
+Keep a table of 26 boolean flags
+
+00:08:37.576 --> 00:08:39.315
+all false at the start.
+
+00:08:39.315 --> 00:08:41.852
+a.data - 'a'
+
+00:08:41.852 --> 00:08:44.098
+turns a letter into its index
+
+00:08:44.098 --> 00:08:45.620
+0 to 25
+
+00:08:45.692 --> 00:08:48.229
+because char values are numbers and
+
+00:08:48.301 --> 00:08:50.330
+the letters are consecutive.
+
+00:08:50.680 --> 00:08:53.252
+A new letter is marked, and kept
+
+00:08:53.252 --> 00:08:54.577
+pre moves to it.
+
+00:08:54.577 --> 00:08:57.305
+A letter already seen is unlinked.
+
+00:08:57.305 --> 00:09:00.267
+One pass over the list: O(M) time
+
+00:09:00.345 --> 00:09:02.917
+and the extra space is 26
+
+00:09:02.995 --> 00:09:05.567
+flags whatever M is, so constant.
+
+00:09:05.567 --> 00:09:07.671
+This is direct addressing
+
+00:09:07.749 --> 00:09:10.243
+the simplest form of the hashing
+
+00:09:10.321 --> 00:09:11.880
+in lecture 18.
+
+00:09:12.460 --> 00:09:15.698
+Trace it on a, b, b, a, c.
+
+00:09:15.698 --> 00:09:19.060
+a is new: its flag is set
+
+00:09:19.060 --> 00:09:21.675
+and pre moves to it.
+
+00:09:21.675 --> 00:09:26.780
+b is new: flag set, and pre moves to it.
+
+00:09:27.130 --> 00:09:29.644
+The next b is already marked
+
+00:09:29.644 --> 00:09:31.725
+so pre.next skips it.
+
+00:09:31.725 --> 00:09:33.546
+Then a, also marked.
+
+00:09:33.546 --> 00:09:35.800
+Pre is still the first b
+
+00:09:35.800 --> 00:09:39.268
+because the node after it was unlinked
+
+00:09:39.268 --> 00:09:41.695
+so its next now skips to c.
+
+00:09:41.695 --> 00:09:43.950
+c is new: flag set, kept
+
+00:09:43.950 --> 00:09:45.770
+and pre moves to it.
+
+00:09:46.120 --> 00:09:48.499
+The result is a, b, c
+
+00:09:48.499 --> 00:09:53.040
+the same as method one, in a single pass.
+
+00:09:53.620 --> 00:09:55.846
+One pitfall from the slides
+
+00:09:55.926 --> 00:09:58.550
+they create the table as an array
+
+00:09:58.629 --> 00:10:00.855
+of Boolean with a capital B
+
+00:10:00.855 --> 00:10:02.366
+the wrapper class.
+
+00:10:02.366 --> 00:10:05.626
+A new Boolean array is filled with null
+
+00:10:05.626 --> 00:10:06.500
+not false.
+
+00:10:06.500 --> 00:10:09.442
+So the test, b[0] == false
+
+00:10:09.442 --> 00:10:10.953
+has to unbox null
+
+00:10:10.953 --> 00:10:13.736
+and throws a NullPointerException.
+
+00:10:13.736 --> 00:10:15.644
+Use the primitive type
+
+00:10:15.644 --> 00:10:17.552
+boolean with a small b
+
+00:10:17.552 --> 00:10:19.460
+which starts all false.
+
+00:10:20.040 --> 00:10:21.856
+To sum up the lecture.
+
+00:10:21.856 --> 00:10:25.322
+One: linked lists store only what exists
+
+00:10:25.405 --> 00:10:28.706
+so sparse polynomials and matrices waste
+
+00:10:28.788 --> 00:10:31.512
+neither memory nor time on zeros.
+
+00:10:31.512 --> 00:10:34.565
+Two: two pointers solve list puzzles
+
+00:10:34.648 --> 00:10:36.628
+in constant extra space
+
+00:10:36.628 --> 00:10:40.259
+switching heads finds where two lists meet
+
+00:10:40.259 --> 00:10:43.891
+and a slow and a fast pointer find a cycle.
+
+00:10:43.891 --> 00:10:44.468
+Three
+
+00:10:44.468 --> 00:10:47.769
+a small table beats repeated searching
+
+00:10:47.852 --> 00:10:50.080
+26 flags turn O(M²)
+
+00:10:50.163 --> 00:10:52.061
+into O(M).
+
+00:10:52.143 --> 00:10:55.527
+And compare references with double equals
+
+00:10:55.609 --> 00:10:57.920
+when you mean the same node.
+
+00:10:58.270 --> 00:10:59.826
+Try exercise three
+
+00:10:59.826 --> 00:11:02.120
+where does the cycle start?
+
+00:11:02.120 --> 00:11:04.249
+After slow and fast meet
+
+00:11:04.249 --> 00:11:06.543
+move slow back to the head
+
+00:11:06.543 --> 00:11:10.065
+and step both pointers one node at a time.
+
+00:11:10.065 --> 00:11:13.750
+Show that they meet at the cycle's entrance.
+
+00:11:14.100 --> 00:11:17.660
+Next time, in lecture nine: stacks.
+

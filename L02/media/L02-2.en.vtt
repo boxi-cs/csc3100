@@ -1,0 +1,731 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.981
+Here is a small program that uses
+
+00:00:03.062 --> 00:00:04.931
+a class called Student.
+
+00:00:05.012 --> 00:00:07.450
+It creates a student named Ann
+
+00:00:07.531 --> 00:00:09.724
+and prints her description
+
+00:00:09.724 --> 00:00:12.405
+then creates Bob and prints his
+
+00:00:12.405 --> 00:00:16.061
+and then prints Ann's description once more
+
+00:00:16.061 --> 00:00:18.580
+followed by Student.count.
+
+00:00:18.930 --> 00:00:22.816
+The output starts: Ann is student one.
+
+00:00:22.816 --> 00:00:24.862
+Bob is student two.
+
+00:00:24.862 --> 00:00:27.930
+And then: Ann is student two.
+
+00:00:28.280 --> 00:00:31.031
+Why does the second description
+
+00:00:31.120 --> 00:00:33.604
+of Ann say two, and not one?
+
+00:00:33.604 --> 00:00:36.000
+Pause the video and think.
+
+00:00:39.580 --> 00:00:41.675
+The answer lies in the three
+
+00:00:41.750 --> 00:00:43.771
+kinds of variables in Java
+
+00:00:43.771 --> 00:00:46.839
+which differ by where they are declared.
+
+00:00:46.839 --> 00:00:50.132
+A static variable is declared in the class
+
+00:00:50.132 --> 00:00:51.779
+outside every method
+
+00:00:51.779 --> 00:00:53.650
+with the keyword static.
+
+00:00:53.725 --> 00:00:55.820
+An instance variable is also
+
+00:00:55.895 --> 00:00:59.038
+declared in the class, but without static.
+
+00:00:59.113 --> 00:01:01.508
+And a local variable is declared
+
+00:01:01.583 --> 00:01:02.780
+inside a method.
+
+00:01:03.130 --> 00:01:06.010
+Where a variable is declared decides
+
+00:01:06.090 --> 00:01:08.330
+how many copies of it exist
+
+00:01:08.330 --> 00:01:10.170
+and how long it lives.
+
+00:01:10.750 --> 00:01:12.944
+Start with local variables.
+
+00:01:12.944 --> 00:01:16.356
+In main, x and message are local to main.
+
+00:01:16.437 --> 00:01:18.631
+A local variable is created
+
+00:01:18.712 --> 00:01:20.824
+when its declaration runs
+
+00:01:20.824 --> 00:01:23.180
+and it has no default value
+
+00:01:23.180 --> 00:01:26.349
+it must be assigned before it is read
+
+00:01:26.349 --> 00:01:29.030
+or the program does not compile.
+
+00:01:29.380 --> 00:01:30.930
+Inside the if block
+
+00:01:30.930 --> 00:01:33.333
+result is local to that block.
+
+00:01:33.333 --> 00:01:36.820
+The block prints it: x is greater than 5.
+
+00:01:37.170 --> 00:01:40.157
+When the block ends, result is destroyed.
+
+00:01:40.230 --> 00:01:42.780
+Its scope runs from its declaration
+
+00:01:42.853 --> 00:01:45.330
+to the closing brace of the block.
+
+00:01:45.403 --> 00:01:47.661
+So if we remove the two slashes
+
+00:01:47.734 --> 00:01:49.629
+in front of the last line
+
+00:01:49.629 --> 00:01:52.907
+the compiler stops with: cannot find symbol
+
+00:01:52.907 --> 00:01:53.490
+result.
+
+00:01:54.070 --> 00:01:55.463
+A static variable
+
+00:01:55.463 --> 00:01:57.784
+also called a class variable
+
+00:01:57.784 --> 00:02:00.260
+has exactly one copy per class
+
+00:02:00.260 --> 00:02:03.664
+however many objects you create, even none.
+
+00:02:03.664 --> 00:02:05.211
+It is created once
+
+00:02:05.211 --> 00:02:07.687
+when the class is first loaded
+
+00:02:07.687 --> 00:02:10.550
+and it lives until the program ends.
+
+00:02:10.900 --> 00:02:13.732
+You use it through the class name
+
+00:02:13.815 --> 00:02:16.564
+StaticVariables.course prints
+
+00:02:16.647 --> 00:02:18.563
+CSC3100.
+
+00:02:18.563 --> 00:02:22.312
+Assigning to it changes the one shared copy
+
+00:02:22.312 --> 00:02:25.477
+and inside the class, the short name
+
+00:02:25.477 --> 00:02:27.059
+course, works too.
+
+00:02:27.059 --> 00:02:28.642
+Outside the class
+
+00:02:28.642 --> 00:02:31.641
+always write the class name, a dot
+
+00:02:31.641 --> 00:02:33.140
+and the variable.
+
+00:02:33.720 --> 00:02:36.155
+An instance variable, or field
+
+00:02:36.155 --> 00:02:39.376
+is declared in the class without static
+
+00:02:39.454 --> 00:02:41.732
+and every object gets its own
+
+00:02:41.811 --> 00:02:43.775
+copy when new creates it.
+
+00:02:43.775 --> 00:02:46.681
+A field starts with a default value
+
+00:02:46.681 --> 00:02:49.666
+zero for numbers, false for booleans
+
+00:02:49.666 --> 00:02:51.630
+and null for references.
+
+00:02:51.708 --> 00:02:53.672
+Then the constructor runs
+
+00:02:53.750 --> 00:02:55.400
+and sets name to Ada.
+
+00:02:55.750 --> 00:02:59.158
+The variable obj refers to the object
+
+00:02:59.158 --> 00:03:02.297
+and a field is reached through it.
+
+00:03:02.297 --> 00:03:04.181
+obj.name is Ada
+
+00:03:04.181 --> 00:03:06.782
+and obj.i was never set
+
+00:03:06.782 --> 00:03:10.190
+so it prints its default value, zero.
+
+00:03:10.770 --> 00:03:12.733
+Now the Student class.
+
+00:03:12.733 --> 00:03:14.249
+count is static
+
+00:03:14.249 --> 00:03:16.925
+one copy for the whole class.
+
+00:03:16.925 --> 00:03:19.601
+name is an instance variable
+
+00:03:19.601 --> 00:03:22.010
+one copy in every student.
+
+00:03:22.360 --> 00:03:24.908
+The constructor stores the name
+
+00:03:24.908 --> 00:03:27.853
+writing this.name for the field
+
+00:03:27.853 --> 00:03:30.560
+and adds one to the shared count.
+
+00:03:30.910 --> 00:03:34.387
+The method describe builds a local string
+
+00:03:34.387 --> 00:03:36.207
+temp, and returns it.
+
+00:03:36.207 --> 00:03:39.270
+When describe returns, temp is gone.
+
+00:03:39.850 --> 00:03:41.994
+Let's run it on the machine.
+
+00:03:41.994 --> 00:03:43.985
+When the class is loaded
+
+00:03:43.985 --> 00:03:47.354
+count is created once, with the value zero.
+
+00:03:47.354 --> 00:03:50.570
+It lives in the class, not in any object.
+
+00:03:50.920 --> 00:03:53.051
+new Student("Ann") creates an
+
+00:03:53.133 --> 00:03:55.183
+object with its own name
+
+00:03:55.265 --> 00:03:57.396
+and the constructor raises
+
+00:03:57.478 --> 00:03:59.445
+the shared count to one.
+
+00:03:59.445 --> 00:04:02.560
+So describe says: Ann is student one.
+
+00:04:02.910 --> 00:04:06.560
+new Student("Bob") creates a second object
+
+00:04:06.560 --> 00:04:08.386
+with a second name
+
+00:04:08.386 --> 00:04:11.580
+but there is still only one count
+
+00:04:11.580 --> 00:04:13.405
+and it becomes two.
+
+00:04:13.405 --> 00:04:15.230
+Bob is student two.
+
+00:04:15.580 --> 00:04:17.918
+Now a.describe() runs again.
+
+00:04:17.918 --> 00:04:19.710
+Its name is still Ann
+
+00:04:19.788 --> 00:04:21.892
+but it reads the same count
+
+00:04:21.970 --> 00:04:23.684
+as everyone else: 2.
+
+00:04:23.684 --> 00:04:25.632
+That answers the puzzle
+
+00:04:25.632 --> 00:04:28.359
+count is not stored in the object
+
+00:04:28.359 --> 00:04:30.307
+it belongs to the class.
+
+00:04:30.307 --> 00:04:33.580
+And at the end, Student.count is 2.
+
+00:04:34.160 --> 00:04:36.266
+Here is the whole comparison.
+
+00:04:36.338 --> 00:04:38.153
+A local variable lives in
+
+00:04:38.226 --> 00:04:41.057
+a method or a block: one copy per call
+
+00:04:41.057 --> 00:04:44.252
+until the block ends, and no default value.
+
+00:04:44.324 --> 00:04:46.793
+A static variable has one copy per
+
+00:04:46.865 --> 00:04:48.898
+class for the whole program
+
+00:04:48.898 --> 00:04:51.003
+used as class name.name.
+
+00:04:51.076 --> 00:04:52.818
+An instance variable has
+
+00:04:52.891 --> 00:04:54.343
+one copy per object
+
+00:04:54.343 --> 00:04:56.448
+lives as long as the object
+
+00:04:56.448 --> 00:04:58.772
+and is used as object.name.
+
+00:04:58.772 --> 00:05:01.240
+Both of these get default values.
+
+00:05:01.820 --> 00:05:03.287
+Now the statements.
+
+00:05:03.365 --> 00:05:05.681
+An if statement runs its block
+
+00:05:05.759 --> 00:05:07.844
+when the condition is true
+
+00:05:07.844 --> 00:05:10.855
+and the optional else block otherwise.
+
+00:05:10.855 --> 00:05:14.176
+The condition must be a boolean; unlike C
+
+00:05:14.176 --> 00:05:16.416
+Java does not accept an int.
+
+00:05:16.416 --> 00:05:18.655
+Here i is 10, so it prints
+
+00:05:18.655 --> 00:05:20.740
+i is smaller than 15.
+
+00:05:21.090 --> 00:05:23.776
+Be careful about what else means.
+
+00:05:23.857 --> 00:05:26.787
+The else of i < 15 is
+
+00:05:26.869 --> 00:05:29.555
+i >= 15:
+
+00:05:29.555 --> 00:05:32.810
+it also runs when i is exactly 15.
+
+00:05:33.160 --> 00:05:35.914
+When equality matters, use else if.
+
+00:05:35.914 --> 00:05:37.723
+Here score is 15.
+
+00:05:37.723 --> 00:05:40.241
+It is not greater than 15
+
+00:05:40.241 --> 00:05:41.579
+but it is equal
+
+00:05:41.579 --> 00:05:43.860
+so the second branch prints
+
+00:05:43.860 --> 00:05:46.142
+15 is equal to 15.
+
+00:05:46.142 --> 00:05:49.053
+And always use braces: without them
+
+00:05:49.053 --> 00:05:52.200
+only one statement belongs to a branch.
+
+00:05:52.780 --> 00:05:56.256
+Relational operators such as <
+
+00:05:56.362 --> 00:05:59.944
+and == compare two
+
+00:06:00.049 --> 00:06:02.788
+values and give a boolean.
+
+00:06:02.788 --> 00:06:07.528
+The logical operators combine booleans: and
+
+00:06:07.528 --> 00:06:08.898
+or, and not.
+
+00:06:08.898 --> 00:06:13.428
+With x true and y false, x and y is false
+
+00:06:13.428 --> 00:06:17.220
+x or y is true, and not x is false.
+
+00:06:17.570 --> 00:06:18.692
+Now s is null.
+
+00:06:18.692 --> 00:06:21.498
+The condition asks: is s not null
+
+00:06:21.498 --> 00:06:24.625
+and is s.length > 0?
+
+00:06:24.625 --> 00:06:27.191
+The left side is already false
+
+00:06:27.191 --> 00:06:30.397
+so Java never evaluates the right side.
+
+00:06:30.397 --> 00:06:33.925
+which would throw a null pointer exception.
+
+00:06:33.925 --> 00:06:36.410
+It prints: s is null or empty.
+
+00:06:36.760 --> 00:06:40.526
+This is called short-circuit evaluation
+
+00:06:40.620 --> 00:06:42.786
+and data-structure code
+
+00:06:42.880 --> 00:06:44.857
+uses it all the time
+
+00:06:44.857 --> 00:06:47.117
+while node is not null
+
+00:06:47.117 --> 00:06:50.600
+and node.value is less than key.
+
+00:06:51.180 --> 00:06:53.369
+A while loop tests a condition
+
+00:06:53.440 --> 00:06:55.418
+and runs its body as long as
+
+00:06:55.488 --> 00:06:57.042
+the condition is true.
+
+00:06:57.042 --> 00:06:58.808
+This one adds up e: 1
+
+00:06:58.808 --> 00:07:00.856
+plus 1 over 1 factorial
+
+00:07:00.856 --> 00:07:03.681
+plus 1 over 2 factorial, and so on
+
+00:07:03.751 --> 00:07:06.718
+and it stops when the next term is smaller
+
+00:07:06.788 --> 00:07:09.260
+than 0.0001.
+
+00:07:09.610 --> 00:07:10.473
+Trace it.
+
+00:07:10.473 --> 00:07:13.926
+At first, term is 1, sum is 0
+
+00:07:13.926 --> 00:07:15.268
+and k is 1.
+
+00:07:15.268 --> 00:07:18.337
+The first pass adds 1 to sum
+
+00:07:18.337 --> 00:07:22.173
+divides term by 1, and k becomes 2.
+
+00:07:22.173 --> 00:07:24.954
+The second pass: sum is 2
+
+00:07:24.954 --> 00:07:28.694
+term becomes 0.5, and k is 3.
+
+00:07:28.694 --> 00:07:31.380
+Then sum is 2.5
+
+00:07:31.380 --> 00:07:35.599
+term is about 0.1667
+
+00:07:35.695 --> 00:07:38.093
+and then sum is about
+
+00:07:38.188 --> 00:07:40.490
+2.6667.
+
+00:07:40.840 --> 00:07:42.971
+Each pass makes term smaller
+
+00:07:42.971 --> 00:07:45.984
+so the loop must end: on the ninth test
+
+00:07:45.984 --> 00:07:48.482
+term is 1 over 8 factorial
+
+00:07:48.482 --> 00:07:51.201
+below the limit, and the loop stops.
+
+00:07:51.201 --> 00:07:52.964
+Eight terms were added
+
+00:07:53.038 --> 00:07:55.316
+and the result agrees with Math.E
+
+00:07:55.389 --> 00:07:57.520
+to four decimal places.
+
+00:07:57.870 --> 00:08:00.308
+If you forgot to divide term by k
+
+00:08:00.308 --> 00:08:03.104
+the condition would stay true forever.
+
+00:08:03.104 --> 00:08:04.897
+Before you write a loop
+
+00:08:04.968 --> 00:08:07.549
+name the variable that moves towards
+
+00:08:07.621 --> 00:08:09.270
+the stopping condition.
+
+00:08:09.850 --> 00:08:12.351
+A for loop puts the three parts of
+
+00:08:12.424 --> 00:08:14.483
+a counting loop on one line.
+
+00:08:14.483 --> 00:08:16.690
+The initialisation runs once.
+
+00:08:16.690 --> 00:08:19.631
+Then, as long as the condition is true
+
+00:08:19.631 --> 00:08:22.500
+the body runs, followed by the update.
+
+00:08:22.500 --> 00:08:24.485
+This body adds 1 over i
+
+00:08:24.485 --> 00:08:26.618
+for i from 1 to 100
+
+00:08:26.692 --> 00:08:28.751
+and the program prints about
+
+00:08:28.824 --> 00:08:30.810
+5.187.
+
+00:08:31.160 --> 00:08:34.425
+Notice the decimal point in the numerator.
+
+00:08:34.425 --> 00:08:37.924
+If the body were sum += 1 / i
+
+00:08:37.924 --> 00:08:39.789
+with both operands int
+
+00:08:39.789 --> 00:08:42.666
+the / would be integer division
+
+00:08:42.666 --> 00:08:44.687
+which drops the fraction
+
+00:08:44.687 --> 00:08:47.719
+1 over 1 is 1, but 1 over 2
+
+00:08:47.719 --> 00:08:50.984
+1 over 3 and all the rest are 0.
+
+00:08:51.062 --> 00:08:52.850
+The program would print
+
+00:08:52.928 --> 00:08:54.560
+a sum of exactly 1.
+
+00:08:55.140 --> 00:08:57.637
+Two more keywords control a loop.
+
+00:08:57.637 --> 00:08:59.982
+break leaves the loop at once.
+
+00:08:59.982 --> 00:09:02.781
+continue skips the rest of the body
+
+00:09:02.781 --> 00:09:05.580
+and goes on with the next iteration.
+
+00:09:05.930 --> 00:09:06.741
+Trace it.
+
+00:09:06.741 --> 00:09:08.993
+1 and 2 are printed.
+
+00:09:08.993 --> 00:09:11.695
+3 is a multiple of 3
+
+00:09:11.695 --> 00:09:13.676
+so continue skips it.
+
+00:09:13.676 --> 00:09:17.549
+4 and 5 are printed, 6 is skipped
+
+00:09:17.549 --> 00:09:19.531
+and 7 is printed.
+
+00:09:19.531 --> 00:09:22.683
+At 8, i is greater than 7
+
+00:09:22.683 --> 00:09:24.845
+so break ends the loop
+
+00:09:24.845 --> 00:09:27.367
+and 9 and 10 never run.
+
+00:09:27.367 --> 00:09:31.330
+The output is: 1, 2, 4, 5, 7.
+
+00:09:31.910 --> 00:09:32.691
+To sum up.
+
+00:09:32.691 --> 00:09:35.425
+1: a local variable lives inside
+
+00:09:35.503 --> 00:09:38.784
+its method or block, has no default value
+
+00:09:38.784 --> 00:09:41.362
+and is gone when the block ends.
+
+00:09:41.362 --> 00:09:44.174
+2: a static variable has 1 copy
+
+00:09:44.252 --> 00:09:45.814
+for the whole class
+
+00:09:45.892 --> 00:09:48.079
+and an instance variable has
+
+00:09:48.157 --> 00:09:50.110
+1 copy in every object.
+
+00:09:50.110 --> 00:09:50.657
+3
+
+00:09:50.735 --> 00:09:53.703
+every loop needs a variable that moves
+
+00:09:53.781 --> 00:09:56.203
+towards its stopping condition
+
+00:09:56.281 --> 00:09:58.155
+and an int divided by an
+
+00:09:58.234 --> 00:10:00.030
+int drops the fraction.
+
+00:10:00.380 --> 00:10:01.798
+Try this yourself.
+
+00:10:01.877 --> 00:10:04.240
+Exercise 1 in the notes is a
+
+00:10:04.319 --> 00:10:06.603
+short program called Average
+
+00:10:06.603 --> 00:10:08.021
+with 4 errors.
+
+00:10:08.021 --> 00:10:10.542
+Two of them are today's topics:
+
+00:10:10.542 --> 00:10:14.086
+a local variable read before it is assigned
+
+00:10:14.086 --> 00:10:17.159
+and a loop that runs 1 step too far.
+
+00:10:17.159 --> 00:10:18.340
+Find all 4.
+
+00:10:18.690 --> 00:10:22.194
+In part 3, we write our own classes,
+
+00:10:22.194 --> 00:10:25.610
+create objects, and handle exceptions.
+

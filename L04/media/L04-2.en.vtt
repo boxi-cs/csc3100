@@ -1,0 +1,677 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.113
+In part one we traced insertion sort
+
+00:00:03.113 --> 00:00:05.470
+and it worked on that example.
+
+00:00:05.470 --> 00:00:07.979
+But does it work on every input?
+
+00:00:07.979 --> 00:00:10.031
+To know that, we prove it
+
+00:00:10.031 --> 00:00:11.780
+with a loop invariant.
+
+00:00:12.130 --> 00:00:15.085
+A loop invariant is a statement about the
+
+00:00:15.157 --> 00:00:18.184
+variables that is true every time the loop
+
+00:00:18.256 --> 00:00:20.490
+is about to test its condition.
+
+00:00:20.840 --> 00:00:22.277
+For insertion sort
+
+00:00:22.277 --> 00:00:25.151
+in the textbook's numbering from one
+
+00:00:25.151 --> 00:00:28.025
+the invariant of the outer loop says
+
+00:00:28.025 --> 00:00:30.445
+at the start of each iteration
+
+00:00:30.521 --> 00:00:33.773
+the subarray A[1..j-1] holds the
+
+00:00:33.849 --> 00:00:36.572
+elements that were originally there
+
+00:00:36.572 --> 00:00:38.160
+but in sorted order.
+
+00:00:38.740 --> 00:00:41.375
+A loop-invariant proof has three parts.
+
+00:00:41.375 --> 00:00:44.415
+Initialization: the invariant is true before
+
+00:00:44.482 --> 00:00:45.833
+the first iteration.
+
+00:00:45.833 --> 00:00:46.712
+Maintenance
+
+00:00:46.712 --> 00:00:49.076
+if it is true before an iteration
+
+00:00:49.076 --> 00:00:51.643
+it is still true before the next one.
+
+00:00:51.643 --> 00:00:54.210
+And termination: when the loop stops
+
+00:00:54.210 --> 00:00:56.980
+the invariant tells us something useful.
+
+00:00:57.330 --> 00:00:59.893
+This is like mathematical induction.
+
+00:00:59.893 --> 00:01:02.242
+Initialization is the base case
+
+00:01:02.242 --> 00:01:05.018
+and maintenance is the inductive step.
+
+00:01:05.090 --> 00:01:07.368
+The difference is that induction
+
+00:01:07.439 --> 00:01:10.002
+goes on forever, while a loop stops
+
+00:01:10.073 --> 00:01:11.781
+and termination is where
+
+00:01:11.853 --> 00:01:13.490
+the invariant pays off.
+
+00:01:14.070 --> 00:01:15.429
+Initialization.
+
+00:01:15.429 --> 00:01:18.872
+Before the first iteration, j is 2
+
+00:01:18.872 --> 00:01:21.862
+so the subarray is A[1..1]
+
+00:01:21.862 --> 00:01:23.493
+a single element.
+
+00:01:23.493 --> 00:01:26.030
+It is the original element
+
+00:01:26.030 --> 00:01:29.110
+and one element is always sorted.
+
+00:01:29.460 --> 00:01:30.460
+Maintenance.
+
+00:01:30.543 --> 00:01:33.709
+Suppose A[1..j-1] holds the
+
+00:01:33.793 --> 00:01:36.792
+original first j-1 elements
+
+00:01:36.792 --> 00:01:38.209
+in sorted order.
+
+00:01:38.209 --> 00:01:41.042
+The body takes key = A[j]
+
+00:01:41.042 --> 00:01:44.624
+moves the larger elements one place right
+
+00:01:44.708 --> 00:01:47.207
+and stops at the first element
+
+00:01:47.291 --> 00:01:50.540
+that is not larger, or at the left end.
+
+00:01:50.890 --> 00:01:53.233
+It writes key into the hole.
+
+00:01:53.233 --> 00:01:56.495
+Everything to its left is at most key
+
+00:01:56.495 --> 00:02:00.093
+everything to its right, up to position j
+
+00:02:00.093 --> 00:02:01.850
+is greater than key
+
+00:02:01.850 --> 00:02:04.192
+and still in its old order.
+
+00:02:04.276 --> 00:02:07.288
+So A[1..j] now holds the original
+
+00:02:07.372 --> 00:02:10.133
+first j elements in sorted order
+
+00:02:10.133 --> 00:02:13.730
+and incrementing j restores the invariant.
+
+00:02:14.080 --> 00:02:15.111
+Termination.
+
+00:02:15.111 --> 00:02:18.807
+The for loop stops when j first exceeds n
+
+00:02:18.807 --> 00:02:21.815
+that is, when j equals n + 1.
+
+00:02:21.815 --> 00:02:25.339
+Put that into the invariant: A[1..n]
+
+00:02:25.339 --> 00:02:26.800
+the whole array
+
+00:02:26.800 --> 00:02:30.668
+holds the original elements in sorted order.
+
+00:02:30.668 --> 00:02:33.160
+So the algorithm is correct.
+
+00:02:33.740 --> 00:02:35.370
+A common mistake
+
+00:02:35.370 --> 00:02:38.246
+the loop stops at j equals n.
+
+00:02:38.246 --> 00:02:39.493
+It does not.
+
+00:02:39.493 --> 00:02:43.520
+The iteration with j equals n still runs
+
+00:02:43.520 --> 00:02:46.300
+it inserts the last element.
+
+00:02:46.650 --> 00:02:49.986
+If you put j equals n into the invariant
+
+00:02:50.067 --> 00:02:52.345
+you only learn that
+
+00:02:52.426 --> 00:02:54.216
+A[1..n-1] is sorted
+
+00:02:54.216 --> 00:02:57.633
+and here the 3 is still out of place.
+
+00:02:57.633 --> 00:03:01.050
+The test fails only when j is n + 1.
+
+00:03:01.400 --> 00:03:04.304
+Another mistake is to forget the words
+
+00:03:04.304 --> 00:03:06.016
+the original elements.
+
+00:03:06.016 --> 00:03:08.920
+A[1..j-1] is sorted, alone
+
+00:03:08.920 --> 00:03:09.888
+is too weak
+
+00:03:09.963 --> 00:03:12.717
+an algorithm that overwrote the whole
+
+00:03:12.792 --> 00:03:15.472
+array with zeros would keep it true.
+
+00:03:15.547 --> 00:03:18.897
+The invariant must also say that the elements
+
+00:03:18.972 --> 00:03:21.280
+are a permutation of the input.
+
+00:03:21.860 --> 00:03:24.016
+You can even check an invariant
+
+00:03:24.085 --> 00:03:25.546
+while a program runs.
+
+00:03:25.615 --> 00:03:28.188
+This program asserts it at the top of
+
+00:03:28.258 --> 00:03:30.761
+every iteration of the Java version
+
+00:03:30.761 --> 00:03:32.500
+which numbers from 0.
+
+00:03:32.850 --> 00:03:35.012
+Before j equals 1
+
+00:03:35.012 --> 00:03:37.715
+the prefix is just 5.
+
+00:03:37.715 --> 00:03:39.445
+Then 2, 5.
+
+00:03:39.445 --> 00:03:41.823
+Then 2, 4, 5.
+
+00:03:41.823 --> 00:03:44.742
+Then 2, 4, 5, 6
+
+00:03:44.742 --> 00:03:48.850
+and every time the invariant is true.
+
+00:03:49.200 --> 00:03:51.693
+The loop ends with j equal to 6
+
+00:03:51.693 --> 00:03:53.527
+the length of the array
+
+00:03:53.527 --> 00:03:55.800
+and the whole array is sorted.
+
+00:03:56.380 --> 00:03:58.388
+Now the third question
+
+00:03:58.388 --> 00:04:00.396
+how long does it take?
+
+00:04:00.396 --> 00:04:01.269
+To count
+
+00:04:01.269 --> 00:04:04.762
+we need a simple model of the computer
+
+00:04:04.762 --> 00:04:08.341
+the random-access machine, or RAM model.
+
+00:04:08.341 --> 00:04:11.485
+Instructions run one after another
+
+00:04:11.485 --> 00:04:13.580
+never at the same time.
+
+00:04:13.930 --> 00:04:16.177
+Each basic operation takes a
+
+00:04:16.257 --> 00:04:19.146
+constant amount of time: arithmetic
+
+00:04:19.146 --> 00:04:21.955
+loading and storing, a comparison
+
+00:04:21.955 --> 00:04:23.319
+a function call
+
+00:04:23.319 --> 00:04:26.690
+and reading the i-th element of an array.
+
+00:04:27.040 --> 00:04:29.258
+The model ignores caches and the
+
+00:04:29.327 --> 00:04:31.059
+details of the processor.
+
+00:04:31.059 --> 00:04:32.792
+Those matter for tuning
+
+00:04:32.861 --> 00:04:36.049
+but they rarely change which of two algorithms
+
+00:04:36.118 --> 00:04:37.920
+is faster on large inputs.
+
+00:04:38.500 --> 00:04:40.690
+The running time is the number
+
+00:04:40.763 --> 00:04:42.077
+of steps executed.
+
+00:04:42.150 --> 00:04:43.829
+One execution of a line
+
+00:04:43.902 --> 00:04:45.508
+takes a constant time
+
+00:04:45.508 --> 00:04:47.624
+so we give each line a cost
+
+00:04:47.624 --> 00:04:48.938
+c1 to c8
+
+00:04:48.938 --> 00:04:51.420
+and count how many times it runs.
+
+00:04:51.770 --> 00:04:53.852
+The key quantity is t_j
+
+00:04:53.939 --> 00:04:56.889
+the number of times the while test
+
+00:04:56.975 --> 00:04:59.491
+on line five runs for that j.
+
+00:04:59.491 --> 00:05:02.614
+The test runs once for every shift
+
+00:05:02.614 --> 00:05:06.085
+plus once more for the test that fails
+
+00:05:06.085 --> 00:05:09.034
+so the body, lines six and seven
+
+00:05:09.034 --> 00:05:11.290
+runs t_j - 1 times.
+
+00:05:11.640 --> 00:05:15.075
+Line one runs n times, not n - 1
+
+00:05:15.075 --> 00:05:17.277
+the test runs once more
+
+00:05:17.277 --> 00:05:21.240
+with j equal to n + 1, to end the loop.
+
+00:05:21.590 --> 00:05:24.788
+Adding cost times times over all the
+
+00:05:24.877 --> 00:05:28.164
+lines gives the running time, T(n).
+
+00:05:28.252 --> 00:05:30.384
+It depends not only on n
+
+00:05:30.473 --> 00:05:32.250
+but also on the t_j
+
+00:05:32.250 --> 00:05:35.270
+on which input of size n we sort.
+
+00:05:35.850 --> 00:05:39.031
+Best case: the array is already sorted.
+
+00:05:39.113 --> 00:05:41.560
+Every key is at least as large
+
+00:05:41.642 --> 00:05:43.681
+as the element before it
+
+00:05:43.681 --> 00:05:46.944
+so the while test fails the first time
+
+00:05:46.944 --> 00:05:47.923
+t_j is 1
+
+00:05:47.923 --> 00:05:50.778
+and lines six and seven never run.
+
+00:05:50.778 --> 00:05:52.572
+T(n) is an + b
+
+00:05:52.572 --> 00:05:54.530
+a linear function of n.
+
+00:05:54.880 --> 00:05:58.537
+Worst case: the array is sorted in reverse.
+
+00:05:58.622 --> 00:06:01.089
+Every key is smaller than all
+
+00:06:01.174 --> 00:06:03.130
+the elements before it
+
+00:06:03.215 --> 00:06:05.427
+so it is compared with all
+
+00:06:05.512 --> 00:06:07.213
+j - 1 of them
+
+00:06:07.213 --> 00:06:10.785
+and then with the left end: t_j equals j.
+
+00:06:10.785 --> 00:06:14.613
+The sums become n(n + 1)/2 - 1
+
+00:06:14.613 --> 00:06:18.440
+and n(n - 1)/2.
+
+00:06:18.790 --> 00:06:21.490
+Substituting gives an^2
+
+00:06:21.580 --> 00:06:23.020
++ bn + c.
+
+00:06:23.020 --> 00:06:25.630
+The worst case is quadratic.
+
+00:06:25.980 --> 00:06:29.035
+When we talk about the best or worst case
+
+00:06:29.035 --> 00:06:31.289
+the algorithm does not change.
+
+00:06:31.289 --> 00:06:33.471
+It still handles every input
+
+00:06:33.544 --> 00:06:35.653
+the case only describes which
+
+00:06:35.726 --> 00:06:37.180
+inputs make it fast.
+
+00:06:37.760 --> 00:06:38.595
+Your turn.
+
+00:06:38.595 --> 00:06:41.766
+For a reversed array of 6 elements
+
+00:06:41.850 --> 00:06:44.270
+how many times does the while
+
+00:06:44.354 --> 00:06:45.856
+test run in total
+
+00:06:45.856 --> 00:06:48.360
+and how many shifts are made?
+
+00:06:48.710 --> 00:06:51.131
+And for a sorted array of 6?
+
+00:06:51.131 --> 00:06:53.310
+Pause the video and count.
+
+00:06:56.890 --> 00:06:59.215
+Here it is, pass by pass.
+
+00:06:59.215 --> 00:07:03.306
+The first pass tests twice and shifts once.
+
+00:07:03.306 --> 00:07:07.490
+The next tests three times and shifts twice.
+
+00:07:07.840 --> 00:07:10.807
+Then 4 tests and 3 shifts
+
+00:07:10.807 --> 00:07:13.324
+5 tests and 4 shifts
+
+00:07:13.324 --> 00:07:16.111
+and 6 tests and 5 shifts.
+
+00:07:16.111 --> 00:07:20.067
+In total, 20 tests, and 15 shifts
+
+00:07:20.067 --> 00:07:23.393
+6 * 7 / 2 - 1
+
+00:07:23.393 --> 00:07:26.000
+and 6 * 5 / 2.
+
+00:07:26.350 --> 00:07:30.118
+A sorted array of 6 makes n - 1
+
+00:07:30.118 --> 00:07:33.321
+5 tests, and no shifts at all.
+
+00:07:33.415 --> 00:07:35.770
+The program InsertionCost
+
+00:07:35.864 --> 00:07:38.973
+counts them for real, for sorted
+
+00:07:38.973 --> 00:07:42.270
+reversed and pseudo-random arrays.
+
+00:07:42.620 --> 00:07:46.270
+The first row is our 6: 5 / 0
+
+00:07:46.270 --> 00:07:48.140
+20 / 15.
+
+00:07:48.490 --> 00:07:50.651
+For 10000 elements
+
+00:07:50.734 --> 00:07:54.307
+the reversed array takes 50004999
+
+00:07:54.391 --> 00:07:57.715
+tests
+
+00:07:57.715 --> 00:08:00.790
+exactly n(n + 1)/2
+
+00:08:00.790 --> 00:08:01.704
+minus 1.
+
+00:08:01.787 --> 00:08:04.280
+And the random column is close
+
+00:08:04.363 --> 00:08:06.690
+to half of the reversed one.
+
+00:08:07.040 --> 00:08:10.574
+Multiplying n by 10 multiplies the reversed
+
+00:08:10.655 --> 00:08:13.627
+and random counts by about 100.
+
+00:08:13.627 --> 00:08:17.000
+That is what quadratic growth looks like.
+
+00:08:17.580 --> 00:08:19.808
+Which case do we analyse?
+
+00:08:19.808 --> 00:08:21.947
+Usually the worst case.
+
+00:08:21.947 --> 00:08:24.799
+It is a guaranteed upper bound
+
+00:08:24.799 --> 00:08:27.740
+no input of size n takes longer.
+
+00:08:28.090 --> 00:08:30.343
+For some algorithms the worst
+
+00:08:30.421 --> 00:08:31.819
+case occurs often.
+
+00:08:31.897 --> 00:08:34.461
+Searching for an item that is not
+
+00:08:34.539 --> 00:08:36.714
+there always costs the most
+
+00:08:36.714 --> 00:08:40.210
+and in many applications most searches fail.
+
+00:08:40.560 --> 00:08:43.365
+And the average case is often about
+
+00:08:43.445 --> 00:08:45.448
+as bad as the worst case.
+
+00:08:45.448 --> 00:08:46.810
+On random input
+
+00:08:46.891 --> 00:08:49.695
+key is on average larger than about
+
+00:08:49.775 --> 00:08:52.259
+half of the elements before it
+
+00:08:52.259 --> 00:08:54.503
+so t_j is about j over two.
+
+00:08:54.503 --> 00:08:56.907
+That halves the leading term
+
+00:08:56.907 --> 00:08:59.071
+but it is still quadratic.
+
+00:08:59.071 --> 00:09:01.875
+The best case is the least useful
+
+00:09:01.875 --> 00:09:04.920
+it describes only the luckiest input.
+
+00:09:05.500 --> 00:09:06.357
+To sum up.
+
+00:09:06.357 --> 00:09:10.211
+One: a loop invariant proves a loop correct
+
+00:09:10.211 --> 00:09:12.010
+with initialization
+
+00:09:12.010 --> 00:09:14.493
+maintenance and termination.
+
+00:09:14.493 --> 00:09:16.463
+Two: in the RAM model
+
+00:09:16.549 --> 00:09:18.861
+the running time is the sum
+
+00:09:18.947 --> 00:09:20.660
+of cost times times.
+
+00:09:21.010 --> 00:09:23.393
+Three: insertion sort takes linear
+
+00:09:23.463 --> 00:09:25.075
+time on a sorted array
+
+00:09:25.075 --> 00:09:27.738
+and quadratic time on a reversed one
+
+00:09:27.738 --> 00:09:29.490
+which is the worst case.
+
+00:09:29.840 --> 00:09:31.200
+Try this yourself
+
+00:09:31.275 --> 00:09:33.239
+write a loop invariant for
+
+00:09:33.314 --> 00:09:34.900
+the inner while loop.
+
+00:09:34.900 --> 00:09:37.997
+Use it to show that when the loop stops
+
+00:09:37.997 --> 00:09:41.320
+a[i + 1] is the right place for key.
+
+00:09:41.670 --> 00:09:43.969
+In part three: recursion
+
+00:09:43.969 --> 00:09:46.176
+and divide-and-conquer
+
+00:09:46.176 --> 00:09:48.750
+the idea behind merge sort.
+

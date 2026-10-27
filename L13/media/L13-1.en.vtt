@@ -1,0 +1,707 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.179
+A family tree, the folders on your disk
+
+00:00:03.179 --> 00:00:05.842
+the chapters and sections of a book
+
+00:00:05.842 --> 00:00:08.505
+the classification of living things.
+
+00:00:08.505 --> 00:00:10.592
+All of them are hierarchies.
+
+00:00:10.592 --> 00:00:12.535
+One thing sits at the top
+
+00:00:12.607 --> 00:00:14.838
+and everything else hangs below
+
+00:00:14.910 --> 00:00:16.853
+exactly one thing above it.
+
+00:00:16.925 --> 00:00:19.085
+Here is a small classification
+
+00:00:19.156 --> 00:00:20.380
+of living things.
+
+00:00:20.730 --> 00:00:23.186
+A tree is the data structure
+
+00:00:23.274 --> 00:00:24.677
+for hierarchies.
+
+00:00:24.677 --> 00:00:28.273
+Arrays, lists, stacks and queues put the
+
+00:00:28.361 --> 00:00:30.027
+elements in a line.
+
+00:00:30.115 --> 00:00:32.483
+A tree lets an element have
+
+00:00:32.571 --> 00:00:34.237
+several successors.
+
+00:00:34.237 --> 00:00:37.570
+It is our first non-linear structure.
+
+00:00:38.150 --> 00:00:40.483
+The definition is recursive.
+
+00:00:40.483 --> 00:00:42.483
+A tree is either empty
+
+00:00:42.483 --> 00:00:44.317
+with no nodes at all
+
+00:00:44.317 --> 00:00:47.483
+or it has one special node, the root
+
+00:00:47.483 --> 00:00:51.233
+here Organism, and the other nodes are split
+
+00:00:51.317 --> 00:00:53.567
+into zero or more subtrees
+
+00:00:53.567 --> 00:00:56.233
+each of which is itself a tree.
+
+00:00:56.317 --> 00:00:59.150
+The root of each subtree is joined
+
+00:00:59.233 --> 00:01:01.150
+to the root by an edge.
+
+00:01:01.500 --> 00:01:04.886
+Animal's own subtrees are Mammal and Fish
+
+00:01:04.886 --> 00:01:07.144
+and so on all the way down.
+
+00:01:07.144 --> 00:01:09.643
+Note that a tree may be empty.
+
+00:01:09.643 --> 00:01:12.626
+For binary trees this matters a lot
+
+00:01:12.706 --> 00:01:15.125
+because a node's left or right
+
+00:01:15.206 --> 00:01:17.060
+subtree is often empty.
+
+00:01:17.640 --> 00:01:19.786
+Two facts follow straight
+
+00:01:19.871 --> 00:01:21.588
+from the definition.
+
+00:01:21.588 --> 00:01:22.188
+First
+
+00:01:22.188 --> 00:01:25.621
+every node is the root of some subtree
+
+00:01:25.621 --> 00:01:28.453
+Animal with everything below it
+
+00:01:28.453 --> 00:01:31.543
+and even a single leaf like Mammal.
+
+00:01:31.628 --> 00:01:34.546
+That is why almost every algorithm
+
+00:01:34.632 --> 00:01:36.520
+on trees is recursive.
+
+00:01:36.870 --> 00:01:40.703
+Second, a tree with N nodes has exactly
+
+00:01:40.801 --> 00:01:42.570
+N − 1 edges.
+
+00:01:42.570 --> 00:01:45.911
+Count each edge at its lower end
+
+00:01:45.911 --> 00:01:49.645
+one edge into Plant, one into Animal
+
+00:01:49.645 --> 00:01:52.790
+one into Mammal, one into Fish.
+
+00:01:53.140 --> 00:01:55.728
+The root has no edge coming in.
+
+00:01:55.728 --> 00:01:57.982
+So five nodes, four edges
+
+00:01:58.065 --> 00:02:00.904
+exactly what the program TreeTerms
+
+00:02:00.987 --> 00:02:02.740
+prints for this tree.
+
+00:02:03.320 --> 00:02:06.682
+Trees borrow the words of family trees.
+
+00:02:06.682 --> 00:02:09.786
+When an edge goes from A down to B
+
+00:02:09.786 --> 00:02:13.665
+A is the parent of B, and B is a child of A.
+
+00:02:13.665 --> 00:02:17.200
+Animal is the parent of Mammal and Fish.
+
+00:02:17.550 --> 00:02:21.253
+Nodes with the same parent are siblings
+
+00:02:21.253 --> 00:02:23.290
+like Mammal and Fish.
+
+00:02:23.290 --> 00:02:27.178
+A node with no children is a leaf: Plant
+
+00:02:27.178 --> 00:02:28.752
+Mammal and Fish.
+
+00:02:28.844 --> 00:02:31.622
+A node with at least one child
+
+00:02:31.714 --> 00:02:35.510
+is an internal node: Organism and Animal.
+
+00:02:35.860 --> 00:02:38.467
+Going up again and again gives
+
+00:02:38.554 --> 00:02:40.205
+a node's ancestors
+
+00:02:40.205 --> 00:02:44.029
+Fish has the ancestors Animal and Organism.
+
+00:02:44.029 --> 00:02:46.984
+Going down gives its descendants
+
+00:02:47.070 --> 00:02:49.069
+Mammal and Fish are the
+
+00:02:49.156 --> 00:02:51.068
+descendants of Animal.
+
+00:02:51.155 --> 00:02:53.414
+Every node except the root
+
+00:02:53.501 --> 00:02:55.500
+has exactly one parent.
+
+00:02:56.080 --> 00:02:59.424
+A path is a sequence of nodes in which
+
+00:02:59.512 --> 00:03:02.680
+each node is the parent of the next.
+
+00:03:02.680 --> 00:03:05.760
+From Organism, to Animal, to Fish.
+
+00:03:06.110 --> 00:03:08.139
+The length of a path is the
+
+00:03:08.214 --> 00:03:09.868
+number of edges on it
+
+00:03:09.868 --> 00:03:11.746
+not the number of nodes.
+
+00:03:11.746 --> 00:03:13.550
+Three nodes, two edges
+
+00:03:13.550 --> 00:03:15.504
+this path has length 2.
+
+00:03:15.504 --> 00:03:18.510
+A single node is a path of length 0.
+
+00:03:18.860 --> 00:03:22.466
+And since every node has only one parent
+
+00:03:22.466 --> 00:03:25.807
+there is only one way up to the root.
+
+00:03:25.895 --> 00:03:28.358
+So there is exactly one path
+
+00:03:28.446 --> 00:03:30.820
+from the root to each node.
+
+00:03:31.400 --> 00:03:34.097
+Depth and height are easy to mix up.
+
+00:03:34.097 --> 00:03:36.494
+Depth is measured from the top
+
+00:03:36.569 --> 00:03:39.266
+the depth of a node is the length of
+
+00:03:39.340 --> 00:03:41.887
+the path from the root down to it.
+
+00:03:41.887 --> 00:03:43.760
+The root has depth 0
+
+00:03:43.760 --> 00:03:46.382
+its children depth 1, and so on
+
+00:03:46.382 --> 00:03:47.880
+down to depth 4.
+
+00:03:48.230 --> 00:03:51.635
+Height is measured from the bottom
+
+00:03:51.732 --> 00:03:55.721
+the height of a node is the length of the
+
+00:03:55.819 --> 00:03:59.321
+longest path from it down to a leaf.
+
+00:03:59.321 --> 00:04:02.045
+Every leaf has height 0.
+
+00:04:02.045 --> 00:04:05.450
+C has depth 1, and height 3
+
+00:04:05.450 --> 00:04:07.493
+the path C, F, G, H.
+
+00:04:07.493 --> 00:04:11.190
+B also has depth 1, but height 1.
+
+00:04:11.540 --> 00:04:13.644
+The height of a tree is the
+
+00:04:13.722 --> 00:04:16.060
+height of its root: 4 here
+
+00:04:16.060 --> 00:04:18.787
+and that equals the largest depth.
+
+00:04:18.865 --> 00:04:21.047
+By convention the empty tree
+
+00:04:21.124 --> 00:04:22.761
+has height -1
+
+00:04:22.839 --> 00:04:26.579
+so that height equals 1 plus the larger height
+
+00:04:26.657 --> 00:04:29.540
+of the subtrees works for leaves too.
+
+00:04:30.120 --> 00:04:31.113
+Now predict.
+
+00:04:31.113 --> 00:04:32.271
+In this tree
+
+00:04:32.271 --> 00:04:35.580
+what are the depth and the height of F?
+
+00:04:35.662 --> 00:04:37.813
+And which nodes have depth
+
+00:04:37.896 --> 00:04:39.550
+two and height zero?
+
+00:04:39.550 --> 00:04:42.280
+Pause the video and work it out.
+
+00:04:45.860 --> 00:04:49.475
+F has depth two: the path A, C,
+
+00:04:49.475 --> 00:04:51.457
+F has two edges.
+
+00:04:51.457 --> 00:04:54.256
+Its height is also two
+
+00:04:54.256 --> 00:04:58.220
+the longest path down is F, G, H.
+
+00:04:58.570 --> 00:05:02.110
+D and E have depth two and height zero
+
+00:05:02.110 --> 00:05:05.287
+they are leaves one level below B.
+
+00:05:05.378 --> 00:05:09.191
+The program TreeTerms builds this tree and
+
+00:05:09.282 --> 00:05:12.640
+prints the vocabulary for every node
+
+00:05:12.640 --> 00:05:14.547
+and its lines for F
+
+00:05:14.547 --> 00:05:16.907
+D and E say exactly that.
+
+00:05:16.907 --> 00:05:20.810
+H and I are leaves too, but at depth four.
+
+00:05:21.390 --> 00:05:22.045
+In Java
+
+00:05:22.045 --> 00:05:25.237
+a general tree node keeps its element
+
+00:05:25.237 --> 00:05:27.446
+a reference to its parent
+
+00:05:27.446 --> 00:05:29.738
+and a list of its children.
+
+00:05:29.738 --> 00:05:32.603
+Depth walks up: if parent is null
+
+00:05:32.603 --> 00:05:35.058
+this is the root, depth zero.
+
+00:05:35.140 --> 00:05:37.513
+Otherwise it is one more than
+
+00:05:37.595 --> 00:05:39.150
+the parent's depth.
+
+00:05:39.500 --> 00:05:41.478
+Height recurses down.
+
+00:05:41.478 --> 00:05:43.268
+It starts at zero
+
+00:05:43.268 --> 00:05:45.811
+which is right for a leaf.
+
+00:05:45.811 --> 00:05:47.601
+For every child c
+
+00:05:47.695 --> 00:05:50.332
+it takes the larger of h and
+
+00:05:50.427 --> 00:05:52.310
+one plus c's height.
+
+00:05:52.310 --> 00:05:54.100
+Then it returns h.
+
+00:05:54.450 --> 00:05:55.261
+A warning.
+
+00:05:55.261 --> 00:05:58.584
+Depth and height count edges, not nodes.
+
+00:05:58.584 --> 00:06:00.610
+The root has depth zero
+
+00:06:00.610 --> 00:06:02.880
+and a leaf has height zero.
+
+00:06:02.961 --> 00:06:05.798
+Some books and exam questions count
+
+00:06:05.879 --> 00:06:07.824
+levels from one instead
+
+00:06:07.824 --> 00:06:10.094
+with the root on level one.
+
+00:06:10.094 --> 00:06:13.255
+Whenever you read a height or a depth
+
+00:06:13.255 --> 00:06:15.930
+check which convention is meant.
+
+00:06:16.510 --> 00:06:19.880
+From now on we focus on one kind of tree.
+
+00:06:19.962 --> 00:06:22.838
+A binary tree is a tree in which no
+
+00:06:22.920 --> 00:06:25.550
+node has more than two children.
+
+00:06:25.900 --> 00:06:29.425
+The two possible subtrees of a node are called
+
+00:06:29.502 --> 00:06:32.491
+its left subtree and its right subtree
+
+00:06:32.491 --> 00:06:35.020
+and either or both may be empty.
+
+00:06:35.370 --> 00:06:37.227
+Left and right matter.
+
+00:06:37.311 --> 00:06:39.843
+Here are two binary trees with
+
+00:06:39.927 --> 00:06:42.290
+root A and one more node, B.
+
+00:06:42.290 --> 00:06:45.243
+In the first, B is the left child.
+
+00:06:45.243 --> 00:06:48.450
+In the second, it is the right child.
+
+00:06:48.800 --> 00:06:51.991
+As general trees they would be the same.
+
+00:06:51.991 --> 00:06:54.864
+As binary trees they are different.
+
+00:06:54.864 --> 00:06:57.576
+So a binary tree is either empty
+
+00:06:57.576 --> 00:07:00.130
+or a root with an ordered pair
+
+00:07:00.130 --> 00:07:03.640
+a left binary tree and a right binary tree.
+
+00:07:04.220 --> 00:07:06.134
+Two shapes of binary tree
+
+00:07:06.210 --> 00:07:08.047
+come up again and again.
+
+00:07:08.047 --> 00:07:09.655
+Here are four trees
+
+00:07:09.655 --> 00:07:11.645
+numbered as on the slide.
+
+00:07:11.722 --> 00:07:14.324
+A tree is full when every node has
+
+00:07:14.401 --> 00:07:16.544
+either 0 or 2 children
+
+00:07:16.544 --> 00:07:18.458
+no node has exactly 1.
+
+00:07:18.534 --> 00:07:20.754
+A tree is complete when every
+
+00:07:20.831 --> 00:07:22.898
+level is completely filled
+
+00:07:22.898 --> 00:07:25.347
+except possibly the lowest one
+
+00:07:25.424 --> 00:07:27.184
+and the lowest level is
+
+00:07:27.261 --> 00:07:29.940
+filled from the left, without gaps.
+
+00:07:30.290 --> 00:07:32.677
+The first tree is not full
+
+00:07:32.677 --> 00:07:35.417
+node 3 has only 1 child.
+
+00:07:35.417 --> 00:07:37.538
+And it is not complete
+
+00:07:37.538 --> 00:07:41.251
+3 has no left child, but 5 exists
+
+00:07:41.251 --> 00:07:42.930
+so there is a gap.
+
+00:07:43.280 --> 00:07:44.808
+The second is full
+
+00:07:44.808 --> 00:07:48.184
+but its lowest level starts on the right
+
+00:07:48.184 --> 00:07:50.033
+so it is not complete.
+
+00:07:50.033 --> 00:07:51.882
+The third is complete
+
+00:07:51.882 --> 00:07:55.258
+but 2 has 1 child, so it is not full.
+
+00:07:55.258 --> 00:07:56.866
+The fourth is both.
+
+00:07:56.866 --> 00:07:59.760
+The two properties are independent.
+
+00:08:00.110 --> 00:08:02.202
+A tree whose leaves all sit at
+
+00:08:02.272 --> 00:08:04.085
+the same depth is perfect
+
+00:08:04.085 --> 00:08:05.550
+every level is full.
+
+00:08:05.550 --> 00:08:07.711
+Books disagree on these names
+
+00:08:07.711 --> 00:08:10.710
+so always check the definition being used.
+
+00:08:11.290 --> 00:08:14.586
+How many nodes fit in a binary tree?
+
+00:08:14.586 --> 00:08:17.882
+Each node has at most 2 children
+
+00:08:17.974 --> 00:08:21.727
+so the number of nodes can at most double
+
+00:08:21.819 --> 00:08:24.291
+from one depth to the next.
+
+00:08:24.291 --> 00:08:28.228
+1 at depth 0, 2 at depth 1, 4
+
+00:08:28.228 --> 00:08:31.890
+8: at most 2^d at depth d.
+
+00:08:32.240 --> 00:08:35.968
+Add them up: a tree of height h has at most
+
+00:08:36.055 --> 00:08:39.436
+2^(h+1) − 1 nodes.
+
+00:08:39.436 --> 00:08:41.864
+Height 3 gives 15
+
+00:08:41.864 --> 00:08:44.812
+exactly when the tree is perfect.
+
+00:08:44.812 --> 00:08:47.500
+And at least h + 1 nodes
+
+00:08:47.500 --> 00:08:48.800
+a single path.
+
+00:08:49.150 --> 00:08:50.169
+Turned round
+
+00:08:50.248 --> 00:08:53.149
+a binary tree with n nodes has height
+
+00:08:53.227 --> 00:08:55.971
+at least the floor of log₂ n
+
+00:08:55.971 --> 00:08:58.480
+which a complete tree achieves
+
+00:08:58.480 --> 00:09:01.929
+and at most n − 1, for a skewed tree
+
+00:09:01.929 --> 00:09:04.830
+where every node has only one child.
+
+00:09:05.180 --> 00:09:08.153
+One more fact: in a full binary tree
+
+00:09:08.233 --> 00:09:11.206
+there is always exactly one more leaf
+
+00:09:11.286 --> 00:09:13.697
+than there are internal nodes.
+
+00:09:13.777 --> 00:09:16.187
+Many tree operations take time
+
+00:09:16.268 --> 00:09:18.437
+proportional to the height
+
+00:09:18.517 --> 00:09:21.249
+so keeping trees short will matter
+
+00:09:21.329 --> 00:09:23.820
+a great deal in later lectures.
+
+00:09:24.400 --> 00:09:25.281
+To sum up.
+
+00:09:25.281 --> 00:09:27.220
+One: a tree is empty
+
+00:09:27.220 --> 00:09:29.424
+or a root with subtrees.
+
+00:09:29.424 --> 00:09:32.244
+N nodes have N − 1 edges
+
+00:09:32.332 --> 00:09:34.888
+and there is exactly one path
+
+00:09:34.976 --> 00:09:37.356
+from the root to each node.
+
+00:09:37.356 --> 00:09:41.233
+Two: depth counts edges down from the root
+
+00:09:41.322 --> 00:09:43.613
+and height counts edges up
+
+00:09:43.701 --> 00:09:45.640
+from the deepest leaf.
+
+00:09:45.990 --> 00:09:49.080
+Three: a binary tree has a left
+
+00:09:49.180 --> 00:09:51.173
+and a right subtree.
+
+00:09:51.173 --> 00:09:51.771
+Full
+
+00:09:51.771 --> 00:09:55.858
+complete and perfect describe its shape
+
+00:09:55.957 --> 00:09:59.446
+and a binary tree of height h holds
+
+00:09:59.546 --> 00:10:02.536
+at most 2^(h+1) − 1
+
+00:10:02.536 --> 00:10:04.230
+nodes.
+
+00:10:04.580 --> 00:10:05.348
+Try this.
+
+00:10:05.348 --> 00:10:08.843
+A complete binary tree has 20 nodes.
+
+00:10:08.843 --> 00:10:10.549
+What is its height?
+
+00:10:10.549 --> 00:10:14.300
+And how many nodes are on its lowest level?
+
+00:10:14.650 --> 00:10:15.559
+In part two
+
+00:10:15.559 --> 00:10:18.739
+the binary tree as an abstract data type
+
+00:10:18.739 --> 00:10:20.633
+built from linked nodes
+
+00:10:20.633 --> 00:10:22.450
+and stored in an array.
+

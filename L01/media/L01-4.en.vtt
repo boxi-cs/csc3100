@@ -1,0 +1,743 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.866
+A data structure is a concrete
+
+00:00:02.951 --> 00:00:05.090
+implementation of an ADT.
+
+00:00:05.090 --> 00:00:07.314
+It specifies the storage
+
+00:00:07.399 --> 00:00:10.906
+and the access mechanisms needed to carry
+
+00:00:10.991 --> 00:00:13.985
+out the operations the ADT defines.
+
+00:00:14.071 --> 00:00:17.406
+A list is implemented by an array-based
+
+00:00:17.492 --> 00:00:20.143
+list or a linked list; in Java,
+
+00:00:20.143 --> 00:00:22.367
+ArrayList and LinkedList.
+
+00:00:22.367 --> 00:00:22.966
+A set
+
+00:00:22.966 --> 00:00:26.644
+by a hash table or a balanced search tree,
+
+00:00:26.644 --> 00:00:28.440
+HashSet and TreeSet.
+
+00:00:28.440 --> 00:00:29.210
+A queue
+
+00:00:29.210 --> 00:00:32.460
+by a circular array or a linked list.
+
+00:00:32.810 --> 00:00:33.732
+Why several?
+
+00:00:33.809 --> 00:00:36.653
+Because it is rarely possible to make
+
+00:00:36.730 --> 00:00:38.959
+every operation fast at once.
+
+00:00:38.959 --> 00:00:42.417
+An array-based list reads element i at once
+
+00:00:42.494 --> 00:00:44.492
+but must shift elements to
+
+00:00:44.569 --> 00:00:46.106
+insert at the front.
+
+00:00:46.183 --> 00:00:48.796
+A linked list inserts at the front
+
+00:00:48.873 --> 00:00:50.564
+by changing two links
+
+00:00:50.641 --> 00:00:52.793
+but must walk from the start
+
+00:00:52.870 --> 00:00:54.330
+to reach element i.
+
+00:00:54.680 --> 00:00:56.831
+Cars are the same: steering,
+
+00:00:56.907 --> 00:00:58.751
+accelerating and braking
+
+00:00:58.828 --> 00:01:00.441
+are the ADT of a car,
+
+00:01:00.441 --> 00:01:02.975
+so you can drive almost any car
+
+00:01:03.052 --> 00:01:05.664
+even though the engines underneath
+
+00:01:05.741 --> 00:01:07.200
+are very different.
+
+00:01:07.780 --> 00:01:10.947
+An algorithm is a step-by-step procedure
+
+00:01:11.026 --> 00:01:13.718
+that uses ADTs and data structures
+
+00:01:13.797 --> 00:01:15.064
+to solve a task.
+
+00:01:15.064 --> 00:01:18.627
+It is specified by its input and its output.
+
+00:01:18.627 --> 00:01:19.656
+For sorting,
+
+00:01:19.656 --> 00:01:22.664
+the input is a sequence of n numbers,
+
+00:01:22.744 --> 00:01:25.198
+and the output is a permutation
+
+00:01:25.277 --> 00:01:27.415
+of the input, a reordering
+
+00:01:27.415 --> 00:01:30.740
+in which each number is at most the next.
+
+00:01:31.090 --> 00:01:34.307
+Like an ADT, the specification says what
+
+00:01:34.388 --> 00:01:37.846
+a correct output is, not how to compute it,
+
+00:01:37.846 --> 00:01:39.696
+and it has two halves.
+
+00:01:39.696 --> 00:01:41.787
+The sorted output passes.
+
+00:01:41.787 --> 00:01:43.718
+One to six is in order,
+
+00:01:43.718 --> 00:01:47.096
+but it is not a permutation of the input:
+
+00:01:47.096 --> 00:01:47.659
+false.
+
+00:01:47.659 --> 00:01:51.117
+And the last output has the right numbers
+
+00:01:51.117 --> 00:01:53.450
+but not in order: false too.
+
+00:01:54.030 --> 00:01:56.249
+Put the three ideas together
+
+00:01:56.328 --> 00:01:57.834
+and you get layers.
+
+00:01:57.834 --> 00:02:00.845
+Take breadth-first search on a graph.
+
+00:02:00.845 --> 00:02:02.667
+from lecture 19.
+
+00:02:02.667 --> 00:02:05.837
+The problem: visit the vertices nearest
+
+00:02:05.916 --> 00:02:07.422
+to the start first.
+
+00:02:07.422 --> 00:02:09.006
+The algorithm, BFS
+
+00:02:09.006 --> 00:02:11.542
+uses only the queue operations
+
+00:02:11.542 --> 00:02:13.206
+enqueue and dequeue.
+
+00:02:13.206 --> 00:02:14.870
+The queue is an ADT
+
+00:02:14.950 --> 00:02:17.406
+implemented by a circular array
+
+00:02:17.485 --> 00:02:19.070
+or by a linked list.
+
+00:02:19.420 --> 00:02:23.068
+Because BFS calls only the queue operations
+
+00:02:23.068 --> 00:02:26.551
+switching the implementation is one word.
+
+00:02:26.551 --> 00:02:30.283
+Both runs visit 0, 1, 2, 3, 4
+
+00:02:30.283 --> 00:02:30.783
+5.
+
+00:02:31.130 --> 00:02:33.235
+The best implementation depends
+
+00:02:33.303 --> 00:02:35.680
+on the requirements: memory limits
+
+00:02:35.680 --> 00:02:37.175
+the size of the data
+
+00:02:37.175 --> 00:02:39.620
+and which operations are used most.
+
+00:02:39.688 --> 00:02:41.997
+And you can change your mind later
+
+00:02:42.065 --> 00:02:44.170
+without touching the algorithm.
+
+00:02:44.750 --> 00:02:45.715
+One warning:
+
+00:02:45.715 --> 00:02:48.529
+an ADT promises only what it says
+
+00:02:48.529 --> 00:02:51.905
+and the set ADT says nothing about order.
+
+00:02:51.986 --> 00:02:54.076
+A TreeSet happens to keep
+
+00:02:54.157 --> 00:02:57.453
+the elements sorted; a HashSet does not.
+
+00:02:57.533 --> 00:03:00.669
+Code that relies on the order of a HashSet
+
+00:03:00.749 --> 00:03:03.322
+relies on the physical form
+
+00:03:03.322 --> 00:03:05.653
+and may break when the data,
+
+00:03:05.653 --> 00:03:09.030
+the capacity or the Java version changes.
+
+00:03:09.610 --> 00:03:11.956
+To see one ADT with two very
+
+00:03:12.039 --> 00:03:14.134
+different physical forms,
+
+00:03:14.134 --> 00:03:17.820
+here is the integer list implemented twice
+
+00:03:17.820 --> 00:03:19.076
+with an array
+
+00:03:19.076 --> 00:03:21.924
+and with a chain of linked nodes.
+
+00:03:21.924 --> 00:03:24.270
+Each class counts its work:
+
+00:03:24.270 --> 00:03:27.621
+shifts for elements moved in the array,
+
+00:03:27.621 --> 00:03:31.307
+hops for links followed in the linked list.
+
+00:03:31.307 --> 00:03:34.490
+First, insert 10, 20 and 30.
+
+00:03:34.840 --> 00:03:37.118
+Now insert 5 at the front.
+
+00:03:37.197 --> 00:03:40.260
+The array must shift all three elements
+
+00:03:40.339 --> 00:03:42.145
+one place to the right.
+
+00:03:42.145 --> 00:03:45.680
+The linked list just makes a new first node.
+
+00:03:46.030 --> 00:03:48.755
+Insert 15 at position 2.
+
+00:03:48.755 --> 00:03:51.919
+The array shifts 20 and 30.
+
+00:03:51.919 --> 00:03:54.908
+The linked list follows one link
+
+00:03:54.908 --> 00:03:57.897
+to reach the node before the gap
+
+00:03:57.897 --> 00:04:00.270
+and links in the new node.
+
+00:04:00.620 --> 00:04:02.537
+Get position 4.
+
+00:04:02.537 --> 00:04:05.307
+The array reads one cell.
+
+00:04:05.307 --> 00:04:09.248
+The linked list walks from the head
+
+00:04:09.248 --> 00:04:10.420
+four hops.
+
+00:04:10.770 --> 00:04:12.458
+Remove position 0.
+
+00:04:12.458 --> 00:04:14.547
+The array closes the gap
+
+00:04:14.547 --> 00:04:16.476
+shifting 4 elements.
+
+00:04:16.476 --> 00:04:19.450
+The linked list just moves its head.
+
+00:04:19.800 --> 00:04:21.453
+Same list, same answers.
+
+00:04:21.522 --> 00:04:23.589
+But the array made 9 shifts
+
+00:04:23.658 --> 00:04:25.656
+and the linked list 6 hops
+
+00:04:25.656 --> 00:04:28.067
+the work went to different places.
+
+00:04:28.067 --> 00:04:30.478
+Neither structure wins everywhere
+
+00:04:30.478 --> 00:04:32.200
+which is why both exist.
+
+00:04:32.780 --> 00:04:33.377
+Finally,
+
+00:04:33.451 --> 00:04:36.584
+a problem that shows why a working program
+
+00:04:36.659 --> 00:04:38.598
+is not yet a good program.
+
+00:04:38.598 --> 00:04:41.582
+Given N numbers, find the k-th largest.
+
+00:04:41.582 --> 00:04:44.714
+For these 10 numbers and k equals 3,
+
+00:04:44.714 --> 00:04:46.654
+the answer is 31.
+
+00:04:46.654 --> 00:04:49.712
+The largest is 40, then 33,
+
+00:04:49.712 --> 00:04:50.980
+then 31.
+
+00:04:51.330 --> 00:04:52.417
+Solution 1:
+
+00:04:52.417 --> 00:04:55.094
+Read the numbers into an array,
+
+00:04:55.094 --> 00:04:57.520
+sort it in descending order,
+
+00:04:57.520 --> 00:05:00.698
+and return the element in position k.
+
+00:05:00.698 --> 00:05:01.869
+Solution 2:
+
+00:05:01.869 --> 00:05:04.546
+Keep only the k largest so far.
+
+00:05:04.546 --> 00:05:07.975
+Read the first k elements and sort them.
+
+00:05:07.975 --> 00:05:10.568
+Then read the rest one by one.
+
+00:05:10.652 --> 00:05:12.660
+If an element is at most
+
+00:05:12.743 --> 00:05:16.424
+the k-th of the array, ignore it; otherwise,
+
+00:05:16.424 --> 00:05:18.933
+place it in its correct spot,
+
+00:05:18.933 --> 00:05:21.442
+bumping the last element out.
+
+00:05:21.442 --> 00:05:22.446
+At the end,
+
+00:05:22.446 --> 00:05:25.290
+return the element in position k.
+
+00:05:25.870 --> 00:05:27.995
+Let's trace Solution 2
+
+00:05:28.084 --> 00:05:29.855
+with k equals 3.
+
+00:05:29.855 --> 00:05:32.069
+The first three: 12,
+
+00:05:32.069 --> 00:05:33.928
+5, and 31,
+
+00:05:33.928 --> 00:05:37.470
+sorted in descending order: 31,
+
+00:05:37.470 --> 00:05:38.710
+12, 5.
+
+00:05:39.060 --> 00:05:42.810
+Read 8: it beats 5, so it is placed,
+
+00:05:42.810 --> 00:05:44.903
+and 5 is bumped out.
+
+00:05:44.903 --> 00:05:48.653
+19: placed, and 8 is bumped out.
+
+00:05:48.653 --> 00:05:50.833
+40 goes to the front,
+
+00:05:50.833 --> 00:05:53.100
+and 12 is bumped out.
+
+00:05:53.450 --> 00:05:56.364
+2 is at most 19: ignored.
+
+00:05:56.364 --> 00:05:58.306
+27: placed,
+
+00:05:58.306 --> 00:06:00.778
+and 19 is bumped out.
+
+00:06:00.778 --> 00:06:04.133
+19 again: at most 27,
+
+00:06:04.133 --> 00:06:05.722
+so it is ignored.
+
+00:06:05.722 --> 00:06:07.665
+33: placed,
+
+00:06:07.665 --> 00:06:10.490
+and 27 is bumped out.
+
+00:06:10.840 --> 00:06:13.965
+The array now holds the three largest
+
+00:06:13.965 --> 00:06:16.925
+40, 33 and 31
+
+00:06:16.925 --> 00:06:20.625
+and its last cell is the answer: 31.
+
+00:06:20.625 --> 00:06:24.160
+Solution one, with a library sort, agrees.
+
+00:06:24.740 --> 00:06:25.638
+Now you try.
+
+00:06:25.638 --> 00:06:28.554
+With the same data and k = 3
+
+00:06:28.629 --> 00:06:32.070
+what would solution two do if the last element
+
+00:06:32.144 --> 00:06:34.837
+were 30 instead of 33?
+
+00:06:34.837 --> 00:06:37.006
+And if it were 27?
+
+00:06:37.006 --> 00:06:39.100
+Pause the video and decide.
+
+00:06:42.680 --> 00:06:44.733
+30 beats 27
+
+00:06:44.733 --> 00:06:47.891
+the third element of 40, 31
+
+00:06:47.891 --> 00:06:48.997
+27.
+
+00:06:49.076 --> 00:06:51.760
+So it is placed between 31
+
+00:06:51.839 --> 00:06:53.182
+and 27
+
+00:06:53.182 --> 00:06:55.392
+27 is bumped out
+
+00:06:55.392 --> 00:06:57.840
+and the answer becomes 30.
+
+00:06:58.190 --> 00:07:01.241
+27 is equal to the third element
+
+00:07:01.241 --> 00:07:02.519
+so it is ignored
+
+00:07:02.519 --> 00:07:05.002
+and the answer stays 27.
+
+00:07:05.002 --> 00:07:07.344
+Ignoring equal elements is safe
+
+00:07:07.415 --> 00:07:09.118
+because the k-th largest
+
+00:07:09.189 --> 00:07:10.750
+value does not change.
+
+00:07:11.330 --> 00:07:13.299
+Which solution is better?
+
+00:07:13.299 --> 00:07:15.740
+We can measure, by simulation
+
+00:07:15.740 --> 00:07:19.283
+or count the steps, by theoretical analysis
+
+00:07:19.362 --> 00:07:21.724
+which predicts what happens on
+
+00:07:21.803 --> 00:07:23.693
+inputs too large to try.
+
+00:07:23.693 --> 00:07:26.370
+Let us count element comparisons.
+
+00:07:26.720 --> 00:07:28.892
+Solution one with bubble
+
+00:07:28.982 --> 00:07:32.692
+sort makes N - 1 + N - 2
+
+00:07:32.692 --> 00:07:34.954
+down to 1 comparisons
+
+00:07:34.954 --> 00:07:37.759
+N * (N - 1) / 2
+
+00:07:37.759 --> 00:07:40.383
+the arithmetic series again.
+
+00:07:40.383 --> 00:07:43.369
+Solution two, in the worst case
+
+00:07:43.369 --> 00:07:46.265
+makes about k^2 / 2
+
+00:07:46.265 --> 00:07:48.437
++ (N - k) * k.
+
+00:07:48.437 --> 00:07:50.880
+For k = N / 2
+
+00:07:50.880 --> 00:07:54.680
+that is about 3/8 of N^2.
+
+00:07:55.030 --> 00:07:57.083
+Both grow like N^2
+
+00:07:57.083 --> 00:07:59.956
+so doubling N quadruples the work.
+
+00:07:59.956 --> 00:08:02.255
+The simulation confirms it
+
+00:08:02.255 --> 00:08:05.786
+for N = 1000, 2000
+
+00:08:05.786 --> 00:08:08.660
+4000, and 8000
+
+00:08:08.660 --> 00:08:12.190
+each column grows by about four each time.
+
+00:08:12.540 --> 00:08:14.270
+For the slides' example
+
+00:08:14.342 --> 00:08:16.505
+a million numbers with k =
+
+00:08:16.577 --> 00:08:17.875
+to half a million
+
+00:08:17.947 --> 00:08:20.398
+bubble sort makes about
+
+00:08:20.470 --> 00:08:22.633
+5 × 10^11 comparisons,
+
+00:08:22.705 --> 00:08:25.805
+and solution two about
+
+00:08:25.877 --> 00:08:28.256
+1.5 × 10^11 on random data.
+
+00:08:28.256 --> 00:08:31.501
+At around a billion simple steps per second
+
+00:08:31.501 --> 00:08:32.726
+that is minutes
+
+00:08:32.798 --> 00:08:35.249
+on the slower machines the example
+
+00:08:35.322 --> 00:08:37.340
+was first written for, days.
+
+00:08:37.920 --> 00:08:40.072
+So writing a working program
+
+00:08:40.149 --> 00:08:41.609
+is not good enough.
+
+00:08:41.609 --> 00:08:43.761
+Both solutions are correct
+
+00:08:43.761 --> 00:08:46.834
+and both are too slow for large inputs.
+
+00:08:46.911 --> 00:08:50.677
+We want a correct algorithm that uses the minimum
+
+00:08:50.754 --> 00:08:53.520
+memory and the minimum running time.
+
+00:08:53.870 --> 00:08:56.377
+And there are better algorithms.
+
+00:08:56.377 --> 00:08:59.118
+Solution one with an N log N sort
+
+00:08:59.118 --> 00:09:02.486
+like merge sort or Java's Arrays.sort
+
+00:09:02.565 --> 00:09:05.541
+makes about 2 * 10^7
+
+00:09:05.620 --> 00:09:08.283
+comparisons for a million numbers
+
+00:09:08.283 --> 00:09:10.163
+a fraction of a second.
+
+00:09:10.241 --> 00:09:13.217
+A min-heap of the k largest makes each
+
+00:09:13.296 --> 00:09:15.567
+bump cost log k instead of k.
+
+00:09:15.567 --> 00:09:18.935
+And quickselect partitions around a pivot
+
+00:09:18.935 --> 00:09:20.424
+as quicksort does
+
+00:09:20.424 --> 00:09:23.870
+and continues on one side only: on average
+
+00:09:23.870 --> 00:09:25.750
+time proportional to N.
+
+00:09:26.100 --> 00:09:27.890
+The right algorithm turns
+
+00:09:27.962 --> 00:09:29.608
+days into milliseconds
+
+00:09:29.680 --> 00:09:32.329
+which no amount of tuning the code of
+
+00:09:32.401 --> 00:09:34.620
+solutions one and two could do.
+
+00:09:35.200 --> 00:09:35.978
+To sum up.
+
+00:09:35.978 --> 00:09:39.169
+One: a data structure implements an ADT
+
+00:09:39.169 --> 00:09:42.515
+and it decides the cost of each operation
+
+00:09:42.515 --> 00:09:45.239
+like nine shifts against six hops.
+
+00:09:45.239 --> 00:09:47.651
+Two: an algorithm is specified
+
+00:09:47.729 --> 00:09:49.597
+by its input and output
+
+00:09:49.597 --> 00:09:51.931
+and BFS works with any queue.
+
+00:09:51.931 --> 00:09:52.476
+Three
+
+00:09:52.554 --> 00:09:55.511
+both simple solutions to the selection
+
+00:09:55.589 --> 00:09:58.312
+problem take about N squared steps
+
+00:09:58.312 --> 00:10:00.880
+so a better algorithm is needed.
+
+00:10:01.230 --> 00:10:03.455
+Try this: write quickselect.
+
+00:10:03.535 --> 00:10:06.475
+Partition the array around a pivot so
+
+00:10:06.554 --> 00:10:09.097
+that larger elements come first
+
+00:10:09.177 --> 00:10:11.958
+then continue only in the part that
+
+00:10:12.037 --> 00:10:14.421
+contains position k minus one
+
+00:10:14.501 --> 00:10:17.044
+and check it against the sorting
+
+00:10:17.123 --> 00:10:19.030
+solution on random data.
+
+00:10:19.380 --> 00:10:23.060
+Next time, in lecture two: Java basics.
+

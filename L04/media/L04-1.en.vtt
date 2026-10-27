@@ -1,0 +1,578 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.273
+This lecture uses one problem, sorting
+
+00:00:03.349 --> 00:00:06.245
+to ask the 3 questions we will ask
+
+00:00:06.322 --> 00:00:09.142
+about every algorithm in this course
+
+00:00:09.142 --> 00:00:11.962
+how does it work, why is it correct
+
+00:00:11.962 --> 00:00:14.020
+and how long does it take.
+
+00:00:14.370 --> 00:00:17.605
+The input is a sequence of n numbers.
+
+00:00:17.605 --> 00:00:20.752
+The output is a reordering of them
+
+00:00:20.752 --> 00:00:22.938
+in non-decreasing order
+
+00:00:22.938 --> 00:00:26.698
+and it must be a permutation of the input
+
+00:00:26.698 --> 00:00:30.108
+sorting 3, 1, 2 into 1, 1
+
+00:00:30.108 --> 00:00:32.556
+2 is in order, but wrong.
+
+00:00:32.556 --> 00:00:36.490
+A value was lost, and another appears twice.
+
+00:00:36.840 --> 00:00:39.972
+The right answer is 1, 2, 3
+
+00:00:39.972 --> 00:00:41.451
+the same values
+
+00:00:41.451 --> 00:00:44.496
+each as many times as it appeared.
+
+00:00:44.496 --> 00:00:47.627
+And the test is less than or equal
+
+00:00:47.627 --> 00:00:48.932
+not less than
+
+00:00:48.932 --> 00:00:52.760
+because the input may contain equal values.
+
+00:00:53.110 --> 00:00:56.030
+The numbers being sorted are called keys.
+
+00:00:56.030 --> 00:00:57.668
+Our input is an array
+
+00:00:57.739 --> 00:00:59.876
+so we can reach any element by
+
+00:00:59.947 --> 00:01:01.870
+its index in constant time.
+
+00:01:02.450 --> 00:01:05.526
+Insertion sort is a simple algorithm that works
+
+00:01:05.592 --> 00:01:07.948
+well for a small number of elements.
+
+00:01:08.014 --> 00:01:10.174
+It sorts the way most people sort
+
+00:01:10.239 --> 00:01:11.810
+a hand of playing cards.
+
+00:01:11.810 --> 00:01:14.690
+Here are 6 cards, the textbook's example.
+
+00:01:15.040 --> 00:01:16.862
+Your left hand holds the
+
+00:01:16.937 --> 00:01:18.683
+cards picked up so far
+
+00:01:18.683 --> 00:01:20.505
+always in sorted order.
+
+00:01:20.505 --> 00:01:23.768
+At first it holds just 1 card, the 5.
+
+00:01:23.768 --> 00:01:26.880
+Then you pick up the next card, the 2.
+
+00:01:27.230 --> 00:01:28.394
+To find its place
+
+00:01:28.394 --> 00:01:31.238
+you compare it with the cards in your hand
+
+00:01:31.238 --> 00:01:32.531
+from right to left
+
+00:01:32.531 --> 00:01:35.052
+until you find one that is not larger.
+
+00:01:35.052 --> 00:01:37.703
+Every larger card moves 1 place right
+
+00:01:37.703 --> 00:01:40.030
+and the new card goes into the gap.
+
+00:01:40.380 --> 00:01:44.310
+In an array, the left hand is the prefix
+
+00:01:44.409 --> 00:01:46.570
+a[0..j-1]
+
+00:01:46.570 --> 00:01:49.420
+and the next card is a[j].
+
+00:01:50.000 --> 00:01:52.966
+Here is the textbook's pseudocode.
+
+00:01:52.966 --> 00:01:55.671
+It numbers the array from 1
+
+00:01:55.671 --> 00:01:59.160
+so the outer loop runs j from 2 to n.
+
+00:01:59.510 --> 00:02:01.778
+It copies A[j] into key
+
+00:02:01.778 --> 00:02:04.394
+and starts i just left of it
+
+00:02:04.394 --> 00:02:05.790
+at j - 1.
+
+00:02:06.140 --> 00:02:09.235
+While i is still inside the array
+
+00:02:09.235 --> 00:02:12.148
+and A[i] is greater than key
+
+00:02:12.148 --> 00:02:15.151
+it moves A[i] 1 place right
+
+00:02:15.151 --> 00:02:17.700
+and steps i one place left.
+
+00:02:18.050 --> 00:02:19.510
+When the loop stops
+
+00:02:19.583 --> 00:02:21.991
+the hole at i + 1 is exactly
+
+00:02:22.064 --> 00:02:23.377
+where key belongs
+
+00:02:23.377 --> 00:02:25.567
+and line eight puts it there.
+
+00:02:25.567 --> 00:02:27.610
+Now the same thing in Java.
+
+00:02:28.190 --> 00:02:30.862
+Java numbers arrays from zero
+
+00:02:30.862 --> 00:02:34.602
+so the outer loop starts at j = 1
+
+00:02:34.691 --> 00:02:37.273
+and the inner loop stops when
+
+00:02:37.362 --> 00:02:39.054
+i falls below zero.
+
+00:02:39.054 --> 00:02:42.260
+The test reads: i is at least zero
+
+00:02:42.260 --> 00:02:45.110
+and a[i] is greater than key.
+
+00:02:45.460 --> 00:02:48.288
+The order of those two tests matters.
+
+00:02:48.288 --> 00:02:51.346
+In Java, the and operator stops as soon
+
+00:02:51.422 --> 00:02:53.486
+as the first test is false
+
+00:02:53.486 --> 00:02:55.321
+so when i is -1
+
+00:02:55.321 --> 00:02:57.614
+a[-1] is never read.
+
+00:02:57.614 --> 00:02:59.830
+Written the other way round
+
+00:02:59.907 --> 00:03:02.429
+the program throws an array index
+
+00:03:02.506 --> 00:03:04.340
+out of bounds exception
+
+00:03:04.340 --> 00:03:07.780
+as soon as key is the smallest value so far.
+
+00:03:08.130 --> 00:03:11.970
+So check the index first, then the value.
+
+00:03:12.550 --> 00:03:15.928
+Let's run the Java method on 5, 2
+
+00:03:15.928 --> 00:03:17.921
+4, 6, 1, 3
+
+00:03:17.921 --> 00:03:20.086
+and watch the variables.
+
+00:03:20.086 --> 00:03:23.898
+The first element alone is a sorted prefix
+
+00:03:23.898 --> 00:03:25.630
+so j starts at 1.
+
+00:03:25.980 --> 00:03:28.590
+key gets a[j], the 2
+
+00:03:28.590 --> 00:03:32.140
+which leaves a hole at index 1.
+
+00:03:32.140 --> 00:03:36.420
+And i starts at j - 1, index 0.
+
+00:03:36.770 --> 00:03:39.406
+The test: i is at least zero
+
+00:03:39.406 --> 00:03:42.134
+and 5 is greater than 2.
+
+00:03:42.134 --> 00:03:45.043
+So 5 shifts one place right
+
+00:03:45.043 --> 00:03:48.770
+into the hole, and i drops to -1.
+
+00:03:49.120 --> 00:03:51.074
+Now i is below zero
+
+00:03:51.074 --> 00:03:53.713
+so the loop stops at once.
+
+00:03:53.811 --> 00:03:56.938
+The last line drops key into the
+
+00:03:57.035 --> 00:04:00.553
+hole at a[i + 1]: index 0.
+
+00:04:00.553 --> 00:04:03.680
+The sorted prefix is 2, 5.
+
+00:04:04.260 --> 00:04:07.220
+The trace program in the notes prints
+
+00:04:07.300 --> 00:04:09.380
+the array after each pass
+
+00:04:09.380 --> 00:04:12.900
+the bar marks the end of the sorted prefix.
+
+00:04:12.900 --> 00:04:15.060
+Pass 2: the key is 4.
+
+00:04:15.410 --> 00:04:17.977
+Compare with 5: larger
+
+00:04:17.977 --> 00:04:20.149
+so 5 shifts right.
+
+00:04:20.149 --> 00:04:23.505
+Then 2 is not larger than 4
+
+00:04:23.505 --> 00:04:25.381
+so the loop stops
+
+00:04:25.381 --> 00:04:29.724
+and 4 drops in between: 2, 4, 5.
+
+00:04:29.724 --> 00:04:30.810
+One shift.
+
+00:04:31.160 --> 00:04:33.389
+Pass 3: the key is 6.
+
+00:04:33.389 --> 00:04:35.782
+5 is not larger than 6
+
+00:04:35.782 --> 00:04:38.011
+so the test fails at once
+
+00:04:38.011 --> 00:04:41.394
+and 6 goes straight back where it was.
+
+00:04:41.394 --> 00:04:42.880
+No shifts at all.
+
+00:04:43.460 --> 00:04:45.631
+Follow pass 4 closely.
+
+00:04:45.631 --> 00:04:47.020
+The key is 1
+
+00:04:47.020 --> 00:04:50.666
+and the sorted prefix is 2, 4, 5
+
+00:04:50.666 --> 00:04:51.166
+6.
+
+00:04:51.450 --> 00:04:55.410
+All four are larger than 1, so 6 shifts
+
+00:04:55.410 --> 00:04:59.190
+5 shifts, 4 shifts, and 2 shifts
+
+00:04:59.190 --> 00:05:01.530
+and i falls to -1.
+
+00:05:01.780 --> 00:05:05.396
+The key goes into a[0]: four shifts
+
+00:05:05.396 --> 00:05:09.100
+because 1 is the smallest value so far.
+
+00:05:09.450 --> 00:05:11.760
+The last pass inserts 3.
+
+00:05:11.760 --> 00:05:14.730
+The key is compared from the right
+
+00:05:15.080 --> 00:05:18.577
+6 shifts, 5 shifts, 4 shifts
+
+00:05:18.577 --> 00:05:20.751
+and 2 is not larger
+
+00:05:20.751 --> 00:05:23.397
+so 3 drops in after it.
+
+00:05:23.397 --> 00:05:24.720
+Three shifts.
+
+00:05:24.970 --> 00:05:29.671
+The whole array is sorted: 1, 2, 3
+
+00:05:29.671 --> 00:05:31.530
+4, 5, 6.
+
+00:05:32.110 --> 00:05:33.138
+Now you try.
+
+00:05:33.138 --> 00:05:36.223
+Trace insertion sort on 31
+
+00:05:36.223 --> 00:05:39.222
+41, 59, 26
+
+00:05:39.222 --> 00:05:41.278
+41, 58.
+
+00:05:41.278 --> 00:05:43.506
+There are two 41s
+
+00:05:43.506 --> 00:05:46.590
+call them the first and the second.
+
+00:05:46.940 --> 00:05:49.573
+How many shifts does each pass make?
+
+00:05:49.646 --> 00:05:52.279
+And does the second 41 end up
+
+00:05:52.352 --> 00:05:54.546
+before or after the first one?
+
+00:05:54.546 --> 00:05:56.740
+Pause the video and trace it.
+
+00:06:00.320 --> 00:06:02.992
+Passes 1 and 2 make no shifts
+
+00:06:02.992 --> 00:06:05.899
+41 is larger than 31
+
+00:06:05.899 --> 00:06:09.120
+and 59 is larger than 41.
+
+00:06:09.470 --> 00:06:11.758
+Pass 3 inserts 26.
+
+00:06:11.758 --> 00:06:14.045
+It is smaller than all three
+
+00:06:14.045 --> 00:06:16.638
+so all three shift: three shifts
+
+00:06:16.638 --> 00:06:19.230
+and 26 goes to the front.
+
+00:06:19.580 --> 00:06:22.448
+Pass 4 is the second 41.
+
+00:06:22.448 --> 00:06:24.050
+59 shifts.
+
+00:06:24.135 --> 00:06:26.834
+Then the test compares 41
+
+00:06:26.918 --> 00:06:28.183
+with 41.
+
+00:06:28.183 --> 00:06:31.304
+Is 41 greater than 41?
+
+00:06:31.304 --> 00:06:31.641
+No.
+
+00:06:31.641 --> 00:06:35.352
+So the loop stops, and the second 41
+
+00:06:35.437 --> 00:06:37.292
+stays after the first.
+
+00:06:37.292 --> 00:06:38.220
+One shift.
+
+00:06:38.570 --> 00:06:41.873
+Pass 5 inserts 58
+
+00:06:41.873 --> 00:06:44.515
+only 59 shifts.
+
+00:06:44.515 --> 00:06:49.140
+So the shifts are 0, 0, 3, 1
+
+00:06:49.140 --> 00:06:49.690
+1.
+
+00:06:50.040 --> 00:06:52.278
+And the two 41s are still
+
+00:06:52.348 --> 00:06:54.026
+in their original order.
+
+00:06:54.026 --> 00:06:57.102
+A sort with this property is called stable
+
+00:06:57.102 --> 00:06:59.200
+and insertion sort is stable.
+
+00:06:59.550 --> 00:07:02.231
+The reason is the test: greater than
+
+00:07:02.231 --> 00:07:04.187
+not greater than or equal.
+
+00:07:04.187 --> 00:07:07.230
+An element never jumps over an equal one.
+
+00:07:07.810 --> 00:07:10.157
+Insertion sort works in place
+
+00:07:10.157 --> 00:07:12.112
+apart from key, i and j
+
+00:07:12.112 --> 00:07:14.067
+it uses no extra memory
+
+00:07:14.067 --> 00:07:16.570
+whatever the size of the array.
+
+00:07:16.920 --> 00:07:18.682
+Two common mistakes.
+
+00:07:18.682 --> 00:07:22.471
+The first: swapping a[i] and
+
+00:07:22.559 --> 00:07:24.497
+a[i + 1] in the inner loop.
+
+00:07:24.497 --> 00:07:25.907
+It still sorts
+
+00:07:25.907 --> 00:07:29.079
+but each swap is three assignments
+
+00:07:29.079 --> 00:07:31.017
+where a shift is one.
+
+00:07:31.017 --> 00:07:33.749
+Keep key in a variable, shift
+
+00:07:33.749 --> 00:07:36.480
+and write key once at the end.
+
+00:07:36.830 --> 00:07:37.600
+The second
+
+00:07:37.600 --> 00:07:40.540
+starting the outer loop at j = 0.
+
+00:07:40.610 --> 00:07:42.430
+The first element alone is
+
+00:07:42.500 --> 00:07:44.180
+already a sorted prefix
+
+00:07:44.180 --> 00:07:47.120
+so the loop starts at the second element
+
+00:07:47.120 --> 00:07:48.660
+j = 1 in Java
+
+00:07:48.660 --> 00:07:50.550
+and 2 in the pseudocode.
+
+00:07:51.130 --> 00:07:51.898
+To sum up.
+
+00:07:51.898 --> 00:07:55.200
+1: Insertion sort keeps a sorted prefix
+
+00:07:55.200 --> 00:07:58.118
+and inserts the next element into it
+
+00:07:58.195 --> 00:08:00.345
+shifting the larger elements
+
+00:08:00.422 --> 00:08:01.650
+1 place right.
+
+00:08:02.000 --> 00:08:02.383
+2:
+
+00:08:02.383 --> 00:08:06.591
+the test checks the index before the value.
+
+00:08:06.591 --> 00:08:10.800
+3: It sorts in place, and it is stable.
+
+00:08:11.150 --> 00:08:15.435
+Try this yourself: insertion sort on 4,
+
+00:08:15.435 --> 00:08:19.619
+3, 2, 10, 12, 1, 5, 6.
+
+00:08:19.619 --> 00:08:22.986
+Write the array after each pass
+
+00:08:22.986 --> 00:08:25.230
+and count the shifts.
+
+00:08:25.580 --> 00:08:28.860
+In part 2, we prove that insertion sort
+
+00:08:28.940 --> 00:08:31.020
+is correct on every input
+
+00:08:31.020 --> 00:08:33.340
+and count how long it takes.
+

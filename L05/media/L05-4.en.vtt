@@ -1,0 +1,569 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.092
+O gives an upper bound.
+
+00:00:03.092 --> 00:00:06.782
+For a lower bound we have Ω.
+
+00:00:06.881 --> 00:00:11.269
+g(n) is Ω(f(n)) if there exist
+
+00:00:11.369 --> 00:00:15.457
+positive constants c and n₀ such that
+
+00:00:15.557 --> 00:00:18.947
+g(n) is at least c times f(n)
+
+00:00:18.947 --> 00:00:21.540
+for all n from n₀ on.
+
+00:00:21.890 --> 00:00:23.008
+Read it as
+
+00:00:23.008 --> 00:00:27.175
+g grows asymptotically no slower than f.
+
+00:00:27.175 --> 00:00:31.545
+The picture is the mirror image of O
+
+00:00:31.545 --> 00:00:35.711
+from n₀ on, c times f stays below g.
+
+00:00:35.711 --> 00:00:39.370
+Before n₀ the curves may cross.
+
+00:00:39.950 --> 00:00:43.860
+The sum of an array, 4n + 4
+
+00:00:43.860 --> 00:00:45.815
+is Ω(n).
+
+00:00:45.815 --> 00:00:47.873
+Take c = 4
+
+00:00:47.873 --> 00:00:51.680
+4n + 4 is at least 4n
+
+00:00:51.680 --> 00:00:54.046
+for all n from 1 on.
+
+00:00:54.046 --> 00:00:56.310
+So n₀ = 1.
+
+00:00:56.660 --> 00:00:58.629
+Or take c = 1
+
+00:00:58.629 --> 00:01:02.098
+4n + 4 is also at least n.
+
+00:01:02.098 --> 00:01:05.380
+Any positive c that works will do.
+
+00:01:05.960 --> 00:01:08.272
+A false lower bound
+
+00:01:08.272 --> 00:01:12.550
+2n is not Ω(n²).
+
+00:01:12.550 --> 00:01:14.516
+Suppose it were.
+
+00:01:14.516 --> 00:01:17.522
+Then for some positive c
+
+00:01:17.637 --> 00:01:20.990
+2n is at least c n²
+
+00:01:21.106 --> 00:01:22.840
+from n₀ on.
+
+00:01:23.190 --> 00:01:26.680
+Divide by n: 2 is at least c times n
+
+00:01:26.680 --> 00:01:29.185
+so n is at most 2/c
+
+00:01:29.185 --> 00:01:31.691
+for every n from n₀ on.
+
+00:01:31.691 --> 00:01:33.122
+Make c smaller
+
+00:01:33.122 --> 00:01:35.896
+and the parabola starts lower
+
+00:01:35.896 --> 00:01:38.849
+but it still overtakes the line
+
+00:01:38.849 --> 00:01:42.070
+just a little later, at 2/c.
+
+00:01:42.420 --> 00:01:44.841
+2/c is a fixed number
+
+00:01:44.924 --> 00:01:47.678
+and any n larger than both it and
+
+00:01:47.762 --> 00:01:50.182
+n₀ breaks the inequality.
+
+00:01:50.182 --> 00:01:51.601
+A contradiction
+
+00:01:51.601 --> 00:01:54.940
+so 2n is not Ω(n²).
+
+00:01:55.520 --> 00:01:57.988
+O and Ω are two
+
+00:01:58.076 --> 00:02:00.015
+views of one relation.
+
+00:02:00.015 --> 00:02:02.130
+If g is Ω(f)
+
+00:02:02.130 --> 00:02:04.157
+then f is O(g)
+
+00:02:04.157 --> 00:02:06.624
+divide g ≥ c f by c
+
+00:02:06.624 --> 00:02:09.885
+and f is at most (1/c) times g.
+
+00:02:09.885 --> 00:02:12.089
+And if g is O(f)
+
+00:02:12.089 --> 00:02:14.380
+then f is Ω(g)
+
+00:02:14.380 --> 00:02:17.200
+by the same argument backwards.
+
+00:02:17.550 --> 00:02:20.610
+All five rules hold for Ω too
+
+00:02:20.690 --> 00:02:22.944
+with the same proofs and the
+
+00:02:23.025 --> 00:02:25.843
+inequalities reversed: polynomials
+
+00:02:25.843 --> 00:02:28.983
+products, sums, logs and exponentials.
+
+00:02:28.983 --> 00:02:30.432
+For a polynomial
+
+00:02:30.432 --> 00:02:33.814
+the leading coefficient must be positive.
+
+00:02:33.814 --> 00:02:34.860
+For example
+
+00:02:34.941 --> 00:02:37.759
+n³ - 100n²
+
+00:02:37.839 --> 00:02:40.094
+is at least 0.5n³
+
+00:02:40.094 --> 00:02:42.670
+once n is at least 200.
+
+00:02:43.250 --> 00:02:46.686
+Like Big-Oh, Big-Omega is not tight.
+
+00:02:46.686 --> 00:02:49.931
+A function has many lower bounds
+
+00:02:49.931 --> 00:02:53.272
+n³ is Ω(n²)
+
+00:02:53.272 --> 00:02:56.135
+of n log n, of n, and of 1.
+
+00:02:56.135 --> 00:02:58.330
+Each of these is true.
+
+00:02:58.680 --> 00:03:01.441
+Only Ω(n³) is useful.
+
+00:03:01.441 --> 00:03:04.355
+To say that a bound is the right one
+
+00:03:04.432 --> 00:03:06.349
+we need the upper and the
+
+00:03:06.426 --> 00:03:07.960
+lower bound to meet.
+
+00:03:08.540 --> 00:03:10.729
+They meet in Big-Theta.
+
+00:03:10.729 --> 00:03:14.535
+If g is O(f) and Ω(f)
+
+00:03:14.535 --> 00:03:17.009
+then g is Θ(f).
+
+00:03:17.009 --> 00:03:18.342
+Equivalently
+
+00:03:18.342 --> 00:03:21.767
+there are positive constants c₁
+
+00:03:21.767 --> 00:03:23.480
+c₂ and n₀
+
+00:03:23.480 --> 00:03:26.335
+with c₁ * f ≤ g
+
+00:03:26.335 --> 00:03:29.095
+and g ≤ c₂ * f
+
+00:03:29.095 --> 00:03:31.569
+for all n from n₀ on.
+
+00:03:31.569 --> 00:03:34.519
+g grows at the same rate as f
+
+00:03:34.519 --> 00:03:38.801
+from n₀ on, it is sandwiched between two
+
+00:03:38.896 --> 00:03:41.180
+constant multiples of f.
+
+00:03:41.760 --> 00:03:42.444
+Example
+
+00:03:42.444 --> 00:03:45.606
+3n + 4 is Θ(n).
+
+00:03:45.606 --> 00:03:49.280
+It stays below 7n, and above 3n.
+
+00:03:49.630 --> 00:03:53.262
+3n ≤ 3n + 4
+
+00:03:53.262 --> 00:03:55.814
+which is ≤ 7n
+
+00:03:55.814 --> 00:03:58.072
+for all n from 1 on.
+
+00:03:58.072 --> 00:04:02.292
+So c₁ = 3, c₂ = 7
+
+00:04:02.292 --> 00:04:04.550
+and n₀ = 1.
+
+00:04:04.900 --> 00:04:05.849
+The same way
+
+00:04:05.849 --> 00:04:09.132
+maxSubArraySum is Θ(n²).
+
+00:04:09.205 --> 00:04:11.467
+Lines 4 to 6 alone already
+
+00:04:11.540 --> 00:04:13.219
+cost 5S + 2n
+
+00:04:13.219 --> 00:04:16.429
+which is at least 2.5n²
+
+00:04:16.502 --> 00:04:19.129
+and the whole count is at most 3
+
+00:04:19.202 --> 00:04:21.610
+n² + 8n + 5
+
+00:04:21.610 --> 00:04:23.580
+at most 16n².
+
+00:04:24.160 --> 00:04:25.033
+Practice.
+
+00:04:25.130 --> 00:04:27.944
+n log n + 2n² is
+
+00:04:28.041 --> 00:04:30.273
+Θ(n²).
+
+00:04:30.273 --> 00:04:33.475
+Upper bound: log n ≤ n
+
+00:04:33.572 --> 00:04:35.997
+so g ≤ n²
+
+00:04:36.094 --> 00:04:39.587
++ 2n², 3n².
+
+00:04:39.587 --> 00:04:43.274
+Lower bound: n log n is not negative
+
+00:04:43.274 --> 00:04:46.379
+so g is at least 2n².
+
+00:04:46.379 --> 00:04:49.581
+So c₁ is 2, c₂ is 3
+
+00:04:49.581 --> 00:04:52.880
+and we can start at n = 1.
+
+00:04:53.230 --> 00:04:56.604
+And 3n² + 2√n
+
+00:04:56.604 --> 00:04:58.666
+times n log n + n
+
+00:04:58.666 --> 00:05:01.571
+is Θ(n³ log n).
+
+00:05:01.571 --> 00:05:05.694
+The first factor is Θ(n²)
+
+00:05:05.694 --> 00:05:07.943
+by the polynomial rule
+
+00:05:07.943 --> 00:05:11.317
+the second is Θ(n log n)
+
+00:05:11.317 --> 00:05:12.629
+by rule 4
+
+00:05:12.629 --> 00:05:16.190
+and the product rule multiplies them.
+
+00:05:16.770 --> 00:05:20.641
+A numerical check: if g is Θ(f)
+
+00:05:20.733 --> 00:05:23.683
+the ratio g/f stays between
+
+00:05:23.775 --> 00:05:25.895
+two positive constants.
+
+00:05:25.895 --> 00:05:28.014
+The program prints it.
+
+00:05:28.014 --> 00:05:29.581
+At n = 2
+
+00:05:29.581 --> 00:05:32.438
+7.4142.
+
+00:05:32.438 --> 00:05:33.729
+At 1 billion
+
+00:05:33.729 --> 00:05:36.770
+3.1003.
+
+00:05:37.120 --> 00:05:39.201
+It slowly approaches 3
+
+00:05:39.201 --> 00:05:42.360
+the product of the leading coefficients.
+
+00:05:42.710 --> 00:05:45.877
+When do O and Ω differ?
+
+00:05:45.877 --> 00:05:49.659
+When our bounds are not the same function.
+
+00:05:49.747 --> 00:05:51.946
+6n² + 20
+
+00:05:52.034 --> 00:05:54.057
+is O(n³)
+
+00:05:54.057 --> 00:05:56.696
+but not Ω(n³)
+
+00:05:56.696 --> 00:05:58.895
+so n³ is not tight.
+
+00:05:58.895 --> 00:06:01.270
+Θ(n²) is.
+
+00:06:01.850 --> 00:06:03.224
+Your turn.
+
+00:06:03.224 --> 00:06:08.308
+Give the tightest Θ of each.
+
+00:06:08.308 --> 00:06:12.979
+a: 5n³ + 2n log n.
+
+00:06:12.979 --> 00:06:17.925
+b: log₃ n + 7.
+
+00:06:17.925 --> 00:06:22.321
+c: n² + 2ⁿ.
+
+00:06:22.321 --> 00:06:27.130
+d: (n + log n)(n + 10).
+
+00:06:27.480 --> 00:06:29.680
+Pause the video and decide.
+
+00:06:33.260 --> 00:06:35.890
+a is Θ(n³).
+
+00:06:35.890 --> 00:06:38.419
+b is Θ(log n)
+
+00:06:38.419 --> 00:06:42.060
+the base is only a constant factor.
+
+00:06:42.410 --> 00:06:45.215
+c is Θ(2ⁿ).
+
+00:06:45.215 --> 00:06:48.201
+And d is Θ(n²)
+
+00:06:48.201 --> 00:06:51.730
+because each factor is Θ(n).
+
+00:06:52.310 --> 00:06:55.972
+Running times in Θ form compare algorithms
+
+00:06:56.045 --> 00:06:58.168
+independently of the machine.
+
+00:06:58.242 --> 00:07:01.683
+Two algorithms in the same class are considered
+
+00:07:01.756 --> 00:07:03.807
+equally good asymptotically.
+
+00:07:03.880 --> 00:07:05.711
+10000n and 9n
+
+00:07:05.784 --> 00:07:07.541
+are both Θ(n)
+
+00:07:07.541 --> 00:07:10.690
+the second is faster by a constant factor
+
+00:07:10.763 --> 00:07:13.253
+which a faster machine or a better
+
+00:07:13.326 --> 00:07:15.230
+implementation can change.
+
+00:07:15.580 --> 00:07:18.072
+An algorithm with a slower growth
+
+00:07:18.148 --> 00:07:20.413
+rate is asymptotically faster
+
+00:07:20.413 --> 00:07:22.528
+for large enough n it wins
+
+00:07:22.528 --> 00:07:24.340
+whatever the constants.
+
+00:07:24.920 --> 00:07:28.387
+For example, binary search on a sorted array
+
+00:07:28.465 --> 00:07:31.538
+makes at most floor(log n) + 1
+
+00:07:31.538 --> 00:07:34.374
+comparisons; linear search up to n.
+
+00:07:34.374 --> 00:07:37.210
+For 10 elements, 10 against 4.
+
+00:07:37.210 --> 00:07:40.440
+For a billion, 1 billion against 30.
+
+00:07:40.790 --> 00:07:42.797
+But be careful when only
+
+00:07:42.880 --> 00:07:44.803
+upper bounds are known.
+
+00:07:44.887 --> 00:07:47.478
+A is O(log n) and B is O(n)
+
+00:07:47.562 --> 00:07:50.070
+guarantees that A's worst case
+
+00:07:50.154 --> 00:07:52.411
+grows no faster than log n
+
+00:07:52.411 --> 00:07:55.755
+but it does not prove that A is faster
+
+00:07:55.755 --> 00:07:59.433
+B might in fact also be Θ(log n)
+
+00:07:59.433 --> 00:08:02.359
+and O(n) was just a loose bound.
+
+00:08:02.443 --> 00:08:04.951
+Comparisons are only sure when
+
+00:08:05.035 --> 00:08:06.790
+the bounds are tight.
+
+00:08:07.370 --> 00:08:09.942
+That completes Lecture 5.
+
+00:08:09.942 --> 00:08:12.789
+1: O 是一个上界，
+
+00:08:12.789 --> 00:08:16.923
+Ω 是一个下界，而 Θ 既是
+
+00:08:16.923 --> 00:08:20.321
+一个紧确界，也是相同的增长率。
+
+00:08:20.321 --> 00:08:23.077
+2: 使用规则进行简化
+
+00:08:23.077 --> 00:08:26.659
+并记住顺序：1, log n, n,
+
+00:08:26.659 --> 00:08:30.609
+n log n, n², n³, 2ⁿ.
+
+00:08:30.609 --> 00:08:31.252
+3:
+
+00:08:31.252 --> 00:08:35.109
+在最坏情况下计算基本操作，
+
+00:08:35.201 --> 00:08:37.498
+并通过它们的
+
+00:08:37.589 --> 00:08:39.610
+Θ 类来比较算法。
+
+00:08:39.960 --> 00:08:40.912
+尝试这个：
+
+00:08:41.018 --> 00:08:44.718
+证明 1/2 n² -
+
+00:08:44.824 --> 00:08:48.419
+3n 是 Θ(n²)，
+
+00:08:48.419 --> 00:08:52.120
+通过给出 c₁, c₂ 和 n₀。
+
+00:08:52.470 --> 00:08:54.051
+接下来，在第六讲中，
+
+00:08:54.051 --> 00:08:56.611
+我们将讨论递归算法的成本，
+
+00:08:56.611 --> 00:08:58.418
+它们以递推关系式表示，
+
+00:08:58.418 --> 00:09:00.150
+以及如何解决这些递推关系式。
+

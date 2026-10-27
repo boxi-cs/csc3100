@@ -1,0 +1,557 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.448
+Singly linked lists are used
+
+00:00:02.525 --> 00:00:04.519
+to build other structures.
+
+00:00:04.519 --> 00:00:07.358
+A stack pushes and pops at the head
+
+00:00:07.358 --> 00:00:10.197
+both O(1): that is lecture nine.
+
+00:00:10.273 --> 00:00:12.345
+A queue inserts at the tail
+
+00:00:12.421 --> 00:00:15.260
+and deletes at the head: lecture ten.
+
+00:00:15.610 --> 00:00:18.658
+Hash tables keep all the keys that hash
+
+00:00:18.736 --> 00:00:21.002
+to the same slot in one list
+
+00:00:21.002 --> 00:00:23.034
+called separate chaining
+
+00:00:23.034 --> 00:00:24.675
+in lecture eighteen.
+
+00:00:24.675 --> 00:00:27.879
+The slide says this prevents collisions
+
+00:00:27.879 --> 00:00:30.848
+more exactly, chaining resolves them
+
+00:00:30.848 --> 00:00:34.130
+the colliding keys share one slot's list.
+
+00:00:34.480 --> 00:00:35.975
+And undo in an editor
+
+00:00:36.043 --> 00:00:38.285
+each new action goes on the front
+
+00:00:38.353 --> 00:00:40.120
+of a list of past actions.
+
+00:00:40.700 --> 00:00:43.174
+Here is the complete class from the
+
+00:00:43.245 --> 00:00:45.225
+slides' Java implementation.
+
+00:00:45.225 --> 00:00:46.921
+Its only field is head
+
+00:00:46.921 --> 00:00:49.467
+a reference to the first real node
+
+00:00:49.467 --> 00:00:50.880
+no dummy this time.
+
+00:00:50.880 --> 00:00:53.779
+So the empty list is head equal to null.
+
+00:00:53.850 --> 00:00:55.900
+insertFirst and deleteFirst
+
+00:00:55.971 --> 00:00:57.243
+work at the front
+
+00:00:57.243 --> 00:01:00.071
+insertLast and deleteLast at the end
+
+00:01:00.142 --> 00:01:02.828
+and insertAfter and deleteAfter next
+
+00:01:02.899 --> 00:01:05.020
+to a node holding a given key.
+
+00:01:05.370 --> 00:01:07.343
+search and printLinkedList
+
+00:01:07.413 --> 00:01:09.175
+visit the nodes in order.
+
+00:01:09.175 --> 00:01:12.346
+You saw how each of these works in part two
+
+00:01:12.346 --> 00:01:14.530
+now look at the special cases.
+
+00:01:15.110 --> 00:01:17.365
+The slide version has two bugs
+
+00:01:17.365 --> 00:01:19.112
+both on the empty list.
+
+00:01:19.112 --> 00:01:21.585
+deleteFirst reads head.next
+
+00:01:21.585 --> 00:01:24.641
+but when the list is empty, head is null
+
+00:01:24.714 --> 00:01:27.188
+and reading a field of null throws
+
+00:01:27.260 --> 00:01:29.079
+a NullPointerException.
+
+00:01:29.079 --> 00:01:32.353
+The fix is to check for an empty list first
+
+00:01:32.353 --> 00:01:33.590
+and return null.
+
+00:01:33.940 --> 00:01:36.490
+insertLast has the same problem
+
+00:01:36.567 --> 00:01:38.499
+it reads current.next
+
+00:01:38.576 --> 00:01:40.276
+while current is null.
+
+00:01:40.276 --> 00:01:43.290
+The fix: on an empty list the new node
+
+00:01:43.367 --> 00:01:45.222
+simply becomes the head.
+
+00:01:45.222 --> 00:01:48.313
+Always test a method on the empty list
+
+00:01:48.313 --> 00:01:50.940
+and on a list of one node, first.
+
+00:01:51.520 --> 00:01:53.972
+The slides' test program.
+
+00:01:53.972 --> 00:01:56.816
+insertFirst(5), then insertFirst(6)
+
+00:01:56.816 --> 00:02:00.641
+which goes in front of it, then insertFirst(7)
+
+00:02:00.641 --> 00:02:01.622
+then insertFirst(1).
+
+00:02:01.622 --> 00:02:04.760
+Each new node becomes the head.
+
+00:02:05.110 --> 00:02:08.822
+insertLast(2) walks to 5
+
+00:02:08.950 --> 00:02:11.894
+and links 2 after it.
+
+00:02:11.894 --> 00:02:17.654
+So the list prints as head, 1, 7, 6
+
+00:02:17.654 --> 00:02:19.830
+5, 2, null.
+
+00:02:20.410 --> 00:02:23.350
+deleteAfter(1) finds the
+
+00:02:23.463 --> 00:02:26.063
+first node holding 1
+
+00:02:26.063 --> 00:02:31.038
+and makes it skip the node after it, 7.
+
+00:02:31.038 --> 00:02:34.090
+Head, 1, 6, 5, 2.
+
+00:02:34.440 --> 00:02:37.482
+insertAfter(5, 9)
+
+00:02:37.482 --> 00:02:41.538
+links a new node in after 5.
+
+00:02:41.538 --> 00:02:45.720
+Head, 1, 6, 5, 9, 2.
+
+00:02:46.070 --> 00:02:48.347
+deleteFirst() returns 1
+
+00:02:48.347 --> 00:02:50.715
+and 6 becomes the head.
+
+00:02:50.806 --> 00:02:52.992
+deleteLast() walks to the
+
+00:02:53.084 --> 00:02:56.727
+second-to-last node, 9, cuts off 2
+
+00:02:56.727 --> 00:02:58.184
+and returns it.
+
+00:02:58.184 --> 00:03:01.190
+The list is now 6, 5, 9.
+
+00:03:01.540 --> 00:03:05.275
+search(9) is true; search(7) is false
+
+00:03:05.275 --> 00:03:07.620
+because 7 was deleted.
+
+00:03:08.200 --> 00:03:10.731
+Then the special cases, on a new
+
+00:03:10.731 --> 00:03:11.651
+empty list.
+
+00:03:11.651 --> 00:03:15.102
+deleteFirst() on the empty list returns null
+
+00:03:15.102 --> 00:03:16.712
+instead of throwing.
+
+00:03:16.712 --> 00:03:18.706
+insertLast(42)
+
+00:03:18.706 --> 00:03:21.160
+where the slide version throws
+
+00:03:21.160 --> 00:03:23.920
+gives the one-node list, 42.
+
+00:03:24.270 --> 00:03:27.199
+deleteLast() on a list with a single
+
+00:03:27.283 --> 00:03:29.458
+node makes it empty again
+
+00:03:29.458 --> 00:03:31.550
+so isEmpty() prints true.
+
+00:03:32.130 --> 00:03:33.660
+The running times.
+
+00:03:33.660 --> 00:03:34.850
+insertFirst(),
+
+00:03:34.850 --> 00:03:38.250
+deleteFirst() and isEmpty() are O(1).
+
+00:03:38.250 --> 00:03:42.075
+insertLast() and deleteLast() walk to the end
+
+00:03:42.075 --> 00:03:42.755
+O(n).
+
+00:03:42.755 --> 00:03:43.945
+insertAfter(),
+
+00:03:43.945 --> 00:03:47.430
+deleteAfter() and search() walk to the key
+
+00:03:47.430 --> 00:03:49.725
+O(1) in the best case
+
+00:03:49.725 --> 00:03:51.510
+O(n) in the worst.
+
+00:03:51.510 --> 00:03:54.570
+Printing visits every node: O(n).
+
+00:03:54.920 --> 00:03:57.159
+Now two classic exercises
+
+00:03:57.245 --> 00:03:59.829
+both solved with more than one
+
+00:03:59.915 --> 00:04:02.240
+reference walking the list.
+
+00:04:02.820 --> 00:04:03.814
+Exercise 1:
+
+00:04:03.814 --> 00:04:06.336
+Given the head of a linked list,
+
+00:04:06.336 --> 00:04:08.018
+find its middle node.
+
+00:04:08.018 --> 00:04:10.617
+The obvious way takes two passes:
+
+00:04:10.617 --> 00:04:13.751
+count the nodes, then walk half of them.
+
+00:04:13.751 --> 00:04:15.968
+The neat way takes one pass
+
+00:04:15.968 --> 00:04:17.420
+with two pointers.
+
+00:04:17.770 --> 00:04:21.050
+Slow and fast both start at the head.
+
+00:04:21.050 --> 00:04:22.291
+In each step
+
+00:04:22.291 --> 00:04:25.837
+slow moves one node and fast moves two
+
+00:04:25.837 --> 00:04:28.584
+slow is at 2, fast at 3.
+
+00:04:28.584 --> 00:04:32.130
+Next step: slow at 3, fast at 5.
+
+00:04:32.480 --> 00:04:34.586
+Now fast.next is null
+
+00:04:34.586 --> 00:04:36.126
+so the loop stops.
+
+00:04:36.126 --> 00:04:39.042
+Fast has gone twice as far as slow
+
+00:04:39.042 --> 00:04:41.716
+so slow is in the middle: 3.
+
+00:04:41.716 --> 00:04:45.280
+People call this the tortoise and the hare.
+
+00:04:45.860 --> 00:04:46.820
+Now predict.
+
+00:04:46.820 --> 00:04:50.020
+With an even number of nodes, 1, 2,
+
+00:04:50.020 --> 00:04:53.300
+3, 4, there are two middle nodes.
+
+00:04:53.300 --> 00:04:56.100
+Which one does middleNode return?
+
+00:04:56.100 --> 00:04:58.500
+Pause the video and trace it.
+
+00:05:02.080 --> 00:05:03.346
+Start at 1.
+
+00:05:03.346 --> 00:05:06.657
+Step: slow at 2, fast at 3.
+
+00:05:06.657 --> 00:05:09.870
+Fast.next is 4, not null
+
+00:05:09.870 --> 00:05:13.084
+so one more step: slow at 3
+
+00:05:13.084 --> 00:05:16.686
+and fast jumps past the end to null.
+
+00:05:16.686 --> 00:05:18.244
+The loop stops
+
+00:05:18.244 --> 00:05:21.263
+and middleNode returns 3
+
+00:05:21.263 --> 00:05:23.600
+the second middle node.
+
+00:05:23.950 --> 00:05:27.359
+The slides' Java version, findMiddleNode
+
+00:05:27.359 --> 00:05:30.848
+returns the first middle node instead: 2.
+
+00:05:30.927 --> 00:05:33.068
+Both are correct answers to
+
+00:05:33.147 --> 00:05:35.129
+different specifications
+
+00:05:35.129 --> 00:05:37.270
+so say which one you want.
+
+00:05:37.620 --> 00:05:40.100
+Each step moves fast two nodes
+
+00:05:40.100 --> 00:05:43.380
+so the loop runs about n/2 times
+
+00:05:43.380 --> 00:05:46.180
+O(n) time, O(1) extra space
+
+00:05:46.180 --> 00:05:47.220
+in one pass.
+
+00:05:47.220 --> 00:05:50.740
+On an empty list, both methods return null.
+
+00:05:51.320 --> 00:05:52.293
+Exercise 2
+
+00:05:52.293 --> 00:05:54.688
+reverse a linked list in place
+
+00:05:54.688 --> 00:05:57.383
+by turning every next arrow around.
+
+00:05:57.383 --> 00:05:59.553
+Three references are needed.
+
+00:05:59.553 --> 00:06:02.847
+previousNode is the part already reversed
+
+00:06:02.847 --> 00:06:04.269
+it starts as null
+
+00:06:04.269 --> 00:06:06.290
+which will be the new end.
+
+00:06:06.290 --> 00:06:09.433
+currentNode is the node being processed
+
+00:06:09.433 --> 00:06:11.080
+starting at the head.
+
+00:06:11.430 --> 00:06:14.065
+First, save the rest of the list
+
+00:06:14.065 --> 00:06:17.258
+nextNode = currentNode.next.
+
+00:06:17.258 --> 00:06:19.175
+Then reverse this link
+
+00:06:19.175 --> 00:06:22.688
+currentNode.next = previousNode.
+
+00:06:22.688 --> 00:06:25.642
+Then move both pointers one node on
+
+00:06:25.642 --> 00:06:28.516
+previousNode becomes currentNode
+
+00:06:28.516 --> 00:06:31.390
+and currentNode becomes nextNode.
+
+00:06:31.970 --> 00:06:34.560
+The same four lines for 6:
+
+00:06:34.560 --> 00:06:37.798
+its arrow now points back to 5.
+
+00:06:37.798 --> 00:06:40.850
+For 7, for 1, and for 2.
+
+00:06:41.200 --> 00:06:44.722
+currentNode is null, so the loop ends
+
+00:06:44.722 --> 00:06:48.605
+and previousNode, the old last node, two
+
+00:06:48.605 --> 00:06:50.141
+is the new head.
+
+00:06:50.141 --> 00:06:53.933
+The old head, five, is now the last node
+
+00:06:53.933 --> 00:06:55.920
+and its next is null.
+
+00:06:56.270 --> 00:06:59.164
+Saving nextNode first is rule one
+
+00:06:59.164 --> 00:07:01.975
+it keeps the chain from breaking.
+
+00:07:01.975 --> 00:07:04.208
+Each node is visited once
+
+00:07:04.208 --> 00:07:07.680
+with three extra references: O(n) time
+
+00:07:07.680 --> 00:07:09.830
+and O(1) extra space.
+
+00:07:10.410 --> 00:07:15.061
+The demo prints 5, 6, 7, 1, 2
+
+00:07:15.061 --> 00:07:19.711
+and after reversing, 2, 1, 7, 6,
+
+00:07:19.711 --> 00:07:20.360
+5.
+
+00:07:20.360 --> 00:07:25.010
+And the old head, five, now links to null.
+
+00:07:25.590 --> 00:07:26.456
+To sum up.
+
+00:07:26.456 --> 00:07:29.315
+One: with only a head reference
+
+00:07:29.402 --> 00:07:31.568
+the front is O(1) and
+
+00:07:31.654 --> 00:07:33.474
+the end needs a walk
+
+00:07:33.474 --> 00:07:35.900
+check the empty list first.
+
+00:07:35.900 --> 00:07:37.546
+Two: two pointers
+
+00:07:37.546 --> 00:07:40.318
+one twice as fast as the other
+
+00:07:40.318 --> 00:07:42.830
+find the middle in one pass.
+
+00:07:43.180 --> 00:07:44.563
+Three: previous
+
+00:07:44.563 --> 00:07:48.194
+current and next reverse a list in place.
+
+00:07:48.194 --> 00:07:51.220
+Save next before you overwrite it.
+
+00:07:51.570 --> 00:07:52.346
+Try this.
+
+00:07:52.346 --> 00:07:56.228
+Return the k-th node from the end of a list
+
+00:07:56.228 --> 00:07:57.349
+in one pass
+
+00:07:57.349 --> 00:08:00.713
+where k equal to one is the last node.
+
+00:08:00.713 --> 00:08:02.438
+Hint: two pointers
+
+00:08:02.438 --> 00:08:05.370
+with the first one k nodes ahead.
+
+00:08:05.720 --> 00:08:09.275
+In part four: doubly linked, circular
+
+00:08:09.275 --> 00:08:11.800
+and doubly circular lists.
+

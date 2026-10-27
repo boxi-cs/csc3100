@@ -1,0 +1,578 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.737
+Here is a short Java program.
+
+00:00:02.737 --> 00:00:06.266
+In main, sb refers to a new StringBuilder
+
+00:00:06.350 --> 00:00:08.283
+holding the word "Hello".
+
+00:00:08.283 --> 00:00:11.139
+We print it, call change(sb)
+
+00:00:11.139 --> 00:00:12.820
+and print it again.
+
+00:00:13.170 --> 00:00:16.464
+Inside change, the parameter text is given
+
+00:00:16.543 --> 00:00:18.895
+a brand-new StringBuilder, "Hi"
+
+00:00:18.895 --> 00:00:21.170
+and "world" is appended to it.
+
+00:00:21.520 --> 00:00:24.021
+So what do the two lines print?
+
+00:00:24.021 --> 00:00:26.280
+Pause the video and decide.
+
+00:00:29.860 --> 00:00:32.997
+To answer that, we need the simplest data
+
+00:00:33.074 --> 00:00:35.599
+structure with a rule: the 栈.
+
+00:00:35.599 --> 00:00:38.660
+Think of a pile of plates in a canteen.
+
+00:00:39.010 --> 00:00:42.625
+Clean plates go on the top: 1, 2, 3.
+
+00:00:42.707 --> 00:00:44.596
+The next customer takes
+
+00:00:44.679 --> 00:00:46.404
+a plate from the top
+
+00:00:46.404 --> 00:00:49.690
+and nobody pulls one out of the middle.
+
+00:00:50.040 --> 00:00:52.588
+The plate put on the pile
+
+00:00:52.690 --> 00:00:54.729
+last is taken first.
+
+00:00:54.729 --> 00:00:58.603
+That is the rule: last in, first out
+
+00:00:58.603 --> 00:00:59.520
+or LIFO.
+
+00:00:59.870 --> 00:01:03.340
+A 栈 is a linear structure where elements
+
+00:01:03.419 --> 00:01:06.416
+are added and removed at one end only
+
+00:01:06.416 --> 00:01:07.678
+called the top.
+
+00:01:07.678 --> 00:01:10.280
+Push puts an element on the top.
+
+00:01:10.280 --> 00:01:13.750
+Pop removes the top element and returns it.
+
+00:01:14.330 --> 00:01:19.270
+Let's trace a sequence on an empty 栈.
+
+00:01:19.270 --> 00:01:22.162
+Push 'A', push 'B', push 'C'.
+
+00:01:22.162 --> 00:01:24.210
+Now 'C' is on top.
+
+00:01:24.560 --> 00:01:26.295
+Pop returns 'C'.
+
+00:01:26.295 --> 00:01:29.889
+Push 'D': it goes on top of 'B'.
+
+00:01:29.889 --> 00:01:35.217
+Pop returns 'D', and the next pop returns 'B'.
+
+00:01:35.217 --> 00:01:37.200
+Only 'A' is left.
+
+00:01:37.550 --> 00:01:40.177
+Notice that 'C' came out before 'D'
+
+00:01:40.177 --> 00:01:42.148
+even though 'D' is newer.
+
+00:01:42.148 --> 00:01:45.350
+'C' was popped before 'D' was ever pushed.
+
+00:01:45.930 --> 00:01:47.769
+Push and pop are the only
+
+00:01:47.843 --> 00:01:49.535
+ways to change a 栈.
+
+00:01:49.535 --> 00:01:51.595
+Everything else only looks.
+
+00:01:51.668 --> 00:01:53.655
+Top returns the top element
+
+00:01:53.728 --> 00:01:55.200
+without removing it.
+
+00:01:55.200 --> 00:01:57.407
+Java's library calls it peek.
+
+00:01:57.407 --> 00:02:00.423
+isEmpty asks whether the 栈 is empty,
+
+00:02:00.423 --> 00:02:02.336
+size counts the elements,
+
+00:02:02.336 --> 00:02:04.690
+and makeEmpty removes them all.
+
+00:02:05.040 --> 00:02:07.481
+Popping, or reading the top of
+
+00:02:07.481 --> 00:02:11.025
+an empty 栈 is an error called 下溢.
+
+00:02:11.025 --> 00:02:13.623
+Our implementations return null
+
+00:02:13.702 --> 00:02:15.907
+while Java's library classes
+
+00:02:15.985 --> 00:02:17.481
+throw an exception.
+
+00:02:17.481 --> 00:02:20.080
+Either way, check isEmpty first.
+
+00:02:20.430 --> 00:02:22.856
+A stack with a fixed capacity
+
+00:02:22.940 --> 00:02:26.621
+can also overflow: a push onto a full stack.
+
+00:02:26.621 --> 00:02:29.632
+A dynamic-size stack grows instead
+
+00:02:29.716 --> 00:02:32.226
+stored either in a linked list
+
+00:02:32.310 --> 00:02:34.150
+or in a dynamic array.
+
+00:02:34.730 --> 00:02:36.485
+Now back to the puzzle.
+
+00:02:36.485 --> 00:02:38.393
+When a method is called
+
+00:02:38.393 --> 00:02:40.071
+Java creates a frame
+
+00:02:40.071 --> 00:02:42.665
+also called an activation record
+
+00:02:42.665 --> 00:02:46.023
+holding its parameters and local variables.
+
+00:02:46.099 --> 00:02:48.693
+The frames of all the methods that
+
+00:02:48.770 --> 00:02:51.288
+have started but not yet returned
+
+00:02:51.364 --> 00:02:52.890
+form the call stack.
+
+00:02:53.240 --> 00:02:55.004
+Main's frame holds sb
+
+00:02:55.004 --> 00:02:57.730
+which refers to the Hello object.
+
+00:02:57.730 --> 00:02:59.655
+The call, change of sb
+
+00:02:59.655 --> 00:03:01.820
+pushes a new frame on top.
+
+00:03:01.820 --> 00:03:03.504
+Its parameter, text
+
+00:03:03.584 --> 00:03:06.150
+is a new variable holding a copy
+
+00:03:06.230 --> 00:03:08.074
+of the reference in sb
+
+00:03:08.074 --> 00:03:10.560
+both refer to the same object.
+
+00:03:10.910 --> 00:03:14.470
+The first line of change makes text
+
+00:03:14.571 --> 00:03:17.826
+refer to a brand-new object, Hi.
+
+00:03:17.826 --> 00:03:21.488
+The append changes that new object
+
+00:03:21.488 --> 00:03:22.810
+to Hi world.
+
+00:03:22.911 --> 00:03:25.454
+The object that sb refers
+
+00:03:25.556 --> 00:03:27.590
+to is never touched.
+
+00:03:27.940 --> 00:03:29.729
+When change returns
+
+00:03:29.729 --> 00:03:33.040
+its frame is popped and thrown away
+
+00:03:33.129 --> 00:03:35.903
+together with text and the only
+
+00:03:35.993 --> 00:03:37.961
+reference to Hi world.
+
+00:03:37.961 --> 00:03:40.914
+Main carries on with its own sb
+
+00:03:40.914 --> 00:03:42.077
+still Hello.
+
+00:03:42.077 --> 00:03:44.940
+So both lines say: sb is Hello.
+
+00:03:45.290 --> 00:03:47.921
+If change had called append without
+
+00:03:47.996 --> 00:03:49.725
+reassigning text first
+
+00:03:49.725 --> 00:03:51.755
+main would see the change
+
+00:03:51.830 --> 00:03:53.935
+because both variables would
+
+00:03:54.011 --> 00:03:55.890
+refer to the same object.
+
+00:03:56.470 --> 00:03:58.221
+Now let's build a stack.
+
+00:03:58.221 --> 00:04:00.409
+Each element lives in a node
+
+00:04:00.482 --> 00:04:02.525
+which also holds a reference
+
+00:04:02.598 --> 00:04:03.838
+to the next node.
+
+00:04:03.911 --> 00:04:05.881
+The top of the stack is the
+
+00:04:05.954 --> 00:04:07.631
+first node of the list
+
+00:04:07.704 --> 00:04:10.331
+because the front of a singly linked
+
+00:04:10.404 --> 00:04:13.394
+list is the one place where we can insert
+
+00:04:13.467 --> 00:04:15.510
+and delete in O(1) time.
+
+00:04:15.860 --> 00:04:16.951
+Like the slides
+
+00:04:16.951 --> 00:04:19.064
+we put a header node in front,
+
+00:04:19.064 --> 00:04:21.519
+a dummy node that holds no element.
+
+00:04:21.519 --> 00:04:24.519
+The field head always refers to the header,
+
+00:04:24.519 --> 00:04:27.450
+and head.next is the top of the stack,
+
+00:04:27.450 --> 00:04:29.700
+or null when the stack is empty.
+
+00:04:30.050 --> 00:04:32.829
+This stack was made by push(11),
+
+00:04:32.829 --> 00:04:35.687
+push(22), push(33).
+
+00:04:35.767 --> 00:04:38.069
+The newest element sits right
+
+00:04:38.149 --> 00:04:39.499
+after the header.
+
+00:04:39.499 --> 00:04:41.245
+Thanks to the header,
+
+00:04:41.245 --> 00:04:44.342
+push and pop never change head itself,
+
+00:04:44.342 --> 00:04:45.930
+only head.next.
+
+00:04:46.510 --> 00:04:47.529
+Here is push.
+
+00:04:47.529 --> 00:04:49.722
+Let's replay the last push,
+
+00:04:49.722 --> 00:04:51.211
+push(33),
+
+00:04:51.211 --> 00:04:54.110
+starting from 22 and 11.
+
+00:04:54.460 --> 00:04:57.460
+First, make a new node, tempNode,
+
+00:04:57.460 --> 00:05:00.460
+and store x, 33, in it.
+
+00:05:00.810 --> 00:05:04.256
+Then make the new node point to the old top:
+
+00:05:04.256 --> 00:05:07.467
+tempNode.next = head.next.
+
+00:05:07.546 --> 00:05:09.974
+Now both the header and the new
+
+00:05:10.052 --> 00:05:12.010
+node refer to 22.
+
+00:05:12.360 --> 00:05:13.042
+Finally,
+
+00:05:13.042 --> 00:05:16.364
+make the header point to the new node:
+
+00:05:16.364 --> 00:05:19.091
+head.next = tempNode.
+
+00:05:19.091 --> 00:05:20.880
+And add 1 to size.
+
+00:05:21.230 --> 00:05:23.202
+33 is the new top.
+
+00:05:23.202 --> 00:05:26.231
+Push touches a fixed number of references, whatever the size of the stack:
+
+00:05:26.231 --> 00:05:29.190
+O(1).
+
+00:05:29.770 --> 00:05:31.857
+The order of those two link
+
+00:05:31.934 --> 00:05:33.480
+assignments matters.
+
+00:05:33.557 --> 00:05:35.875
+Suppose we write head.next
+
+00:05:35.953 --> 00:05:37.730
+= tempNode first.
+
+00:05:38.080 --> 00:05:40.080
+The only reference to the
+
+00:05:40.160 --> 00:05:42.000
+old top is overwritten.
+
+00:05:42.080 --> 00:05:45.600
+Then tempNode.next = head.next makes the new node point to itself,
+
+00:05:45.680 --> 00:05:48.480
+and the rest of the stack
+
+00:05:48.480 --> 00:05:51.280
+is lost.
+
+00:05:51.630 --> 00:05:55.095
+So, link the new node to the old top first,
+
+00:05:55.095 --> 00:05:58.230
+and only then point the header at it.
+
+00:05:58.810 --> 00:05:59.569
+Now pop.
+
+00:05:59.569 --> 00:06:01.750
+If the stack is empty,
+
+00:06:01.750 --> 00:06:05.353
+there is nothing to pop: return null,
+
+00:06:05.353 --> 00:06:07.250
+the underflow case.
+
+00:06:07.600 --> 00:06:10.566
+Otherwise, remember the first node:
+
+00:06:10.566 --> 00:06:13.363
+firstNode = head.next.
+
+00:06:13.363 --> 00:06:15.906
+Make the header skip over it:
+
+00:06:15.906 --> 00:06:19.465
+head.next = firstNode.next.
+
+00:06:19.465 --> 00:06:21.499
+Subtract 1 from size,
+
+00:06:21.499 --> 00:06:24.720
+and return its element, 33.
+
+00:06:25.070 --> 00:06:27.398
+This is exactly delete the first
+
+00:06:27.471 --> 00:06:29.071
+node of a linked list.
+
+00:06:29.071 --> 00:06:32.127
+The unlinked node is no longer reachable
+
+00:06:32.127 --> 00:06:35.110
+so Java's garbage collector reclaims it.
+
+00:06:35.690 --> 00:06:37.381
+Top is even simpler.
+
+00:06:37.381 --> 00:06:39.749
+After the same empty check
+
+00:06:39.749 --> 00:06:42.962
+it returns head.next.element
+
+00:06:42.962 --> 00:06:46.767
+here 22, without unlinking anything.
+
+00:06:46.767 --> 00:06:49.050
+Both methods are O(1).
+
+00:06:49.630 --> 00:06:52.168
+Our test program pushes 11
+
+00:06:52.250 --> 00:06:54.869
+22 and 33 onto
+
+00:06:54.951 --> 00:06:57.325
+a new LinkedStack of Integer.
+
+00:06:57.325 --> 00:06:58.880
+Printed top first,
+
+00:06:58.880 --> 00:07:02.073
+the stack is 33, 22,
+
+00:07:02.073 --> 00:07:03.710
+11, size 3.
+
+00:07:04.060 --> 00:07:06.288
+Top gives 33.
+
+00:07:06.288 --> 00:07:08.613
+Pop gives 33,
+
+00:07:08.613 --> 00:07:12.971
+and the next pop 22, leaving 11,
+
+00:07:12.971 --> 00:07:13.940
+size 1.
+
+00:07:14.290 --> 00:07:16.828
+One more pop gives 11.
+
+00:07:16.828 --> 00:07:20.343
+The next pop finds the stack empty,
+
+00:07:20.343 --> 00:07:23.369
+underflow, so it returns null.
+
+00:07:23.369 --> 00:07:25.810
+And isEmpty is now true.
+
+00:07:26.390 --> 00:07:27.266
+To sum up.
+
+00:07:27.266 --> 00:07:30.860
+One: A stack is touched only at its top,
+
+00:07:30.860 --> 00:07:32.613
+LIFO (last in, first out).
+
+00:07:32.613 --> 00:07:34.716
+Push and pop change it,
+
+00:07:34.716 --> 00:07:38.310
+and popping an empty stack is underflow.
+
+00:07:38.660 --> 00:07:40.636
+Two: On a linked list,
+
+00:07:40.726 --> 00:07:42.971
+the top is the first node
+
+00:07:43.061 --> 00:07:44.857
+after a header node,
+
+00:07:44.857 --> 00:07:47.551
+so push and pop are O(1)
+
+00:07:47.551 --> 00:07:49.707
+with no capacity limit.
+
+00:07:49.707 --> 00:07:53.659
+Three: The call stack is a stack of frames.
+
+00:07:53.659 --> 00:07:57.700
+A call pushes a frame, and a return pops it.
+
+00:07:58.050 --> 00:07:59.830
+Try this yourself.
+
+00:07:59.830 --> 00:08:04.081
+Start empty, then push(1), push(2), pop,
+
+00:08:04.081 --> 00:08:07.740
+push(3), push(4), pop, and top.
+
+00:08:07.740 --> 00:08:12.090
+What does top return, and what is the size?
+
+00:08:12.440 --> 00:08:13.290
+In part two,
+
+00:08:13.290 --> 00:08:15.911
+we build the same stack on an array
+
+00:08:15.911 --> 00:08:18.320
+and make it grow when it is full.
+

@@ -1,0 +1,653 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.871
+Most divide-and-conquer algorithms
+
+00:00:02.946 --> 00:00:05.290
+have a recurrence of one shape.
+
+00:00:05.366 --> 00:00:07.786
+Split a problem of size n into a
+
+00:00:07.861 --> 00:00:10.054
+subproblems of size n/b
+
+00:00:10.054 --> 00:00:11.869
+solve them recursively
+
+00:00:11.944 --> 00:00:14.062
+and spend O(n^d) on
+
+00:00:14.137 --> 00:00:15.876
+dividing and combining.
+
+00:00:15.952 --> 00:00:17.842
+The master theorem solves
+
+00:00:17.918 --> 00:00:19.430
+all of them at once
+
+00:00:19.430 --> 00:00:22.077
+T(n) is at most aT(n/b)
+
+00:00:22.077 --> 00:00:23.740
+plus O(n^d).
+
+00:00:24.090 --> 00:00:26.310
+If a = b^d
+
+00:00:26.310 --> 00:00:29.494
+T(n) is O(n^d log n).
+
+00:00:29.494 --> 00:00:32.390
+If a < b^d
+
+00:00:32.390 --> 00:00:34.609
+it is O(n^d).
+
+00:00:34.609 --> 00:00:38.180
+And if a > b^d
+
+00:00:38.180 --> 00:00:42.330
+it is O(n^(log_b a)).
+
+00:00:42.680 --> 00:00:46.914
+a is at least 1, b is greater than 1
+
+00:00:46.914 --> 00:00:49.393
+and d is at least 0.
+
+00:00:49.496 --> 00:00:52.388
+Rounding n/b up or down
+
+00:00:52.491 --> 00:00:55.280
+does not change the answer.
+
+00:00:55.860 --> 00:00:58.216
+What do the three letters mean?
+
+00:00:58.216 --> 00:01:00.268
+a is the branching factor
+
+00:01:00.268 --> 00:01:03.460
+how many recursive calls each call makes.
+
+00:01:03.810 --> 00:01:06.180
+b is the shrinking factor
+
+00:01:06.180 --> 00:01:09.370
+each subproblem has size n/b.
+
+00:01:09.720 --> 00:01:12.564
+And d describes the work outside
+
+00:01:12.653 --> 00:01:15.942
+the recursive calls: O(n^d)
+
+00:01:16.031 --> 00:01:18.609
+to create the subproblems and
+
+00:01:18.698 --> 00:01:20.920
+to combine their answers.
+
+00:01:21.270 --> 00:01:23.577
+So the three cases are a race
+
+00:01:23.657 --> 00:01:25.169
+between two speeds.
+
+00:01:25.248 --> 00:01:28.510
+a says how fast the number of subproblems
+
+00:01:28.590 --> 00:01:31.215
+grows from one level to the next
+
+00:01:31.295 --> 00:01:33.920
+b^d says how fast the work
+
+00:01:34.000 --> 00:01:35.830
+per subproblem shrinks.
+
+00:01:36.410 --> 00:01:37.883
+Six examples.
+
+00:01:37.883 --> 00:01:39.582
+Binary search
+
+00:01:39.582 --> 00:01:44.454
+T(n) is at most T(n/2) + c.
+
+00:01:44.454 --> 00:01:48.306
+So a is 1, b is 2, d is 0
+
+00:01:48.306 --> 00:01:52.272
+and b^d is 1, equal to a.
+
+00:01:52.272 --> 00:01:56.351
+Case 1: O(n^0 log n)
+
+00:01:56.351 --> 00:01:58.730
+which is O(log n).
+
+00:01:59.080 --> 00:02:03.177
+T(n/2) + c_1 n: a is 1
+
+00:02:03.177 --> 00:02:05.909
+less than 2^1.
+
+00:02:05.909 --> 00:02:07.800
+Case 2, O(n).
+
+00:02:07.905 --> 00:02:10.742
+Cutting the problem in half
+
+00:02:10.847 --> 00:02:13.159
+but doing linear work
+
+00:02:13.159 --> 00:02:15.680
+the top call dominates.
+
+00:02:16.030 --> 00:02:20.276
+2T(n/2) + n^(1/2)
+
+00:02:20.276 --> 00:02:24.233
+2 is more than the square root of 2
+
+00:02:24.233 --> 00:02:26.453
+so case 3, O(n).
+
+00:02:26.453 --> 00:02:29.830
+2T(n/4) + sqrt(n)
+
+00:02:29.830 --> 00:02:33.787
+4^(1/2) is 2, equal to a
+
+00:02:33.787 --> 00:02:35.910
+so O(sqrt(n) log n).
+
+00:02:36.260 --> 00:02:40.668
+maxInArray2: a=2, b=2, d=0.
+
+00:02:40.668 --> 00:02:45.415
+2 is more than 1: case 3, O(n)
+
+00:02:45.415 --> 00:02:48.353
+as we found by unrolling.
+
+00:02:48.353 --> 00:02:52.196
+Merge sort, and maximum subarray
+
+00:02:52.196 --> 00:02:55.586
+2T(n/2) + cn.
+
+00:02:55.586 --> 00:03:00.220
+2 equals 2^1: O(n log n).
+
+00:03:00.570 --> 00:03:03.962
+Every time, the same three steps
+
+00:03:03.962 --> 00:03:06.121
+read off a, b and d
+
+00:03:06.121 --> 00:03:08.897
+compare a with b^d
+
+00:03:08.897 --> 00:03:10.850
+and pick the case.
+
+00:03:11.430 --> 00:03:12.563
+Your turn.
+
+00:03:12.563 --> 00:03:17.208
+T(n) is at most 8T(n/2)
+
+00:03:17.208 --> 00:03:19.700
+plus c_1 n^2.
+
+00:03:19.700 --> 00:03:24.798
+And T(n) is at most 2T(n/8)
+
+00:03:24.798 --> 00:03:28.310
+plus c_1 n^(1/3).
+
+00:03:28.660 --> 00:03:31.297
+Solve both with the master theorem.
+
+00:03:31.297 --> 00:03:33.180
+Pause and work them out.
+
+00:03:36.760 --> 00:03:41.160
+The first: a=8, b=2, d=2.
+
+00:03:41.160 --> 00:03:45.141
+2^2 is 4, less than 8
+
+00:03:45.141 --> 00:03:46.398
+case 3.
+
+00:03:46.398 --> 00:03:49.751
+O(n^(log_2 8))
+
+00:03:49.751 --> 00:03:52.160
+which is O(n^3).
+
+00:03:52.510 --> 00:03:56.065
+The second: a=2, b=8
+
+00:03:56.065 --> 00:03:57.788
+d is 1/3.
+
+00:03:57.788 --> 00:04:02.420
+The cube root of 8 is 2, equal to a
+
+00:04:02.420 --> 00:04:03.497
+case 1.
+
+00:04:03.497 --> 00:04:07.590
+O(n^(1/3) * log n).
+
+00:04:08.170 --> 00:04:10.006
+Why does it work?
+
+00:04:10.114 --> 00:04:13.461
+Draw the recursion tree of T(n)
+
+00:04:13.569 --> 00:04:18.319
+= aT(n/b) + c n^d
+
+00:04:18.319 --> 00:04:19.939
+here a is 2.
+
+00:04:19.939 --> 00:04:23.718
+The root is one problem of size n
+
+00:04:23.718 --> 00:04:25.877
+doing c n^d.
+
+00:04:25.877 --> 00:04:30.520
+Level 1 has a problems of size n/b.
+
+00:04:30.628 --> 00:04:34.083
+Level 2 has a^2 problems
+
+00:04:34.191 --> 00:04:36.890
+of size n/b^2.
+
+00:04:37.240 --> 00:04:40.989
+At the bottom, after log_b n levels
+
+00:04:40.989 --> 00:04:43.375
+the problems have size 1
+
+00:04:43.460 --> 00:04:45.675
+and there are a^(log_b n)
+
+00:04:45.761 --> 00:04:47.465
+of them
+
+00:04:47.465 --> 00:04:49.680
+each doing constant work.
+
+00:04:50.030 --> 00:04:53.955
+So level t has a^t problems
+
+00:04:53.955 --> 00:04:57.543
+each of size n/b^t
+
+00:04:57.543 --> 00:05:02.029
+each costing c times
+
+00:05:02.029 --> 00:05:03.150
+(n/b^t)^d.
+
+00:05:03.500 --> 00:05:04.501
+Multiply:
+
+00:05:04.501 --> 00:05:08.618
+the work at level t is c n^d
+
+00:05:08.618 --> 00:05:13.180
+times (a / b^d)^t.
+
+00:05:13.760 --> 00:05:16.055
+Add up all the levels
+
+00:05:16.055 --> 00:05:19.393
+T(n) is at most c n^d
+
+00:05:19.393 --> 00:05:23.148
+times the sum of (a / b^d)
+
+00:05:23.148 --> 00:05:24.191
+to the t
+
+00:05:24.191 --> 00:05:27.947
+for t from 0 to log_b n.
+
+00:05:28.051 --> 00:05:31.911
+That is a geometric series with ratio
+
+00:05:32.015 --> 00:05:35.040
+r equal to a / b^d.
+
+00:05:35.390 --> 00:05:37.908
+And a geometric series behaves
+
+00:05:37.992 --> 00:05:39.754
+in one of three ways.
+
+00:05:39.754 --> 00:05:41.936
+If r is greater than 1
+
+00:05:41.936 --> 00:05:44.034
+the last term dominates.
+
+00:05:44.034 --> 00:05:45.964
+If r is less than 1
+
+00:05:45.964 --> 00:05:49.405
+the sum is at most 1 / (1 - r)
+
+00:05:49.405 --> 00:05:50.412
+a constant.
+
+00:05:50.412 --> 00:05:53.769
+If r is exactly 1, every term is 1
+
+00:05:53.769 --> 00:05:56.790
+and the sum is the number of terms.
+
+00:05:57.140 --> 00:05:58.492
+One more fact
+
+00:05:58.588 --> 00:06:01.581
+a^(log_b n) equals
+
+00:06:01.678 --> 00:06:04.092
+n^(log_b a).
+
+00:06:04.092 --> 00:06:07.085
+Take log_b of both sides
+
+00:06:07.085 --> 00:06:11.140
+and both are (log_b a) * (log_b n).
+
+00:06:11.720 --> 00:06:14.769
+Here are the level sums as bars
+
+00:06:14.769 --> 00:06:16.960
+level 0 at the top.
+
+00:06:16.960 --> 00:06:21.151
+Case 1: a = b^d, so r is 1
+
+00:06:21.151 --> 00:06:24.581
+and every level does the same work
+
+00:06:24.581 --> 00:06:25.914
+c n^d.
+
+00:06:25.914 --> 00:06:30.011
+There are log_b n + 1 levels
+
+00:06:30.011 --> 00:06:33.440
+so T(n) is O(n^d log n).
+
+00:06:33.790 --> 00:06:37.233
+Case 2: a is less than b^d
+
+00:06:37.233 --> 00:06:39.432
+so r is less than 1.
+
+00:06:39.432 --> 00:06:43.066
+The work shrinks from level to level
+
+00:06:43.161 --> 00:06:45.552
+and the sum is a constant
+
+00:06:45.648 --> 00:06:49.568
+times the first term: the root dominates.
+
+00:06:49.568 --> 00:06:52.150
+T(n) is O(n^d).
+
+00:06:52.500 --> 00:06:55.659
+Case 3: r is greater than 1.
+
+00:06:55.659 --> 00:06:58.540
+The work grows level by level
+
+00:06:58.540 --> 00:07:02.443
+and the last level dominates: the leaves.
+
+00:07:02.443 --> 00:07:06.531
+There are n^(log_b a) of them
+
+00:07:06.531 --> 00:07:10.620
+so T(n) is O(n^(log_b a)).
+
+00:07:11.200 --> 00:07:14.430
+We can check the theorem numerically.
+
+00:07:14.430 --> 00:07:17.747
+This program computes T(n) exactly
+
+00:07:17.747 --> 00:07:21.501
+level by level, for n equal to b^k
+
+00:07:21.501 --> 00:07:24.033
+and divides it by the bound.
+
+00:07:24.033 --> 00:07:27.350
+For binary search and for merge sort
+
+00:07:27.350 --> 00:07:28.223
+case 1
+
+00:07:28.223 --> 00:07:31.628
+the ratio goes 1.125
+
+00:07:31.628 --> 00:07:33.898
+1.063
+
+00:07:33.898 --> 00:07:36.080
+1.042.
+
+00:07:36.430 --> 00:07:39.017
+In the case 3 and case 2
+
+00:07:39.104 --> 00:07:41.087
+rows, it settles at 2.
+
+00:07:41.087 --> 00:07:44.364
+And for 3T(n/2) + n,
+
+00:07:44.364 --> 00:07:46.779
+Karatsuba's multiplication
+
+00:07:46.779 --> 00:07:48.590
+it settles at 3.
+
+00:07:48.940 --> 00:07:51.902
+In every row, the ratio approaches
+
+00:07:51.992 --> 00:07:52.979
+a constant,
+
+00:07:52.979 --> 00:07:56.300
+T(n) grows exactly like the bound.
+
+00:07:56.880 --> 00:07:59.434
+The theorem needs a subproblems
+
+00:07:59.516 --> 00:08:01.658
+of the same size n/b,
+
+00:08:01.658 --> 00:08:03.717
+with b > 1.
+
+00:08:03.717 --> 00:08:06.682
+It does not solve every recurrence.
+
+00:08:06.682 --> 00:08:09.977
+Take T(n) <= aT(n-1)
+
+00:08:09.977 --> 00:08:10.636
++ c.
+
+00:08:10.636 --> 00:08:14.261
+The size goes down by 1, not by a factor,
+
+00:08:14.261 --> 00:08:16.320
+so there is no b at all.
+
+00:08:16.670 --> 00:08:18.621
+Unroll it instead:
+
+00:08:18.621 --> 00:08:22.416
+c * (1 + a + a^2)
+
+00:08:22.416 --> 00:08:26.536
+and so on, + a^(n-1)
+
+00:08:26.536 --> 00:08:28.270
+* T(1).
+
+00:08:28.620 --> 00:08:32.168
+For a = 1, this is O(n),
+
+00:08:32.168 --> 00:08:34.568
+like maxInArray1.
+
+00:08:34.568 --> 00:08:39.264
+For a >= 2, it is O(a^n),
+
+00:08:39.264 --> 00:08:40.620
+exponential.
+
+00:08:40.970 --> 00:08:42.981
+The Towers of Hanoi
+
+00:08:42.981 --> 00:08:46.601
+T(n) = 2T(n-1)
+
+00:08:46.601 --> 00:08:47.607
++ 1.
+
+00:08:47.607 --> 00:08:51.730
+It needs 2^n - 1 moves.
+
+00:08:52.310 --> 00:08:56.119
+Second: T(n) = T(n/5)
+
+00:08:56.119 --> 00:08:59.635
++ T(7n/10) + n.
+
+00:08:59.635 --> 00:09:03.737
+The two subproblems have different sizes,
+
+00:09:03.737 --> 00:09:07.350
+so again the theorem does not apply.
+
+00:09:07.700 --> 00:09:10.566
+Draw the recursion tree anyway.
+
+00:09:10.566 --> 00:09:12.138
+The root does n.
+
+00:09:12.230 --> 00:09:15.004
+Its children have sizes
+
+00:09:15.096 --> 00:09:17.500
+n/5 and 7n/10,
+
+00:09:17.500 --> 00:09:19.996
+together 9/10 of n.
+
+00:09:20.088 --> 00:09:22.584
+Level 2 does at most
+
+00:09:22.677 --> 00:09:25.820
+(9/10)^2 * n, and so on.
+
+00:09:26.170 --> 00:09:29.320
+The level sums shrink geometrically
+
+00:09:29.408 --> 00:09:31.858
+because 1/5 +
+
+00:09:31.945 --> 00:09:34.045
+7/10 is less than 1.
+
+00:09:34.133 --> 00:09:36.495
+So T(n) is at most n /
+
+00:09:36.583 --> 00:09:39.820
+(1 - 9/10): 10n, O(n).
+
+00:09:39.820 --> 00:09:43.758
+This is the linear-time selection algorithm,
+
+00:09:43.758 --> 00:09:45.770
+the median of medians.
+
+00:09:46.350 --> 00:09:47.403
+To sum up.
+
+00:09:47.403 --> 00:09:51.720
+One: for T(n) <= aT(n/b)
+
+00:09:51.720 --> 00:09:54.037
++ O(n^d)
+
+00:09:54.037 --> 00:09:56.880
+compare a with b^d.
+
+00:09:56.880 --> 00:10:00.565
+Two: equal gives n^d log n
+
+00:10:00.565 --> 00:10:03.302
+smaller gives n^d
+
+00:10:03.302 --> 00:10:07.830
+and larger gives n^(log_b a).
+
+00:10:08.180 --> 00:10:11.712
+Three: in the recursion tree
+
+00:10:11.712 --> 00:10:15.853
+level t costs c * n^d
+
+00:10:15.853 --> 00:10:20.116
+times (a / b^d)^t.
+
+00:10:20.116 --> 00:10:24.014
+Recurrences with unequal sizes
+
+00:10:24.014 --> 00:10:26.693
+or that subtract one
+
+00:10:26.693 --> 00:10:29.860
+need unrolling or a tree.
+
+00:10:30.210 --> 00:10:34.511
+Try these: 4T(n/2) + n
+
+00:10:34.511 --> 00:10:38.260
++ n^2, and + n^3
+
+00:10:38.260 --> 00:10:42.450
+and 9T(n/3) + 1.
+
+00:10:42.800 --> 00:10:44.722
+Next: maximum subarray
+
+00:10:44.722 --> 00:10:47.813
+a real divide-and-conquer algorithm
+
+00:10:47.897 --> 00:10:51.323
+where this analysis shows that the clever
+
+00:10:51.406 --> 00:10:54.080
+algorithm beats the obvious one.
+

@@ -1,0 +1,644 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:04.302
+We counted that maxSubArraySum costs at most
+
+00:00:04.387 --> 00:00:07.708
+3n² + 8n + 5
+
+00:00:07.708 --> 00:00:11.455
+and we said that this grows like n².
+
+00:00:11.455 --> 00:00:14.180
+Now we make "grows like" precise.
+
+00:00:14.530 --> 00:00:18.216
+Asymptotic describes how a function behaves
+
+00:00:18.301 --> 00:00:21.816
+as its variable approaches a limit: here
+
+00:00:21.816 --> 00:00:23.787
+as n goes to infinity.
+
+00:00:23.873 --> 00:00:26.530
+We compare running times by how
+
+00:00:26.616 --> 00:00:28.930
+fast they grow for large n.
+
+00:00:29.510 --> 00:00:31.718
+Here is the definition.
+
+00:00:31.814 --> 00:00:35.174
+g(n) is O(f(n)) if there
+
+00:00:35.270 --> 00:00:39.398
+exist two positive constants, c and n₀
+
+00:00:39.398 --> 00:00:43.622
+such that g(n) is at most c * f(n)
+
+00:00:43.622 --> 00:00:47.750
+for all n ≥ n₀.
+
+00:00:48.100 --> 00:00:49.230
+Read it as
+
+00:00:49.230 --> 00:00:53.440
+g grows asymptotically no faster than f.
+
+00:00:53.440 --> 00:00:57.136
+Usually g is the complicated count
+
+00:00:57.136 --> 00:00:59.704
+and f a simple function
+
+00:00:59.704 --> 00:01:01.860
+like n or n².
+
+00:01:02.210 --> 00:01:05.061
+Each part throws something away.
+
+00:01:05.061 --> 00:01:07.377
+For all n from n₀ on
+
+00:01:07.377 --> 00:01:10.316
+we only care about large inputs.
+
+00:01:10.316 --> 00:01:13.523
+Below n₀, g may even be bigger.
+
+00:01:13.523 --> 00:01:15.572
+And "at most c * f"
+
+00:01:15.572 --> 00:01:17.710
+g may be bigger than f
+
+00:01:17.799 --> 00:01:20.471
+as long as it stays below some
+
+00:01:20.560 --> 00:01:22.698
+constant multiple of it.
+
+00:01:22.698 --> 00:01:24.302
+Constant factors
+
+00:01:24.302 --> 00:01:27.420
+like the 3 in 3n²
+
+00:01:27.420 --> 00:01:31.250
+or the speed of your machine, are ignored.
+
+00:01:31.600 --> 00:01:33.602
+To prove an O claim
+
+00:01:33.602 --> 00:01:36.189
+you must exhibit c and n₀
+
+00:01:36.272 --> 00:01:38.525
+and show the inequality for
+
+00:01:38.608 --> 00:01:40.527
+every n from n₀ on.
+
+00:01:40.527 --> 00:01:44.281
+To disprove it, you must show that no choice
+
+00:01:44.365 --> 00:01:46.200
+of c and n₀ works.
+
+00:01:46.780 --> 00:01:47.774
+Our example:
+
+00:01:47.857 --> 00:01:50.591
+3n² + 8n +
+
+00:01:50.674 --> 00:01:52.994
+5 is O(n²).
+
+00:01:52.994 --> 00:01:53.906
+Here is g.
+
+00:01:53.906 --> 00:01:56.474
+And here is 16n²
+
+00:01:56.557 --> 00:01:59.126
+which stays above it everywhere
+
+00:01:59.209 --> 00:02:00.700
+from n = 1.
+
+00:02:01.050 --> 00:02:02.148
+Why 16?
+
+00:02:02.148 --> 00:02:03.978
+For n ≥ 1,
+
+00:02:03.978 --> 00:02:07.271
+8n is at most 8n²
+
+00:02:07.271 --> 00:02:10.565
+and 5 is at most 5n².
+
+00:02:10.656 --> 00:02:14.407
+So g(n) is at most 3n² +
+
+00:02:14.498 --> 00:02:17.792
+8n² + 5n²
+
+00:02:17.792 --> 00:02:19.530
+16n².
+
+00:02:19.880 --> 00:02:22.043
+So c = 16 and n
+
+00:02:22.130 --> 00:02:23.947
+₀ = 1 work.
+
+00:02:23.947 --> 00:02:26.456
+The vertical axis is scaled,
+
+00:02:26.456 --> 00:02:28.360
+the shapes are exact.
+
+00:02:28.940 --> 00:02:31.114
+Other pairs work too,
+
+00:02:31.114 --> 00:02:35.152
+but a smaller c needs a larger n₀.
+
+00:02:35.152 --> 00:02:37.222
+With c = 4,
+
+00:02:37.326 --> 00:02:41.985
+from which n on is 3n² + 8
+
+00:02:42.088 --> 00:02:45.712
+n + 5 at most 4n²?
+
+00:02:45.712 --> 00:02:48.300
+And with c = 3?
+
+00:02:48.650 --> 00:02:50.770
+Pause the video and find out.
+
+00:02:54.350 --> 00:02:56.135
+Take c = 4.
+
+00:02:56.135 --> 00:02:59.047
+4n² starts below g
+
+00:02:59.047 --> 00:03:02.710
+and crosses it between 8 and 9.
+
+00:03:03.060 --> 00:03:03.620
+Indeed,
+
+00:03:03.700 --> 00:03:06.980
+3n² + 8n + 5 at
+
+00:03:07.060 --> 00:03:10.340
+most 4n² means n² -
+
+00:03:10.420 --> 00:03:13.300
+8n - 5 is at least 0,
+
+00:03:13.300 --> 00:03:16.100
+which holds from n = 9 on.
+
+00:03:16.100 --> 00:03:18.020
+So c = 4 works
+
+00:03:18.020 --> 00:03:20.020
+with n₀ = 9.
+
+00:03:20.370 --> 00:03:22.384
+Now lower c to 3.
+
+00:03:22.384 --> 00:03:25.742
+The curve cn² slides down
+
+00:03:25.742 --> 00:03:28.332
+and never catches g again.
+
+00:03:28.332 --> 00:03:31.881
+With c = 3, no n₀ works
+
+00:03:31.977 --> 00:03:35.238
+because 3n² + 8
+
+00:03:35.334 --> 00:03:38.404
+n + 5 is bigger than 3
+
+00:03:38.500 --> 00:03:40.610
+n² for every n.
+
+00:03:41.190 --> 00:03:44.768
+A program can search for n₀.
+
+00:03:44.880 --> 00:03:47.675
+FindN0 defines g(n) and
+
+00:03:47.787 --> 00:03:50.470
+f(n) = n².
+
+00:03:50.820 --> 00:03:51.793
+For each c,
+
+00:03:51.793 --> 00:03:55.417
+it checks every n from 1 to 1,000,000
+
+00:03:55.506 --> 00:03:58.865
+and records the last n where g(n) is
+
+00:03:58.954 --> 00:04:01.871
+still bigger than c * f(n).
+
+00:04:01.960 --> 00:04:04.258
+One after the last failure
+
+00:04:04.347 --> 00:04:06.380
+is the smallest n₀.
+
+00:04:06.960 --> 00:04:09.873
+The output agrees with the algebra.
+
+00:04:09.956 --> 00:04:12.369
+c = 3 fails at every
+
+00:04:12.453 --> 00:04:13.950
+n up to 1,000,000.
+
+00:04:13.950 --> 00:04:16.780
+c = 4 works from 9 on.
+
+00:04:16.780 --> 00:04:19.609
+5 from 5, 8 from 3,
+
+00:04:19.609 --> 00:04:21.440
+and 16 from 1.
+
+00:04:21.790 --> 00:04:25.035
+A check up to 1,000,000 is evidence,
+
+00:04:25.035 --> 00:04:26.207
+not a proof.
+
+00:04:26.207 --> 00:04:28.550
+The algebra is the proof.
+
+00:04:28.900 --> 00:04:31.628
+And notice what the program records:
+
+00:04:31.628 --> 00:04:34.734
+the last failure, not the first success.
+
+00:04:34.734 --> 00:04:37.462
+Two curves can cross several times.
+
+00:04:37.538 --> 00:04:40.948
+n₀ is the point from which the inequality
+
+00:04:41.023 --> 00:04:42.918
+holds for every larger n
+
+00:04:42.918 --> 00:04:46.100
+not the first n where it happens to hold.
+
+00:04:46.680 --> 00:04:49.300
+Here is another way to see
+
+00:04:49.401 --> 00:04:51.920
+all five answers at once.
+
+00:04:52.021 --> 00:04:55.850
+g(n) at most c n² is the same
+
+00:04:55.951 --> 00:04:59.478
+as g(n) over n² at most c.
+
+00:04:59.478 --> 00:05:01.392
+So draw the ratio
+
+00:05:01.392 --> 00:05:04.113
+which falls towards 3
+
+00:05:04.113 --> 00:05:07.640
+and a horizontal line at height c.
+
+00:05:07.990 --> 00:05:09.808
+With c equals 16
+
+00:05:09.891 --> 00:05:12.121
+the curve is under the line
+
+00:05:12.204 --> 00:05:13.691
+from n equals 1.
+
+00:05:13.691 --> 00:05:15.757
+Lower the line to 8
+
+00:05:15.757 --> 00:05:19.310
+and the curve gets under it from 3 on.
+
+00:05:19.660 --> 00:05:20.300
+At 5
+
+00:05:20.300 --> 00:05:23.340
+the curve gets under it from 5 on.
+
+00:05:23.340 --> 00:05:26.780
+At 4, from 9 on: the lower the line
+
+00:05:26.780 --> 00:05:29.580
+the later the curve gets under it.
+
+00:05:29.930 --> 00:05:33.202
+And at 3, the line is exactly the level
+
+00:05:33.278 --> 00:05:36.321
+the ratio approaches, but never reaches.
+
+00:05:36.321 --> 00:05:38.680
+The curve never gets under it
+
+00:05:38.680 --> 00:05:40.810
+so no starting point works.
+
+00:05:41.390 --> 00:05:43.250
+Two more examples.
+
+00:05:43.250 --> 00:05:46.454
+A linear function, a n + b
+
+00:05:46.454 --> 00:05:50.898
+with a and b not negative, is O(n).
+
+00:05:50.898 --> 00:05:54.825
+For n at least 1, b is at most b n
+
+00:05:54.825 --> 00:05:59.372
+so a n + b is at most (a + b) * n.
+
+00:05:59.372 --> 00:06:01.852
+Take c equals a + b
+
+00:06:01.852 --> 00:06:04.229
+and n₀ equals 1.
+
+00:06:04.229 --> 00:06:06.916
+If a and b are both 0
+
+00:06:06.916 --> 00:06:09.706
+take c equals 1 instead
+
+00:06:09.706 --> 00:06:12.910
+the constant must be positive.
+
+00:06:13.260 --> 00:06:17.295
+So the sum of an array, 4 n + 4
+
+00:06:17.295 --> 00:06:18.869
+is O(n)
+
+00:06:18.869 --> 00:06:23.100
+with c equals 8 and n₀ equals 1.
+
+00:06:23.680 --> 00:06:26.961
+Second: logarithms in different bases.
+
+00:06:26.961 --> 00:06:29.378
+Here are log₂ n
+
+00:06:29.378 --> 00:06:31.364
+and log₁₀ n
+
+00:06:31.364 --> 00:06:33.436
+for n up to 1000.
+
+00:06:33.436 --> 00:06:35.680
+They have the same shape.
+
+00:06:36.030 --> 00:06:39.222
+By the change of base formula
+
+00:06:39.222 --> 00:06:43.053
+logₐ n is logb n
+
+00:06:43.053 --> 00:06:46.032
+divided by logb a
+
+00:06:46.032 --> 00:06:50.713
+and logb a is a positive constant.
+
+00:06:50.820 --> 00:06:53.799
+So logₐ n is O
+
+00:06:53.905 --> 00:06:55.927
+of logb n
+
+00:06:55.927 --> 00:07:00.183
+take c equals 1 over logb a
+
+00:07:00.183 --> 00:07:02.630
+and n₀ equals 1.
+
+00:07:03.210 --> 00:07:06.285
+The program LogBase prints both logs
+
+00:07:06.370 --> 00:07:08.761
+for n from 10 to 1 billion
+
+00:07:08.761 --> 00:07:11.835
+and their ratio is always the same
+
+00:07:11.835 --> 00:07:14.568
+3.3219
+
+00:07:14.568 --> 00:07:17.130
+which is log₂ 10.
+
+00:07:17.480 --> 00:07:19.983
+So the base of a logarithm does
+
+00:07:20.063 --> 00:07:22.081
+not matter inside Big-Oh.
+
+00:07:22.162 --> 00:07:24.584
+Log₂ n and log
+
+00:07:24.665 --> 00:07:26.925
+₁₀ n are the same class
+
+00:07:26.925 --> 00:07:29.508
+and we simply write O(log n).
+
+00:07:29.508 --> 00:07:30.800
+In this course,
+
+00:07:30.800 --> 00:07:33.302
+log n means log₂ n
+
+00:07:33.302 --> 00:07:35.320
+unless we say otherwise.
+
+00:07:35.900 --> 00:07:40.495
+Practice: is 2n Big-Oh of n²?
+
+00:07:40.495 --> 00:07:45.443
+We need 2n ≤ cn², which,
+
+00:07:45.443 --> 00:07:49.567
+dividing by n, is 2 ≤ cn.
+
+00:07:49.567 --> 00:07:54.398
+Take c = 2 and n₀ = 1.
+
+00:07:54.398 --> 00:07:55.340
+So yes.
+
+00:07:55.690 --> 00:07:58.416
+But isn't 2n Big-Oh of n?
+
+00:07:58.416 --> 00:08:01.434
+It is, also with c = 2.
+
+00:08:01.434 --> 00:08:05.328
+Both are true, and so are O(n log n),
+
+00:08:05.328 --> 00:08:08.930
+O(n³), and O(2ⁿ).
+
+00:08:09.280 --> 00:08:11.639
+Big-Oh is only an upper bound
+
+00:08:11.720 --> 00:08:13.265
+on the growth rate
+
+00:08:13.265 --> 00:08:16.355
+and a function has many upper bounds.
+
+00:08:16.437 --> 00:08:18.470
+Saying linearSearch is O
+
+00:08:18.551 --> 00:08:21.560
+(2ⁿ) is true, but useless.
+
+00:08:21.910 --> 00:08:24.282
+We want the tightest upper bound
+
+00:08:24.282 --> 00:08:26.798
+and to know that a bound is tight
+
+00:08:26.798 --> 00:08:28.811
+we also need a lower bound.
+
+00:08:28.811 --> 00:08:31.830
+That is Big-Omega, later in this lecture.
+
+00:08:32.410 --> 00:08:34.942
+A warning about the notation.
+
+00:08:34.942 --> 00:08:37.126
+2n is O(n²)
+
+00:08:37.126 --> 00:08:40.531
+and 3n² is O(n²).
+
+00:08:40.531 --> 00:08:44.460
+Does that mean 2n = 3n²?
+
+00:08:44.460 --> 00:08:45.770
+Of course not.
+
+00:08:46.120 --> 00:08:48.793
+The equals sign in g(n) =
+
+00:08:48.876 --> 00:08:51.298
+O(f(n)) is just notation.
+
+00:08:51.298 --> 00:08:52.551
+Read it as:
+
+00:08:52.634 --> 00:08:55.391
+g belongs to the set of functions
+
+00:08:55.474 --> 00:08:57.729
+that grow no faster than f.
+
+00:08:57.729 --> 00:09:01.320
+Some books write it with the element sign.
+
+00:09:01.670 --> 00:09:04.258
+So such a statement only reads
+
+00:09:04.345 --> 00:09:05.984
+from left to right.
+
+00:09:05.984 --> 00:09:09.176
+2n = O(n²) is true,
+
+00:09:09.262 --> 00:09:11.419
+but O(n²) =
+
+00:09:11.505 --> 00:09:13.230
+2n means nothing.
+
+00:09:13.810 --> 00:09:14.801
+To sum up.
+
+00:09:14.801 --> 00:09:15.301
+1.
+
+00:09:15.395 --> 00:09:20.052
+g(n) is Big-Oh of f(n) if g(n) ≤
+
+00:09:20.151 --> 00:09:24.114
+c * f(n) for all n ≥ n₀
+
+00:09:24.114 --> 00:09:27.285
+for some positive c and n₀.
+
+00:09:27.285 --> 00:09:31.446
+2: prove it by exhibiting c and n₀.
+
+00:09:31.446 --> 00:09:34.914
+A smaller c needs a larger n₀
+
+00:09:34.914 --> 00:09:38.778
+and a c that is too small never works.
+
+00:09:38.778 --> 00:09:42.741
+3: Constant factors and the base of
+
+00:09:42.840 --> 00:09:45.416
+a logarithm do not matter.
+
+00:09:45.416 --> 00:09:49.874
+O is an upper bound, and we read it as
+
+00:09:49.874 --> 00:09:52.450
+g is in the class O of f.
+
+00:09:52.800 --> 00:09:53.633
+Try this:
+
+00:09:53.725 --> 00:09:57.055
+prove that 5n² + 3
+
+00:09:57.148 --> 00:09:59.460
+n is O(n²)
+
+00:09:59.460 --> 00:10:01.680
+by giving c and n₀.
+
+00:10:02.030 --> 00:10:05.317
+Next: 5 rules that simplify a running
+
+00:10:05.399 --> 00:10:07.043
+time in a few steps
+
+00:10:07.043 --> 00:10:09.590
+and the common growth classes.
+

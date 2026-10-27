@@ -1,0 +1,725 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.148
+This part is about the vocabulary
+
+00:00:03.235 --> 00:00:06.774
+of the course: the words we use for data.
+
+00:00:06.774 --> 00:00:09.708
+A type is a collection of values.
+
+00:00:09.708 --> 00:00:12.557
+The Boolean type has two values
+
+00:00:12.557 --> 00:00:13.938
+true and false
+
+00:00:13.938 --> 00:00:16.700
+the integers form another type.
+
+00:00:17.050 --> 00:00:19.938
+A simple type has values with no parts
+
+00:00:19.938 --> 00:00:21.197
+like an integer.
+
+00:00:21.197 --> 00:00:23.196
+A composite, or aggregate
+
+00:00:23.196 --> 00:00:25.492
+type has values made of parts
+
+00:00:25.492 --> 00:00:28.158
+a bank account record holds a name
+
+00:00:28.158 --> 00:00:31.490
+an address, an account number and a balance.
+
+00:00:31.840 --> 00:00:34.927
+A data item is a piece of information
+
+00:00:35.011 --> 00:00:37.764
+whose value is drawn from a type
+
+00:00:37.764 --> 00:00:39.683
+a member of that type.
+
+00:00:39.767 --> 00:00:42.687
+A data type is a type together with
+
+00:00:42.771 --> 00:00:45.357
+the operations that work on it.
+
+00:00:45.357 --> 00:00:48.194
+A sequence of integers is a type
+
+00:00:48.278 --> 00:00:50.531
+a sequence of integers that
+
+00:00:50.614 --> 00:00:52.116
+you can append to
+
+00:00:52.116 --> 00:00:55.120
+index into and sort is a data type.
+
+00:00:55.700 --> 00:00:57.708
+Every data type has two forms.
+
+00:00:57.708 --> 00:01:00.051
+Its logical form is what it means
+
+00:01:00.118 --> 00:01:02.060
+the values and the operations
+
+00:01:02.127 --> 00:01:03.934
+as the user thinks of them.
+
+00:01:03.934 --> 00:01:06.076
+That is the abstract data type.
+
+00:01:06.076 --> 00:01:08.687
+Its physical form is how it is stored
+
+00:01:08.687 --> 00:01:10.026
+the bits in memory
+
+00:01:10.093 --> 00:01:11.767
+and the code that carries
+
+00:01:11.834 --> 00:01:13.106
+out the operations.
+
+00:01:13.106 --> 00:01:14.980
+That is the data structure.
+
+00:01:15.330 --> 00:01:17.321
+When you implement an ADT
+
+00:01:17.321 --> 00:01:19.848
+you work with its physical form
+
+00:01:19.848 --> 00:01:23.064
+when you use it elsewhere in the program
+
+00:01:23.064 --> 00:01:26.050
+you think only about its logical form.
+
+00:01:26.400 --> 00:01:28.287
+Java's int shows the gap.
+
+00:01:28.287 --> 00:01:30.400
+Logically it is an integer.
+
+00:01:30.475 --> 00:01:32.513
+Physically it is 32
+
+00:01:32.589 --> 00:01:34.475
+bits in two's complement
+
+00:01:34.475 --> 00:01:37.042
+from -2^31
+
+00:01:37.042 --> 00:01:40.060
+up to 2^31 - 1.
+
+00:01:40.136 --> 00:01:42.626
+So the largest int + 1 wraps
+
+00:01:42.702 --> 00:01:44.438
+around to the smallest.
+
+00:01:44.513 --> 00:01:47.306
+-5 is stored as a long row of
+
+00:01:47.381 --> 00:01:49.796
+ones ending in 1011.
+
+00:01:49.872 --> 00:01:52.740
+And 0.1 + 0.2
+
+00:01:52.815 --> 00:01:55.230
+is not exactly 0.3
+
+00:01:55.230 --> 00:01:58.400
+because a double stores binary fractions.
+
+00:01:58.750 --> 00:02:01.661
+Neither surprise exists in the logical form
+
+00:02:01.661 --> 00:02:03.910
+both come from the physical form.
+
+00:02:04.490 --> 00:02:07.036
+Data abstraction means showing only
+
+00:02:07.109 --> 00:02:09.364
+the essential features of data
+
+00:02:09.436 --> 00:02:11.255
+and hiding the details of
+
+00:02:11.328 --> 00:02:12.928
+how it is implemented.
+
+00:02:12.928 --> 00:02:14.601
+Think of a smartphone.
+
+00:02:14.674 --> 00:02:16.929
+You know how to make a call and
+
+00:02:17.001 --> 00:02:18.747
+how to open the browser.
+
+00:02:18.747 --> 00:02:21.438
+You do not need to know how the CPU
+
+00:02:21.511 --> 00:02:23.330
+the battery and the radio
+
+00:02:23.402 --> 00:02:24.930
+make the call happen.
+
+00:02:25.280 --> 00:02:27.623
+A bank account is the same.
+
+00:02:27.623 --> 00:02:30.833
+It offers three operations: deposit
+
+00:02:30.833 --> 00:02:33.176
+withdraw, and get balance.
+
+00:02:33.263 --> 00:02:36.734
+You can use them without knowing whether
+
+00:02:36.821 --> 00:02:39.250
+the balance lives in memory
+
+00:02:39.250 --> 00:02:41.680
+in a file or in a database.
+
+00:02:42.030 --> 00:02:42.658
+In Java
+
+00:02:42.658 --> 00:02:46.110
+abstraction comes from classes and objects
+
+00:02:46.188 --> 00:02:48.071
+from abstract data types
+
+00:02:48.149 --> 00:02:49.875
+written as interfaces
+
+00:02:49.875 --> 00:02:51.758
+and from encapsulation
+
+00:02:51.837 --> 00:02:54.347
+private fields that code outside
+
+00:02:54.426 --> 00:02:56.230
+the class cannot touch.
+
+00:02:56.810 --> 00:02:58.863
+Here is the bank account
+
+00:02:58.948 --> 00:03:01.514
+as a Java interface: the what.
+
+00:03:01.514 --> 00:03:04.423
+Three methods, deposit, withdraw
+
+00:03:04.423 --> 00:03:05.877
+and get balance
+
+00:03:05.877 --> 00:03:08.699
+each with its rule as a comment
+
+00:03:08.699 --> 00:03:10.410
+and no code at all.
+
+00:03:10.990 --> 00:03:13.372
+Two classes implement the interface
+
+00:03:13.440 --> 00:03:16.367
+in different ways: two versions of the how.
+
+00:03:16.367 --> 00:03:18.682
+Simple account stores one number
+
+00:03:18.682 --> 00:03:20.111
+the current balance.
+
+00:03:20.111 --> 00:03:22.902
+Ledger account stores the whole history
+
+00:03:22.902 --> 00:03:25.352
+every deposit and every withdrawal
+
+00:03:25.352 --> 00:03:27.190
+and adds it up when asked.
+
+00:03:27.540 --> 00:03:29.771
+A client deposits 100
+
+00:03:29.771 --> 00:03:32.597
+withdraws 30, and deposits 50.
+
+00:03:32.597 --> 00:03:33.861
+Now look inside.
+
+00:03:33.861 --> 00:03:37.208
+Simple account holds 120.
+
+00:03:37.208 --> 00:03:39.885
+Ledger account holds three changes
+
+00:03:39.885 --> 00:03:42.860
+which add up to 120.
+
+00:03:43.210 --> 00:03:44.769
+Then the client tries to
+
+00:03:44.834 --> 00:03:46.263
+withdraw 500.
+
+00:03:46.263 --> 00:03:47.692
+Both accounts refuse
+
+00:03:47.757 --> 00:03:49.315
+and the balance is still
+
+00:03:49.380 --> 00:03:50.874
+120.
+
+00:03:50.939 --> 00:03:52.433
+The client code and the
+
+00:03:52.498 --> 00:03:53.862
+output are identical
+
+00:03:53.862 --> 00:03:56.330
+the client cannot tell the two apart.
+
+00:03:56.680 --> 00:03:59.355
+And because balance is private
+
+00:03:59.441 --> 00:04:01.857
+no client can break the rule
+
+00:04:01.943 --> 00:04:04.014
+by writing to the field.
+
+00:04:04.101 --> 00:04:07.034
+Setting a.balance to 1,000,000
+
+00:04:07.121 --> 00:04:08.760
+is a compile error.
+
+00:04:09.340 --> 00:04:11.410
+The slides list the benefits.
+
+00:04:11.410 --> 00:04:12.266
+Modularity
+
+00:04:12.266 --> 00:04:15.121
+users work with a few clear operations
+
+00:04:15.193 --> 00:04:17.191
+which makes programs simpler
+
+00:04:17.263 --> 00:04:18.904
+and easier to maintain.
+
+00:04:18.904 --> 00:04:20.260
+Data independence
+
+00:04:20.260 --> 00:04:22.473
+the implementation can change
+
+00:04:22.473 --> 00:04:25.257
+from simple account to ledger account
+
+00:04:25.257 --> 00:04:27.398
+or from a file to a database
+
+00:04:27.398 --> 00:04:29.468
+without affecting the users.
+
+00:04:29.468 --> 00:04:31.466
+And security and integrity
+
+00:04:31.466 --> 00:04:33.108
+the data is protected
+
+00:04:33.108 --> 00:04:35.820
+so nobody can set a negative balance.
+
+00:04:36.170 --> 00:04:38.247
+So here is a question.
+
+00:04:38.341 --> 00:04:41.645
+A bank switches every customer from
+
+00:04:41.739 --> 00:04:44.854
+simple account to ledger account.
+
+00:04:44.854 --> 00:04:49.007
+Which lines of the bank client must change?
+
+00:04:49.007 --> 00:04:51.650
+Pause the video and decide.
+
+00:04:55.230 --> 00:04:58.482
+Only one: the new SimpleAccount() in main
+
+00:04:58.482 --> 00:05:01.020
+which picks the implementation.
+
+00:05:01.099 --> 00:05:03.478
+useAccount is written against
+
+00:05:03.558 --> 00:05:06.889
+the interface, and does not change at all.
+
+00:05:06.889 --> 00:05:09.030
+That is data independence.
+
+00:05:09.610 --> 00:05:12.227
+Now the central idea of the course.
+
+00:05:12.227 --> 00:05:14.546
+An abstract data type, or ADT
+
+00:05:14.621 --> 00:05:17.163
+is a logical description of a type
+
+00:05:17.238 --> 00:05:19.706
+of data and the operations on it
+
+00:05:19.706 --> 00:05:22.547
+without saying how it is implemented.
+
+00:05:22.547 --> 00:05:25.090
+It says what the data represents
+
+00:05:25.090 --> 00:05:27.259
+what operations are allowed
+
+00:05:27.259 --> 00:05:29.951
+and what each one does: its inputs
+
+00:05:29.951 --> 00:05:31.970
+its result and its effect.
+
+00:05:32.320 --> 00:05:35.251
+It does not say how the data is stored.
+
+00:05:35.251 --> 00:05:38.257
+That makes it a tool for encapsulation
+
+00:05:38.332 --> 00:05:40.661
+the implementation stays in one
+
+00:05:40.737 --> 00:05:42.465
+section of the program
+
+00:05:42.540 --> 00:05:44.494
+and the code that uses the
+
+00:05:44.569 --> 00:05:45.922
+ADT can ignore it.
+
+00:05:45.922 --> 00:05:48.251
+Arrays, lists, stacks, queues
+
+00:05:48.326 --> 00:05:50.806
+trees and graphs are all ADTs you
+
+00:05:50.881 --> 00:05:52.760
+will meet in this course.
+
+00:05:53.110 --> 00:05:55.891
+A list of integers, for example
+
+00:05:55.891 --> 00:05:58.324
+might offer six operations
+
+00:05:58.324 --> 00:06:02.234
+insert at a position, isEmpty, clear, size
+
+00:06:02.234 --> 00:06:04.928
+get the integer at a position
+
+00:06:04.928 --> 00:06:08.230
+and remove the integer at a position.
+
+00:06:08.580 --> 00:06:11.590
+In Java, the natural way to write an
+
+00:06:11.674 --> 00:06:14.934
+ADT down is an interface: method names
+
+00:06:14.934 --> 00:06:17.693
+argument types and result types
+
+00:06:17.693 --> 00:06:18.780
+and no code.
+
+00:06:19.360 --> 00:06:22.043
+An ADT gives only the definition
+
+00:06:22.127 --> 00:06:24.223
+of its operations: names
+
+00:06:24.223 --> 00:06:26.990
+argument types and result types.
+
+00:06:26.990 --> 00:06:30.764
+The slides write a set of integers this way
+
+00:06:30.764 --> 00:06:34.537
+create an empty set, add an element, search
+
+00:06:34.537 --> 00:06:37.555
+intersection, union and difference.
+
+00:06:37.555 --> 00:06:41.077
+Nothing says whether the set is an array,
+
+00:06:41.077 --> 00:06:43.760
+a list, a tree or a hash table.
+
+00:06:44.110 --> 00:06:47.229
+In Java the same ADT becomes an interface
+
+00:06:47.229 --> 00:06:48.714
+with add, contains,
+
+00:06:48.714 --> 00:06:51.685
+size and a sorted copy of the elements.
+
+00:06:51.685 --> 00:06:54.284
+Union, intersection and difference
+
+00:06:54.358 --> 00:06:56.214
+can then be written once
+
+00:06:56.214 --> 00:06:57.700
+as default methods
+
+00:06:57.700 --> 00:07:00.150
+using only the other operations.
+
+00:07:00.730 --> 00:07:04.418
+Implementation one: an unsorted array.
+
+00:07:04.418 --> 00:07:08.785
+Keep the elements in the order they arrived
+
+00:07:08.785 --> 00:07:10.726
+with no duplicates.
+
+00:07:10.726 --> 00:07:14.026
+Set A is built from 12, 5,
+
+00:07:14.026 --> 00:07:16.161
+26, 19,
+
+00:07:16.161 --> 00:07:18.490
+33 and 8.
+
+00:07:18.840 --> 00:07:22.421
+To check whether 19 is in the set,
+
+00:07:22.421 --> 00:07:25.912
+compare it with every element in turn:
+
+00:07:25.912 --> 00:07:29.762
+12, 5, 26, 19: found.
+
+00:07:29.762 --> 00:07:31.463
+In the worst case,
+
+00:07:31.463 --> 00:07:33.880
+every element is compared.
+
+00:07:34.460 --> 00:07:37.900
+Implementation two: a small hash table.
+
+00:07:37.900 --> 00:07:39.664
+Keep 7 buckets
+
+00:07:39.752 --> 00:07:42.133
+and put each element x into
+
+00:07:42.222 --> 00:07:43.897
+bucket x mod 7.
+
+00:07:43.897 --> 00:07:46.190
+8 goes to bucket 1.
+
+00:07:46.190 --> 00:07:48.484
+12, 5, 26,
+
+00:07:48.572 --> 00:07:51.130
+19 and 33 all
+
+00:07:51.218 --> 00:07:53.070
+leave remainder 5,
+
+00:07:53.070 --> 00:07:55.980
+so they all land in bucket 5,
+
+00:07:55.980 --> 00:07:59.420
+an unlucky set for this hash function.
+
+00:07:59.770 --> 00:08:02.615
+To check whether 19 is in the set,
+
+00:08:02.615 --> 00:08:04.677
+look only in its own bucket
+
+00:08:04.677 --> 00:08:07.166
+19 mod 7, which is 5,
+
+00:08:07.166 --> 00:08:10.010
+and compare it with the elements there.
+
+00:08:10.360 --> 00:08:12.237
+With 700 elements,
+
+00:08:12.306 --> 00:08:13.766
+the difference shows.
+
+00:08:13.835 --> 00:08:16.546
+contains(699)
+
+00:08:16.616 --> 00:08:19.048
+compares all 700 elements
+
+00:08:19.118 --> 00:08:20.021
+in the array.
+
+00:08:20.091 --> 00:08:22.315
+but only the 100 elements of
+
+00:08:22.384 --> 00:08:24.400
+bucket 6 in the hash table.
+
+00:08:24.980 --> 00:08:27.539
+The same client code runs on both,
+
+00:08:27.539 --> 00:08:30.925
+only the line that creates the sets differs.
+
+00:08:30.925 --> 00:08:33.108
+Both print the same A and B,
+
+00:08:33.108 --> 00:08:35.365
+the same answers to contains,
+
+00:08:35.365 --> 00:08:36.870
+and the same union,
+
+00:08:36.870 --> 00:08:39.053
+intersection, and difference.
+
+00:08:39.053 --> 00:08:42.063
+Only the last line, which peeks inside,
+
+00:08:42.063 --> 00:08:42.740
+differs.
+
+00:08:43.090 --> 00:08:45.707
+An ADT promises results, not costs.
+
+00:08:45.782 --> 00:08:48.025
+contains gives the same answer
+
+00:08:48.099 --> 00:08:49.894
+in both implementations,
+
+00:08:49.968 --> 00:08:52.735
+but its running time depends entirely
+
+00:08:52.809 --> 00:08:54.454
+on the data structure.
+
+00:08:54.454 --> 00:08:57.071
+When you choose an implementation,
+
+00:08:57.071 --> 00:09:00.435
+you are choosing the cost of each operation.
+
+00:09:00.435 --> 00:09:03.650
+That is what most of this course is about.
+
+00:09:04.230 --> 00:09:04.996
+To sum up.
+
+00:09:04.996 --> 00:09:07.446
+One: a type is a set of values,
+
+00:09:07.446 --> 00:09:10.279
+and a data type adds the operations.
+
+00:09:10.279 --> 00:09:12.959
+Its logical form is what it means;
+
+00:09:12.959 --> 00:09:15.945
+its physical form is how it is stored.
+
+00:09:15.945 --> 00:09:18.778
+Two: data abstraction shows the 'what'
+
+00:09:18.854 --> 00:09:21.458
+through an interface and hides the 'how'
+
+00:09:21.534 --> 00:09:23.525
+behind private fields,
+
+00:09:23.601 --> 00:09:26.052
+so the client cannot tell a simple
+
+00:09:26.128 --> 00:09:28.272
+account from a ledger account.
+
+00:09:28.272 --> 00:09:30.875
+Three: an ADT says what, not how,
+
+00:09:30.875 --> 00:09:34.014
+and the data structure decides the cost:
+
+00:09:34.014 --> 00:09:37.230
+700 probes against 100.
+
+00:09:37.580 --> 00:09:38.259
+Try this:
+
+00:09:38.259 --> 00:09:41.123
+add a remove method to the array set
+
+00:09:41.199 --> 00:09:44.063
+without leaving a gap in the array and
+
+00:09:44.139 --> 00:09:46.928
+without shifting every later element.
+
+00:09:46.928 --> 00:09:49.566
+Hint: the order of the elements in
+
+00:09:49.642 --> 00:09:51.300
+a set does not matter.
+
+00:09:51.650 --> 00:09:52.750
+In part four,
+
+00:09:52.750 --> 00:09:55.457
+data structures and algorithms,
+
+00:09:55.541 --> 00:09:58.756
+and a problem that shows why a program
+
+00:09:58.840 --> 00:10:01.970
+that works is not yet a good program.
+

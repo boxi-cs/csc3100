@@ -1,0 +1,713 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.136
+Every insertion or deletion in a linked
+
+00:00:03.209 --> 00:00:05.390
+list changes one or two links.
+
+00:00:05.390 --> 00:00:07.426
+Three rules keep that safe.
+
+00:00:07.426 --> 00:00:09.462
+One: don't break the chain.
+
+00:00:09.535 --> 00:00:12.443
+If the only reference to the rest of the
+
+00:00:12.516 --> 00:00:15.352
+list is overwritten before it is saved
+
+00:00:15.352 --> 00:00:17.533
+the rest of the list is lost.
+
+00:00:17.533 --> 00:00:20.733
+Java's garbage collector reclaims it; in C
+
+00:00:20.733 --> 00:00:21.460
+it leaks.
+
+00:00:21.810 --> 00:00:24.320
+Two: consider the special cases.
+
+00:00:24.320 --> 00:00:27.143
+The empty list, a list of one node
+
+00:00:27.143 --> 00:00:29.104
+changing the first node
+
+00:00:29.104 --> 00:00:30.986
+changing the last node
+
+00:00:30.986 --> 00:00:33.810
+and a position that does not exist.
+
+00:00:34.160 --> 00:00:36.443
+Three: draw a picture first.
+
+00:00:36.443 --> 00:00:39.949
+Boxes for the nodes, arrows for the links
+
+00:00:40.031 --> 00:00:42.803
+and number the arrows in the order
+
+00:00:42.885 --> 00:00:44.760
+your code changes them.
+
+00:00:45.340 --> 00:00:47.335
+Insert at the beginning.
+
+00:00:47.335 --> 00:00:50.909
+Make a newNode, here holding 34.
+
+00:00:50.909 --> 00:00:53.901
+Step one: point the newNode at the
+
+00:00:53.984 --> 00:00:55.563
+current first node
+
+00:00:55.563 --> 00:00:58.140
+newNode.next equals head.
+
+00:00:58.490 --> 00:00:59.217
+Step two
+
+00:00:59.217 --> 00:01:02.205
+make the head point at the newNode
+
+00:01:02.205 --> 00:01:03.981
+head equals newNode.
+
+00:01:03.981 --> 00:01:07.050
+34 is now the first element.
+
+00:01:07.400 --> 00:01:08.715
+Two link changes
+
+00:01:08.715 --> 00:01:12.040
+whatever the length of the list: O(1).
+
+00:01:12.040 --> 00:01:14.515
+It also works on an empty list.
+
+00:01:14.515 --> 00:01:15.597
+Head is null
+
+00:01:15.597 --> 00:01:19.000
+so the newNode.next simply becomes null.
+
+00:01:19.580 --> 00:01:21.123
+The order matters.
+
+00:01:21.123 --> 00:01:24.980
+Suppose we write head equals newNode first.
+
+00:01:25.330 --> 00:01:27.687
+The head was the only reference
+
+00:01:27.763 --> 00:01:29.815
+to the old list, so 12
+
+00:01:29.815 --> 00:01:33.084
+52 and 16 are now unreachable.
+
+00:01:33.160 --> 00:01:36.200
+Then newNode.next equals head makes
+
+00:01:36.276 --> 00:01:38.481
+the newNode point to itself.
+
+00:01:38.481 --> 00:01:41.065
+We are left with a one-node loop
+
+00:01:41.065 --> 00:01:43.650
+and the rest of the list is gone.
+
+00:01:44.230 --> 00:01:47.153
+Insert at the end has two cases.
+
+00:01:47.153 --> 00:01:49.802
+Case one: the list is empty
+
+00:01:49.802 --> 00:01:52.177
+so there is no last node.
+
+00:01:52.177 --> 00:01:55.100
+The newNode, becomes the head
+
+00:01:55.100 --> 00:01:56.470
+and we return.
+
+00:01:56.820 --> 00:02:00.198
+insertLast(34) on an empty
+
+00:02:00.287 --> 00:02:04.020
+list gives the one-node list, 34.
+
+00:02:04.600 --> 00:02:07.489
+Case two: the list is not empty.
+
+00:02:07.489 --> 00:02:10.648
+Here it holds 34, 12
+
+00:02:10.648 --> 00:02:14.529
+52 and 16, and we insertLast
+
+00:02:14.529 --> 00:02:15.251
+12.
+
+00:02:15.251 --> 00:02:17.779
+current starts at the head.
+
+00:02:17.779 --> 00:02:21.028
+While current.next is not null
+
+00:02:21.028 --> 00:02:25.000
+current moves on: to 52, to 16.
+
+00:02:25.350 --> 00:02:27.773
+16's next is null
+
+00:02:27.773 --> 00:02:31.564
+so the loop stops on the last node.
+
+00:02:31.564 --> 00:02:35.567
+Now current.next equals newNode
+
+00:02:35.567 --> 00:02:39.885
+the old last node points to the new one.
+
+00:02:39.885 --> 00:02:44.519
+The list is 34, 12, 52
+
+00:02:44.519 --> 00:02:46.310
+16, 12.
+
+00:02:46.660 --> 00:02:48.888
+The walk visits every node
+
+00:02:48.888 --> 00:02:51.034
+so insertLast is O(n).
+
+00:02:51.117 --> 00:02:53.923
+Keeping an extra tail reference to
+
+00:02:54.006 --> 00:02:56.647
+the last node makes it O(1)
+
+00:02:56.647 --> 00:02:58.380
+part 4 does that.
+
+00:02:58.960 --> 00:03:01.586
+Now insert after a given node.
+
+00:03:01.586 --> 00:03:04.999
+Call it target: here the first 12.
+
+00:03:04.999 --> 00:03:07.800
+The newNode holds 99.
+
+00:03:08.150 --> 00:03:08.772
+First
+
+00:03:08.772 --> 00:03:13.123
+point the newNode at target's successor
+
+00:03:13.123 --> 00:03:17.474
+newNode.next equals target.next.
+
+00:03:17.474 --> 00:03:21.100
+Then point target at the newNode
+
+00:03:21.100 --> 00:03:24.519
+target.next equals newNode.
+
+00:03:24.519 --> 00:03:28.663
+The chain now runs 34, 12
+
+00:03:28.663 --> 00:03:32.910
+99, 52, 16, 12.
+
+00:03:33.490 --> 00:03:34.481
+Now predict.
+
+00:03:34.563 --> 00:03:36.710
+What goes wrong if the two
+
+00:03:36.792 --> 00:03:38.278
+lines are swapped
+
+00:03:38.361 --> 00:03:40.837
+so that target.next equals
+
+00:03:40.920 --> 00:03:42.653
+newNode comes first?
+
+00:03:42.653 --> 00:03:45.130
+Pause the video, and draw it.
+
+00:03:48.710 --> 00:03:49.977
+Here is the bug.
+
+00:03:49.977 --> 00:03:53.066
+After target.next equals newNode
+
+00:03:53.146 --> 00:03:55.126
+the only reference to the
+
+00:03:55.205 --> 00:03:57.819
+old successor is gone: 52
+
+00:03:57.819 --> 00:04:00.670
+16 and 12 are unreachable.
+
+00:04:01.020 --> 00:04:04.531
+Then newNode.next equals target.next
+
+00:04:04.619 --> 00:04:07.780
+reads the link we just changed
+
+00:04:07.780 --> 00:04:10.764
+so the newNode points to itself.
+
+00:04:10.764 --> 00:04:14.100
+The list now ends in a one-node loop.
+
+00:04:14.450 --> 00:04:17.029
+Any traversal then runs forever
+
+00:04:17.029 --> 00:04:19.849
+going round and round 99.
+
+00:04:19.849 --> 00:04:23.154
+So: first link the newNode to the rest
+
+00:04:23.154 --> 00:04:25.410
+then redirect the old link.
+
+00:04:25.990 --> 00:04:29.405
+The slides' insert method uses a dummy head
+
+00:04:29.405 --> 00:04:31.889
+head is a node with no element
+
+00:04:31.889 --> 00:04:35.149
+and the first real node is head.next.
+
+00:04:35.149 --> 00:04:38.176
+insert takes a value and a position p
+
+00:04:38.176 --> 00:04:41.125
+and makes the value the p-th element.
+
+00:04:41.125 --> 00:04:44.230
+The dummy head counts as position zero.
+
+00:04:44.580 --> 00:04:47.593
+Insert(99, 3).
+
+00:04:47.593 --> 00:04:49.140
+Make the newNode
+
+00:04:49.140 --> 00:04:52.315
+and start prevNode at the dummy head.
+
+00:04:52.315 --> 00:04:55.898
+The loop moves p minus one steps, here two
+
+00:04:55.898 --> 00:04:58.503
+to 34, then to 12
+
+00:04:58.503 --> 00:05:00.620
+the node at position two.
+
+00:05:00.970 --> 00:05:03.463
+Then the same two links as before
+
+00:05:03.537 --> 00:05:05.517
+the newNode points to
+
+00:05:05.590 --> 00:05:06.837
+prevNode's successor
+
+00:05:06.837 --> 00:05:09.623
+and prevNode points to the newNode.
+
+00:05:09.623 --> 00:05:12.043
+Because prevNode always exists
+
+00:05:12.043 --> 00:05:14.390
+at worst the dummy head itself
+
+00:05:14.390 --> 00:05:17.617
+there is no special case for an empty list
+
+00:05:17.617 --> 00:05:19.890
+or for inserting at the front.
+
+00:05:20.470 --> 00:05:23.103
+The loop runs min(p - 1,
+
+00:05:23.191 --> 00:05:25.736
+size) times
+
+00:05:25.736 --> 00:05:28.281
+and the linking is O(1).
+
+00:05:28.281 --> 00:05:31.967
+So the best case, inserting at the front
+
+00:05:31.967 --> 00:05:33.108
+is O(1).
+
+00:05:33.108 --> 00:05:36.443
+The worst case, inserting at the end
+
+00:05:36.443 --> 00:05:37.409
+is O(n).
+
+00:05:37.409 --> 00:05:40.656
+And for a position chosen at random
+
+00:05:40.656 --> 00:05:44.430
+about n/2 steps: O(n) on average.
+
+00:05:44.780 --> 00:05:47.954
+If p is larger than the size plus one
+
+00:05:47.954 --> 00:05:50.710
+the loop stops at the last node
+
+00:05:50.710 --> 00:05:52.297
+and x is appended.
+
+00:05:52.297 --> 00:05:55.972
+If p is one or less, the loop does not run
+
+00:05:55.972 --> 00:05:58.060
+and x goes to the front.
+
+00:05:58.640 --> 00:05:59.770
+Now deletion.
+
+00:05:59.770 --> 00:06:00.987
+deleteFirst()
+
+00:06:00.987 --> 00:06:04.899
+on an empty list there is nothing to delete
+
+00:06:04.899 --> 00:06:06.638
+so it returns null.
+
+00:06:06.638 --> 00:06:10.289
+Otherwise, temp remembers the first node
+
+00:06:10.289 --> 00:06:13.680
+and the head moves to the second node
+
+00:06:13.680 --> 00:06:16.027
+head = head.next.
+
+00:06:16.027 --> 00:06:18.200
+The method returns temp.
+
+00:06:18.550 --> 00:06:20.394
+Once the caller drops it
+
+00:06:20.394 --> 00:06:22.975
+the old first node is unreachable
+
+00:06:22.975 --> 00:06:26.073
+and Java's garbage collector reclaims it.
+
+00:06:26.073 --> 00:06:27.990
+deleteFirst() is O(1).
+
+00:06:28.570 --> 00:06:29.780
+deleteLast().
+
+00:06:29.780 --> 00:06:33.714
+If the list is empty, it returns null
+
+00:06:33.714 --> 00:06:36.135
+and if it has one node
+
+00:06:36.135 --> 00:06:38.556
+the list becomes empty.
+
+00:06:38.556 --> 00:06:42.993
+Otherwise, walk to the second-to-last node
+
+00:06:42.993 --> 00:06:45.515
+curr starts at the head
+
+00:06:45.616 --> 00:06:48.844
+and the loop runs while
+
+00:06:48.944 --> 00:06:51.567
+curr.next.next is not null.
+
+00:06:51.567 --> 00:06:52.777
+12: no.
+
+00:06:52.777 --> 00:06:54.290
+52: no.
+
+00:06:54.640 --> 00:06:58.458
+At 16, curr.next.next is null
+
+00:06:58.458 --> 00:07:01.655
+so curr is the second-to-last node.
+
+00:07:01.655 --> 00:07:04.318
+Temp remembers the last node
+
+00:07:04.318 --> 00:07:08.136
+and curr.next equals null cuts it off.
+
+00:07:08.136 --> 00:07:10.800
+16 is now the last node.
+
+00:07:11.150 --> 00:07:13.565
+A singly linked list has no way
+
+00:07:13.643 --> 00:07:15.513
+back from the last node
+
+00:07:15.591 --> 00:07:17.851
+so even with a tail reference
+
+00:07:17.929 --> 00:07:20.110
+this needs the walk: O(n).
+
+00:07:20.690 --> 00:07:24.192
+To delete the node after a given node, prev
+
+00:07:24.192 --> 00:07:27.535
+here the first 12, make prev skip it
+
+00:07:27.535 --> 00:07:31.117
+prev.next equals prev.next.next.
+
+00:07:31.196 --> 00:07:33.743
+The check first makes sure there
+
+00:07:33.823 --> 00:07:36.290
+is a node after prev to delete.
+
+00:07:36.640 --> 00:07:39.272
+The bypassed node, 52
+
+00:07:39.272 --> 00:07:42.903
+is unreachable, and the list is 12
+
+00:07:42.903 --> 00:07:43.720
+16.
+
+00:07:44.300 --> 00:07:45.816
+With a dummy head
+
+00:07:45.816 --> 00:07:49.100
+delete at position p is the same idea
+
+00:07:49.100 --> 00:07:52.468
+walk prevNode to position p minus one
+
+00:07:52.468 --> 00:07:54.741
+then bypass its successor.
+
+00:07:54.741 --> 00:07:57.267
+If p is larger than the size
+
+00:07:57.267 --> 00:07:59.372
+the target node is null
+
+00:07:59.372 --> 00:08:01.140
+and nothing happens.
+
+00:08:01.490 --> 00:08:05.168
+The running time is the same as for insert
+
+00:08:05.168 --> 00:08:06.879
+best case O(1)
+
+00:08:06.879 --> 00:08:09.530
+worst and average case O(n).
+
+00:08:10.110 --> 00:08:13.409
+Here is the dummy head list at work.
+
+00:08:13.409 --> 00:08:17.257
+Inserting 34, 12, 52
+
+00:08:17.257 --> 00:08:19.090
+16 and 12
+
+00:08:19.090 --> 00:08:21.564
+each at the next position
+
+00:08:21.564 --> 00:08:23.579
+prints them in order.
+
+00:08:23.579 --> 00:08:25.870
+find(52) is 3.
+
+00:08:26.220 --> 00:08:29.763
+insert(99, 3) puts it third.
+
+00:08:29.763 --> 00:08:33.559
+insert(7, 100) is past the end
+
+00:08:33.559 --> 00:08:35.415
+so 7 is appended.
+
+00:08:35.415 --> 00:08:38.620
+insert(1, 0) goes to the front.
+
+00:08:38.970 --> 00:08:42.200
+delete(1) removes the first element.
+
+00:08:42.287 --> 00:08:44.644
+delete(find(52))
+
+00:08:44.731 --> 00:08:46.302
+removes 52.
+
+00:08:46.302 --> 00:08:50.056
+delete(100) finds no such position
+
+00:08:50.056 --> 00:08:51.802
+so nothing happens.
+
+00:08:51.802 --> 00:08:55.642
+And makeEmpty leaves the dummy head alone
+
+00:08:55.642 --> 00:08:57.650
+the list prints empty.
+
+00:08:58.230 --> 00:08:59.495
+And in an array?
+
+00:08:59.495 --> 00:09:02.498
+If the array is full, it cannot grow.
+
+00:09:02.498 --> 00:09:03.209
+Instead
+
+00:09:03.209 --> 00:09:06.213
+add makes a new array twice as large
+
+00:09:06.213 --> 00:09:08.426
+copies the elements across
+
+00:09:08.426 --> 00:09:11.350
+and from then on uses the new array.
+
+00:09:11.700 --> 00:09:13.938
+Adding 1 to 17
+
+00:09:13.938 --> 00:09:16.549
+starting from capacity 1
+
+00:09:16.549 --> 00:09:20.373
+the array fills at sizes 1, 2, 4
+
+00:09:20.373 --> 00:09:22.144
+8 and 16
+
+00:09:22.238 --> 00:09:24.849
+and ends with size 17
+
+00:09:24.942 --> 00:09:27.180
+and capacity 32.
+
+00:09:27.530 --> 00:09:29.588
+31 copies in total
+
+00:09:29.588 --> 00:09:32.028
+fewer than 2 times 17.
+
+00:09:32.028 --> 00:09:35.382
+Because the array doubles, copies are rare
+
+00:09:35.382 --> 00:09:38.202
+and each add is O(1) on average.
+
+00:09:38.202 --> 00:09:40.718
+Java's ArrayList works this way
+
+00:09:40.718 --> 00:09:43.233
+growing by 1.5 times.
+
+00:09:43.310 --> 00:09:45.520
+But inserting at the front of
+
+00:09:45.596 --> 00:09:47.502
+an array is still O(n)
+
+00:09:47.502 --> 00:09:50.170
+that is what linked lists are for.
+
+00:09:50.750 --> 00:09:51.669
+To sum up.
+
+00:09:51.669 --> 00:09:54.240
+1: don't break the chain.
+
+00:09:54.332 --> 00:09:56.536
+Link the new node to the
+
+00:09:56.628 --> 00:09:58.741
+rest of the list first
+
+00:09:58.741 --> 00:10:02.139
+and only then redirect the old link.
+
+00:10:02.139 --> 00:10:04.894
+2: inserting or deleting at
+
+00:10:04.986 --> 00:10:08.109
+the front is O(1); at the end
+
+00:10:08.109 --> 00:10:12.150
+or at a position, the walk makes it O(n).
+
+00:10:12.500 --> 00:10:15.180
+3: a dummy head turns the front
+
+00:10:15.256 --> 00:10:17.247
+into an ordinary position
+
+00:10:17.247 --> 00:10:19.620
+so there are no special cases.
+
+00:10:19.970 --> 00:10:20.948
+Try this.
+
+00:10:20.948 --> 00:10:24.966
+Start from an empty dummy head list
+
+00:10:24.966 --> 00:10:28.007
+and run insert(4, 1)
+
+00:10:28.007 --> 00:10:32.351
+insert(8, 2), insert(6, 2)
+
+00:10:32.351 --> 00:10:36.369
+insert(2, 1), and delete(3).
+
+00:10:36.369 --> 00:10:39.410
+What does printList print?
+
+00:10:39.760 --> 00:10:40.876
+In part 3
+
+00:10:40.876 --> 00:10:43.664
+we put it all into one Java class
+
+00:10:43.664 --> 00:10:46.293
+and solve two classic exercises
+
+00:10:46.293 --> 00:10:49.400
+the middle node, and reversing a list.
+

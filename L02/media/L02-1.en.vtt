@@ -1,0 +1,602 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.328
+Here are three lines from a Java program.
+
+00:00:03.328 --> 00:00:06.135
+The first prints the range of an int
+
+00:00:06.209 --> 00:00:09.016
+from about -2.1 billion
+
+00:00:09.089 --> 00:00:11.748
+to about +2.1 billion.
+
+00:00:11.822 --> 00:00:14.260
+The second stores the largest int
+
+00:00:14.333 --> 00:00:16.180
+in a variable called big.
+
+00:00:16.530 --> 00:00:18.716
+And the third line prints the
+
+00:00:18.792 --> 00:00:20.450
+value of big + 1.
+
+00:00:20.800 --> 00:00:22.174
+What does it print?
+
+00:00:22.174 --> 00:00:24.200
+Pause the video and decide.
+
+00:00:27.780 --> 00:00:29.085
+Before we answer
+
+00:00:29.085 --> 00:00:32.001
+why does this course use Java at all?
+
+00:00:32.078 --> 00:00:35.071
+You will implement every data structure
+
+00:00:35.147 --> 00:00:37.833
+yourself and run it on real inputs.
+
+00:00:37.833 --> 00:00:41.210
+Java compiles a program once into bytecode
+
+00:00:41.210 --> 00:00:44.280
+and that same bytecode runs on Windows
+
+00:00:44.280 --> 00:00:45.585
+macOS and Linux.
+
+00:00:45.585 --> 00:00:47.580
+Write once, run anywhere.
+
+00:00:47.930 --> 00:00:49.670
+Compared with C and C++
+
+00:00:49.670 --> 00:00:52.644
+Java has references instead of pointers
+
+00:00:52.644 --> 00:00:55.545
+you can copy a reference and follow it
+
+00:00:55.545 --> 00:00:58.155
+but you cannot do arithmetic on it.
+
+00:00:58.155 --> 00:01:00.403
+Every array access is checked
+
+00:01:00.476 --> 00:01:03.449
+and a garbage collector frees the objects
+
+00:01:03.522 --> 00:01:05.770
+that nobody refers to any more.
+
+00:01:06.120 --> 00:01:08.564
+And Java's library already has the
+
+00:01:08.635 --> 00:01:10.791
+structures this course builds
+
+00:01:10.791 --> 00:01:13.019
+such as ArrayList and HashMap.
+
+00:01:13.019 --> 00:01:15.463
+Once you have built one yourself
+
+00:01:15.535 --> 00:01:17.691
+you will know what the library
+
+00:01:17.763 --> 00:01:19.200
+version does inside.
+
+00:01:19.780 --> 00:01:21.974
+Three names come with Java.
+
+00:01:21.974 --> 00:01:24.818
+The JVM, the Java Virtual Machine
+
+00:01:24.899 --> 00:01:27.174
+is an abstract computer that
+
+00:01:27.256 --> 00:01:28.718
+executes bytecode.
+
+00:01:28.800 --> 00:01:30.750
+The java command on your
+
+00:01:30.831 --> 00:01:32.700
+computer implements it.
+
+00:01:33.050 --> 00:01:35.703
+The JRE, the Java Runtime Environment
+
+00:01:35.703 --> 00:01:38.147
+is what you need to run a program
+
+00:01:38.147 --> 00:01:41.010
+a JVM plus the standard class libraries.
+
+00:01:41.360 --> 00:01:44.484
+The JDK, the Java Development Kit
+
+00:01:44.484 --> 00:01:47.792
+is what you need to write programs
+
+00:01:47.792 --> 00:01:51.100
+the JRE plus the development tools
+
+00:01:51.100 --> 00:01:54.040
+above all the compiler, javac.
+
+00:01:54.390 --> 00:01:57.559
+Notice that Java is platform-independent
+
+00:01:57.559 --> 00:01:59.105
+but the JVM is not.
+
+00:01:59.105 --> 00:02:02.351
+The bytecode is the same on every system
+
+00:02:02.351 --> 00:02:04.902
+and each system has its own JVM
+
+00:02:04.902 --> 00:02:08.225
+which translates it for its own processor.
+
+00:02:08.225 --> 00:02:11.703
+Since Java 11, you simply install a JDK
+
+00:02:11.703 --> 00:02:13.790
+which includes everything.
+
+00:02:14.370 --> 00:02:16.323
+Here is the first program.
+
+00:02:16.398 --> 00:02:18.577
+public class Welcome declares
+
+00:02:18.652 --> 00:02:20.305
+a class named Welcome.
+
+00:02:20.305 --> 00:02:23.235
+In Java all code lives inside classes
+
+00:02:23.310 --> 00:02:25.714
+and a public class must be saved
+
+00:02:25.789 --> 00:02:27.818
+in a file of the same name
+
+00:02:27.818 --> 00:02:29.170
+Welcome.java.
+
+00:02:29.520 --> 00:02:32.072
+This line declares the main method
+
+00:02:32.072 --> 00:02:33.312
+the entry point
+
+00:02:33.312 --> 00:02:36.374
+the JVM starts the program by calling it.
+
+00:02:36.447 --> 00:02:38.562
+System.out.println
+
+00:02:38.635 --> 00:02:41.843
+prints its argument, followed by a new line
+
+00:02:41.843 --> 00:02:44.760
+so the program prints: Welcome to Java!
+
+00:02:45.110 --> 00:02:47.765
+Every statement ends with a semicolon
+
+00:02:47.765 --> 00:02:50.630
+and braces group statements into blocks.
+
+00:02:50.980 --> 00:02:53.913
+One warning: Java is case-sensitive.
+
+00:02:53.913 --> 00:02:57.335
+The slide writes Public with a capital P.
+
+00:02:57.335 --> 00:02:59.209
+That is not a keyword
+
+00:02:59.209 --> 00:03:01.897
+so the program does not compile.
+
+00:03:01.897 --> 00:03:04.260
+Keywords are all lower case.
+
+00:03:04.840 --> 00:03:07.987
+Running a Java program takes two steps.
+
+00:03:08.067 --> 00:03:10.085
+You write the source code
+
+00:03:10.165 --> 00:03:11.779
+in Welcome.java.
+
+00:03:11.779 --> 00:03:13.554
+The compiler, javac
+
+00:03:13.554 --> 00:03:15.894
+translates it into bytecode
+
+00:03:15.894 --> 00:03:18.960
+which it stores in Welcome.class.
+
+00:03:19.310 --> 00:03:22.377
+Then the java command starts a JVM
+
+00:03:22.464 --> 00:03:24.480
+which loads Welcome.class
+
+00:03:24.567 --> 00:03:26.407
+and calls main
+
+00:03:26.407 --> 00:03:28.510
+and the output appears.
+
+00:03:28.860 --> 00:03:31.013
+If the compiler finds an error
+
+00:03:31.082 --> 00:03:32.957
+such as a missing semicolon
+
+00:03:33.026 --> 00:03:34.554
+or a misspelt keyword
+
+00:03:34.623 --> 00:03:36.776
+it reports a compile-time error
+
+00:03:36.845 --> 00:03:38.581
+and writes no class file.
+
+00:03:38.581 --> 00:03:41.220
+You go back to the source and fix it.
+
+00:03:41.570 --> 00:03:44.538
+If the program compiles but crashes
+
+00:03:44.538 --> 00:03:46.846
+or prints the wrong result
+
+00:03:46.846 --> 00:03:50.473
+that is a run-time error, or a logic error.
+
+00:03:50.473 --> 00:03:53.606
+Again you edit the source, recompile
+
+00:03:53.606 --> 00:03:55.090
+and run it again.
+
+00:03:55.670 --> 00:03:59.137
+Words such as class, public, static, int
+
+00:03:59.137 --> 00:04:01.759
+if, new and this are keywords
+
+00:04:01.759 --> 00:04:05.395
+they have a fixed meaning to the compiler
+
+00:04:05.480 --> 00:04:07.763
+and a keyword cannot be the
+
+00:04:07.847 --> 00:04:11.230
+name of a variable, a method or a class.
+
+00:04:11.580 --> 00:04:14.046
+This program tries to call
+
+00:04:14.141 --> 00:04:16.322
+a String variable this.
+
+00:04:16.322 --> 00:04:19.452
+The compiler reports two errors
+
+00:04:19.452 --> 00:04:23.340
+not a statement, and semicolon expected.
+
+00:04:23.690 --> 00:04:25.679
+The messages are confusing
+
+00:04:25.752 --> 00:04:27.667
+because the compiler never
+
+00:04:27.741 --> 00:04:29.288
+reads this as a name.
+
+00:04:29.288 --> 00:04:32.086
+When an error message makes no sense
+
+00:04:32.160 --> 00:04:34.959
+look for a keyword or a missing symbol
+
+00:04:35.032 --> 00:04:37.610
+just before the place it points to.
+
+00:04:38.190 --> 00:04:40.352
+A variable of a primitive type
+
+00:04:40.424 --> 00:04:42.082
+holds the value itself
+
+00:04:42.082 --> 00:04:44.676
+and Java has eight primitive types.
+
+00:04:44.676 --> 00:04:46.910
+A boolean holds true or false.
+
+00:04:47.260 --> 00:04:49.573
+Four types hold whole numbers
+
+00:04:49.573 --> 00:04:51.887
+and they differ only in size
+
+00:04:51.887 --> 00:04:54.971
+a byte has 8 bits, a short 16
+
+00:04:54.971 --> 00:04:58.210
+an int 32, and a long 64.
+
+00:04:58.210 --> 00:05:00.986
+Each wrapper class knows its range
+
+00:05:01.063 --> 00:05:04.995
+a byte goes from -128
+
+00:05:05.073 --> 00:05:07.540
+to 127.
+
+00:05:07.890 --> 00:05:10.038
+Float and double hold numbers
+
+00:05:10.112 --> 00:05:11.297
+with a fraction
+
+00:05:11.371 --> 00:05:14.186
+a double has 64 bits and about
+
+00:05:14.260 --> 00:05:16.260
+15 significant digits.
+
+00:05:16.334 --> 00:05:18.852
+And a char is a 16-bit number
+
+00:05:18.926 --> 00:05:21.370
+from 0 to 65000
+
+00:05:21.370 --> 00:05:23.592
+535.
+
+00:05:23.592 --> 00:05:25.370
+It holds one character.
+
+00:05:25.950 --> 00:05:27.536
+Back to the puzzle.
+
+00:05:27.619 --> 00:05:29.622
+Whole numbers are stored
+
+00:05:29.705 --> 00:05:31.374
+in two's complement.
+
+00:05:31.374 --> 00:05:32.292
+In a byte
+
+00:05:32.375 --> 00:05:35.963
+the highest bit counts as -128
+
+00:05:36.047 --> 00:05:38.467
+instead of plus.
+
+00:05:38.550 --> 00:05:40.970
+127 is a
+
+00:05:41.054 --> 00:05:43.390
+0 followed by seven 1s.
+
+00:05:43.740 --> 00:05:44.692
+Now add 1.
+
+00:05:44.692 --> 00:05:47.151
+The carry runs all the way up
+
+00:05:47.151 --> 00:05:49.847
+and only the highest bit is left
+
+00:05:49.847 --> 00:05:53.020
+that is -128.
+
+00:05:53.370 --> 00:05:55.347
+An int works the same way
+
+00:05:55.426 --> 00:05:57.086
+with 32 bits.
+
+00:05:57.086 --> 00:06:00.406
+So big + 1 is the most negative int
+
+00:06:00.406 --> 00:06:01.908
+-2000000000
+
+00:06:01.908 --> 00:06:04.517
+147000000
+
+00:06:04.517 --> 00:06:07.363
+483000
+
+00:06:07.363 --> 00:06:09.340
+648.
+
+00:06:09.340 --> 00:06:11.316
+No error and no warning
+
+00:06:11.316 --> 00:06:13.530
+integer overflow is silent.
+
+00:06:13.880 --> 00:06:16.586
+In this course it bites in two places
+
+00:06:16.586 --> 00:06:18.580
+summing many large numbers
+
+00:06:18.580 --> 00:06:20.644
+where you should use a long
+
+00:06:20.644 --> 00:06:23.279
+and computing the middle of a range
+
+00:06:23.279 --> 00:06:25.629
+where you should write low +
+
+00:06:25.629 --> 00:06:27.480
+(high - low) / 2.
+
+00:06:28.060 --> 00:06:30.335
+Numbers with a fraction have
+
+00:06:30.417 --> 00:06:32.042
+a different problem.
+
+00:06:32.042 --> 00:06:34.886
+A double stores a binary fraction
+
+00:06:34.886 --> 00:06:38.542
+and 0.1 has no exact binary form.
+
+00:06:38.623 --> 00:06:41.305
+So 0.1 + 0.2
+
+00:06:41.386 --> 00:06:43.661
+prints 0.3,
+
+00:06:43.661 --> 00:06:46.180
+then 15 zeros and a 4.
+
+00:06:46.530 --> 00:06:49.692
+Compare doubles with a tolerance:
+
+00:06:49.692 --> 00:06:52.471
+Math.abs(x - 1)
+
+00:06:52.471 --> 00:06:55.153
+< 1e-9.
+
+00:06:55.153 --> 00:06:58.890
+Never compare them with ==.
+
+00:06:59.470 --> 00:07:00.665
+One more idea,
+
+00:07:00.665 --> 00:07:03.653
+which the whole course depends on.
+
+00:07:03.653 --> 00:07:06.812
+Java's types fall into two families.
+
+00:07:06.897 --> 00:07:09.031
+A variable of a primitive
+
+00:07:09.117 --> 00:07:12.190
+type holds the value: n holds 7.
+
+00:07:12.540 --> 00:07:15.092
+Every other type, such as String,
+
+00:07:15.092 --> 00:07:17.258
+arrays, and every class,
+
+00:07:17.258 --> 00:07:18.882
+is a reference type.
+
+00:07:18.882 --> 00:07:21.899
+The variable s does not hold the text.
+
+00:07:21.899 --> 00:07:24.374
+It holds a reference, an arrow
+
+00:07:24.374 --> 00:07:26.771
+to an object stored elsewhere
+
+00:07:26.771 --> 00:07:29.710
+in an area of memory called the heap.
+
+00:07:29.710 --> 00:07:32.031
+A reference can also be null;
+
+00:07:32.031 --> 00:07:33.500
+it points nowhere.
+
+00:07:33.850 --> 00:07:36.747
+This explains much of Java's behavior.
+
+00:07:36.747 --> 00:07:39.199
+Copying an int copies the value,
+
+00:07:39.199 --> 00:07:42.319
+but copying a reference copies the arrow,
+
+00:07:42.319 --> 00:07:45.290
+so both names refer to the same object.
+
+00:07:45.870 --> 00:07:46.681
+To sum up.
+
+00:07:46.681 --> 00:07:49.356
+1: javac compiles your source
+
+00:07:49.437 --> 00:07:50.977
+code into bytecode,
+
+00:07:51.058 --> 00:07:53.166
+and the JVM on each system
+
+00:07:53.247 --> 00:07:55.273
+runs the same class file.
+
+00:07:55.273 --> 00:07:58.192
+2: The 8 primitive types hold
+
+00:07:58.273 --> 00:08:00.137
+values of a fixed size,
+
+00:08:00.218 --> 00:08:02.326
+and integer overflow wraps
+
+00:08:02.407 --> 00:08:04.434
+around without any error.
+
+00:08:04.434 --> 00:08:05.001
+3:
+
+00:08:05.082 --> 00:08:08.162
+Every other variable holds a reference
+
+00:08:08.244 --> 00:08:10.270
+to an object on the heap.
+
+00:08:10.620 --> 00:08:12.365
+Try this yourself.
+
+00:08:12.365 --> 00:08:14.886
+A byte holds 100.
+
+00:08:14.886 --> 00:08:18.860
+What is in it after b += 50?
+
+00:08:19.210 --> 00:08:20.048
+In part 2,
+
+00:08:20.048 --> 00:08:22.699
+we meet the three kinds of variables
+
+00:08:22.699 --> 00:08:25.770
+and the statements and loops that use them.
+

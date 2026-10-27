@@ -1,0 +1,659 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.492
+Here is a sorted array of student IDs
+
+00:00:03.492 --> 00:00:04.584
+five values
+
+00:00:04.584 --> 00:00:07.524
+in an int array with room for ten.
+
+00:00:07.524 --> 00:00:10.632
+We want to insert 1005
+
+00:00:10.632 --> 00:00:12.900
+and keep the array sorted.
+
+00:00:13.250 --> 00:00:15.848
+The loop starts at the last element.
+
+00:00:15.920 --> 00:00:17.941
+2040 is bigger
+
+00:00:18.013 --> 00:00:19.673
+than 1005
+
+00:00:19.673 --> 00:00:22.198
+so it moves one cell to the right.
+
+00:00:22.198 --> 00:00:23.786
+So does 2000
+
+00:00:23.786 --> 00:00:25.590
+then 1050
+
+00:00:25.590 --> 00:00:27.250
+then 1010.
+
+00:00:27.600 --> 00:00:30.523
+1000 is smaller, so the loop stops
+
+00:00:30.591 --> 00:00:32.358
+and 1005 goes
+
+00:00:32.426 --> 00:00:33.717
+into the free cell.
+
+00:00:33.717 --> 00:00:36.640
+Four elements moved, to make room for one.
+
+00:00:37.220 --> 00:00:39.607
+Now delete 1010.
+
+00:00:39.607 --> 00:00:42.675
+First a loop finds it, in cell two.
+
+00:00:42.760 --> 00:00:45.573
+Then every element after it moves
+
+00:00:45.658 --> 00:00:49.153
+one cell to the left: 1050
+
+00:00:49.153 --> 00:00:52.392
+2000, and 2040.
+
+00:00:52.392 --> 00:00:53.500
+Three moves.
+
+00:00:53.850 --> 00:00:56.211
+The count drops from six to five.
+
+00:00:56.283 --> 00:00:58.286
+Cell five still holds a copy
+
+00:00:58.357 --> 00:00:59.931
+of 2040
+
+00:00:59.931 --> 00:01:02.650
+but it is no longer part of the list.
+
+00:01:03.230 --> 00:01:05.543
+And the program prints exactly that
+
+00:01:05.543 --> 00:01:08.048
+four elements moved for the insertion
+
+00:01:08.048 --> 00:01:09.590
+three for the deletion.
+
+00:01:09.940 --> 00:01:10.825
+Now predict.
+
+00:01:10.825 --> 00:01:13.187
+In the same five-element array
+
+00:01:13.261 --> 00:01:15.622
+how many elements move to insert
+
+00:01:15.696 --> 00:01:17.540
+999?
+
+00:01:17.540 --> 00:01:19.754
+And to insert 3000?
+
+00:01:19.754 --> 00:01:21.820
+Pause the video and decide.
+
+00:01:25.400 --> 00:01:28.840
+999 goes to the front
+
+00:01:28.840 --> 00:01:31.000
+so all five elements move.
+
+00:01:31.000 --> 00:01:33.560
+3000 goes to the end
+
+00:01:33.560 --> 00:01:34.760
+so none moves.
+
+00:01:34.760 --> 00:01:37.320
+Same array: best case O(1).
+
+00:01:37.670 --> 00:01:38.576
+In general
+
+00:01:38.658 --> 00:01:41.787
+inserting or deleting at position i of
+
+00:01:41.869 --> 00:01:44.751
+n elements moves n - i of them
+
+00:01:44.751 --> 00:01:47.798
+none at the end, all n at the front
+
+00:01:47.798 --> 00:01:50.021
+and about half on average.
+
+00:01:50.021 --> 00:01:53.150
+So insertion and deletion are O(n).
+
+00:01:53.500 --> 00:01:55.408
+And the size is fixed
+
+00:01:55.495 --> 00:01:58.183
+new int[100] reserves
+
+00:01:58.270 --> 00:02:00.524
+exactly 100 cells
+
+00:02:00.524 --> 00:02:04.340
+so you must know an upper limit in advance.
+
+00:02:04.920 --> 00:02:07.720
+An array is one way to store a list.
+
+00:02:07.720 --> 00:02:09.276
+But what is a list?
+
+00:02:09.353 --> 00:02:12.153
+A list is an abstract data type that
+
+00:02:12.231 --> 00:02:14.876
+holds a finite sequence of values
+
+00:02:14.876 --> 00:02:17.598
+in a definite order: a1, a2,
+
+00:02:17.598 --> 00:02:18.453
+up to aN.
+
+00:02:18.453 --> 00:02:21.720
+The same value may appear more than once
+
+00:02:21.720 --> 00:02:23.120
+like 12 here.
+
+00:02:23.470 --> 00:02:25.458
+N is the size of the list
+
+00:02:25.535 --> 00:02:27.676
+and the list with N equal to
+
+00:02:27.753 --> 00:02:29.512
+0 is the empty list.
+
+00:02:29.512 --> 00:02:31.653
+a1 is the first element
+
+00:02:31.653 --> 00:02:33.029
+and aN the last.
+
+00:02:33.106 --> 00:02:34.865
+Each element except the
+
+00:02:34.941 --> 00:02:37.924
+last has a successor, the one after it
+
+00:02:38.000 --> 00:02:40.065
+and each element except the
+
+00:02:40.142 --> 00:02:43.430
+first has a predecessor, the one before it.
+
+00:02:43.780 --> 00:02:45.940
+Abstract means that the ADT
+
+00:02:46.020 --> 00:02:47.940
+says what a list can do
+
+00:02:47.940 --> 00:02:49.700
+not how it is stored.
+
+00:02:49.700 --> 00:02:52.260
+An array is one implementation.
+
+00:02:52.260 --> 00:02:55.220
+This lecture is about the other one
+
+00:02:55.220 --> 00:02:56.820
+a linked structure.
+
+00:02:57.400 --> 00:02:59.844
+The operations of the List ADT.
+
+00:02:59.844 --> 00:03:02.525
+The names vary from book to book.
+
+00:03:02.525 --> 00:03:05.758
+printList prints the elements in order
+
+00:03:05.758 --> 00:03:08.360
+and makeEmpty removes them all.
+
+00:03:08.710 --> 00:03:11.352
+find returns the position of the
+
+00:03:11.434 --> 00:03:13.580
+first occurrence of a key.
+
+00:03:13.580 --> 00:03:15.892
+find(52) gives 3.
+
+00:03:15.892 --> 00:03:18.616
+find(12) gives 2, not 5
+
+00:03:18.616 --> 00:03:21.670
+because it stops at the first match.
+
+00:03:22.020 --> 00:03:25.364
+insert(99) at position 3 makes
+
+00:03:25.444 --> 00:03:27.832
+99 the third element
+
+00:03:27.912 --> 00:03:30.301
+and the elements after it each
+
+00:03:30.380 --> 00:03:31.973
+move back one place.
+
+00:03:31.973 --> 00:03:35.157
+delete(52), on the original list
+
+00:03:35.237 --> 00:03:37.228
+removes the first element
+
+00:03:37.307 --> 00:03:38.820
+equal to 52.
+
+00:03:39.170 --> 00:03:41.539
+Positions here count from 1
+
+00:03:41.539 --> 00:03:42.960
+as on the slides.
+
+00:03:42.960 --> 00:03:46.434
+Java's own List interface counts from 0
+
+00:03:46.434 --> 00:03:48.250
+so keep the two apart.
+
+00:03:48.830 --> 00:03:51.192
+A linked list stores each element
+
+00:03:51.264 --> 00:03:54.055
+in its own small object, called a node
+
+00:03:54.055 --> 00:03:56.632
+together with a reference, or link
+
+00:03:56.632 --> 00:03:57.921
+to the next node.
+
+00:03:57.921 --> 00:04:00.569
+The nodes can be anywhere in memory
+
+00:04:00.569 --> 00:04:03.432
+only the links hold the order together.
+
+00:04:03.432 --> 00:04:05.723
+On paper we draw them in a row
+
+00:04:05.723 --> 00:04:07.870
+with one arrow for each link.
+
+00:04:08.220 --> 00:04:09.856
+What does that give us?
+
+00:04:09.856 --> 00:04:10.995
+A dynamic size
+
+00:04:11.066 --> 00:04:13.983
+the list grows by one Node on each insert
+
+00:04:14.054 --> 00:04:16.473
+and shrinks by one on each delete
+
+00:04:16.473 --> 00:04:19.176
+with no upper limit fixed in advance.
+
+00:04:19.176 --> 00:04:21.595
+And cheap insertion and deletion
+
+00:04:21.595 --> 00:04:23.018
+nothing is shifted.
+
+00:04:23.018 --> 00:04:25.365
+Once you are at the right place
+
+00:04:25.365 --> 00:04:27.500
+only one or two links change.
+
+00:04:27.500 --> 00:04:28.780
+That is O(1).
+
+00:04:29.360 --> 00:04:31.204
+And what does it cost?
+
+00:04:31.204 --> 00:04:32.461
+First, memory.
+
+00:04:32.461 --> 00:04:36.066
+An int array needs 4 bytes per element.
+
+00:04:36.150 --> 00:04:39.167
+A Node holding one int also stores a
+
+00:04:39.251 --> 00:04:42.185
+reference and a Java object header
+
+00:04:42.185 --> 00:04:44.280
+about 24 bytes.
+
+00:04:44.630 --> 00:04:47.473
+Second, there is no random access.
+
+00:04:47.557 --> 00:04:50.985
+To reach the i-th element you must follow
+
+00:04:51.069 --> 00:04:53.828
+i - 1 links from the front.
+
+00:04:53.828 --> 00:04:56.336
+That is O(i), not O(1)
+
+00:04:56.420 --> 00:04:58.761
+so binary search on a linked
+
+00:04:58.845 --> 00:05:00.350
+list is pointless.
+
+00:05:00.700 --> 00:05:02.725
+Third, there is no way back
+
+00:05:02.797 --> 00:05:04.533
+from a Node you can only
+
+00:05:04.605 --> 00:05:06.052
+reach its successor.
+
+00:05:06.052 --> 00:05:08.438
+A doubly linked list fixes that
+
+00:05:08.438 --> 00:05:11.620
+at the cost of one more reference per Node.
+
+00:05:12.200 --> 00:05:14.985
+There are four kinds of linked list.
+
+00:05:14.985 --> 00:05:16.919
+In a singly linked list
+
+00:05:16.919 --> 00:05:19.240
+each Node has one link, next
+
+00:05:19.240 --> 00:05:21.793
+and the last Node links to null.
+
+00:05:21.793 --> 00:05:24.965
+A doubly linked list adds a second link
+
+00:05:24.965 --> 00:05:26.976
+prev, to the Node before.
+
+00:05:26.976 --> 00:05:28.523
+In a circular list
+
+00:05:28.523 --> 00:05:31.540
+the last Node links back to the first
+
+00:05:31.540 --> 00:05:34.480
+and a doubly circular list does both.
+
+00:05:34.830 --> 00:05:36.862
+Parts 1 to 3 are about
+
+00:05:36.934 --> 00:05:38.603
+the singly linked list.
+
+00:05:38.603 --> 00:05:41.070
+Part 4 covers the other three.
+
+00:05:41.650 --> 00:05:44.290
+In Java, a Node is a small class.
+
+00:05:44.290 --> 00:05:47.810
+It has an int field, element, for the data
+
+00:05:47.810 --> 00:05:50.370
+and a field next, of type Node
+
+00:05:50.370 --> 00:05:53.170
+a reference to the following Node.
+
+00:05:53.170 --> 00:05:55.250
+The constructor stores x
+
+00:05:55.250 --> 00:05:57.090
+and sets next to null.
+
+00:05:57.440 --> 00:06:00.761
+To use a list, you only keep one reference
+
+00:06:00.761 --> 00:06:03.001
+the head, to the first Node.
+
+00:06:03.079 --> 00:06:05.087
+Everything else is reached
+
+00:06:05.164 --> 00:06:07.018
+by following next links.
+
+00:06:07.018 --> 00:06:09.335
+The last node's next is null
+
+00:06:09.413 --> 00:06:11.575
+and the empty list is simply
+
+00:06:11.653 --> 00:06:13.120
+head equal to null.
+
+00:06:13.470 --> 00:06:15.539
+A warning about the word head.
+
+00:06:15.539 --> 00:06:16.505
+In some code
+
+00:06:16.505 --> 00:06:18.988
+head refers to the first real node.
+
+00:06:18.988 --> 00:06:21.954
+In other code, head is an extra dummy node
+
+00:06:22.023 --> 00:06:23.609
+that stores no element
+
+00:06:23.609 --> 00:06:26.506
+and the first real node is head.next.
+
+00:06:26.575 --> 00:06:28.575
+Always check which convention
+
+00:06:28.644 --> 00:06:30.230
+the code you read uses.
+
+00:06:30.810 --> 00:06:32.929
+To traverse a list is to
+
+00:06:33.017 --> 00:06:34.960
+visit every node once.
+
+00:06:34.960 --> 00:06:38.756
+printList starts with curr equal to head.
+
+00:06:38.756 --> 00:06:40.875
+While curr is not null
+
+00:06:40.875 --> 00:06:43.347
+it prints curr.element.
+
+00:06:43.347 --> 00:06:45.731
+Here, that is 34.
+
+00:06:45.731 --> 00:06:48.026
+Then it follows the link
+
+00:06:48.026 --> 00:06:50.410
+curr equals curr.next.
+
+00:06:50.760 --> 00:06:54.806
+12, 52, 16, 12.
+
+00:06:54.806 --> 00:06:58.968
+Now curr is null, so the loop ends
+
+00:06:58.968 --> 00:07:01.280
+and it prints null.
+
+00:07:01.860 --> 00:07:05.268
+Counting and searching are traversals too.
+
+00:07:05.268 --> 00:07:07.620
+Size counts the nodes: 5.
+
+00:07:07.702 --> 00:07:10.460
+find walks with a position counter
+
+00:07:10.541 --> 00:07:12.083
+that starts at 1.
+
+00:07:12.083 --> 00:07:14.517
+find(52) returns 3.
+
+00:07:14.517 --> 00:07:17.356
+find(12) returns 2, not 5
+
+00:07:17.356 --> 00:07:19.709
+it stops at the first match.
+
+00:07:19.709 --> 00:07:22.954
+And find(99) walks off the end
+
+00:07:22.954 --> 00:07:24.820
+and returns -1.
+
+00:07:25.170 --> 00:07:27.475
+A traversal takes O(n) time.
+
+00:07:27.475 --> 00:07:30.472
+A search is O(1) in the best case
+
+00:07:30.472 --> 00:07:33.161
+when the key is in the first node
+
+00:07:33.161 --> 00:07:35.466
+and O(n) in the worst case
+
+00:07:35.466 --> 00:07:38.770
+when the key is last, or not there at all.
+
+00:07:39.350 --> 00:07:42.198
+A common slip is to write the loop test
+
+00:07:42.271 --> 00:07:44.827
+as curr.next not equal to null.
+
+00:07:44.827 --> 00:07:47.603
+Then the loop stops at the last node
+
+00:07:47.603 --> 00:07:49.136
+instead of after it
+
+00:07:49.136 --> 00:07:52.350
+so printList never prints the last 12.
+
+00:07:52.350 --> 00:07:54.979
+And on an empty list, curr is null
+
+00:07:55.052 --> 00:07:56.877
+so curr.next throws a
+
+00:07:56.950 --> 00:07:58.630
+NullPointerException.
+
+00:07:58.980 --> 00:08:02.076
+Stopping on the last node is the right test
+
+00:08:02.148 --> 00:08:04.524
+only when you want the last node
+
+00:08:04.524 --> 00:08:06.900
+as insertLast does in part two.
+
+00:08:07.480 --> 00:08:08.384
+To sum up.
+
+00:08:08.384 --> 00:08:12.271
+One: a list is a finite, ordered sequence
+
+00:08:12.271 --> 00:08:14.350
+an abstract data type
+
+00:08:14.350 --> 00:08:17.061
+and positions count from 1.
+
+00:08:17.061 --> 00:08:17.513
+Two
+
+00:08:17.513 --> 00:08:21.491
+an array gives instant access to element i
+
+00:08:21.491 --> 00:08:23.750
+but it has a fixed size
+
+00:08:23.841 --> 00:08:26.100
+and inserting or deleting
+
+00:08:26.191 --> 00:08:28.360
+shifts up to n elements.
+
+00:08:28.710 --> 00:08:29.235
+Three
+
+00:08:29.235 --> 00:08:32.905
+a singly linked list is a chain of nodes
+
+00:08:32.905 --> 00:08:36.226
+each with an element and a next link
+
+00:08:36.226 --> 00:08:38.236
+reached from the head.
+
+00:08:38.323 --> 00:08:40.420
+A traversal follows next
+
+00:08:40.508 --> 00:08:42.430
+until it reaches null.
+
+00:08:42.780 --> 00:08:43.517
+Try this.
+
+00:08:43.599 --> 00:08:46.139
+Write a method that returns the
+
+00:08:46.221 --> 00:08:48.105
+last element of a list.
+
+00:08:48.105 --> 00:08:50.808
+Test it first on the empty list
+
+00:08:50.808 --> 00:08:53.020
+and on a list of one node.
+
+00:08:53.370 --> 00:08:56.641
+In part two, we insert and delete nodes
+
+00:08:56.641 --> 00:08:58.930
+without breaking the chain.
+

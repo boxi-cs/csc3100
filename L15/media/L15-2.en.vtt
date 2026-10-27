@@ -1,0 +1,827 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.366
+This part starts with the theorem that
+
+00:00:03.447 --> 00:00:05.786
+makes AVL trees worth having
+
+00:00:05.867 --> 00:00:07.804
+an AVL tree with n nodes
+
+00:00:07.884 --> 00:00:09.740
+has height O(log n).
+
+00:00:10.090 --> 00:00:13.156
+The trick is to turn the question around.
+
+00:00:13.231 --> 00:00:15.325
+Instead of asking how tall a
+
+00:00:15.400 --> 00:00:17.644
+tree with n nodes can be, ask
+
+00:00:17.719 --> 00:00:20.261
+what is the fewest number of nodes
+
+00:00:20.336 --> 00:00:22.804
+an AVL tree of height h can have?
+
+00:00:22.804 --> 00:00:24.001
+Call it N(h).
+
+00:00:24.001 --> 00:00:26.319
+A single leaf has height zero
+
+00:00:26.319 --> 00:00:27.890
+so N(0) is 1.
+
+00:00:28.240 --> 00:00:31.198
+Height 1 needs a root and one child
+
+00:00:31.198 --> 00:00:33.922
+two nodes, so N(1) = 2.
+
+00:00:34.000 --> 00:00:36.413
+And the smallest tree of height
+
+00:00:36.491 --> 00:00:37.970
+two has 4 nodes.
+
+00:00:38.048 --> 00:00:40.850
+A tree with few nodes for its height
+
+00:00:40.928 --> 00:00:43.575
+is as lopsided as the rules allow
+
+00:00:43.575 --> 00:00:47.000
+every node with children leans to one side.
+
+00:00:47.580 --> 00:00:51.284
+Now take a smallest AVL tree of height h
+
+00:00:51.284 --> 00:00:53.091
+for h at least 2.
+
+00:00:53.091 --> 00:00:55.530
+Its root has two subtrees.
+
+00:00:55.530 --> 00:00:59.325
+One of them must have height h − 1
+
+00:00:59.325 --> 00:01:03.300
+that is what makes the whole tree height h.
+
+00:01:03.650 --> 00:01:05.595
+By the balance condition
+
+00:01:05.673 --> 00:01:07.851
+the other has height h − 1
+
+00:01:07.929 --> 00:01:09.407
+or h − 2.
+
+00:01:09.407 --> 00:01:11.975
+To use as few nodes as possible
+
+00:01:11.975 --> 00:01:14.075
+it has height h − 2.
+
+00:01:14.153 --> 00:01:17.343
+And both subtrees are themselves smallest
+
+00:01:17.421 --> 00:01:19.210
+trees of their heights.
+
+00:01:19.560 --> 00:01:22.623
+So N(h) = N(h − 1)
+
+00:01:22.623 --> 00:01:24.696
++ N(h − 2)
+
+00:01:24.696 --> 00:01:26.768
++ 1 for the root.
+
+00:01:26.768 --> 00:01:30.732
+Starting from 1 and 2, that gives 4,
+
+00:01:30.732 --> 00:01:33.795
+7, 12, 20, and so on.
+
+00:01:33.795 --> 00:01:37.129
+It looks like the Fibonacci numbers
+
+00:01:37.129 --> 00:01:38.120
+and it is.
+
+00:01:38.700 --> 00:01:40.058
+Now the bound.
+
+00:01:40.058 --> 00:01:41.609
+N grows with h
+
+00:01:41.706 --> 00:01:44.518
+so N(h − 1) is larger
+
+00:01:44.615 --> 00:01:46.748
+than N(h − 2).
+
+00:01:46.748 --> 00:01:50.821
+Replace it, and N(h) is more than twice
+
+00:01:50.918 --> 00:01:52.567
+N(h − 2).
+
+00:01:52.567 --> 00:01:53.827
+Do it again
+
+00:01:53.827 --> 00:01:57.706
+more than 4 times N(h − 4)
+
+00:01:57.706 --> 00:02:01.100
+then 8 times N(h − 6).
+
+00:02:01.450 --> 00:02:03.987
+Each step down by 2 at least
+
+00:02:04.071 --> 00:02:05.593
+doubles the count.
+
+00:02:05.593 --> 00:02:08.552
+Going down about h / 2 steps
+
+00:02:08.552 --> 00:02:11.258
+we reach N(0) or N(1)
+
+00:02:11.342 --> 00:02:13.456
+so N(h) is at least
+
+00:02:13.541 --> 00:02:15.570
+2^(h/2).
+
+00:02:15.920 --> 00:02:18.436
+Now take any AVL tree with
+
+00:02:18.533 --> 00:02:20.565
+n nodes and height h.
+
+00:02:20.661 --> 00:02:23.951
+It has at least the minimum number
+
+00:02:24.048 --> 00:02:26.370
+of nodes for its height
+
+00:02:26.370 --> 00:02:30.241
+so n is at least 2^(h/2).
+
+00:02:30.241 --> 00:02:34.305
+Take logs: h is at most 2 log₂ n.
+
+00:02:34.305 --> 00:02:37.208
+So the height is O(log n).
+
+00:02:37.208 --> 00:02:39.240
+That is the theorem.
+
+00:02:39.820 --> 00:02:42.767
+The bound 2 log n is not tight.
+
+00:02:42.856 --> 00:02:46.427
+The program tabulates N(h) next to the
+
+00:02:46.517 --> 00:02:49.910
+Fibonacci numbers and next to the most
+
+00:02:49.999 --> 00:02:53.035
+nodes a tree of height h can hold.
+
+00:02:53.035 --> 00:02:56.517
+N(2) is 4, N(3) is 7
+
+00:02:56.517 --> 00:02:58.660
+then 12 and 20
+
+00:02:58.660 --> 00:03:02.410
+the same as F(h + 3) − 1
+
+00:03:02.410 --> 00:03:03.660
+in every row.
+
+00:03:04.010 --> 00:03:04.617
+Indeed
+
+00:03:04.617 --> 00:03:08.347
+N(h) is 1 less than F(h + 3).
+
+00:03:08.433 --> 00:03:11.122
+Fibonacci numbers grow like the
+
+00:03:11.209 --> 00:03:13.637
+golden ratio to the power k
+
+00:03:13.637 --> 00:03:16.760
+and that gives the classical bound
+
+00:03:16.846 --> 00:03:19.795
+h is less than 1.44
+
+00:03:19.882 --> 00:03:22.311
+times log₂(n + 2).
+
+00:03:22.397 --> 00:03:25.520
+An AVL tree is never more than about
+
+00:03:25.606 --> 00:03:28.555
+44% taller than the
+
+00:03:28.642 --> 00:03:30.290
+best possible tree.
+
+00:03:30.640 --> 00:03:32.042
+Look at height 8
+
+00:03:32.042 --> 00:03:33.978
+at least 88 nodes
+
+00:03:33.978 --> 00:03:36.182
+and at most 511.
+
+00:03:36.182 --> 00:03:37.851
+Both grow exponentially
+
+00:03:37.851 --> 00:03:39.520
+and that is all we need.
+
+00:03:40.100 --> 00:03:42.289
+What does that mean in practice?
+
+00:03:42.358 --> 00:03:44.615
+The program finds the tallest AVL
+
+00:03:44.684 --> 00:03:46.463
+tree with 1,000,000 nodes
+
+00:03:46.463 --> 00:03:47.899
+height 27.
+
+00:03:47.968 --> 00:03:50.773
+The shortest possible tree with 1,000,000
+
+00:03:50.841 --> 00:03:52.620
+nodes has height 19.
+
+00:03:52.970 --> 00:03:56.404
+A plain binary search tree on the same keys
+
+00:03:56.484 --> 00:03:59.518
+could be almost 1,000,000 levels deep.
+
+00:03:59.518 --> 00:03:59.998
+find,
+
+00:03:59.998 --> 00:04:03.272
+insert and delete all cost O(height)
+
+00:04:03.352 --> 00:04:05.508
+so in an AVL tree all three
+
+00:04:05.588 --> 00:04:06.945
+cost O(log n)
+
+00:04:07.025 --> 00:04:09.661
+provided that the repair after an
+
+00:04:09.740 --> 00:04:12.136
+update also costs O(log n).
+
+00:04:12.136 --> 00:04:15.650
+The rest of the lecture shows that it does.
+
+00:04:16.230 --> 00:04:17.094
+Your turn.
+
+00:04:17.180 --> 00:04:19.340
+Here are the smallest AVL
+
+00:04:19.427 --> 00:04:22.451
+trees of heights 0, 1 and 2.
+
+00:04:22.537 --> 00:04:24.611
+What is the smallest AVL
+
+00:04:24.697 --> 00:04:26.512
+tree of height 3?
+
+00:04:26.512 --> 00:04:29.190
+Draw one, and count its nodes.
+
+00:04:29.190 --> 00:04:31.350
+Pause the video and try.
+
+00:04:34.930 --> 00:04:37.452
+N(3) is N(2) plus
+
+00:04:37.545 --> 00:04:41.468
+N(1) plus 1: 4 + 2 + 1
+
+00:04:41.468 --> 00:04:42.121
+7.
+
+00:04:42.121 --> 00:04:44.736
+Here is one: the root 5
+
+00:04:44.830 --> 00:04:47.631
+with a smallest tree of height
+
+00:04:47.725 --> 00:04:50.340
+2 on the left, 4 nodes
+
+00:04:50.433 --> 00:04:53.142
+and a smallest tree of height
+
+00:04:53.235 --> 00:04:55.850
+1 on the right, 2 nodes.
+
+00:04:56.200 --> 00:04:58.322
+Every node except the leaves
+
+00:04:58.398 --> 00:04:59.990
+has balance +1.
+
+00:05:00.066 --> 00:05:01.885
+Trees built this way are
+
+00:05:01.961 --> 00:05:03.704
+called Fibonacci trees.
+
+00:05:03.704 --> 00:05:05.978
+They are the worst AVL trees
+
+00:05:05.978 --> 00:05:08.707
+as tall as possible for their size.
+
+00:05:08.707 --> 00:05:11.360
+Even they have logarithmic height.
+
+00:05:11.940 --> 00:05:15.179
+So how does an AVL tree stay balanced?
+
+00:05:15.179 --> 00:05:18.759
+Insert the way a binary search tree does
+
+00:05:18.759 --> 00:05:20.464
+search for the key
+
+00:05:20.464 --> 00:05:24.129
+and hang a new leaf where the search ends.
+
+00:05:24.129 --> 00:05:27.198
+Start with 3, 2, 7, 5.
+
+00:05:27.198 --> 00:05:30.351
+Insert 9: it goes right of 7.
+
+00:05:30.351 --> 00:05:33.420
+Every balance factor is still fine.
+
+00:05:33.770 --> 00:05:36.080
+Now insert 4: left of 5.
+
+00:05:36.080 --> 00:05:38.467
+5 now has balance +1
+
+00:05:38.467 --> 00:05:40.931
+and 7 has balance +1.
+
+00:05:41.008 --> 00:05:44.164
+But the root has a left subtree of height
+
+00:05:44.241 --> 00:05:47.244
+0 and a right subtree of height 2
+
+00:05:47.244 --> 00:05:48.707
+balance −2.
+
+00:05:48.707 --> 00:05:50.170
+We must repair it.
+
+00:05:50.750 --> 00:05:52.989
+Two principles limit the damage.
+
+00:05:52.989 --> 00:05:55.857
+First, imbalance only occurs on the path
+
+00:05:55.927 --> 00:05:58.026
+from the new leaf to the root.
+
+00:05:58.096 --> 00:06:00.334
+Only the nodes on that path have
+
+00:06:00.404 --> 00:06:02.433
+a new node in their subtrees
+
+00:06:02.503 --> 00:06:04.812
+so only their heights and balance
+
+00:06:04.882 --> 00:06:06.211
+factors can change.
+
+00:06:06.211 --> 00:06:07.750
+The problem is local.
+
+00:06:08.100 --> 00:06:08.610
+Second
+
+00:06:08.610 --> 00:06:11.668
+rebalance at the deepest unbalanced node.
+
+00:06:11.668 --> 00:06:13.999
+Walk back up from the new leaf
+
+00:06:13.999 --> 00:06:15.309
+updating heights.
+
+00:06:15.382 --> 00:06:18.513
+The first node whose balance factor becomes
+
+00:06:18.586 --> 00:06:21.499
++2 or −2 is the one to fix.
+
+00:06:21.499 --> 00:06:23.684
+Here that is the root, 3.
+
+00:06:23.756 --> 00:06:26.014
+We will see that fixing it also
+
+00:06:26.087 --> 00:06:27.980
+fixes every node above it.
+
+00:06:28.560 --> 00:06:31.498
+Call the deepest unbalanced node z.
+
+00:06:31.498 --> 00:06:34.352
+Its balance is +2 or −2
+
+00:06:34.436 --> 00:06:36.870
+so one of its subtrees is two
+
+00:06:36.954 --> 00:06:38.801
+taller than the other
+
+00:06:38.801 --> 00:06:42.326
+and the new key went into the taller one.
+
+00:06:42.326 --> 00:06:45.600
+Let y be z's child on the taller side.
+
+00:06:45.950 --> 00:06:47.566
+There are four cases
+
+00:06:47.566 --> 00:06:50.722
+by which way we went at z and then at y.
+
+00:06:50.722 --> 00:06:53.107
+Left at z and left again at y
+
+00:06:53.107 --> 00:06:54.647
+the left-left case.
+
+00:06:54.647 --> 00:06:57.263
+The path goes the same way twice
+
+00:06:57.263 --> 00:06:58.802
+in a straight line
+
+00:06:58.802 --> 00:07:01.342
+so it is called an outside case.
+
+00:07:01.342 --> 00:07:04.190
+Right and right is its mirror image
+
+00:07:04.190 --> 00:07:05.190
+right-right.
+
+00:07:05.540 --> 00:07:09.474
+Left at z, then right at y: left-right.
+
+00:07:09.474 --> 00:07:13.609
+The path bends, so it is an inside case
+
+00:07:13.609 --> 00:07:16.029
+often called a dog-leg.
+
+00:07:16.029 --> 00:07:19.660
+And right-left is its mirror image.
+
+00:07:20.010 --> 00:07:23.005
+Mirror images need no new ideas
+
+00:07:23.005 --> 00:07:26.562
+so we study two cases: left-left now
+
+00:07:26.562 --> 00:07:29.370
+and left-right in part three.
+
+00:07:29.950 --> 00:07:33.286
+Draw the left-left case with whole
+
+00:07:33.384 --> 00:07:35.543
+subtrees as triangles.
+
+00:07:35.641 --> 00:07:38.192
+z has the left child y and
+
+00:07:38.290 --> 00:07:40.252
+the right subtree C.
+
+00:07:40.252 --> 00:07:42.607
+y has subtrees A and B.
+
+00:07:42.607 --> 00:07:46.630
+The keys are in the order A, y, B, z, C.
+
+00:07:46.980 --> 00:07:48.595
+Say C has height h.
+
+00:07:48.595 --> 00:07:51.739
+Before the insertion z was balanced
+
+00:07:51.739 --> 00:07:55.478
+and now its left side is two taller than C
+
+00:07:55.478 --> 00:07:58.963
+so y grew from h + 1 to h + 2
+
+00:07:58.963 --> 00:08:01.087
+the new key went into A
+
+00:08:01.087 --> 00:08:03.891
+and A grew from h to h + 1.
+
+00:08:03.891 --> 00:08:05.931
+B has height h as well
+
+00:08:06.016 --> 00:08:08.735
+or y itself would be the deepest
+
+00:08:08.820 --> 00:08:10.180
+unbalanced node.
+
+00:08:10.530 --> 00:08:13.452
+The fix is a right rotation at z.
+
+00:08:13.540 --> 00:08:15.842
+y comes up and becomes the
+
+00:08:15.930 --> 00:08:17.789
+root of this subtree
+
+00:08:17.789 --> 00:08:21.242
+z goes down to become y's right child
+
+00:08:21.242 --> 00:08:23.455
+and A stays where it is.
+
+00:08:23.455 --> 00:08:27.439
+B moves across: it becomes z's left subtree.
+
+00:08:27.439 --> 00:08:30.095
+B holds keys between y and z
+
+00:08:30.095 --> 00:08:33.370
+so that is exactly where it belongs.
+
+00:08:33.720 --> 00:08:37.021
+Read the keys from left to right: still A
+
+00:08:37.021 --> 00:08:37.964
+y, B, z, C.
+
+00:08:37.964 --> 00:08:39.457
+The order is kept.
+
+00:08:39.457 --> 00:08:40.793
+And the heights
+
+00:08:40.793 --> 00:08:43.622
+z now has two subtrees of height h
+
+00:08:43.701 --> 00:08:45.508
+so it has height h + 1
+
+00:08:45.587 --> 00:08:47.237
+and balance 0.
+
+00:08:47.237 --> 00:08:50.459
+y has two subtrees of height h + 1
+
+00:08:50.459 --> 00:08:53.053
+height h + 2, balance 0.
+
+00:08:53.131 --> 00:08:56.118
+That is exactly the height the subtree
+
+00:08:56.196 --> 00:08:58.161
+had before the insertion
+
+00:08:58.161 --> 00:09:00.440
+so nothing above it changes.
+
+00:09:01.020 --> 00:09:03.270
+Following Weiss's textbook
+
+00:09:03.270 --> 00:09:06.935
+the code calls this rotateWithLeftChild
+
+00:09:06.935 --> 00:09:08.685
+z, named k2 here
+
+00:09:08.768 --> 00:09:10.767
+is rotated together with
+
+00:09:10.851 --> 00:09:12.600
+its left child k1.
+
+00:09:12.600 --> 00:09:15.016
+k1 is k2's left child.
+
+00:09:15.100 --> 00:09:17.016
+k2's left link takes
+
+00:09:17.099 --> 00:09:19.848
+k1's right subtree, that is B.
+
+00:09:19.848 --> 00:09:23.514
+And k1's right link now points to k2.
+
+00:09:23.514 --> 00:09:25.180
+Three link changes.
+
+00:09:25.530 --> 00:09:28.724
+Then two height updates, in this order
+
+00:09:28.724 --> 00:09:31.918
+first k2, the node that moved down
+
+00:09:31.918 --> 00:09:32.900
+then k1
+
+00:09:32.900 --> 00:09:35.930
+whose new height depends on k2's.
+
+00:09:36.280 --> 00:09:39.269
+It returns the new root of the subtree
+
+00:09:39.346 --> 00:09:42.028
+and the caller must store it in the
+
+00:09:42.105 --> 00:09:44.327
+link that used to point to z
+
+00:09:44.327 --> 00:09:47.240
+t = rotateWithLeftChild(t).
+
+00:09:47.316 --> 00:09:49.846
+Forgetting that assignment is the
+
+00:09:49.922 --> 00:09:51.838
+most common rotation bug
+
+00:09:51.838 --> 00:09:54.061
+the rotated subtree is lost.
+
+00:09:54.061 --> 00:09:55.364
+One more detail.
+
+00:09:55.440 --> 00:09:57.816
+On the slides these methods are
+
+00:09:57.893 --> 00:10:00.192
+static inside a generic class
+
+00:10:00.192 --> 00:10:02.032
+which does not compile.
+
+00:10:02.108 --> 00:10:04.254
+Here they are static generic
+
+00:10:04.331 --> 00:10:06.400
+methods in their own class.
+
+00:10:06.980 --> 00:10:10.916
+Here it is on a real tree: 30, 15
+
+00:10:10.916 --> 00:10:13.296
+40, 13, 16
+
+00:10:13.296 --> 00:10:15.310
+after inserting 5.
+
+00:10:15.310 --> 00:10:17.965
+30 has balance +2.
+
+00:10:18.056 --> 00:10:20.436
+We went left at 30 and
+
+00:10:20.528 --> 00:10:23.549
+left again at 15: left-left.
+
+00:10:23.549 --> 00:10:26.020
+30 is z, 15 is y.
+
+00:10:26.370 --> 00:10:28.777
+One right rotation at 30.
+
+00:10:28.777 --> 00:10:30.272
+15 comes up
+
+00:10:30.272 --> 00:10:33.924
+30 goes down to the right, and 16
+
+00:10:33.924 --> 00:10:35.584
+the middle subtree
+
+00:10:35.584 --> 00:10:39.237
+moves across to become 30's left child.
+
+00:10:39.237 --> 00:10:41.810
+The program agrees: AVL, true.
+
+00:10:42.390 --> 00:10:43.267
+To sum up.
+
+00:10:43.267 --> 00:10:46.774
+One: the fewest nodes of an AVL tree of
+
+00:10:46.862 --> 00:10:49.317
+height h grow exponentially
+
+00:10:49.317 --> 00:10:53.087
+so the height is at most 2 log₂ n.
+
+00:10:53.087 --> 00:10:56.331
+Two: an insertion can only unbalance
+
+00:10:56.419 --> 00:10:57.997
+nodes on its path
+
+00:10:58.085 --> 00:11:00.540
+and we repair at the deepest
+
+00:11:00.627 --> 00:11:02.030
+unbalanced node.
+
+00:11:02.380 --> 00:11:04.982
+Three: in the left-left case
+
+00:11:05.072 --> 00:11:07.674
+one right rotation at z fixes
+
+00:11:07.764 --> 00:11:09.559
+it in constant time
+
+00:11:09.559 --> 00:11:11.802
+keeps the keys in order
+
+00:11:11.802 --> 00:11:15.660
+and gives the subtree back its old height.
+
+00:11:16.010 --> 00:11:16.705
+Try this.
+
+00:11:16.705 --> 00:11:18.403
+Take the tree 20
+
+00:11:18.403 --> 00:11:20.719
+with children 10 and 30
+
+00:11:20.796 --> 00:11:23.652
+where 30 has children 25
+
+00:11:23.729 --> 00:11:24.964
+and 35
+
+00:11:24.964 --> 00:11:28.283
+and 35 has the right child 40.
+
+00:11:28.283 --> 00:11:29.750
+Insert 45.
+
+00:11:29.750 --> 00:11:32.992
+Which node is the deepest unbalanced one
+
+00:11:32.992 --> 00:11:34.690
+and which case is it?
+
+00:11:35.040 --> 00:11:36.150
+In part three
+
+00:11:36.150 --> 00:11:39.479
+the double rotation for the inside cases
+
+00:11:39.558 --> 00:11:41.936
+and insertion into an AVL tree
+
+00:11:42.016 --> 00:11:43.680
+from start to finish.
+

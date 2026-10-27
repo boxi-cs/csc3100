@@ -1,0 +1,674 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.888
+Part two of lecture eight: sparse matrices.
+
+00:00:03.972 --> 00:00:07.310
+A university has 40,000 students
+
+00:00:07.393 --> 00:00:10.648
+and 2,500 subjects
+
+00:00:10.731 --> 00:00:13.819
+and it wants to store every student's
+
+00:00:13.902 --> 00:00:15.821
+score in every subject.
+
+00:00:15.905 --> 00:00:19.326
+A two-dimensional array of 40,000
+
+00:00:19.410 --> 00:00:22.414
+by 2,500 has
+
+00:00:22.497 --> 00:00:24.500
+100 million entries.
+
+00:00:24.850 --> 00:00:26.802
+But each student takes only
+
+00:00:26.875 --> 00:00:28.393
+about three subjects.
+
+00:00:28.465 --> 00:00:30.996
+So only 120,000
+
+00:00:31.068 --> 00:00:32.804
+entries are real scores
+
+00:00:32.876 --> 00:00:34.612
+about
+
+00:00:34.684 --> 00:00:36.202
+0.12% of the array.
+
+00:00:36.202 --> 00:00:38.010
+Everything else is zero.
+
+00:00:38.360 --> 00:00:40.779
+A streaming company is worse
+
+00:00:40.862 --> 00:00:44.282
+10 million users and 10000 movies
+
+00:00:44.365 --> 00:00:47.701
+give 10^11 entries.
+
+00:00:47.701 --> 00:00:49.620
+At four bytes per int
+
+00:00:49.620 --> 00:00:52.289
+that is 400 GB
+
+00:00:52.289 --> 00:00:53.790
+nearly all zeros.
+
+00:00:53.873 --> 00:00:56.375
+A matrix in which most entries
+
+00:00:56.459 --> 00:00:58.794
+are zero is a sparse matrix.
+
+00:00:58.794 --> 00:01:01.880
+As with the polynomials of part one
+
+00:01:01.963 --> 00:01:03.965
+the fix is to store only
+
+00:01:04.049 --> 00:01:05.800
+the non-zero entries.
+
+00:01:06.380 --> 00:01:07.990
+The first solution
+
+00:01:07.990 --> 00:01:11.380
+store each non-zero entry as a triplet
+
+00:01:11.380 --> 00:01:14.346
+its row, its column and its value.
+
+00:01:14.431 --> 00:01:16.974
+Here is the 5 × 6 matrix
+
+00:01:17.058 --> 00:01:18.414
+from the slides.
+
+00:01:18.414 --> 00:01:21.889
+We keep the triplets in row-major order
+
+00:01:21.889 --> 00:01:24.940
+by row, and by column within a row.
+
+00:01:25.290 --> 00:01:28.597
+Row zero has a nine in column four
+
+00:01:28.597 --> 00:01:31.243
+the triplet (0, 4, 9).
+
+00:01:31.243 --> 00:01:33.511
+Row one: (1, 1, 8).
+
+00:01:33.511 --> 00:01:35.873
+Row two has two entries
+
+00:01:35.873 --> 00:01:38.047
+a four in column zero
+
+00:01:38.047 --> 00:01:40.598
+and a two in column three.
+
+00:01:40.598 --> 00:01:43.244
+Row three: (3, 5, 5).
+
+00:01:43.244 --> 00:01:45.890
+And row four: (4, 2, 2).
+
+00:01:46.240 --> 00:01:49.007
+Six triplets of three numbers each
+
+00:01:49.007 --> 00:01:50.193
+18 ints
+
+00:01:50.193 --> 00:01:52.960
+against 30 for the full array.
+
+00:01:53.540 --> 00:01:55.942
+One correction to the slides.
+
+00:01:56.025 --> 00:01:58.427
+Their triplet table lists the
+
+00:01:58.510 --> 00:02:01.327
+entry of row two as (2, 2, 2).
+
+00:02:01.327 --> 00:02:04.971
+But look at row two:
+
+00:02:04.971 --> 00:02:05.966
+4 0 0 2 0 0.
+
+00:02:05.966 --> 00:02:07.622
+Counting from zero
+
+00:02:07.622 --> 00:02:10.107
+the two sits in column three.
+
+00:02:10.107 --> 00:02:13.421
+The correct triplet is (2, 3, 2)
+
+00:02:13.421 --> 00:02:16.900
+which is exactly what the program prints.
+
+00:02:17.480 --> 00:02:19.400
+Reading one entry means
+
+00:02:19.483 --> 00:02:21.319
+scanning the triplets.
+
+00:02:21.402 --> 00:02:25.075
+get walks the array and returns the value of
+
+00:02:25.158 --> 00:02:28.663
+the triplet with that row and that column.
+
+00:02:28.663 --> 00:02:31.083
+Anything not stored is zero.
+
+00:02:31.083 --> 00:02:34.422
+So get(2, 3) is 2
+
+00:02:34.422 --> 00:02:37.760
+and get(2, 2) is 0.
+
+00:02:38.110 --> 00:02:40.391
+Because the triplets are sorted
+
+00:02:40.462 --> 00:02:43.100
+a binary search can find one in about
+
+00:02:43.171 --> 00:02:44.953
+log t steps instead of t.
+
+00:02:45.024 --> 00:02:47.519
+And the whole matrix costs 18
+
+00:02:47.591 --> 00:02:49.230
+ints instead of 30.
+
+00:02:49.810 --> 00:02:52.447
+In general, a matrix with r rows,
+
+00:02:52.527 --> 00:02:55.563
+c columns and t non-zero entries takes
+
+00:02:55.642 --> 00:02:58.599
+3t numbers instead of r × c.
+
+00:02:58.679 --> 00:03:00.916
+That pays off when t is less
+
+00:03:00.996 --> 00:03:02.593
+than rc/3.
+
+00:03:02.593 --> 00:03:04.191
+For the university
+
+00:03:04.271 --> 00:03:07.148
+360,000 numbers
+
+00:03:07.227 --> 00:03:09.704
+instead of 100 million.
+
+00:03:09.704 --> 00:03:12.900
+Of the three solutions in this lecture,
+
+00:03:12.900 --> 00:03:15.297
+triplets use the least space,
+
+00:03:15.377 --> 00:03:18.333
+which is why the slides call them the
+
+00:03:18.413 --> 00:03:20.730
+minimum space representation.
+
+00:03:21.080 --> 00:03:23.954
+The price: reading an entry is a search,
+
+00:03:24.026 --> 00:03:27.475
+and inserting a new non-zero entry in the middle
+
+00:03:27.547 --> 00:03:30.206
+means shifting the rest of the array,
+
+00:03:30.206 --> 00:03:33.080
+just like inserting into an array list.
+
+00:03:33.660 --> 00:03:36.229
+The second solution puts the same
+
+00:03:36.307 --> 00:03:38.487
+triplets into a linked list,
+
+00:03:38.487 --> 00:03:40.744
+one node per non-zero entry,
+
+00:03:40.744 --> 00:03:42.768
+still in row-major order.
+
+00:03:42.768 --> 00:03:46.194
+This matrix has four rows and five columns.
+
+00:03:46.271 --> 00:03:48.840
+The method fromArray walks it row
+
+00:03:48.918 --> 00:03:51.799
+by row and appends a node at the tail
+
+00:03:51.877 --> 00:03:53.823
+for every non-zero value,
+
+00:03:53.823 --> 00:03:56.002
+with a dummy node in front,
+
+00:03:56.002 --> 00:03:58.260
+as the polynomial merge did.
+
+00:03:58.610 --> 00:04:03.340
+Row 0 gives (0, 2, 3)
+
+00:04:03.340 --> 00:04:04.692
+and (0, 4, 4).
+
+00:04:04.692 --> 00:04:09.084
+Row 1 gives (1, 2, 5)
+
+00:04:09.084 --> 00:04:10.661
+and (1, 3, 7).
+
+00:04:10.661 --> 00:04:13.139
+Row 2 is all zeros,
+
+00:04:13.139 --> 00:04:16.968
+so it contributes no node at all.
+
+00:04:16.968 --> 00:04:21.924
+Row 3 gives (3, 1, 2)
+
+00:04:21.924 --> 00:04:23.050
+and (3, 2, 6).
+
+00:04:23.400 --> 00:04:25.800
+Inserting or deleting an entry
+
+00:04:25.880 --> 00:04:28.200
+now just re-links references
+
+00:04:28.200 --> 00:04:29.480
+nothing shifts.
+
+00:04:29.480 --> 00:04:33.080
+Each node costs three ints plus a reference
+
+00:04:33.080 --> 00:04:36.440
+a little more than a triplet in an array.
+
+00:04:37.020 --> 00:04:39.598
+A single list in row-major order is
+
+00:04:39.671 --> 00:04:41.807
+good for walking along a row
+
+00:04:41.807 --> 00:04:44.384
+but bad for walking down a column
+
+00:04:44.458 --> 00:04:47.330
+the entries of one column are scattered
+
+00:04:47.404 --> 00:04:49.098
+through the whole list.
+
+00:04:49.098 --> 00:04:52.264
+Matrix algorithms, such as multiplication
+
+00:04:52.264 --> 00:04:55.210
+transposition and Gaussian elimination
+
+00:04:55.210 --> 00:04:56.020
+need both.
+
+00:04:56.370 --> 00:04:57.892
+An orthogonal list
+
+00:04:57.892 --> 00:05:00.536
+also called a cross-linked list
+
+00:05:00.536 --> 00:05:03.501
+gives every non-zero node two links.
+
+00:05:03.581 --> 00:05:06.225
+right points to the next non-zero
+
+00:05:06.305 --> 00:05:08.068
+entry in the same row
+
+00:05:08.148 --> 00:05:11.032
+and down points to the next non-zero
+
+00:05:11.113 --> 00:05:13.116
+entry in the same column.
+
+00:05:13.196 --> 00:05:16.561
+Each row and each column also has a header
+
+00:05:16.641 --> 00:05:19.045
+that points to its first node
+
+00:05:19.045 --> 00:05:22.490
+an empty row or column has no node at all.
+
+00:05:22.840 --> 00:05:23.829
+On the slides
+
+00:05:23.900 --> 00:05:26.585
+the textbook version links the headers
+
+00:05:26.655 --> 00:05:28.422
+into a list of their own
+
+00:05:28.422 --> 00:05:31.460
+and every row and column list is circular.
+
+00:05:31.531 --> 00:05:33.792
+Our Java keeps the idea with two
+
+00:05:33.862 --> 00:05:35.841
+arrays of header references
+
+00:05:35.841 --> 00:05:37.678
+row head and column head
+
+00:05:37.678 --> 00:05:40.080
+and null at the end of each list.
+
+00:05:40.660 --> 00:05:42.821
+insert makes the new node
+
+00:05:42.821 --> 00:05:45.147
+then links it into its row.
+
+00:05:45.147 --> 00:05:48.887
+If row r is empty, or its first node lies to
+
+00:05:48.970 --> 00:05:50.798
+the right of column c
+
+00:05:50.881 --> 00:05:52.875
+the new node becomes the
+
+00:05:52.958 --> 00:05:54.786
+first node of the row.
+
+00:05:54.870 --> 00:05:58.443
+Otherwise p walks right while the next node
+
+00:05:58.526 --> 00:06:01.268
+is still to the left of column c
+
+00:06:01.268 --> 00:06:04.509
+and the new node is linked in after p
+
+00:06:04.509 --> 00:06:06.420
+two references change.
+
+00:06:06.770 --> 00:06:09.549
+The column half is the same code
+
+00:06:09.634 --> 00:06:11.823
+with down and row in place
+
+00:06:11.908 --> 00:06:13.592
+of right and column.
+
+00:06:13.676 --> 00:06:15.866
+So every insert keeps each
+
+00:06:15.950 --> 00:06:17.719
+row sorted by column
+
+00:06:17.719 --> 00:06:20.330
+and each column sorted by row.
+
+00:06:20.910 --> 00:06:23.930
+OrthogonalDemo inserts the six entries
+
+00:06:24.009 --> 00:06:26.155
+of the five by four matrix
+
+00:06:26.155 --> 00:06:29.334
+then prints every row and every column.
+
+00:06:29.334 --> 00:06:32.036
+Row two and column one are empty.
+
+00:06:32.036 --> 00:06:35.215
+Now look at the node (1, 3, 3)
+
+00:06:35.215 --> 00:06:37.917
+it is the second node of row 1
+
+00:06:37.917 --> 00:06:40.778
+and the first node of column 3.
+
+00:06:40.858 --> 00:06:42.685
+Every element node sits
+
+00:06:42.765 --> 00:06:44.434
+on two lists at once.
+
+00:06:44.513 --> 00:06:47.931
+Walking a row or a column now costs only as
+
+00:06:48.010 --> 00:06:51.030
+many steps as it has non-zero entries.
+
+00:06:51.610 --> 00:06:53.077
+Reading entry (r, c)
+
+00:06:53.077 --> 00:06:55.919
+walks row r from its header.
+
+00:06:56.011 --> 00:06:58.303
+The loop stops as soon as
+
+00:06:58.394 --> 00:07:00.136
+it passes column c
+
+00:07:00.136 --> 00:07:03.528
+because the row is sorted by column.
+
+00:07:03.528 --> 00:07:05.820
+If it lands on column c
+
+00:07:05.820 --> 00:07:07.837
+it returns the value
+
+00:07:07.837 --> 00:07:10.496
+otherwise the entry is zero.
+
+00:07:10.496 --> 00:07:14.530
+So the cost is at most the length of row r.
+
+00:07:15.110 --> 00:07:16.134
+Now you try.
+
+00:07:16.134 --> 00:07:17.500
+In this matrix
+
+00:07:17.500 --> 00:07:20.146
+which nodes does get(3, 2)
+
+00:07:20.146 --> 00:07:23.047
+visit before it returns zero?
+
+00:07:23.133 --> 00:07:25.778
+And how many down steps does it
+
+00:07:25.864 --> 00:07:29.534
+take to walk column 0, after its header?
+
+00:07:29.534 --> 00:07:32.350
+Pause the video and work it out.
+
+00:07:35.930 --> 00:07:40.145
+get(3, 2) starts at rowHead 3
+
+00:07:40.145 --> 00:07:42.987
+the node (3, 0, 8).
+
+00:07:42.987 --> 00:07:44.752
+Its column, 0
+
+00:07:44.752 --> 00:07:47.692
+is at most 2 but not equal
+
+00:07:47.692 --> 00:07:51.711
+so it moves right, to (3, 3, 1).
+
+00:07:51.711 --> 00:07:54.259
+Column 3 is past 2
+
+00:07:54.259 --> 00:07:57.788
+so the loop stops and returns zero
+
+00:07:57.788 --> 00:07:59.650
+two nodes visited.
+
+00:08:00.000 --> 00:08:02.656
+Column 0 holds (0, 0, 2)
+
+00:08:02.656 --> 00:08:06.226
+then (1, 0, 4), then (3, 0, 8)
+
+00:08:06.226 --> 00:08:08.965
+two down steps after the header.
+
+00:08:09.048 --> 00:08:11.953
+A row-major list would have to walk
+
+00:08:12.036 --> 00:08:14.360
+past every entry in between.
+
+00:08:14.940 --> 00:08:17.601
+Here are the four representations
+
+00:08:17.682 --> 00:08:18.730
+side by side.
+
+00:08:18.811 --> 00:08:20.826
+The 2D array
+
+00:08:20.907 --> 00:08:22.842
+reads any entry at once
+
+00:08:22.842 --> 00:08:25.019
+but needs r × c cells.
+
+00:08:25.019 --> 00:08:28.487
+The triplet array takes the minimum space
+
+00:08:28.487 --> 00:08:31.389
+3t, and binary search reads an
+
+00:08:31.470 --> 00:08:34.937
+entry in log t steps, but an insert shifts.
+
+00:08:34.937 --> 00:08:38.485
+The list of triplets makes an insert cheap
+
+00:08:38.485 --> 00:08:40.501
+once the place is found.
+
+00:08:40.582 --> 00:08:43.646
+And the orthogonal list pays two links
+
+00:08:43.726 --> 00:08:45.823
+per node plus the headers
+
+00:08:45.903 --> 00:08:48.645
+but walks any row or any column in
+
+00:08:48.726 --> 00:08:51.306
+as many steps as it has entries.
+
+00:08:51.387 --> 00:08:53.644
+Which one is best depends on
+
+00:08:53.725 --> 00:08:55.660
+the operations you need.
+
+00:08:56.240 --> 00:08:57.067
+To sum up.
+
+00:08:57.067 --> 00:08:59.798
+One: a sparse matrix stores only
+
+00:08:59.881 --> 00:09:01.618
+its non-zero entries.
+
+00:09:01.618 --> 00:09:04.349
+Two: triplets in row-major order
+
+00:09:04.431 --> 00:09:06.252
+use the minimum space
+
+00:09:06.252 --> 00:09:08.320
+three numbers per entry
+
+00:09:08.320 --> 00:09:10.968
+but an update shifts the array.
+
+00:09:10.968 --> 00:09:13.698
+Three: a linked list of triplets
+
+00:09:13.781 --> 00:09:15.436
+makes inserts cheap
+
+00:09:15.518 --> 00:09:18.083
+and an orthogonal list lets you
+
+00:09:18.166 --> 00:09:20.400
+walk any row or any column.
+
+00:09:20.750 --> 00:09:21.586
+Try this
+
+00:09:21.679 --> 00:09:25.300
+two matrices of the same size are given
+
+00:09:25.392 --> 00:09:28.828
+as triplet arrays in row-major order.
+
+00:09:28.828 --> 00:09:29.849
+Write add
+
+00:09:29.849 --> 00:09:33.749
+which returns their sum in the same form
+
+00:09:33.749 --> 00:09:37.648
+in time proportional to t₁ + t₂.
+
+00:09:37.648 --> 00:09:41.362
+Hint: it is the polynomial merge again
+
+00:09:41.362 --> 00:09:43.126
+with the pair (row, column)
+
+00:09:43.126 --> 00:09:46.190
+in place of the exponent.
+
+00:09:46.540 --> 00:09:48.336
+Next, in part three
+
+00:09:48.336 --> 00:09:50.940
+where two linked lists meet.
+

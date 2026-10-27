@@ -1,0 +1,617 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.991
+Proving every O claim from
+
+00:00:03.078 --> 00:00:05.162
+c₁ and n₀ is tedious.
+
+00:00:05.162 --> 00:00:07.940
+Five rules do most of the work.
+
+00:00:08.290 --> 00:00:10.234
+One: in a polynomial
+
+00:00:10.234 --> 00:00:12.826
+the biggest power eats all.
+
+00:00:12.826 --> 00:00:16.343
+Two: products, the big times the big.
+
+00:00:16.343 --> 00:00:19.676
+Three: sums, the bigger of the two.
+
+00:00:19.676 --> 00:00:22.638
+Four: log only beats constants.
+
+00:00:22.638 --> 00:00:25.970
+And five: exponentials beat powers.
+
+00:00:26.550 --> 00:00:27.490
+Rule one.
+
+00:00:27.490 --> 00:00:31.564
+If g(n) is a polynomial of degree d
+
+00:00:31.564 --> 00:00:33.445
+and not negative
+
+00:00:33.445 --> 00:00:37.310
+then g(n) is O(nᵈ).
+
+00:00:37.660 --> 00:00:39.948
+The proof is the one we used
+
+00:00:40.030 --> 00:00:41.827
+for 16n².
+
+00:00:41.909 --> 00:00:44.115
+Each coefficient is at most
+
+00:00:44.197 --> 00:00:47.711
+its absolute value, and for n ≥ 1
+
+00:00:47.792 --> 00:00:49.835
+every lower power of n is
+
+00:00:49.917 --> 00:00:51.469
+at most nᵈ.
+
+00:00:51.551 --> 00:00:54.493
+So take c₁ as the sum of the absolute
+
+00:00:54.574 --> 00:00:56.781
+values of the coefficients
+
+00:00:56.781 --> 00:00:58.660
+and n₀ = 1.
+
+00:00:59.010 --> 00:01:00.115
+An example
+
+00:01:00.115 --> 00:01:03.832
+1 + 1,000,000n + n².
+
+00:01:03.832 --> 00:01:05.540
+For a long time
+
+00:01:05.540 --> 00:01:09.358
+the 1,000,000n term is the bigger one.
+
+00:01:09.358 --> 00:01:11.970
+But n² catches up
+
+00:01:12.320 --> 00:01:13.948
+at n = 1,000,000
+
+00:01:13.948 --> 00:01:15.872
+and from then on it wins.
+
+00:01:15.872 --> 00:01:19.054
+So the whole thing is O(n²).
+
+00:01:19.128 --> 00:01:21.348
+The rule also works for powers
+
+00:01:21.422 --> 00:01:23.420
+that are not whole numbers
+
+00:01:23.420 --> 00:01:25.640
+like n¹.⁵.
+
+00:01:26.220 --> 00:01:29.437
+Rule two, the product property.
+
+00:01:29.540 --> 00:01:32.238
+If g₁ is O(f₁) and
+
+00:01:32.342 --> 00:01:36.908
+g₂ is O(f₂), then their product is O
+
+00:01:37.011 --> 00:01:39.191
+of f₁ * f₂.
+
+00:01:39.191 --> 00:01:40.539
+For example
+
+00:01:40.539 --> 00:01:43.964
+(n³ + n² + 1)
+
+00:01:43.964 --> 00:01:48.426
+* (n⁷ + n¹²)
+
+00:01:48.426 --> 00:01:52.472
+is O(n³ * n¹²)
+
+00:01:52.472 --> 00:01:54.340
+O(n¹⁵).
+
+00:01:54.690 --> 00:01:58.820
+In code, this is the rule for nested loops
+
+00:01:58.820 --> 00:02:01.798
+an outer loop of n iterations
+
+00:02:01.798 --> 00:02:04.103
+each doing O(n) work
+
+00:02:04.103 --> 00:02:06.216
+fills an n by n grid.
+
+00:02:06.216 --> 00:02:09.290
+O(n * n): O(n²).
+
+00:02:09.640 --> 00:02:12.134
+Rule three, the sum property
+
+00:02:12.220 --> 00:02:14.629
+g₁ + g₂ is O of the
+
+00:02:14.715 --> 00:02:16.951
+larger of f₁ and f₂.
+
+00:02:16.951 --> 00:02:19.961
+In code, it is the rule for blocks
+
+00:02:20.047 --> 00:02:21.767
+one after the other:
+
+00:02:21.853 --> 00:02:24.950
+An O(n) loop followed by an O(n²)
+
+00:02:25.036 --> 00:02:27.960
+loop costs O(n²).
+
+00:02:28.310 --> 00:02:30.941
+It extends to any fixed number of terms
+
+00:02:30.941 --> 00:02:33.046
+by applying it again and again.
+
+00:02:33.111 --> 00:02:34.953
+But not to a number of terms
+
+00:02:35.019 --> 00:02:36.203
+that grows with n.
+
+00:02:36.203 --> 00:02:38.110
+We will see why in a minute.
+
+00:02:38.690 --> 00:02:39.810
+Rule 4.
+
+00:02:39.810 --> 00:02:43.730
+Any power of log n, however large,
+
+00:02:43.730 --> 00:02:47.538
+grows slower than any power of n,
+
+00:02:47.538 --> 00:02:52.130
+however small: log only beats constants.
+
+00:02:52.480 --> 00:02:56.565
+So (log n)² +
+
+00:02:56.664 --> 00:03:00.649
+n^0.0001 is O(n^0.0001),
+
+00:03:00.749 --> 00:03:03.239
+(the power is 0.0001).
+
+00:03:03.239 --> 00:03:05.929
+And among powers of log n,
+
+00:03:05.929 --> 00:03:08.320
+the biggest power wins.
+
+00:03:08.670 --> 00:03:12.471
+That limit can take a long time to show.
+
+00:03:12.471 --> 00:03:14.847
+Write n as 2ᵏ.
+
+00:03:14.847 --> 00:03:17.983
+Then (log n)² is k²,
+
+00:03:18.078 --> 00:03:20.644
+and the square root of n is
+
+00:03:20.739 --> 00:03:22.830
+2^(k/2).
+
+00:03:23.180 --> 00:03:25.069
+The square of the log is
+
+00:03:25.148 --> 00:03:26.959
+bigger for a long time.
+
+00:03:26.959 --> 00:03:29.793
+They are equal at k = 16,
+
+00:03:29.793 --> 00:03:33.020
+and only from then on does the root win.
+
+00:03:33.600 --> 00:03:36.832
+The program LogVsPower prints both.
+
+00:03:36.832 --> 00:03:38.330
+At 2²,
+
+00:03:38.330 --> 00:03:41.562
+(log n)² is 4 and the root is 2.
+
+00:03:41.562 --> 00:03:43.375
+At 2¹⁶
+
+00:03:43.375 --> 00:03:46.923
+(65536),
+
+00:03:46.923 --> 00:03:49.445
+both are 256.
+
+00:03:49.445 --> 00:03:51.574
+At 2²⁴,
+
+00:03:51.653 --> 00:03:53.545
+the root is already 4
+
+00:03:53.623 --> 00:03:55.200
+096.
+
+00:03:55.550 --> 00:03:59.233
+For n^0.0001,
+
+00:03:59.318 --> 00:04:02.402
+the crossover is at about 2^
+
+00:04:02.487 --> 00:04:05.142
+370000,
+
+00:04:05.228 --> 00:04:07.369
+a number with more than a
+
+00:04:07.455 --> 00:04:09.510
+100000 digits.
+
+00:04:09.860 --> 00:04:11.547
+The rule is still true,
+
+00:04:11.620 --> 00:04:14.407
+and it is the right rule for comparing
+
+00:04:14.480 --> 00:04:16.093
+algorithms as n grows.
+
+00:04:16.167 --> 00:04:19.173
+But remember that an asymptotic statement
+
+00:04:19.247 --> 00:04:21.740
+only says what happens eventually.
+
+00:04:22.320 --> 00:04:25.631
+Rule 5: Exponentials beat powers,
+
+00:04:25.631 --> 00:04:29.218
+and a larger base beats a smaller one.
+
+00:04:29.310 --> 00:04:32.345
+So 2ⁿ +
+
+00:04:32.437 --> 00:04:35.196
+n^10000 is O(2ⁿ).
+
+00:04:35.288 --> 00:04:38.874
+And 2ⁿ + 3ⁿ is
+
+00:04:38.966 --> 00:04:42.001
+at most 2 * 3ⁿ
+
+00:04:42.001 --> 00:04:45.680
+O(3ⁿ), with c = 2.
+
+00:04:46.030 --> 00:04:48.247
+Where does 2ⁿ
+
+00:04:48.344 --> 00:04:50.465
+overtake n¹⁰?
+
+00:04:50.465 --> 00:04:52.778
+Compare the logarithms
+
+00:04:52.778 --> 00:04:55.767
+log(2ⁿ) is just n
+
+00:04:55.767 --> 00:04:59.430
+and log(n¹⁰) is 10 log n.
+
+00:04:59.780 --> 00:05:03.260
+The straight line wins from 59 on.
+
+00:05:03.840 --> 00:05:06.132
+The next program confirms it
+
+00:05:06.211 --> 00:05:09.056
+2ⁿ is bigger than n^10
+
+00:05:09.135 --> 00:05:11.743
+for all n from 59 on.
+
+00:05:11.743 --> 00:05:15.220
+At 58, 10 log n is still a little
+
+00:05:15.299 --> 00:05:16.722
+above 58
+
+00:05:16.722 --> 00:05:20.120
+at 59 it is just below 59.
+
+00:05:20.470 --> 00:05:23.238
+And notice: 2¹ is 2
+
+00:05:23.238 --> 00:05:25.518
+bigger than 1¹⁰.
+
+00:05:25.518 --> 00:05:28.937
+The exponential is ahead at n = 1
+
+00:05:28.937 --> 00:05:30.077
+falls behind
+
+00:05:30.077 --> 00:05:33.252
+and takes over for good at 59.
+
+00:05:33.252 --> 00:05:36.590
+Again, n₀ is where it wins for good.
+
+00:05:37.170 --> 00:05:41.268
+These rules order the common growth classes.
+
+00:05:41.361 --> 00:05:43.875
+GrowthTable prints them for
+
+00:05:43.968 --> 00:05:46.296
+n from 1 to 32.
+
+00:05:46.296 --> 00:05:50.301
+From best to worst: constant, logarithmic
+
+00:05:50.301 --> 00:05:52.908
+linear, n log n, quadratic
+
+00:05:52.908 --> 00:05:55.050
+cubic and exponential.
+
+00:05:55.400 --> 00:05:57.192
+Look at the last row.
+
+00:05:57.192 --> 00:05:59.241
+At n = 32
+
+00:05:59.326 --> 00:06:02.057
+an exponential algorithm already
+
+00:06:02.142 --> 00:06:04.703
+needs over 4 billion steps
+
+00:06:04.703 --> 00:06:08.031
+while n log n needs 160.
+
+00:06:08.116 --> 00:06:10.591
+Each class is O of every
+
+00:06:10.677 --> 00:06:12.298
+class to its right
+
+00:06:12.298 --> 00:06:15.200
+but not of any class to its left.
+
+00:06:15.550 --> 00:06:16.242
+By the way
+
+00:06:16.305 --> 00:06:18.444
+the slide's table shows 2^8
+
+00:06:18.506 --> 00:06:20.582
+as 235.
+
+00:06:20.582 --> 00:06:22.406
+It is 256
+
+00:06:22.406 --> 00:06:23.790
+as the program shows.
+
+00:06:24.370 --> 00:06:27.063
+Now the promised warning.
+
+00:06:27.063 --> 00:06:31.156
+Take f(n) = 1 + 1 +
+
+00:06:31.156 --> 00:06:33.202
+and so on: n ones.
+
+00:06:33.202 --> 00:06:35.680
+Each term is O(1)
+
+00:06:35.680 --> 00:06:38.265
+so by the sum property
+
+00:06:38.265 --> 00:06:42.573
+f(n) is O of the maximum of the ones
+
+00:06:42.573 --> 00:06:43.650
+O(1)?
+
+00:06:44.000 --> 00:06:44.265
+No.
+
+00:06:44.265 --> 00:06:47.449
+f(n) is n, which is not O(1).
+
+00:06:47.538 --> 00:06:49.837
+The sum property holds for
+
+00:06:49.926 --> 00:06:52.048
+a fixed number of terms.
+
+00:06:52.048 --> 00:06:55.939
+Here the number of terms is n, which grows.
+
+00:06:56.028 --> 00:07:00.096
+Applying the rule n - 1 times multiplies
+
+00:07:00.184 --> 00:07:02.484
+the constant c by up to n
+
+00:07:02.484 --> 00:07:04.960
+and c must not depend on n.
+
+00:07:05.310 --> 00:07:06.069
+In code
+
+00:07:06.164 --> 00:07:09.770
+a loop that runs n times with O(1)
+
+00:07:09.865 --> 00:07:12.902
+work per iteration costs O(n)
+
+00:07:12.902 --> 00:07:14.230
+not O(1).
+
+00:07:14.810 --> 00:07:17.663
+Your turn: true or false?
+
+00:07:17.663 --> 00:07:21.086
+a: n² is O(n³).
+
+00:07:21.086 --> 00:07:24.509
+b: n³ is O(n²).
+
+00:07:24.509 --> 00:07:24.852
+c:
+
+00:07:24.852 --> 00:07:29.758
+100n + 5 is O(n²).
+
+00:07:29.758 --> 00:07:30.100
+d:
+
+00:07:30.100 --> 00:07:35.121
+2ⁿ⁺¹ is O(2ⁿ).
+
+00:07:35.121 --> 00:07:35.920
+And e:
+
+00:07:35.920 --> 00:07:40.370
+2²ⁿ is O(2ⁿ).
+
+00:07:40.720 --> 00:07:42.920
+Pause the video and decide.
+
+00:07:46.500 --> 00:07:47.700
+a is true
+
+00:07:47.700 --> 00:07:52.620
+with c = 1 and n₀ = 1.
+
+00:07:52.970 --> 00:07:57.037
+b is false: n³ ≤ cn²
+
+00:07:57.142 --> 00:07:59.019
+means n ≤ c
+
+00:07:59.019 --> 00:08:03.086
+which fails for every n larger than c
+
+00:08:03.086 --> 00:08:04.650
+whatever c is.
+
+00:08:05.000 --> 00:08:08.508
+c is true: 100n + 5 is at
+
+00:08:08.596 --> 00:08:10.700
+most 105n
+
+00:08:10.700 --> 00:08:14.646
+which is at most 105n²
+
+00:08:14.646 --> 00:08:16.400
+for n ≥ 1.
+
+00:08:16.750 --> 00:08:20.232
+d is true: 2ⁿ⁺¹ is
+
+00:08:20.332 --> 00:08:22.620
+2 * 2ⁿ.
+
+00:08:22.620 --> 00:08:24.510
+Take c = 2.
+
+00:08:24.860 --> 00:08:26.221
+And e is false.
+
+00:08:26.221 --> 00:08:29.397
+2²ⁿ is 4ⁿ
+
+00:08:29.487 --> 00:08:33.117
+and 4ⁿ ≤ c * 2
+
+00:08:33.207 --> 00:08:36.383
+ⁿ means 2ⁿ ≤ c
+
+00:08:36.383 --> 00:08:38.651
+which fails for large n.
+
+00:08:38.742 --> 00:08:41.101
+A constant in the exponent
+
+00:08:41.192 --> 00:08:43.460
+is not a constant factor.
+
+00:08:44.040 --> 00:08:44.937
+To sum up.
+
+00:08:44.937 --> 00:08:47.897
+One: the biggest power eats all
+
+00:08:47.897 --> 00:08:51.934
+products multiply, and sums take the larger
+
+00:08:51.934 --> 00:08:55.343
+but only for a fixed number of terms.
+
+00:08:55.343 --> 00:08:58.124
+Two: logs only beat constants
+
+00:08:58.124 --> 00:09:00.815
+and exponentials beat powers.
+
+00:09:00.815 --> 00:09:04.313
+n₀ is where a curve wins for good.
+
+00:09:04.313 --> 00:09:06.735
+Three: the common classes
+
+00:09:06.735 --> 00:09:10.234
+from best to worst, are O(1), O(log n), O(n),
+
+00:09:10.234 --> 00:09:12.028
+O(n log n), O(n²),
+
+00:09:12.028 --> 00:09:14.360
+O(n³) and O(2ⁿ).
+
+00:09:14.710 --> 00:09:19.256
+Try this: simplify n² + 1
+
+00:09:19.256 --> 00:09:24.520
+* log n + n, to the tightest O().
+
+00:09:24.520 --> 00:09:27.630
+And log n⁵.
+
+00:09:27.980 --> 00:09:31.449
+Next: lower bounds and tight bounds
+
+00:09:31.449 --> 00:09:34.340
+with Ω and Θ.
+

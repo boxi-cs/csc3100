@@ -1,0 +1,596 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.816
+Insertion sort builds its answer
+
+00:00:02.895 --> 00:00:04.625
+one element at a time.
+
+00:00:04.625 --> 00:00:06.984
+Merge sort uses another idea
+
+00:00:06.984 --> 00:00:08.557
+divide-and-conquer
+
+00:00:08.557 --> 00:00:11.781
+which is usually written with recursion.
+
+00:00:11.781 --> 00:00:14.612
+Let's meet recursion with a puzzle
+
+00:00:14.612 --> 00:00:16.185
+the Tower of Hanoi.
+
+00:00:16.185 --> 00:00:19.566
+Three towers, A, B and C, and three disks
+
+00:00:19.566 --> 00:00:22.948
+all on tower A, the largest at the bottom.
+
+00:00:22.948 --> 00:00:25.700
+The goal is to move them all to C
+
+00:00:25.700 --> 00:00:27.194
+under three rules.
+
+00:00:27.194 --> 00:00:29.553
+Move only one disk at a time.
+
+00:00:29.553 --> 00:00:32.935
+Only the top disk of a tower may be moved.
+
+00:00:33.014 --> 00:00:35.294
+And never place a larger disk
+
+00:00:35.373 --> 00:00:37.260
+on top of a smaller one.
+
+00:00:37.610 --> 00:00:39.159
+How would you do it
+
+00:00:39.159 --> 00:00:41.714
+and how many moves does it take?
+
+00:00:41.714 --> 00:00:43.650
+Pause the video and try.
+
+00:00:47.230 --> 00:00:50.048
+Here is a solution by recursion.
+
+00:00:50.048 --> 00:00:52.954
+To move 3 disks from A to C
+
+00:00:52.954 --> 00:00:56.124
+first move the top 2 from A to B
+
+00:00:56.124 --> 00:00:58.590
+using C as the spare tower.
+
+00:00:58.940 --> 00:01:02.109
+Disk 1 to C, disk 2 to B
+
+00:01:02.109 --> 00:01:05.060
+and disk 1 back onto it.
+
+00:01:05.310 --> 00:01:08.347
+Now the largest disk moves from A to C.
+
+00:01:08.347 --> 00:01:11.463
+Tower C is empty, so it breaks no rule
+
+00:01:11.463 --> 00:01:14.422
+and afterwards it sits at the bottom
+
+00:01:14.422 --> 00:01:17.070
+where nothing is smaller than it.
+
+00:01:17.420 --> 00:01:21.342
+Finally, move the 2 disks from B to C
+
+00:01:21.342 --> 00:01:24.970
+using A as the spare: disk 1 to A
+
+00:01:24.970 --> 00:01:28.500
+disk 2 to C, and disk 1 on top.
+
+00:01:28.750 --> 00:01:29.778
+7 moves.
+
+00:01:29.778 --> 00:01:33.462
+The 2 middle-sized jobs, move 2 disks
+
+00:01:33.462 --> 00:01:36.974
+are the same puzzle with 1 disk fewer
+
+00:01:36.974 --> 00:01:39.630
+so we solve them the same way.
+
+00:01:40.210 --> 00:01:43.139
+In Java, hanoi moves n disks from
+
+00:01:43.228 --> 00:01:45.180
+the tower called from
+
+00:01:45.180 --> 00:01:47.488
+onto the tower called to
+
+00:01:47.488 --> 00:01:49.618
+using via as the spare.
+
+00:01:49.618 --> 00:01:52.546
+With 1 disk, it just moves it.
+
+00:01:52.635 --> 00:01:54.943
+Otherwise it moves n - 1 disks
+
+00:01:55.031 --> 00:01:57.250
+onto the spare
+
+00:01:57.600 --> 00:01:58.822
+moves disk n
+
+00:01:58.916 --> 00:02:02.301
+and moves the n - 1 disks from
+
+00:02:02.395 --> 00:02:04.840
+the spare onto the target.
+
+00:02:05.190 --> 00:02:07.654
+Let T(n) be the number
+
+00:02:07.757 --> 00:02:09.913
+of moves for n disks.
+
+00:02:09.913 --> 00:02:12.172
+Then T(1) is 1
+
+00:02:12.275 --> 00:02:15.048
+and T(n) is 1 more than
+
+00:02:15.150 --> 00:02:17.512
+twice T(n - 1).
+
+00:02:17.512 --> 00:02:22.030
+The solution is 1 less than 2 to the n.
+
+00:02:22.380 --> 00:02:25.213
+That is 7 moves for 3 disks
+
+00:02:25.213 --> 00:02:28.282
+1023 for 10
+
+00:02:28.360 --> 00:02:30.957
+and more than 10 to the 18
+
+00:02:31.036 --> 00:02:32.216
+for 64.
+
+00:02:32.295 --> 00:02:34.655
+Lecture 6 shows how to solve
+
+00:02:34.734 --> 00:02:36.780
+recurrences like this one.
+
+00:02:37.360 --> 00:02:40.282
+Hanoi is an example of divide-and-conquer
+
+00:02:40.282 --> 00:02:42.995
+which solves a problem in three steps.
+
+00:02:43.065 --> 00:02:46.126
+Divide the problem into subproblems that are
+
+00:02:46.196 --> 00:02:48.839
+smaller instances of the same problem.
+
+00:02:48.839 --> 00:02:51.761
+Conquer them by solving them recursively.
+
+00:02:51.761 --> 00:02:54.196
+When a subproblem is small enough
+
+00:02:54.196 --> 00:02:56.840
+it is a base case: solve it directly.
+
+00:02:57.190 --> 00:02:59.820
+Then combine their solutions into a
+
+00:02:59.896 --> 00:03:02.376
+solution of the original problem.
+
+00:03:02.376 --> 00:03:05.757
+Picture it as a diamond: one problem splits
+
+00:03:05.757 --> 00:03:07.411
+the parts are solved
+
+00:03:07.411 --> 00:03:10.266
+and the solutions flow back together.
+
+00:03:10.342 --> 00:03:12.746
+Divide-and-conquer is most often
+
+00:03:12.822 --> 00:03:14.550
+written with recursion.
+
+00:03:15.130 --> 00:03:17.187
+Recursion is self-reference
+
+00:03:17.260 --> 00:03:19.537
+a recursive function is defined
+
+00:03:19.611 --> 00:03:21.006
+in terms of itself.
+
+00:03:21.080 --> 00:03:23.503
+The solution of the whole problem
+
+00:03:23.577 --> 00:03:26.368
+is built from solutions of subproblems
+
+00:03:26.441 --> 00:03:27.690
+of the same kind.
+
+00:03:28.040 --> 00:03:30.300
+A correct recursive definition
+
+00:03:30.375 --> 00:03:31.806
+has two properties.
+
+00:03:31.806 --> 00:03:34.669
+It has a base case, a stopping point
+
+00:03:34.669 --> 00:03:37.606
+and every allowed input must reach it.
+
+00:03:37.682 --> 00:03:40.845
+And each recursive call moves the argument
+
+00:03:40.921 --> 00:03:43.557
+from a higher value to a lower one
+
+00:03:43.557 --> 00:03:45.440
+closer to the base case.
+
+00:03:46.020 --> 00:03:48.520
+The slides illustrate this with
+
+00:03:48.601 --> 00:03:50.617
+a function like this one.
+
+00:03:50.617 --> 00:03:52.714
+It does have a base case
+
+00:03:52.714 --> 00:03:55.053
+n <= 0 returns 0.
+
+00:03:55.134 --> 00:03:57.069
+But look at the argument
+
+00:03:57.150 --> 00:04:00.054
+of the recursive call:
+
+00:04:00.054 --> 00:04:00.860
+n / 3 + 1.
+
+00:04:01.210 --> 00:04:02.423
+Call f(1).
+
+00:04:02.423 --> 00:04:06.237
+1 / 3 is 0 in integer division
+
+00:04:06.237 --> 00:04:09.617
+so it calls f(1) again, and again
+
+00:04:09.617 --> 00:04:10.570
+and again.
+
+00:04:10.920 --> 00:04:14.142
+In fact n / 3 + 1 is at least 1
+
+00:04:14.221 --> 00:04:17.129
+for every n that is not negative
+
+00:04:17.207 --> 00:04:19.565
+so no call with n >= 1
+
+00:04:19.644 --> 00:04:21.766
+ever reaches the base case.
+
+00:04:21.844 --> 00:04:23.966
+Java gives up when the call
+
+00:04:24.045 --> 00:04:26.009
+stack runs out of memory
+
+00:04:26.009 --> 00:04:28.760
+and throws a stack overflow error.
+
+00:04:29.110 --> 00:04:32.591
+The program prints f(0) = 0
+
+00:04:32.591 --> 00:04:34.120
+and then crashes.
+
+00:04:34.120 --> 00:04:35.987
+The base case exists
+
+00:04:35.987 --> 00:04:38.110
+but it is never reached.
+
+00:04:38.690 --> 00:04:40.861
+The fix is to stop at 1.
+
+00:04:40.861 --> 00:04:42.531
+For n at least 2
+
+00:04:42.614 --> 00:04:45.369
+n / 3 + 1 is strictly
+
+00:04:45.453 --> 00:04:46.705
+smaller than n
+
+00:04:46.705 --> 00:04:49.210
+so every chain of calls ends.
+
+00:04:49.560 --> 00:04:50.897
+Take f(10).
+
+00:04:50.897 --> 00:04:54.907
+It calls f(4), which calls f(2)
+
+00:04:54.907 --> 00:04:58.440
+which calls f(1): the base case.
+
+00:04:58.790 --> 00:05:01.067
+f(1) returns 0.
+
+00:05:01.067 --> 00:05:05.310
+f(2) adds 1, f(4) adds 3
+
+00:05:05.310 --> 00:05:09.139
+giving 4, and f(10) adds 9
+
+00:05:09.139 --> 00:05:10.173
+13.
+
+00:05:10.173 --> 00:05:14.830
+Each return pops a frame off the call stack.
+
+00:05:15.180 --> 00:05:17.660
+The program prints f(n)
+
+00:05:17.759 --> 00:05:20.041
+for n from 0 to 10
+
+00:05:20.041 --> 00:05:22.620
+and f(10) is 13.
+
+00:05:23.200 --> 00:05:25.241
+The Fibonacci numbers are
+
+00:05:25.322 --> 00:05:28.260
+defined recursively: F_0 is 0
+
+00:05:28.260 --> 00:05:31.770
+F_1 is 1, and each next one is the sum
+
+00:05:31.852 --> 00:05:33.566
+of the 2 before it.
+
+00:05:33.647 --> 00:05:35.688
+The definition translates
+
+00:05:35.769 --> 00:05:37.320
+directly into Java.
+
+00:05:37.670 --> 00:05:39.468
+Here are the calls made
+
+00:05:39.546 --> 00:05:41.188
+by fibonacci(5).
+
+00:05:41.188 --> 00:05:43.376
+It calls fibonacci(4)
+
+00:05:43.376 --> 00:05:45.252
+and fibonacci(3)
+
+00:05:45.252 --> 00:05:47.910
+and each of those calls 2 more.
+
+00:05:48.260 --> 00:05:51.756
+Look: fibonacci(3) is computed twice
+
+00:05:51.756 --> 00:05:54.519
+and fibonacci(2) 3 times.
+
+00:05:54.601 --> 00:05:56.552
+The same subproblems are
+
+00:05:56.633 --> 00:05:58.340
+solved over and over.
+
+00:05:58.690 --> 00:06:01.394
+So the program is correct but slow.
+
+00:06:01.471 --> 00:06:03.943
+fibonacci(10) takes 177
+
+00:06:04.021 --> 00:06:05.875
+calls
+
+00:06:05.952 --> 00:06:08.424
+and fibonacci(40) more than
+
+00:06:08.502 --> 00:06:10.201
+300 million.
+
+00:06:10.278 --> 00:06:12.596
+The number of calls grows like
+
+00:06:12.673 --> 00:06:14.450
+1.6 to the n.
+
+00:06:15.030 --> 00:06:17.112
+The fix is memoization
+
+00:06:17.203 --> 00:06:19.919
+remember each answer the first
+
+00:06:20.009 --> 00:06:23.087
+time it is computed, and reuse it.
+
+00:06:23.178 --> 00:06:25.260
+An array memo holds the
+
+00:06:25.350 --> 00:06:27.251
+answers found so far
+
+00:06:27.251 --> 00:06:30.510
+with 0 meaning not computed yet.
+
+00:06:30.860 --> 00:06:33.529
+If memo[n] is still zero
+
+00:06:33.529 --> 00:06:36.495
+compute it once and store it.
+
+00:06:36.495 --> 00:06:39.460
+Either way, return memo[n].
+
+00:06:39.810 --> 00:06:41.794
+For fibonacci(10)
+
+00:06:41.794 --> 00:06:44.628
+the memo starts as all zeros
+
+00:06:44.628 --> 00:06:47.556
+and the calls run down to 2.
+
+00:06:47.650 --> 00:06:50.012
+Then the answers fill the
+
+00:06:50.106 --> 00:06:53.979
+memo from the bottom up: 1, 2, 3
+
+00:06:53.979 --> 00:06:57.286
+5, and so on, up to 55.
+
+00:06:57.286 --> 00:07:00.025
+Each value is computed once
+
+00:07:00.119 --> 00:07:02.386
+every later request is a
+
+00:07:02.481 --> 00:07:04.370
+single array lookup.
+
+00:07:04.720 --> 00:07:08.109
+Now fibonacci(10) takes 19 calls
+
+00:07:08.191 --> 00:07:11.415
+instead of 177.
+
+00:07:11.415 --> 00:07:15.134
+With a fresh memo, fibonacci(n) makes only
+
+00:07:15.217 --> 00:07:18.440
+2n - 1 calls, even for 90.
+
+00:07:18.790 --> 00:07:21.494
+Fibonacci is not divide-and-conquer
+
+00:07:21.572 --> 00:07:23.426
+in the merge-sort sense
+
+00:07:23.426 --> 00:07:25.976
+because its subproblems overlap.
+
+00:07:26.053 --> 00:07:28.294
+Memoization is the first step
+
+00:07:28.371 --> 00:07:30.534
+towards dynamic programming
+
+00:07:30.534 --> 00:07:33.470
+which you will meet in later courses.
+
+00:07:34.050 --> 00:07:38.019
+Many classic algorithms use divide-and-conquer
+
+00:07:38.019 --> 00:07:40.215
+merge sort and quicksort
+
+00:07:40.215 --> 00:07:43.761
+later in this lecture, and binary search
+
+00:07:43.761 --> 00:07:45.450
+from lecture three.
+
+00:07:45.800 --> 00:07:47.988
+Also fast exponentiation
+
+00:07:48.076 --> 00:07:50.352
+Euclid's algorithm for the
+
+00:07:50.439 --> 00:07:52.540
+greatest common divisor
+
+00:07:52.540 --> 00:07:55.954
+Strassen's fast matrix multiplication
+
+00:07:56.041 --> 00:07:59.105
+and Karatsuba's fast multiplication
+
+00:07:59.192 --> 00:08:00.680
+of long integers.
+
+00:08:01.260 --> 00:08:02.142
+To sum up.
+
+00:08:02.142 --> 00:08:05.581
+One: a recursive function needs a base
+
+00:08:05.669 --> 00:08:08.314
+case that every input reaches
+
+00:08:08.314 --> 00:08:11.136
+and calls that move towards it.
+
+00:08:11.136 --> 00:08:14.046
+Two: divide-and-conquer divides
+
+00:08:14.046 --> 00:08:17.220
+conquers recursively, and combines.
+
+00:08:17.570 --> 00:08:20.557
+Three: when subproblems overlap
+
+00:08:20.557 --> 00:08:22.144
+as in Fibonacci
+
+00:08:22.144 --> 00:08:25.970
+memoization computes each one only once.
+
+00:08:26.320 --> 00:08:27.622
+Try this yourself
+
+00:08:27.695 --> 00:08:30.010
+how many moves does the Tower of
+
+00:08:30.082 --> 00:08:32.036
+Hanoi take with four disks?
+
+00:08:32.036 --> 00:08:34.640
+And what are the first three moves?
+
+00:08:34.990 --> 00:08:36.938
+In part four: merge sort
+
+00:08:36.938 --> 00:08:39.975
+divide-and-conquer applied to sorting
+
+00:08:39.975 --> 00:08:42.390
+and a first look at quicksort.
+

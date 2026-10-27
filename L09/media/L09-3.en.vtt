@@ -1,0 +1,485 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.528
+Programming languages are full of
+
+00:00:02.595 --> 00:00:05.498
+symbols that come in pairs: round brackets,
+
+00:00:05.498 --> 00:00:07.794
+square brackets, and curly braces.
+
+00:00:07.861 --> 00:00:10.022
+A compiler must check that every
+
+00:00:10.089 --> 00:00:12.182
+opening symbol is closed by the
+
+00:00:12.250 --> 00:00:15.220
+matching closing symbol, in the right order.
+
+00:00:15.570 --> 00:00:18.644
+This little fragment is balanced.
+
+00:00:18.644 --> 00:00:22.835
+Keep only its symbols, in order: '(',
+
+00:00:22.835 --> 00:00:26.375
+')', '{', '['
+
+00:00:26.375 --> 00:00:28.890
+']', '}'.
+
+00:00:29.470 --> 00:00:31.757
+Here are some more examples.
+
+00:00:31.757 --> 00:00:33.881
+These three are balanced.
+
+00:00:33.881 --> 00:00:35.597
+These three are not:
+
+00:00:35.597 --> 00:00:39.028
+a square bracket that closes a round one,
+
+00:00:39.109 --> 00:00:41.478
+a closing square bracket with
+
+00:00:41.560 --> 00:00:43.357
+nothing left to close,
+
+00:00:43.357 --> 00:00:46.870
+and a square bracket that is never closed.
+
+00:00:47.220 --> 00:00:49.184
+Counting is not enough.
+
+00:00:49.184 --> 00:00:50.208
+'(' ']' has one opener
+
+00:00:50.208 --> 00:00:53.965
+and one closer,
+
+00:00:53.965 --> 00:00:55.417
+but it is wrong.
+
+00:00:55.417 --> 00:00:59.259
+And in '(', '[',
+
+00:00:59.259 --> 00:01:00.455
+')', ']',
+
+00:01:00.455 --> 00:01:03.187
+each kind is counted correctly,
+
+00:01:03.187 --> 00:01:04.980
+but the pairs cross.
+
+00:01:05.560 --> 00:01:08.592
+So read the symbols from left to right.
+
+00:01:08.670 --> 00:01:11.158
+An opening symbol can never make
+
+00:01:11.236 --> 00:01:13.568
+the text unbalanced by itself;
+
+00:01:13.568 --> 00:01:16.600
+it is just waiting to be closed later.
+
+00:01:16.950 --> 00:01:20.453
+A closing symbol must close the most recent
+
+00:01:20.535 --> 00:01:23.305
+opening symbol that is still open.
+
+00:01:23.305 --> 00:01:23.794
+Here,
+
+00:01:23.794 --> 00:01:27.460
+the ']' must match the '[',
+
+00:01:27.460 --> 00:01:30.231
+the latest opener not yet closed.
+
+00:01:30.231 --> 00:01:33.408
+Then the '}' closes the '{',
+
+00:01:33.408 --> 00:01:36.830
+and the ')' closes the '('.
+
+00:01:37.180 --> 00:01:39.137
+The most recent opener that
+
+00:01:39.209 --> 00:01:40.441
+is still waiting—
+
+00:01:40.441 --> 00:01:43.340
+that is exactly what a stack gives you.
+
+00:01:43.920 --> 00:01:45.799
+Here is the algorithm.
+
+00:01:45.799 --> 00:01:47.592
+Make an empty stack,
+
+00:01:47.592 --> 00:01:50.409
+and read the symbols one by one.
+
+00:01:50.409 --> 00:01:52.800
+An opening symbol: push it.
+
+00:01:53.150 --> 00:01:56.056
+A closing symbol: if the stack is empty,
+
+00:01:56.056 --> 00:01:57.074
+return false,
+
+00:01:57.074 --> 00:01:59.617
+because there is nothing to close.
+
+00:01:59.617 --> 00:02:02.886
+Otherwise pop, and if the popped symbol does
+
+00:02:02.959 --> 00:02:05.865
+not match the closing one, return false.
+
+00:02:05.865 --> 00:02:08.190
+Any other character is ignored.
+
+00:02:08.540 --> 00:02:09.393
+At the end,
+
+00:02:09.393 --> 00:02:12.106
+return true if the stack is empty
+
+00:02:12.106 --> 00:02:13.734
+and false otherwise
+
+00:02:13.734 --> 00:02:16.060
+some opener was never closed.
+
+00:02:16.640 --> 00:02:20.362
+Let's run it on ( { 
+
+00:02:20.362 --> 00:02:24.179
+ [ ] } 
+
+00:02:24.179 --> 00:02:25.420
+ ) .
+
+00:02:25.420 --> 00:02:27.138
+( : push.
+
+00:02:27.138 --> 00:02:28.856
+{ : push.
+
+00:02:28.856 --> 00:02:30.669
+[ : push.
+
+00:02:30.669 --> 00:02:34.200
+Now three openers wait on the stack.
+
+00:02:34.550 --> 00:02:38.143
+] : pop the open square.
+
+00:02:38.143 --> 00:02:39.411
+It matches.
+
+00:02:39.411 --> 00:02:43.849
+} : pop the open curly, a match.
+
+00:02:43.849 --> 00:02:47.336
+) : pop the open round
+
+00:02:47.336 --> 00:02:48.710
+a match too.
+
+00:02:49.060 --> 00:02:51.329
+At the end the stack is empty
+
+00:02:51.329 --> 00:02:53.220
+so the text is balanced.
+
+00:02:53.800 --> 00:02:55.038
+Now you try.
+
+00:02:55.038 --> 00:02:59.268
+Trace these two: { ( 
+
+00:02:59.268 --> 00:03:03.499
+ ] [ ] 
+
+00:03:03.499 --> 00:03:07.832
+ ) } ; and ( 
+
+00:03:07.832 --> 00:03:11.856
+ ) [ [ 
+
+00:03:11.856 --> 00:03:15.880
+ ] { } .
+
+00:03:16.230 --> 00:03:18.125
+Where does each one fail?
+
+00:03:18.125 --> 00:03:20.550
+Pause the video and trace them.
+
+00:03:24.130 --> 00:03:25.488
+The first one.
+
+00:03:25.488 --> 00:03:27.234
+{ : push.
+
+00:03:27.234 --> 00:03:28.979
+( : push.
+
+00:03:28.979 --> 00:03:33.150
+Then the close square pops the open round
+
+00:03:33.150 --> 00:03:35.283
+which does not match.
+
+00:03:35.283 --> 00:03:37.902
+Return false, immediately
+
+00:03:37.902 --> 00:03:41.490
+the rest of the input is never read.
+
+00:03:42.070 --> 00:03:43.449
+The second one.
+
+00:03:43.449 --> 00:03:45.470
+Open round is pushed
+
+00:03:45.470 --> 00:03:48.962
+and the close round pops it: a match.
+
+00:03:48.962 --> 00:03:52.454
+Open square, open square: two pushes.
+
+00:03:52.454 --> 00:03:55.303
+Close square pops one of them.
+
+00:03:55.303 --> 00:03:57.325
+Open curly is pushed
+
+00:03:57.325 --> 00:03:59.990
+and the close curly pops it.
+
+00:04:00.340 --> 00:04:02.867
+Every closing symbol matched
+
+00:04:02.954 --> 00:04:06.264
+but at the end one open square bracket
+
+00:04:06.351 --> 00:04:08.268
+is still on the stack.
+
+00:04:08.268 --> 00:04:10.620
+So the text is unbalanced.
+
+00:04:11.200 --> 00:04:13.722
+So there are three ways to fail.
+
+00:04:13.801 --> 00:04:15.850
+A closing symbol that does
+
+00:04:15.929 --> 00:04:17.900
+not match the popped one
+
+00:04:17.900 --> 00:04:21.210
+a closing symbol when the stack is empty
+
+00:04:21.210 --> 00:04:24.520
+and a stack that is not empty at the end.
+
+00:04:25.100 --> 00:04:25.719
+In Java
+
+00:04:25.719 --> 00:04:28.737
+isBalanced takes the text as a string
+
+00:04:28.737 --> 00:04:31.755
+and uses our LinkedStack<Character>.
+
+00:04:31.755 --> 00:04:34.540
+It looks at each character in turn.
+
+00:04:34.890 --> 00:04:37.287
+An opening bracket is pushed.
+
+00:04:37.287 --> 00:04:39.189
+For a closing bracket,
+
+00:04:39.271 --> 00:04:41.421
+an empty stack means there
+
+00:04:41.503 --> 00:04:44.314
+is nothing to close: return false.
+
+00:04:44.314 --> 00:04:46.794
+Otherwise it pops the opener
+
+00:04:46.877 --> 00:04:49.605
+and returns false if matches says
+
+00:04:49.687 --> 00:04:52.250
+the two are of different kinds.
+
+00:04:52.830 --> 00:04:55.961
+Other characters are simply ignored.
+
+00:04:55.961 --> 00:04:59.700
+After the loop, the method returns whether
+
+00:04:59.787 --> 00:05:01.439
+the stack is empty;
+
+00:05:01.526 --> 00:05:03.700
+an opener left over makes
+
+00:05:03.787 --> 00:05:05.526
+the text unbalanced.
+
+00:05:05.526 --> 00:05:09.265
+And matches checks the three pairs: round,
+
+00:05:09.265 --> 00:05:10.830
+square and curly.
+
+00:05:11.410 --> 00:05:14.246
+The test program agrees with our traces.
+
+00:05:14.246 --> 00:05:17.011
+The three balanced examples give true.
+
+00:05:17.011 --> 00:05:19.634
+The five unbalanced ones give false,
+
+00:05:19.705 --> 00:05:22.115
+including our two Predict examples
+
+00:05:22.186 --> 00:05:23.817
+and the crossing pairs.
+
+00:05:23.817 --> 00:05:25.943
+The empty string is balanced,
+
+00:05:25.943 --> 00:05:28.850
+and so is the C fragment from the start.
+
+00:05:29.430 --> 00:05:32.866
+Each character is read once and causes
+
+00:05:32.957 --> 00:05:35.489
+at most one push or one pop,
+
+00:05:35.579 --> 00:05:38.473
+so the check runs in O(n) time
+
+00:05:38.563 --> 00:05:41.005
+for a text of n characters.
+
+00:05:41.005 --> 00:05:43.898
+In the worst case, all openers,
+
+00:05:43.898 --> 00:05:46.702
+the stack holds all n symbols,
+
+00:05:46.702 --> 00:05:48.510
+O(n) extra space.
+
+00:05:48.860 --> 00:05:50.140
+Two classic bugs.
+
+00:05:50.140 --> 00:05:52.474
+Returning true after the loop
+
+00:05:52.474 --> 00:05:55.410
+instead of whether the stack is empty
+
+00:05:55.410 --> 00:05:58.120
+accepts the second Predict example
+
+00:05:58.120 --> 00:06:00.831
+and even three open round brackets.
+
+00:06:00.906 --> 00:06:04.445
+And popping without checking for an empty stack
+
+00:06:04.520 --> 00:06:07.381
+fails on a single close round bracket.
+
+00:06:07.381 --> 00:06:09.037
+Our pop returns null,
+
+00:06:09.112 --> 00:06:11.823
+and unboxing null into a char throws
+
+00:06:11.898 --> 00:06:13.780
+a NullPointerException.
+
+00:06:14.130 --> 00:06:17.175
+A real compiler also skips brackets inside
+
+00:06:17.248 --> 00:06:19.350
+string literals and comments,
+
+00:06:19.350 --> 00:06:22.250
+but the stack is the core of the check.
+
+00:06:22.830 --> 00:06:23.656
+To sum up.
+
+00:06:23.656 --> 00:06:27.125
+One: a closing symbol must match the most
+
+00:06:27.208 --> 00:06:29.933
+recent opener that is still open,
+
+00:06:29.933 --> 00:06:33.320
+and a stack keeps exactly those openers.
+
+00:06:33.320 --> 00:06:34.889
+Two: push openers,
+
+00:06:34.889 --> 00:06:37.367
+a closer pops and must match,
+
+00:06:37.367 --> 00:06:40.670
+and the stack must be empty at the end.
+
+00:06:40.670 --> 00:06:43.231
+Three: each character costs at
+
+00:06:43.313 --> 00:06:45.048
+most one push or pop
+
+00:06:45.048 --> 00:06:47.030
+so the check is O(n).
+
+00:06:47.380 --> 00:06:51.487
+Try this one: [ (
+
+00:06:51.487 --> 00:06:55.702
+) ] {
+
+00:06:55.702 --> 00:06:59.809
+( } ).
+
+00:06:59.809 --> 00:07:03.807
+At which symbol does the check stop
+
+00:07:03.807 --> 00:07:04.780
+and why?
+
+00:07:05.130 --> 00:07:06.247
+In part four
+
+00:07:06.333 --> 00:07:09.771
+a stack evaluates arithmetic expressions
+
+00:07:09.857 --> 00:07:11.490
+written in postfix.
+

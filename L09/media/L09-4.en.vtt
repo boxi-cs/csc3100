@@ -1,0 +1,662 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.487
+An expression such as this
+
+00:00:02.571 --> 00:00:04.589
+one is made of operands
+
+00:00:04.589 --> 00:00:07.953
+here the letters a to e, and operators
+
+00:00:07.953 --> 00:00:11.654
+here the four binary operators plus, minus
+
+00:00:11.654 --> 00:00:13.168
+times and divide.
+
+00:00:13.168 --> 00:00:16.700
+To know what it means, we need two rules.
+
+00:00:17.050 --> 00:00:17.983
+Precedence
+
+00:00:18.068 --> 00:00:20.954
+times and divide bind more tightly
+
+00:00:21.039 --> 00:00:22.736
+than plus and minus.
+
+00:00:22.736 --> 00:00:24.009
+Associativity
+
+00:00:24.009 --> 00:00:26.639
+all four are left-associative
+
+00:00:26.639 --> 00:00:30.034
+so among operators of equal precedence
+
+00:00:30.034 --> 00:00:32.410
+the leftmost is done first.
+
+00:00:32.760 --> 00:00:35.454
+So 8 - 3 - 2
+
+00:00:35.544 --> 00:00:39.495
+means (8 - 3) - 2
+
+00:00:39.495 --> 00:00:42.458
+which is 3; not 8 -
+
+00:00:42.458 --> 00:00:45.960
+(3 - 2), which would be 7.
+
+00:00:46.310 --> 00:00:49.667
+With both rules, our expression means this
+
+00:00:49.667 --> 00:00:51.306
+fully parenthesised.
+
+00:00:51.306 --> 00:00:54.820
+Parentheses override precedence: in a *
+
+00:00:54.820 --> 00:00:57.630
+(b + c), the addition comes first.
+
+00:00:58.210 --> 00:00:59.961
+The usual way of writing
+
+00:01:00.031 --> 00:01:02.343
+with each binary operator between
+
+00:01:02.413 --> 00:01:04.795
+its two operands, is called infix.
+
+00:01:04.865 --> 00:01:07.317
+It needs parentheses and precedence
+
+00:01:07.387 --> 00:01:09.559
+rules before you can tell which
+
+00:01:09.629 --> 00:01:11.170
+operation comes first.
+
+00:01:11.520 --> 00:01:13.086
+In postfix notation
+
+00:01:13.086 --> 00:01:15.982
+also called reverse Polish notation
+
+00:01:15.982 --> 00:01:19.426
+each operator comes after its two operands
+
+00:01:19.426 --> 00:01:22.713
+2 + 3 is written 2 3 +.
+
+00:01:22.792 --> 00:01:24.983
+Postfix needs no parentheses
+
+00:01:25.062 --> 00:01:26.940
+and no precedence rules
+
+00:01:27.018 --> 00:01:29.680
+the order of the operators already
+
+00:01:29.758 --> 00:01:31.480
+says what to do first.
+
+00:01:31.830 --> 00:01:35.085
+2 + 3 * 4 becomes
+
+00:01:35.184 --> 00:01:37.748
+2 3 4 * +.
+
+00:01:37.748 --> 00:01:40.905
+(2 + 3)
+
+00:01:41.003 --> 00:01:43.765
+* 4 becomes
+
+00:01:43.864 --> 00:01:45.442
+2 3 + 4 *.
+
+00:01:45.442 --> 00:01:49.190
+And our long expression becomes this.
+
+00:01:49.540 --> 00:01:51.256
+Notice that the operands
+
+00:01:51.327 --> 00:01:52.972
+stay in the same order
+
+00:01:52.972 --> 00:01:54.759
+only the operators move.
+
+00:01:54.831 --> 00:01:57.118
+And in postfix the operands must
+
+00:01:57.190 --> 00:01:58.834
+be separated by spaces
+
+00:01:58.834 --> 00:02:01.265
+2 3 4 is three operands
+
+00:02:01.336 --> 00:02:03.696
+while 234
+
+00:02:03.767 --> 00:02:05.340
+would be a single one.
+
+00:02:05.920 --> 00:02:08.677
+How do we find the postfix form by hand?
+
+00:02:08.677 --> 00:02:11.434
+Find the operator that is applied last,
+
+00:02:11.503 --> 00:02:13.570
+the lowest-precedence operator,
+
+00:02:13.639 --> 00:02:16.534
+outside all parentheses, and among equals,
+
+00:02:16.534 --> 00:02:17.843
+the rightmost one.
+
+00:02:17.912 --> 00:02:19.980
+Its two operands are the parts
+
+00:02:20.049 --> 00:02:22.048
+on its left and on its right.
+
+00:02:22.117 --> 00:02:24.046
+Then the postfix form is the
+
+00:02:24.115 --> 00:02:25.838
+postfix of the left part
+
+00:02:25.838 --> 00:02:27.975
+the postfix of the right part
+
+00:02:27.975 --> 00:02:29.560
+and then the operator.
+
+00:02:29.910 --> 00:02:31.866
+Take 7 /
+
+00:02:31.866 --> 00:02:35.688
+(2 + 3) * 4.
+
+00:02:35.688 --> 00:02:39.243
+Divide and times have equal precedence
+
+00:02:39.243 --> 00:02:42.977
+so the rightmost, times, is applied last.
+
+00:02:43.066 --> 00:02:45.732
+Its operands are 7 /
+
+00:02:45.821 --> 00:02:48.310
+(2 + 3), and 4.
+
+00:02:48.660 --> 00:02:50.133
+In the left part
+
+00:02:50.133 --> 00:02:52.991
+the last operator is the divide
+
+00:02:52.991 --> 00:02:56.456
+with operands 7 and (2 + 3).
+
+00:02:56.456 --> 00:03:00.180
+And (2 + 3) becomes 2 3 +.
+
+00:03:00.530 --> 00:03:03.932
+Putting the pieces back together,
+
+00:03:03.932 --> 00:03:08.469
+reading the tree from the bottom up:
+
+00:03:08.469 --> 00:03:12.490
+7 2 3 + / 4 *.
+
+00:03:12.840 --> 00:03:15.832
+The same method turns 2 *
+
+00:03:15.832 --> 00:03:18.356
+(3 + 2 * 4)
+
+00:03:18.356 --> 00:03:22.283
+into 2 3 2 4 * + *,
+
+00:03:22.283 --> 00:03:26.303
+here the last operator is the first times
+
+00:03:26.303 --> 00:03:28.640
+outside the parentheses.
+
+00:03:29.220 --> 00:03:31.523
+The same recursion in Java works
+
+00:03:31.595 --> 00:03:33.179
+on an expression tree
+
+00:03:33.251 --> 00:03:35.770
+where each operator is a node whose
+
+00:03:35.842 --> 00:03:38.001
+two children are its operands;
+
+00:03:38.001 --> 00:03:40.304
+trees come in Lecture 13.
+
+00:03:40.304 --> 00:03:42.103
+A leaf holds an operand
+
+00:03:42.103 --> 00:03:43.831
+and is its own postfix.
+
+00:03:43.903 --> 00:03:46.278
+An inner node returns the postfix
+
+00:03:46.350 --> 00:03:49.445
+of its left child, then of its right child
+
+00:03:49.445 --> 00:03:51.100
+then its own operator.
+
+00:03:51.450 --> 00:03:53.900
+A parse method builds the tree from
+
+00:03:53.970 --> 00:03:56.420
+an infix string with the precedence
+
+00:03:56.490 --> 00:03:58.170
+and associativity rules
+
+00:03:58.240 --> 00:04:00.480
+and the demo's output reproduces
+
+00:04:00.550 --> 00:04:02.090
+the table we just saw.
+
+00:04:02.670 --> 00:04:03.820
+Now the payoff.
+
+00:04:03.896 --> 00:04:05.812
+Read a postfix expression
+
+00:04:05.888 --> 00:04:07.344
+from left to right,
+
+00:04:07.421 --> 00:04:10.793
+each operator applies to the two most recent
+
+00:04:10.869 --> 00:04:13.551
+values that have not been used yet.
+
+00:04:13.551 --> 00:04:16.310
+A stack holds exactly those values.
+
+00:04:16.660 --> 00:04:18.758
+So make an empty stack.
+
+00:04:18.758 --> 00:04:21.038
+and scan the expression.
+
+00:04:21.038 --> 00:04:22.954
+An operand: push it.
+
+00:04:22.954 --> 00:04:26.237
+An operator: pop the right operand
+
+00:04:26.237 --> 00:04:28.700
+then pop the left operand
+
+00:04:28.700 --> 00:04:32.440
+apply the operator, and push the result.
+
+00:04:32.440 --> 00:04:34.538
+When the scan is over
+
+00:04:34.538 --> 00:04:38.460
+the result is the only value on the stack.
+
+00:04:38.810 --> 00:04:41.634
+The order of the two pops matters
+
+00:04:41.720 --> 00:04:43.517
+for minus and divide.
+
+00:04:43.517 --> 00:04:45.400
+Take 8 2 -.
+
+00:04:45.400 --> 00:04:47.369
+We push 8 and 2.
+
+00:04:47.369 --> 00:04:51.134
+The first pop gives 2, the right operand
+
+00:04:51.134 --> 00:04:54.387
+the second gives 8, the left one
+
+00:04:54.387 --> 00:04:57.810
+and the result is 8 - 2, 6.
+
+00:04:58.390 --> 00:05:02.544
+Let's evaluate 6 2 / 3
+
+00:05:02.663 --> 00:05:05.749
+- 4 2 * +
+
+00:05:05.868 --> 00:05:09.547
+the postfix form of 6 /
+
+00:05:09.666 --> 00:05:14.413
+(2 - 3) + 4 * 2.
+
+00:05:14.413 --> 00:05:16.787
+Push 6, push 2.
+
+00:05:16.787 --> 00:05:19.754
+/ pops 2 and 6
+
+00:05:19.754 --> 00:05:24.265
+and pushes 6 / 2: 3.
+
+00:05:24.265 --> 00:05:25.689
+Push 3.
+
+00:05:25.689 --> 00:05:31.030
+- pops 3 and 3, and pushes 0.
+
+00:05:31.380 --> 00:05:33.172
+Push 4, push 2.
+
+00:05:33.172 --> 00:05:37.026
+* pops 2 and 4, and pushes 8.
+
+00:05:37.026 --> 00:05:40.969
++ pops 8 and 0, and pushes 8.
+
+00:05:40.969 --> 00:05:44.913
+The scan is over, and the answer is on top:
+
+00:05:44.913 --> 00:05:45.540
+8.
+
+00:05:46.120 --> 00:05:47.131
+Your turn.
+
+00:05:47.232 --> 00:05:49.960
+Evaluate 2 3 2 4
+
+00:05:50.061 --> 00:05:51.779
+* + *,
+
+00:05:51.779 --> 00:05:54.912
+the postfix form of 2 *
+
+00:05:54.912 --> 00:05:57.640
+(3 + 2 * 4).
+
+00:05:57.990 --> 00:05:59.334
+What is the value
+
+00:05:59.409 --> 00:06:02.395
+and what is the largest number of values
+
+00:06:02.470 --> 00:06:04.486
+on the stack at any moment?
+
+00:06:04.486 --> 00:06:06.950
+Pause the video and work it out.
+
+00:06:10.530 --> 00:06:14.369
+Push 2, 3, 2 and 4: four values,
+
+00:06:14.369 --> 00:06:16.511
+the most at any moment.
+
+00:06:16.511 --> 00:06:19.636
+* gives 2 * 4, 8,
+
+00:06:19.636 --> 00:06:22.760
+so the stack is 2, 3, 8.
+
+00:06:22.760 --> 00:06:26.064
++ gives 3 + 8, 11.
+
+00:06:26.064 --> 00:06:29.099
+And * gives 2 * 11,
+
+00:06:29.099 --> 00:06:30.170
+22.
+
+00:06:30.750 --> 00:06:31.359
+In Java,
+
+00:06:31.435 --> 00:06:34.785
+evaluate splits the expression at the spaces
+
+00:06:34.861 --> 00:06:37.601
+and uses our LinkedStack of Integer.
+
+00:06:37.601 --> 00:06:38.896
+For an operator,
+
+00:06:38.896 --> 00:06:41.408
+it pops the right operand first
+
+00:06:41.408 --> 00:06:43.539
+because it was pushed last.
+
+00:06:43.539 --> 00:06:44.986
+then the left one.
+
+00:06:44.986 --> 00:06:46.889
+If the left one is null
+
+00:06:46.889 --> 00:06:48.640
+an operand is missing
+
+00:06:48.640 --> 00:06:50.771
+and it throws an exception.
+
+00:06:50.771 --> 00:06:53.892
+Otherwise, it pushes the result of apply.
+
+00:06:53.968 --> 00:06:55.719
+An operand is parsed as
+
+00:06:55.795 --> 00:06:57.470
+an integer and pushed.
+
+00:06:58.050 --> 00:07:00.609
+After the scan, it pops the result
+
+00:07:00.609 --> 00:07:03.094
+and the stack must then be empty
+
+00:07:03.167 --> 00:07:05.141
+otherwise the input was not
+
+00:07:05.214 --> 00:07:06.676
+a single expression.
+
+00:07:06.676 --> 00:07:08.358
+It returns the result.
+
+00:07:08.431 --> 00:07:10.478
+The helper apply is a switch
+
+00:07:10.551 --> 00:07:11.720
+on the operator
+
+00:07:11.720 --> 00:07:14.571
+and because the operands are integers
+
+00:07:14.571 --> 00:07:17.130
+divide is Java's integer division.
+
+00:07:17.710 --> 00:07:21.043
+The demo prints 8 and 22
+
+00:07:21.136 --> 00:07:22.895
+for our two traces.
+
+00:07:22.988 --> 00:07:25.488
+7 2 3 + /
+
+00:07:25.580 --> 00:07:29.469
+4 * gives 4, not 5.6
+
+00:07:29.562 --> 00:07:32.524
+because 7 / 5 is
+
+00:07:32.617 --> 00:07:35.024
+1 in integer arithmetic.
+
+00:07:35.024 --> 00:07:37.617
+And 8 2 - is 6
+
+00:07:37.617 --> 00:07:40.950
+while 2 8 - is -6.
+
+00:07:41.300 --> 00:07:44.559
+The stack also catches malformed input.
+
+00:07:44.559 --> 00:07:47.901
+With too few operands, like 3 +
+
+00:07:47.901 --> 00:07:50.742
+an operator finds an empty stack
+
+00:07:50.742 --> 00:07:52.914
+missing operand for +.
+
+00:07:52.914 --> 00:07:55.588
+With too many, like 3 4
+
+00:07:55.588 --> 00:07:58.011
+more than one value is left
+
+00:07:58.011 --> 00:08:00.100
+not a single expression.
+
+00:08:00.680 --> 00:08:02.078
+One classic bug:
+
+00:08:02.078 --> 00:08:05.661
+popping the operands in the wrong order.
+
+00:08:05.661 --> 00:08:08.370
+int left = stack.pop()
+
+00:08:08.370 --> 00:08:11.604
+then int right = stack.pop()
+
+00:08:11.604 --> 00:08:15.274
+looks natural, but it swaps the operands
+
+00:08:15.274 --> 00:08:19.119
+8 2 - would give 2 - 8
+
+00:08:19.119 --> 00:08:20.080
+-6.
+
+00:08:20.430 --> 00:08:23.586
+Addition and multiplication hide the bug
+
+00:08:23.586 --> 00:08:26.510
+so always test with minus and divide.
+
+00:08:27.090 --> 00:08:27.905
+To sum up.
+
+00:08:27.905 --> 00:08:30.514
+1. 后缀表达式将每个运算符
+
+00:08:30.596 --> 00:08:32.144
+after its operands
+
+00:08:32.226 --> 00:08:34.346
+so it needs no parentheses
+
+00:08:34.427 --> 00:08:36.384
+and no precedence rules.
+
+00:08:36.384 --> 00:08:38.666
+2. 递归地推导它：
+
+00:08:38.666 --> 00:08:42.253
+with the operator applied last at the root
+
+00:08:42.253 --> 00:08:44.699
+the postfix of the left part
+
+00:08:44.699 --> 00:08:47.226
+the postfix of the right part
+
+00:08:47.226 --> 00:08:48.775
+then the operator.
+
+00:08:48.775 --> 00:08:51.465
+3: evaluate it with a stack.
+
+00:08:51.465 --> 00:08:52.688
+Push operands
+
+00:08:52.688 --> 00:08:55.623
+an operator pops the right operand
+
+00:08:55.623 --> 00:08:58.720
+then the left, and pushes the result.
+
+00:08:58.720 --> 00:09:00.921
+Each token costs one push
+
+00:09:00.921 --> 00:09:03.530
+or two pops and a push: O(n).
+
+00:09:03.880 --> 00:09:05.942
+That completes Lecture 9.
+
+00:09:05.942 --> 00:09:08.593
+A stack is touched only at its top
+
+00:09:08.667 --> 00:09:10.728
+it can live in a linked list
+
+00:09:10.802 --> 00:09:12.422
+or in a growing array
+
+00:09:12.422 --> 00:09:14.484
+with O(1) push and pop
+
+00:09:14.557 --> 00:09:17.429
+and in one left-to-right pass it checks
+
+00:09:17.503 --> 00:09:20.080
+brackets and evaluates expressions.
+
+00:09:20.430 --> 00:09:24.574
+Try this: evaluate 5 1 2 + 4
+
+00:09:24.675 --> 00:09:27.000
+* + 3 -
+
+00:09:27.101 --> 00:09:29.526
+and write down the stack
+
+00:09:29.627 --> 00:09:31.649
+after each operator.
+
+00:09:31.649 --> 00:09:33.670
+What is the result?
+
+00:09:34.020 --> 00:09:36.544
+Next, in Lecture 10: queues
+
+00:09:36.544 --> 00:09:40.460
+where the first element in is the first out.
+

@@ -1,0 +1,626 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.023
+A priority queue looks like a queue
+
+00:00:03.023 --> 00:00:05.670
+elements go in, elements come out.
+
+00:00:05.670 --> 00:00:08.166
+But each element has a priority
+
+00:00:08.166 --> 00:00:09.300
+here a number.
+
+00:00:09.650 --> 00:00:12.302
+The element that comes out is always
+
+00:00:12.376 --> 00:00:14.881
+the one with the highest priority
+
+00:00:14.881 --> 00:00:17.239
+not the one that arrived first.
+
+00:00:17.239 --> 00:00:20.333
+So a priority queue does not follow FIFO.
+
+00:00:20.333 --> 00:00:22.912
+An emergency room works like this
+
+00:00:22.912 --> 00:00:26.006
+the most urgent patient is treated first
+
+00:00:26.006 --> 00:00:28.290
+whatever the order of arrival.
+
+00:00:28.640 --> 00:00:31.261
+The elements must be comparable.
+
+00:00:31.343 --> 00:00:34.373
+Whether a small number or a large one
+
+00:00:34.455 --> 00:00:37.404
+counts as high priority is a choice
+
+00:00:37.486 --> 00:00:39.779
+a min-priority queue removes
+
+00:00:39.861 --> 00:00:42.072
+the smallest element first
+
+00:00:42.072 --> 00:00:44.857
+a max-priority queue the largest.
+
+00:00:44.857 --> 00:00:47.396
+In Java, add or offer inserts
+
+00:00:47.396 --> 00:00:50.918
+poll removes the highest-priority element
+
+00:00:50.918 --> 00:00:52.720
+and peek looks at it.
+
+00:00:53.300 --> 00:00:54.925
+The slides' example.
+
+00:00:55.006 --> 00:00:58.093
+Java's PriorityQueue is a min-priority
+
+00:00:58.174 --> 00:01:01.749
+queue by default, so the smallest number has
+
+00:01:01.830 --> 00:01:03.536
+the highest priority.
+
+00:01:03.536 --> 00:01:06.379
+Add 8, 3, 22, 1
+
+00:01:06.379 --> 00:01:09.060
+14 and 4, in any order.
+
+00:01:09.410 --> 00:01:12.510
+poll removes 1, the smallest.
+
+00:01:12.510 --> 00:01:16.710
+Add 2: now 2 is the smallest element
+
+00:01:16.710 --> 00:01:18.610
+so peek gives 2.
+
+00:01:18.960 --> 00:01:22.262
+And the next poll() removes it.
+
+00:01:22.262 --> 00:01:23.400
+Add 5.
+
+00:01:23.750 --> 00:01:25.654
+Polling until the queue
+
+00:01:25.736 --> 00:01:29.047
+is empty gives 3, 4, 5, 8
+
+00:01:29.047 --> 00:01:30.868
+14, 22.
+
+00:01:30.868 --> 00:01:34.013
+5 came out between 4 and 8
+
+00:01:34.013 --> 00:01:36.910
+it had the third-highest priority.
+
+00:01:37.490 --> 00:01:41.577
+The slides say the elements of a priority queue
+
+00:01:41.664 --> 00:01:44.881
+are in ascending or descending order.
+
+00:01:44.881 --> 00:01:46.968
+That is how it behaves
+
+00:01:46.968 --> 00:01:48.881
+not how it is stored.
+
+00:01:48.881 --> 00:01:51.751
+Add 5, 1, 4, 2, 3.
+
+00:01:51.751 --> 00:01:55.316
+Printing the queue gives 1, 2, 4
+
+00:01:55.316 --> 00:01:57.490
+5, 3: not sorted.
+
+00:01:57.840 --> 00:02:00.902
+Only poll and peek respect the priorities
+
+00:02:00.902 --> 00:02:04.037
+polling gives 1, 2, 3, 4, 5.
+
+00:02:04.037 --> 00:02:07.099
+Java's PriorityQueue keeps a binary heap
+
+00:02:07.099 --> 00:02:09.214
+which is only partly sorted.
+
+00:02:09.287 --> 00:02:11.838
+And elements with equal priority do
+
+00:02:11.911 --> 00:02:14.098
+not come out in arrival order
+
+00:02:14.171 --> 00:02:16.504
+unless you add a sequence number
+
+00:02:16.577 --> 00:02:18.400
+to the priority yourself.
+
+00:02:18.980 --> 00:02:21.059
+How do we implement one?
+
+00:02:21.059 --> 00:02:24.958
+With an unsorted array, insert just appends
+
+00:02:25.045 --> 00:02:27.817
+but finding the highest priority
+
+00:02:27.904 --> 00:02:29.983
+means searching: O(n).
+
+00:02:29.983 --> 00:02:32.929
+Keep the elements sorted instead
+
+00:02:32.929 --> 00:02:36.222
+and removing the highest is O(1)
+
+00:02:36.308 --> 00:02:38.561
+but each insert must shift
+
+00:02:38.648 --> 00:02:41.420
+or walk to its position: O(n).
+
+00:02:41.770 --> 00:02:43.955
+A balanced binary search tree
+
+00:02:44.031 --> 00:02:45.990
+gives O(log n) for both.
+
+00:02:45.990 --> 00:02:48.929
+The binary heap also gives O(log n)
+
+00:02:48.929 --> 00:02:52.094
+with peek in O(1), and it is simpler.
+
+00:02:52.094 --> 00:02:55.410
+Heaps are the subject of lecture seventeen.
+
+00:02:55.990 --> 00:02:58.882
+Here is the sorted linked list
+
+00:02:58.882 --> 00:03:01.960
+taken literally from the slides
+
+00:03:01.960 --> 00:03:05.597
+ascending order, smallest at the head.
+
+00:03:05.597 --> 00:03:09.702
+After the first poll, it holds 3, 4
+
+00:03:09.702 --> 00:03:12.686
+8, 14 and 22.
+
+00:03:12.686 --> 00:03:13.619
+Add 5.
+
+00:03:13.619 --> 00:03:17.350
+p starts at the head, and steps is 1.
+
+00:03:17.700 --> 00:03:21.963
+While p.next holds a value at most 5
+
+00:03:21.963 --> 00:03:22.835
+move on.
+
+00:03:22.835 --> 00:03:26.905
+4 is at most 5, so p moves to 4
+
+00:03:26.905 --> 00:03:29.134
+and steps becomes 2.
+
+00:03:29.134 --> 00:03:33.300
+8 is larger than 5: the walk stops.
+
+00:03:33.650 --> 00:03:37.585
+p.next becomes a new node, holding 5
+
+00:03:37.585 --> 00:03:41.251
+whose next is the old p.next, 8.
+
+00:03:41.251 --> 00:03:44.381
+So add 5 walked past two nodes
+
+00:03:44.381 --> 00:03:46.170
+as the demo prints.
+
+00:03:46.520 --> 00:03:49.303
+Insert walks the list: O(n).
+
+00:03:49.303 --> 00:03:53.200
+But poll just unlinks the head: O(1).
+
+00:03:53.780 --> 00:03:56.078
+The second relative is the
+
+00:03:56.167 --> 00:03:59.526
+double-ended queue, or Deque for short.
+
+00:03:59.526 --> 00:04:01.912
+It is a generalised queue
+
+00:04:02.001 --> 00:04:04.475
+elements can be inserted and
+
+00:04:04.564 --> 00:04:06.420
+deleted at both ends.
+
+00:04:06.770 --> 00:04:09.568
+It does not enforce FIFO or LIFO
+
+00:04:09.568 --> 00:04:11.094
+it supports both.
+
+00:04:11.094 --> 00:04:14.062
+Insert and delete at the same end
+
+00:04:14.062 --> 00:04:15.673
+and it is a stack.
+
+00:04:15.673 --> 00:04:19.319
+Insert at one end and delete at the other
+
+00:04:19.319 --> 00:04:20.930
+and it is a queue.
+
+00:04:21.510 --> 00:04:24.388
+The slides name six operations
+
+00:04:24.481 --> 00:04:27.267
+enqueue front and enqueue rear
+
+00:04:27.359 --> 00:04:29.309
+insert at either end
+
+00:04:29.402 --> 00:04:32.187
+dequeue front and dequeue rear
+
+00:04:32.280 --> 00:04:34.230
+delete at either end.
+
+00:04:34.580 --> 00:04:37.039
+And get front and get rear just look.
+
+00:04:37.106 --> 00:04:38.900
+Java's Deque interface names
+
+00:04:38.967 --> 00:04:40.629
+them with first and last
+
+00:04:40.629 --> 00:04:43.420
+as in the right-hand column of the table.
+
+00:04:44.000 --> 00:04:47.364
+A Deque fits a circular array perfectly.
+
+00:04:47.364 --> 00:04:49.951
+Forward is (i + 1) mod n
+
+00:04:49.951 --> 00:04:52.193
+as in the circular queue.
+
+00:04:52.193 --> 00:04:54.867
+The new direction is backward
+
+00:04:54.867 --> 00:04:57.195
+(i - 1 + n) mod n.
+
+00:04:57.282 --> 00:04:59.869
+Adding n first keeps the index
+
+00:04:59.955 --> 00:05:01.680
+from going negative.
+
+00:05:02.030 --> 00:05:05.669
+Our class keeps front, rear and size.
+
+00:05:05.767 --> 00:05:08.226
+It starts with front 0
+
+00:05:08.324 --> 00:05:11.471
+and rear n - 1 (4 here)
+
+00:05:11.569 --> 00:05:14.028
+so that rear equals (front
+
+00:05:14.126 --> 00:05:16.782
++ size - 1) mod n
+
+00:05:16.782 --> 00:05:19.830
+holds even for the empty Deque.
+
+00:05:20.180 --> 00:05:24.275
+Enqueue rear moves rear forward and stores.
+
+00:05:24.275 --> 00:05:28.561
+Dequeue front reads and moves front forward.
+
+00:05:28.561 --> 00:05:32.561
+Enqueue front moves front backward first
+
+00:05:32.561 --> 00:05:36.180
+and dequeue rear moves rear backward.
+
+00:05:36.760 --> 00:05:40.272
+The slides' first picture, with n = 5.
+
+00:05:40.272 --> 00:05:41.893
+Enqueue rear 1
+
+00:05:41.893 --> 00:05:44.595
+rear moves forward from 4
+
+00:05:44.595 --> 00:05:48.467
+wrapping to 0, and 1 is stored there.
+
+00:05:48.467 --> 00:05:51.799
+Enqueue rear 2: rear moves to 1.
+
+00:05:51.799 --> 00:05:54.320
+And 3 goes to cell 2.
+
+00:05:54.670 --> 00:05:57.961
+Enqueue front 5: front was 0
+
+00:05:57.961 --> 00:06:01.817
+and 0 - 1 is not a valid index
+
+00:06:01.817 --> 00:06:03.792
+so it wraps to 4.
+
+00:06:03.792 --> 00:06:06.425
+5 goes in the last cell.
+
+00:06:06.425 --> 00:06:08.587
+Now get front is 5
+
+00:06:08.587 --> 00:06:10.750
+and get rear is 3.
+
+00:06:11.100 --> 00:06:13.547
+Dequeue front returns 5
+
+00:06:13.547 --> 00:06:16.720
+and front moves forward from 4
+
+00:06:16.720 --> 00:06:18.804
+wrapping back to 0.
+
+00:06:18.804 --> 00:06:21.342
+Dequeue rear returns 3
+
+00:06:21.342 --> 00:06:23.880
+and rear moves back to 1.
+
+00:06:23.880 --> 00:06:26.780
+Every one of these is O(1).
+
+00:06:27.360 --> 00:06:30.973
+The second picture: enqueue rear 1
+
+00:06:30.973 --> 00:06:33.512
+then enqueue front 3
+
+00:06:33.512 --> 00:06:35.856
+then enqueue front 2.
+
+00:06:35.856 --> 00:06:40.250
+Read from the front, the Deque is 2, 3,
+
+00:06:40.250 --> 00:06:42.887
+1: front at index 3
+
+00:06:42.887 --> 00:06:44.840
+rear at index 0.
+
+00:06:45.190 --> 00:06:47.226
+Dequeue rear returns 1
+
+00:06:47.226 --> 00:06:50.075
+and rear moves backward from 0
+
+00:06:50.075 --> 00:06:51.541
+wrapping to 4.
+
+00:06:51.541 --> 00:06:53.169
+Without the plus n
+
+00:06:53.169 --> 00:06:56.670
+0 - 1 would be -1 in Java.
+
+00:06:57.250 --> 00:06:58.162
+Your turn.
+
+00:06:58.162 --> 00:07:02.268
+Start again from the empty Deque with n = 5
+
+00:07:02.268 --> 00:07:04.366
+front 0, rear 4.
+
+00:07:04.366 --> 00:07:08.472
+Do enqueue front 7, enqueue front 8
+
+00:07:08.472 --> 00:07:10.570
+and enqueue rear 9.
+
+00:07:10.920 --> 00:07:14.315
+Where is each number, and what are f and r?
+
+00:07:14.315 --> 00:07:16.920
+Pause the video and work it out.
+
+00:07:20.500 --> 00:07:22.253
+Enqueue front 7:
+
+00:07:22.253 --> 00:07:25.320
+front goes from 0 back to 4
+
+00:07:25.320 --> 00:07:27.686
+so 7 is at index 4.
+
+00:07:27.686 --> 00:07:31.366
+Enqueue front 8: front goes to 3
+
+00:07:31.366 --> 00:07:33.820
+so 8 is at index 3.
+
+00:07:34.170 --> 00:07:37.532
+Enqueue rear 9: rear goes from 4
+
+00:07:37.532 --> 00:07:40.377
+where 7 is, forward to 0
+
+00:07:40.377 --> 00:07:42.619
+so 9 is at index 0.
+
+00:07:42.619 --> 00:07:46.153
+The cells are 9, empty, empty, 8
+
+00:07:46.153 --> 00:07:48.912
+7, with f 3 and r 0.
+
+00:07:48.912 --> 00:07:52.533
+From the front, the Deque is 8, 7
+
+00:07:52.533 --> 00:07:53.050
+9.
+
+00:07:53.630 --> 00:07:54.554
+In practice,
+
+00:07:54.554 --> 00:07:57.170
+use java.util.ArrayDeque,
+
+00:07:57.247 --> 00:07:59.864
+a circular-array Deque that doubles
+
+00:07:59.941 --> 00:08:01.942
+its array when it is full.
+
+00:08:02.019 --> 00:08:04.097
+Java recommends it for both
+
+00:08:04.174 --> 00:08:07.560
+stacks and queues, rather than the old Stack
+
+00:08:07.637 --> 00:08:09.407
+class or a linked list.
+
+00:08:09.407 --> 00:08:12.870
+Push works at one end only: it is addFirst.
+
+00:08:13.220 --> 00:08:16.965
+offerLast puts each number in at the rear.
+
+00:08:16.965 --> 00:08:20.622
+Popping the stack gives 4, 3, 2
+
+00:08:20.622 --> 00:08:21.580
+1: LIFO.
+
+00:08:21.930 --> 00:08:26.064
+Polling the queue from the front gives 1
+
+00:08:26.064 --> 00:08:28.371
+2, 3, 4: FIFO.
+
+00:08:28.371 --> 00:08:32.312
+And a third Deque, filled from both ends
+
+00:08:32.312 --> 00:08:33.850
+prints a, b, c.
+
+00:08:34.200 --> 00:08:36.832
+Every Deque operation on a circular
+
+00:08:36.909 --> 00:08:39.541
+array is O(1); for ArrayDeque
+
+00:08:39.541 --> 00:08:41.089
+O(1) amortised,
+
+00:08:41.089 --> 00:08:43.720
+counting the occasional doubling.
+
+00:08:44.300 --> 00:08:45.081
+To sum up.
+
+00:08:45.081 --> 00:08:48.361
+1: A priority queue removes the element
+
+00:08:48.439 --> 00:08:50.938
+with the highest priority first,
+
+00:08:50.938 --> 00:08:52.500
+not the oldest one.
+
+00:08:52.850 --> 00:08:56.595
+2: Java's PriorityQueue is a min-heap.
+
+00:08:56.595 --> 00:09:00.152
+poll and peek respect the priorities;
+
+00:09:00.152 --> 00:09:01.930
+printing does not.
+
+00:09:02.280 --> 00:09:02.809
+3:
+
+00:09:02.809 --> 00:09:06.419
+A Deque inserts and removes at both ends.
+
+00:09:06.507 --> 00:09:08.708
+On a circular array, every
+
+00:09:08.796 --> 00:09:10.734
+operation is O(1),
+
+00:09:10.734 --> 00:09:14.344
+and stepping back is (i - 1 + n)
+
+00:09:14.344 --> 00:09:14.960
+mod n.
+
+00:09:15.310 --> 00:09:16.148
+Try this.
+
+00:09:16.148 --> 00:09:19.219
+Write isPalindrome with a Deque
+
+00:09:19.219 --> 00:09:21.732
+put all the characters in
+
+00:09:21.825 --> 00:09:24.710
+then repeatedly remove one from
+
+00:09:24.804 --> 00:09:26.758
+each end and compare.
+
+00:09:26.758 --> 00:09:29.550
+What do "level" and "queue" give?
+
+00:09:29.900 --> 00:09:31.027
+In part four
+
+00:09:31.027 --> 00:09:33.800
+we build a stack out of queues
+
+00:09:33.800 --> 00:09:36.140
+and a queue out of stacks.
+

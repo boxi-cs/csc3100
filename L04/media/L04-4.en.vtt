@@ -1,0 +1,659 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.889
+Merge sort is divide-and-conquer
+
+00:00:02.970 --> 00:00:04.507
+applied to sorting.
+
+00:00:04.507 --> 00:00:07.258
+Each subproblem sorts a subarray
+
+00:00:07.258 --> 00:00:08.471
+A[p..r].
+
+00:00:08.471 --> 00:00:11.950
+If the subarray has more than one element
+
+00:00:11.950 --> 00:00:14.620
+divide it at the middle point q.
+
+00:00:14.970 --> 00:00:16.828
+Conquer by sorting the two
+
+00:00:16.900 --> 00:00:18.258
+halves recursively
+
+00:00:18.330 --> 00:00:20.474
+and combine by merging the two
+
+00:00:20.545 --> 00:00:22.189
+sorted halves into one.
+
+00:00:22.189 --> 00:00:25.406
+A subarray of one element is already sorted
+
+00:00:25.406 --> 00:00:27.050
+that is the base case.
+
+00:00:27.400 --> 00:00:28.859
+For example
+
+00:00:28.859 --> 00:00:33.358
+the ten letters A L G O R I T H M S.
+
+00:00:33.358 --> 00:00:37.857
+Divide them into two halves of five.
+
+00:00:37.857 --> 00:00:43.207
+Sort each half recursively, and merge them
+
+00:00:43.207 --> 00:00:45.760
+A G H I L M O R S T.
+
+00:00:46.110 --> 00:00:48.740
+All the real work happens in merge.
+
+00:00:48.740 --> 00:00:51.670
+Dividing just computes a middle index.
+
+00:00:52.250 --> 00:00:55.290
+How do we merge two sorted runs efficiently?
+
+00:00:55.290 --> 00:00:58.192
+Think of two piles of cards, each sorted
+
+00:00:58.192 --> 00:01:00.334
+with the smallest card on top.
+
+00:01:00.334 --> 00:01:02.199
+Compare the two top cards
+
+00:01:02.199 --> 00:01:03.719
+take the smaller one
+
+00:01:03.719 --> 00:01:05.515
+and put it on the output.
+
+00:01:05.515 --> 00:01:07.726
+Repeat until one pile is empty
+
+00:01:07.795 --> 00:01:09.868
+then put the rest of the other
+
+00:01:09.937 --> 00:01:11.250
+pile on the output.
+
+00:01:11.600 --> 00:01:14.141
+Two against one: take the one
+
+00:01:14.141 --> 00:01:15.496
+from the right.
+
+00:01:15.496 --> 00:01:18.291
+Two against two: they are equal
+
+00:01:18.291 --> 00:01:20.662
+take the two from the left.
+
+00:01:20.662 --> 00:01:23.880
+Four against two: take the right two.
+
+00:01:24.130 --> 00:01:27.241
+Four against three: take three.
+
+00:01:27.241 --> 00:01:30.150
+Four against six: take four.
+
+00:01:30.150 --> 00:01:33.060
+Five against six: take five.
+
+00:01:33.060 --> 00:01:35.970
+Seven against six: take six.
+
+00:01:36.220 --> 00:01:38.634
+Now the right pile is empty
+
+00:01:38.634 --> 00:01:42.170
+so seven is copied without a comparison.
+
+00:01:42.170 --> 00:01:45.188
+Eight elements, seven comparisons.
+
+00:01:45.188 --> 00:01:47.430
+Each step moves one card
+
+00:01:47.430 --> 00:01:51.052
+so merging n cards takes at most n steps
+
+00:01:51.052 --> 00:01:53.380
+merge runs in linear time.
+
+00:01:53.730 --> 00:01:55.562
+And look at the two twos.
+
+00:01:55.562 --> 00:01:58.128
+When the front elements are equal
+
+00:01:58.201 --> 00:02:00.253
+less than or equal takes the
+
+00:02:00.326 --> 00:02:02.085
+one from the left first.
+
+00:02:02.085 --> 00:02:04.724
+So merge sort, like insertion sort
+
+00:02:04.724 --> 00:02:05.530
+is stable.
+
+00:02:06.110 --> 00:02:10.143
+In Java, merge first copies the two runs
+
+00:02:10.244 --> 00:02:14.076
+into temporary arrays, left and right.
+
+00:02:14.076 --> 00:02:18.210
+Index i walks along left, j along right
+
+00:02:18.210 --> 00:02:20.630
+and k along the output.
+
+00:02:20.980 --> 00:02:23.104
+While both runs have elements
+
+00:02:23.104 --> 00:02:25.653
+it takes the smaller front element
+
+00:02:25.724 --> 00:02:27.423
+less than or equal keeps
+
+00:02:27.494 --> 00:02:28.910
+equal keys in order.
+
+00:02:28.981 --> 00:02:31.672
+Two short loops after it copy whatever
+
+00:02:31.742 --> 00:02:33.300
+is left of either run.
+
+00:02:33.650 --> 00:02:35.798
+Merge sort itself is short.
+
+00:02:35.798 --> 00:02:37.947
+It finds the middle point
+
+00:02:37.947 --> 00:02:41.050
+sorts the two halves, and merges them.
+
+00:02:41.400 --> 00:02:45.458
+The middle is computed as
+
+00:02:45.458 --> 00:02:46.380
+l + (r - l) / 2.
+
+00:02:46.473 --> 00:02:48.594
+It gives the same value
+
+00:02:48.686 --> 00:02:50.623
+as (l + r) / 2
+
+00:02:50.623 --> 00:02:53.113
+but for very large arrays
+
+00:02:53.113 --> 00:02:55.880
+l + r can overflow an int.
+
+00:02:56.230 --> 00:02:57.190
+Two pitfalls.
+
+00:02:57.190 --> 00:02:59.183
+Forget the leftover loops
+
+00:02:59.183 --> 00:03:02.061
+and the rest of the other run is lost.
+
+00:03:02.061 --> 00:03:05.161
+And do not merge in place by overwriting
+
+00:03:05.161 --> 00:03:07.892
+that destroys values not yet merged.
+
+00:03:07.892 --> 00:03:10.919
+That is why merge copies the runs first
+
+00:03:10.993 --> 00:03:13.355
+so merge sort needs extra memory
+
+00:03:13.428 --> 00:03:14.757
+proportional to n.
+
+00:03:14.757 --> 00:03:16.750
+Insertion sort needs none.
+
+00:03:17.330 --> 00:03:19.736
+Here is the whole algorithm
+
+00:03:19.826 --> 00:03:22.588
+on seven numbers: 38
+
+00:03:22.588 --> 00:03:26.153
+27, 43, 3, 9
+
+00:03:26.153 --> 00:03:27.669
+82, 10.
+
+00:03:27.669 --> 00:03:30.877
+The middle of 0 to 6 is 3
+
+00:03:30.966 --> 00:03:34.086
+so the left half gets four elements
+
+00:03:34.175 --> 00:03:36.403
+and the right half three.
+
+00:03:36.403 --> 00:03:38.542
+The halves split again
+
+00:03:38.542 --> 00:03:40.770
+down to single elements.
+
+00:03:41.120 --> 00:03:43.629
+How many calls does merge sort
+
+00:03:43.713 --> 00:03:46.138
+make on these seven elements?
+
+00:03:46.138 --> 00:03:48.898
+And how many of them call merge?
+
+00:03:48.898 --> 00:03:50.320
+Pause and count.
+
+00:03:53.900 --> 00:03:55.078
+Then the merges
+
+00:03:55.078 --> 00:03:57.582
+from the smallest pieces upwards
+
+00:03:57.582 --> 00:03:59.644
+27, 38.
+
+00:03:59.644 --> 00:04:01.117
+3, 43.
+
+00:04:01.117 --> 00:04:04.063
+Then 3, 27, 38
+
+00:04:04.063 --> 00:04:05.020
+43.
+
+00:04:05.370 --> 00:04:08.608
+On the right: 9, 82.
+
+00:04:08.608 --> 00:04:11.534
+Then 9, 10, 82.
+
+00:04:11.534 --> 00:04:16.130
+And the final merge gives the sorted array.
+
+00:04:16.480 --> 00:04:19.722
+Every call on two or more elements
+
+00:04:19.817 --> 00:04:21.343
+makes two calls
+
+00:04:21.343 --> 00:04:25.347
+and every call on one element makes none.
+
+00:04:25.443 --> 00:04:27.922
+For n elements, that is
+
+00:04:28.017 --> 00:04:31.640
+2n - 1 calls: 13 for 7.
+
+00:04:31.990 --> 00:04:34.037
+The seven calls on single
+
+00:04:34.118 --> 00:04:36.083
+elements are base cases
+
+00:04:36.083 --> 00:04:39.030
+the other six each call merge once.
+
+00:04:39.610 --> 00:04:42.010
+How long does merge sort take?
+
+00:04:42.010 --> 00:04:44.410
+Dividing takes constant time
+
+00:04:44.410 --> 00:04:46.730
+conquering sorts two halves
+
+00:04:46.730 --> 00:04:50.090
+and merging n elements takes linear time.
+
+00:04:50.090 --> 00:04:52.890
+Counting the comparisons in merge
+
+00:04:52.890 --> 00:04:55.610
+the slides write this recurrence.
+
+00:04:55.960 --> 00:04:58.124
+Draw the recursion tree
+
+00:04:58.219 --> 00:05:00.195
+for n a power of two.
+
+00:05:00.195 --> 00:05:02.830
+The root merges n elements.
+
+00:05:02.830 --> 00:05:06.594
+Its two children merge n / 2 each
+
+00:05:06.594 --> 00:05:07.723
+n in total.
+
+00:05:07.817 --> 00:05:10.452
+The four grandchildren merge
+
+00:05:10.546 --> 00:05:13.840
+n / 4 each: n in total again.
+
+00:05:14.190 --> 00:05:18.267
+Every level costs n, and cutting n in half
+
+00:05:18.267 --> 00:05:22.438
+again and again, until it reaches one takes
+
+00:05:22.533 --> 00:05:24.429
+log_2 n levels.
+
+00:05:24.429 --> 00:05:28.601
+So T(n) is n log_2 n for powers of two
+
+00:05:28.601 --> 00:05:31.350
+and O(n log n) in general.
+
+00:05:31.700 --> 00:05:33.734
+This program computes
+
+00:05:33.812 --> 00:05:35.533
+T(n) from the recurrence.
+
+00:05:35.533 --> 00:05:37.645
+For seven it gives twenty
+
+00:05:37.724 --> 00:05:39.914
+against 19.7
+
+00:05:39.992 --> 00:05:41.244
+for n log_2 n
+
+00:05:41.244 --> 00:05:44.060
+and for eight both are 24.
+
+00:05:44.410 --> 00:05:47.957
+For powers of two, the columns agree exactly
+
+00:05:47.957 --> 00:05:50.295
+for other n they stay close.
+
+00:05:50.376 --> 00:05:52.794
+Lecture six solves recurrences
+
+00:05:52.875 --> 00:05:54.890
+like this one in general.
+
+00:05:55.470 --> 00:05:58.374
+Merge sort's O(n log n) grows much more
+
+00:05:58.445 --> 00:06:01.207
+slowly than insertion sort's n^2.
+
+00:06:01.278 --> 00:06:04.252
+This program counts the key comparisons of
+
+00:06:04.323 --> 00:06:07.015
+both on the same pseudo-random arrays.
+
+00:06:07.085 --> 00:06:09.210
+For eight and sixteen elements
+
+00:06:09.281 --> 00:06:10.910
+the counts are similar.
+
+00:06:11.260 --> 00:06:13.378
+But at 100,000
+
+00:06:13.460 --> 00:06:16.230
+insertion sort makes about 2.5
+
+00:06:16.311 --> 00:06:18.511
+billion comparisons
+
+00:06:18.511 --> 00:06:22.177
+and merge sort about 1.5 million
+
+00:06:22.177 --> 00:06:24.540
+over 1000 times fewer.
+
+00:06:24.890 --> 00:06:27.222
+The O hides constants, though.
+
+00:06:27.299 --> 00:06:29.087
+Merge sort pays for its
+
+00:06:29.165 --> 00:06:30.874
+calls and its copying
+
+00:06:30.952 --> 00:06:32.973
+while insertion sort has a
+
+00:06:33.051 --> 00:06:34.760
+very tight inner loop.
+
+00:06:34.838 --> 00:06:36.703
+So insertion sort may be
+
+00:06:36.781 --> 00:06:38.569
+faster on small inputs
+
+00:06:38.646 --> 00:06:40.745
+and for large enough inputs
+
+00:06:40.823 --> 00:06:42.610
+merge sort always wins.
+
+00:06:42.960 --> 00:06:45.174
+Use each where it is strong.
+
+00:06:45.174 --> 00:06:47.625
+A hybrid sort runs merge sort
+
+00:06:47.625 --> 00:06:51.104
+but sorts small pieces with insertion sort.
+
+00:06:51.104 --> 00:06:53.951
+Java's Arrays.sort for objects
+
+00:06:53.951 --> 00:06:56.560
+and Python's sort, both do this.
+
+00:06:57.140 --> 00:06:59.409
+Finally, a first look at quicksort
+
+00:06:59.409 --> 00:07:01.549
+another divide-and-conquer sort
+
+00:07:01.549 --> 00:07:03.818
+lecture eleven covers it in depth.
+
+00:07:03.818 --> 00:07:05.763
+Pick an element as the pivot.
+
+00:07:05.828 --> 00:07:08.226
+Partition the array into the elements
+
+00:07:08.291 --> 00:07:10.366
+less than or equal to the pivot
+
+00:07:10.366 --> 00:07:11.533
+the pivot itself
+
+00:07:11.533 --> 00:07:13.737
+and the elements greater than it.
+
+00:07:13.737 --> 00:07:16.460
+Then quicksort the two parts recursively.
+
+00:07:16.810 --> 00:07:18.730
+There is no combine step
+
+00:07:18.730 --> 00:07:20.880
+once both parts are sorted
+
+00:07:20.880 --> 00:07:22.953
+the whole array is sorted.
+
+00:07:22.953 --> 00:07:26.101
+Merge sort does its work when combining
+
+00:07:26.101 --> 00:07:29.095
+quicksort does its work when dividing
+
+00:07:29.095 --> 00:07:30.170
+in partition.
+
+00:07:30.750 --> 00:07:33.121
+This partition, due to Lomuto
+
+00:07:33.121 --> 00:07:35.967
+uses the last element as the pivot
+
+00:07:35.967 --> 00:07:36.836
+here four.
+
+00:07:36.915 --> 00:07:39.287
+i marks the last element known
+
+00:07:39.366 --> 00:07:41.263
+to be at most the pivot
+
+00:07:41.263 --> 00:07:43.950
+and starts just before the array.
+
+00:07:44.300 --> 00:07:47.074
+Two is small: i moves to zero
+
+00:07:47.074 --> 00:07:49.570
+and two swaps with itself.
+
+00:07:49.570 --> 00:07:53.731
+Eight is large: the large region just grows.
+
+00:07:53.731 --> 00:07:55.580
+Seven is large too.
+
+00:07:55.830 --> 00:07:58.291
+One is small: i moves to one
+
+00:07:58.291 --> 00:08:00.498
+and one swaps with eight.
+
+00:08:00.498 --> 00:08:03.214
+Three is small: i moves to two
+
+00:08:03.214 --> 00:08:05.590
+and three swaps with seven.
+
+00:08:05.840 --> 00:08:09.560
+Five is large, and six is large.
+
+00:08:09.810 --> 00:08:12.934
+Finally the pivot swaps into the gap
+
+00:08:12.934 --> 00:08:16.733
+at index i + 1, three: its final place.
+
+00:08:16.733 --> 00:08:20.448
+Two, one, three are to its left, and seven
+
+00:08:20.448 --> 00:08:23.065
+five, six, eight to its right
+
+00:08:23.065 --> 00:08:24.415
+not yet sorted.
+
+00:08:24.415 --> 00:08:28.130
+That is the job of the two recursive calls.
+
+00:08:28.480 --> 00:08:31.429
+Quicksort's average time is O(n log n).
+
+00:08:31.429 --> 00:08:34.162
+But with an unlucky pivot every time
+
+00:08:34.234 --> 00:08:36.752
+for example an already sorted array
+
+00:08:36.824 --> 00:08:39.054
+with the last element as pivot
+
+00:08:39.125 --> 00:08:41.355
+it makes n levels of partitions
+
+00:08:41.427 --> 00:08:44.520
+instead of log n, and takes quadratic time.
+
+00:08:45.100 --> 00:08:47.028
+To sum up the lecture.
+
+00:08:47.028 --> 00:08:50.882
+One: insertion sort is in place and stable
+
+00:08:50.970 --> 00:08:54.124
+linear on sorted input and quadratic
+
+00:08:54.212 --> 00:08:55.789
+in the worst case.
+
+00:08:55.789 --> 00:08:58.592
+Two: merge sort splits in half
+
+00:08:58.592 --> 00:09:02.535
+sorts both halves and merges in linear time
+
+00:09:02.535 --> 00:09:04.112
+for O(n log n)
+
+00:09:04.112 --> 00:09:06.740
+at the price of extra memory.
+
+00:09:07.090 --> 00:09:10.869
+Three: quicksort partitions around a pivot
+
+00:09:10.869 --> 00:09:12.890
+then sorts both sides.
+
+00:09:13.240 --> 00:09:15.321
+Try this yourself
+
+00:09:15.436 --> 00:09:20.060
+draw the divide and merge steps of merge
+
+00:09:20.176 --> 00:09:24.568
+sort on the letters M E R G E S O R T.
+
+00:09:24.568 --> 00:09:27.920
+How many calls does it make?
+
+00:09:28.270 --> 00:09:31.596
+Next lecture: asymptotic notation, big O
+
+00:09:31.596 --> 00:09:33.623
+big Omega and big Theta
+
+00:09:33.623 --> 00:09:37.030
+the language for all these running times.
+

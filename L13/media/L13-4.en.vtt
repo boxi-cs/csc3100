@@ -1,0 +1,767 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:04.235
+An arithmetic expression with binary operators
+
+00:00:04.320 --> 00:00:06.630
+is naturally a binary tree.
+
+00:00:06.630 --> 00:00:09.880
+Each operand, a variable or a number,
+
+00:00:09.880 --> 00:00:10.821
+is a leaf.
+
+00:00:10.821 --> 00:00:13.815
+Each operator is an internal node
+
+00:00:13.815 --> 00:00:16.980
+whose two subtrees are its operands.
+
+00:00:17.330 --> 00:00:20.909
+The operator applied last sits at the root.
+
+00:00:20.993 --> 00:00:23.407
+Operators of equal precedence
+
+00:00:23.490 --> 00:00:25.155
+group from the left
+
+00:00:25.155 --> 00:00:28.485
+so here the last one is the final +
+
+00:00:28.485 --> 00:00:30.316
+with right operand H.
+
+00:00:30.316 --> 00:00:33.812
+Its left operand is everything before it
+
+00:00:33.812 --> 00:00:37.225
+whose root is the -, and so on down.
+
+00:00:37.308 --> 00:00:40.305
+Evaluating the tree means evaluating
+
+00:00:40.388 --> 00:00:41.970
+the subtrees first.
+
+00:00:42.550 --> 00:00:45.304
+Traversing this tree writes the
+
+00:00:45.393 --> 00:00:48.059
+expression in three notations.
+
+00:00:48.059 --> 00:00:52.057
+Preorder gives +, -, /, +, A B,
+
+00:00:52.057 --> 00:00:53.301
+and so on.
+
+00:00:53.301 --> 00:00:57.121
+Inorder gives A + B, /, C * D
+
+00:00:57.121 --> 00:01:00.320
+and so on: the ordinary infix form
+
+00:01:00.320 --> 00:01:02.630
+but without any brackets.
+
+00:01:02.980 --> 00:01:06.528
+And postorder gives A B +, C D *
+
+00:01:06.528 --> 00:01:08.214
+/, and so on.
+
+00:01:08.214 --> 00:01:11.319
+This answers the slide's question:
+
+00:01:11.319 --> 00:01:13.448
+for an expression tree,
+
+00:01:13.448 --> 00:01:17.262
+the postorder is exactly the postfix form,
+
+00:01:17.262 --> 00:01:20.545
+also called reverse Polish notation.
+
+00:01:20.633 --> 00:01:22.851
+Each operator comes right
+
+00:01:22.940 --> 00:01:24.980
+after its two operands.
+
+00:01:25.330 --> 00:01:27.722
+The preorder is the prefix form,
+
+00:01:27.722 --> 00:01:29.217
+or Polish notation,
+
+00:01:29.217 --> 00:01:32.208
+with each operator before its operands.
+
+00:01:32.282 --> 00:01:34.076
+The inorder is the infix
+
+00:01:34.151 --> 00:01:35.796
+form without brackets,
+
+00:01:35.871 --> 00:01:38.412
+and read with the usual precedence,
+
+00:01:38.487 --> 00:01:40.506
+it gives a different value.
+
+00:01:40.506 --> 00:01:43.122
+To get a correct infix expression,
+
+00:01:43.122 --> 00:01:46.187
+put brackets around every operator node.
+
+00:01:46.262 --> 00:01:48.430
+The method infix in the notes
+
+00:01:48.504 --> 00:01:49.850
+does exactly that.
+
+00:01:50.430 --> 00:01:52.327
+We normally write infix:
+
+00:01:52.327 --> 00:01:55.488
+each operator between its two operands.
+
+00:01:55.488 --> 00:01:57.859
+Infix needs precedence rules:
+
+00:01:57.859 --> 00:01:59.361
+* before +,
+
+00:01:59.361 --> 00:02:01.811
+and brackets to override them.
+
+00:02:01.890 --> 00:02:04.656
+That makes it awkward for a machine
+
+00:02:04.735 --> 00:02:07.185
+to evaluate from left to right.
+
+00:02:07.185 --> 00:02:08.133
+In postfix,
+
+00:02:08.133 --> 00:02:11.215
+2 + 3 * 4 becomes
+
+00:02:11.215 --> 00:02:13.270
+2 3 4 * +.
+
+00:02:13.620 --> 00:02:16.202
+2 * 3 + 4
+
+00:02:16.202 --> 00:02:19.644
+becomes 2 3 * 4 +.
+
+00:02:19.644 --> 00:02:22.990
+And with brackets,
+
+00:02:22.990 --> 00:02:26.433
+(2 + 3) * 4 becomes
+
+00:02:26.433 --> 00:02:27.580
+2 3 + 4 *.
+
+00:02:27.930 --> 00:02:30.914
+The precedence has already been worked
+
+00:02:30.993 --> 00:02:33.899
+out when the postfix form is written
+
+00:02:33.977 --> 00:02:36.176
+so postfix needs no brackets
+
+00:02:36.255 --> 00:02:38.139
+and no precedence rules.
+
+00:02:38.139 --> 00:02:40.338
+Spaces separate the tokens
+
+00:02:40.338 --> 00:02:42.930
+2 3 is two operands.
+
+00:02:43.510 --> 00:02:46.664
+Postfix is easy to evaluate with a stack
+
+00:02:46.664 --> 00:02:48.126
+from lecture 9.
+
+00:02:48.126 --> 00:02:50.896
+Read the tokens from left to right.
+
+00:02:50.896 --> 00:02:53.127
+An operand is simply pushed.
+
+00:02:53.127 --> 00:02:56.358
+An operator pops the right operand first
+
+00:02:56.358 --> 00:02:59.820
+then the left operand, applies the operator
+
+00:02:59.820 --> 00:03:01.590
+and pushes the result.
+
+00:03:01.940 --> 00:03:02.762
+At the end
+
+00:03:02.762 --> 00:03:05.453
+the stack holds exactly one number
+
+00:03:05.453 --> 00:03:07.620
+the value of the expression.
+
+00:03:08.200 --> 00:03:12.755
+Here is the slides' example:
+
+00:03:12.755 --> 00:03:16.286
+2 3 2 4 * + *.
+
+00:03:16.286 --> 00:03:20.499
+It is the postfix form of
+
+00:03:20.499 --> 00:03:23.574
+2 * (3 + 2 * 4).
+
+00:03:23.574 --> 00:03:27.787
+2 is pushed, then 3, then 2
+
+00:03:27.787 --> 00:03:29.040
+then 4.
+
+00:03:29.390 --> 00:03:32.550
+* pops 4, the right operand
+
+00:03:32.550 --> 00:03:34.717
+then 2, the left one.
+
+00:03:34.717 --> 00:03:36.974
+2 * 4 is 8
+
+00:03:36.974 --> 00:03:38.870
+and 8 is pushed.
+
+00:03:39.220 --> 00:03:41.627
++ pops 8 and 3.
+
+00:03:41.627 --> 00:03:44.220
+3 + 8 is 11.
+
+00:03:44.570 --> 00:03:47.461
+The last * pops 11 and 2
+
+00:03:47.461 --> 00:03:48.452
+22.
+
+00:03:48.452 --> 00:03:51.177
+One number is left on the stack
+
+00:03:51.177 --> 00:03:53.490
+so the value is 22.
+
+00:03:54.070 --> 00:03:55.003
+One trap.
+
+00:03:55.003 --> 00:03:57.387
+For 8 2 -
+
+00:03:57.387 --> 00:04:00.601
+the stack holds 8 and 2
+
+00:04:00.601 --> 00:04:02.363
+with 2 on top.
+
+00:04:02.363 --> 00:04:04.954
+The first pop gives 2
+
+00:04:04.954 --> 00:04:08.168
+and that is the right operand
+
+00:04:08.168 --> 00:04:11.070
+because it was pushed last.
+
+00:04:11.420 --> 00:04:14.796
+So the answer is 8 - 2, 6.
+
+00:04:14.885 --> 00:04:17.462
+Popping into left first would
+
+00:04:17.550 --> 00:04:20.660
+compute 2 - 8, -6.
+
+00:04:21.010 --> 00:04:23.536
+For + and * the order
+
+00:04:23.626 --> 00:04:25.069
+does not matter
+
+00:04:25.159 --> 00:04:27.955
+so this bug hides until a minus
+
+00:04:28.045 --> 00:04:30.210
+or a divide comes along.
+
+00:04:30.790 --> 00:04:34.298
+The tree itself can be evaluated directly
+
+00:04:34.298 --> 00:04:37.221
+and that is a postorder traversal.
+
+00:04:37.221 --> 00:04:39.727
+To evaluate an operator node
+
+00:04:39.727 --> 00:04:43.402
+first evaluate its left and right subtrees
+
+00:04:43.402 --> 00:04:45.490
+then apply the operator.
+
+00:04:45.490 --> 00:04:48.998
+2 times 4 is evaluated first: 8.
+
+00:04:48.998 --> 00:04:51.587
+Then 3 plus 8: 11.
+
+00:04:51.587 --> 00:04:54.510
+Then 2 times 11: 22.
+
+00:04:54.860 --> 00:04:56.957
+The program prints the fully
+
+00:04:57.032 --> 00:04:59.803
+bracketed infix form, and 22.
+
+00:04:59.878 --> 00:05:02.049
+The stack method does exactly
+
+00:05:02.124 --> 00:05:03.697
+the same computation
+
+00:05:03.772 --> 00:05:05.719
+it just receives the nodes
+
+00:05:05.794 --> 00:05:07.367
+already in postorder.
+
+00:05:07.367 --> 00:05:08.340
+Same answer.
+
+00:05:08.920 --> 00:05:11.555
+Now the reverse question.
+
+00:05:11.555 --> 00:05:15.245
+Given only the preorder of a tree
+
+00:05:15.245 --> 00:05:17.669
+can you draw the tree?
+
+00:05:17.669 --> 00:05:20.304
+No: A with left child B
+
+00:05:20.304 --> 00:05:23.045
+and A with right child B
+
+00:05:23.045 --> 00:05:25.680
+both have preorder A, B.
+
+00:05:26.030 --> 00:05:29.211
+But given the preorder and the inorder
+
+00:05:29.211 --> 00:05:31.168
+the tree is determined
+
+00:05:31.168 --> 00:05:34.430
+provided all the elements are distinct.
+
+00:05:34.780 --> 00:05:36.789
+Two facts do all the work.
+
+00:05:36.789 --> 00:05:39.261
+First, the first element of the
+
+00:05:39.339 --> 00:05:40.961
+preorder is the root.
+
+00:05:40.961 --> 00:05:42.816
+Second, in the inorder
+
+00:05:42.893 --> 00:05:44.979
+everything left of the root
+
+00:05:45.056 --> 00:05:46.601
+is the left subtree
+
+00:05:46.679 --> 00:05:48.688
+and everything right of it
+
+00:05:48.765 --> 00:05:50.387
+is the right subtree.
+
+00:05:50.387 --> 00:05:53.787
+Once you know the size of the left subtree
+
+00:05:53.787 --> 00:05:56.028
+the preorder splits as well
+
+00:05:56.028 --> 00:05:58.500
+and you repeat on each subtree.
+
+00:05:59.080 --> 00:06:01.560
+Here is the example.
+
+00:06:01.560 --> 00:06:07.138
+The inorder is D, C, E, B, A, U, Z, T, X, Y
+
+00:06:07.138 --> 00:06:12.593
+and the preorder is
+
+00:06:12.593 --> 00:06:13.337
+A, B, C, D, E, X, Z, U, T, Y.
+
+00:06:13.337 --> 00:06:16.809
+The preorder starts with A
+
+00:06:16.809 --> 00:06:19.040
+so A is the root.
+
+00:06:19.390 --> 00:06:23.413
+In the inorder, D, C, E, B are left of A
+
+00:06:23.413 --> 00:06:26.847
+and U, Z, T, X, Y are right of it.
+
+00:06:26.847 --> 00:06:30.085
+The left subtree has 4 nodes
+
+00:06:30.085 --> 00:06:34.304
+so its preorder is the next 4 elements
+
+00:06:34.304 --> 00:06:38.327
+B, C, D, E, and the rest, X, Z, U, T, Y
+
+00:06:38.327 --> 00:06:41.270
+belongs to the right subtree.
+
+00:06:41.850 --> 00:06:46.241
+Now the left subtree of A:
+
+00:06:46.241 --> 00:06:48.935
+preorder B, C, D, E, and inorder D, C, E, B.
+
+00:06:48.935 --> 00:06:50.432
+Its root is B.
+
+00:06:50.432 --> 00:06:54.424
+Everything is left of B in the inorder
+
+00:06:54.424 --> 00:06:57.617
+so B's left subtree is D, C, E
+
+00:06:57.617 --> 00:07:00.810
+and its right subtree is empty.
+
+00:07:01.390 --> 00:07:05.730
+The left subtree of B has preorder C, D, E
+
+00:07:05.730 --> 00:07:08.656
+and inorder D, C, E: root C
+
+00:07:08.656 --> 00:07:12.390
+with left child D and right child E.
+
+00:07:12.970 --> 00:07:17.770
+Back to the right subtree of A:
+
+00:07:17.770 --> 00:07:22.123
+preorder X, Z, U, T, Y, and inorder U, Z, T, X, Y.
+
+00:07:22.123 --> 00:07:23.797
+Its root is X.
+
+00:07:23.797 --> 00:07:28.820
+U, Z, T are left of X, and Y is right of it
+
+00:07:28.820 --> 00:07:31.610
+so Y is X's right child.
+
+00:07:32.190 --> 00:07:37.232
+Last, the left subtree of X:
+
+00:07:37.232 --> 00:07:40.047
+preorder Z, U, T, and inorder U, Z, T.
+
+00:07:40.047 --> 00:07:43.682
+Root Z, with children U and T.
+
+00:07:43.682 --> 00:07:46.261
+Every node is placed
+
+00:07:46.261 --> 00:07:49.310
+and the tree is finished.
+
+00:07:49.890 --> 00:07:52.906
+In Java, the recursive method works on
+
+00:07:52.985 --> 00:07:54.970
+a slice of each sequence
+
+00:07:54.970 --> 00:07:58.303
+n elements of the preorder starting at p
+
+00:07:58.303 --> 00:08:01.875
+and n elements of the inorder starting at i
+
+00:08:01.875 --> 00:08:04.017
+describe the same subtree.
+
+00:08:04.097 --> 00:08:06.398
+The root is the first element
+
+00:08:06.478 --> 00:08:08.224
+of the preorder slice.
+
+00:08:08.224 --> 00:08:11.637
+A map gives its position r in the inorder
+
+00:08:11.637 --> 00:08:14.970
+and the left subtree has r − i nodes.
+
+00:08:15.320 --> 00:08:18.415
+Then two recursive calls build the
+
+00:08:18.506 --> 00:08:21.601
+left subtree and the right subtree
+
+00:08:21.692 --> 00:08:23.694
+from the right slices
+
+00:08:23.694 --> 00:08:26.880
+and makeBT puts the root on top.
+
+00:08:27.230 --> 00:08:30.886
+Finding the root in the inorder by scanning
+
+00:08:30.971 --> 00:08:33.777
+would cost O(n) for every node
+
+00:08:33.777 --> 00:08:36.667
+O(n²) for a skewed tree.
+
+00:08:36.752 --> 00:08:39.558
+A hash map from value to position
+
+00:08:39.643 --> 00:08:41.938
+makes each lookup O(1)
+
+00:08:41.938 --> 00:08:44.659
+so the whole rebuild is O(n).
+
+00:08:44.659 --> 00:08:47.975
+The map also detects duplicate values
+
+00:08:47.975 --> 00:08:50.270
+which this method refuses.
+
+00:08:50.850 --> 00:08:51.814
+Now predict.
+
+00:08:51.814 --> 00:08:55.107
+A tree has preorder
+
+00:08:55.107 --> 00:08:58.401
+3, 9, 20, 15, 7, and inorder
+
+00:08:58.401 --> 00:09:00.329
+9, 3, 15, 20, 7.
+
+00:09:00.409 --> 00:09:02.658
+How many nodes does the left
+
+00:09:02.738 --> 00:09:04.747
+subtree of the root have?
+
+00:09:04.747 --> 00:09:07.960
+And what does the whole tree look like?
+
+00:09:07.960 --> 00:09:10.530
+Pause the video and rebuild it.
+
+00:09:14.110 --> 00:09:15.816
+The root is 3.
+
+00:09:15.816 --> 00:09:19.892
+Only 9 is left of 3 in the inorder
+
+00:09:19.892 --> 00:09:23.684
+so the left subtree has one node: 9.
+
+00:09:23.684 --> 00:09:27.381
+The right subtree has preorder
+
+00:09:27.381 --> 00:09:31.646
+20, 15, 7, and inorder 15, 20, 7:
+
+00:09:31.646 --> 00:09:33.542
+root 20
+
+00:09:33.542 --> 00:09:36.670
+with children 15 and 7.
+
+00:09:37.020 --> 00:09:40.686
+This is the exercise tree of part 3
+
+00:09:40.686 --> 00:09:44.260
+and the program RebuildDemo prints it.
+
+00:09:44.610 --> 00:09:47.263
+Can a tree also be rebuilt from
+
+00:09:47.349 --> 00:09:49.573
+its inorder and postorder?
+
+00:09:49.573 --> 00:09:52.654
+Yes, by the same argument mirrored
+
+00:09:52.740 --> 00:09:54.708
+the last element of the
+
+00:09:54.794 --> 00:09:56.676
+postorder is the root
+
+00:09:56.676 --> 00:10:00.441
+and the inorder splits around it as before.
+
+00:10:00.527 --> 00:10:04.121
+The method fromInPost rebuilt the same
+
+00:10:04.207 --> 00:10:07.715
+A … Y tree from its inorder and postorder.
+
+00:10:07.715 --> 00:10:09.170
+Both pairs work.
+
+00:10:09.750 --> 00:10:12.543
+What about preorder and postorder?
+
+00:10:12.543 --> 00:10:14.514
+Both tell you the root
+
+00:10:14.596 --> 00:10:16.814
+but neither tells you where
+
+00:10:16.896 --> 00:10:18.703
+the left subtree ends.
+
+00:10:18.703 --> 00:10:22.399
+With preorder A, B, C and postorder C, B, A
+
+00:10:22.399 --> 00:10:25.602
+A is the root and B is its only child
+
+00:10:25.684 --> 00:10:28.066
+but nothing says whether B is
+
+00:10:28.148 --> 00:10:30.120
+a left or a right child
+
+00:10:30.120 --> 00:10:32.830
+and the same goes for C under B.
+
+00:10:33.180 --> 00:10:35.878
+So there are four different trees
+
+00:10:35.878 --> 00:10:38.020
+not two as the slide says.
+
+00:10:38.099 --> 00:10:41.035
+A program in the notes tries all 5
+
+00:10:41.114 --> 00:10:43.891
+binary trees with preorder A, B, C
+
+00:10:43.891 --> 00:10:47.382
+and exactly these four have postorder
+
+00:10:47.382 --> 00:10:47.882
+C, B, A.
+
+00:10:47.970 --> 00:10:51.191
+In general, every node with exactly one
+
+00:10:51.274 --> 00:10:53.256
+child doubles the count
+
+00:10:53.338 --> 00:10:56.064
+that is precisely the information
+
+00:10:56.146 --> 00:10:58.459
+preorder and postorder lose.
+
+00:10:58.459 --> 00:11:02.010
+If the tree is full, they do determine it.
+
+00:11:02.590 --> 00:11:05.319
+To sum up the lecture's last part.
+
+00:11:05.319 --> 00:11:07.646
+1: for an expression tree
+
+00:11:07.646 --> 00:11:10.455
+the postorder is the postfix form
+
+00:11:10.455 --> 00:11:12.542
+and a stack evaluates it
+
+00:11:12.542 --> 00:11:15.511
+pop the right operand, pop the left
+
+00:11:15.511 --> 00:11:16.876
+push the result.
+
+00:11:16.876 --> 00:11:19.043
+2: preorder and inorder
+
+00:11:19.043 --> 00:11:21.129
+or inorder and postorder
+
+00:11:21.129 --> 00:11:24.420
+of distinct elements determine the tree
+
+00:11:24.420 --> 00:11:27.710
+and a hash map makes the rebuild O(n).
+
+00:11:28.060 --> 00:11:31.402
+3: preorder and postorder do not
+
+00:11:31.492 --> 00:11:34.382
+because each node with one child
+
+00:11:34.472 --> 00:11:36.820
+could hang on either side.
+
+00:11:37.170 --> 00:11:37.965
+Try this.
+
+00:11:37.965 --> 00:11:41.584
+Rebuild the tree with inorder
+
+00:11:41.584 --> 00:11:45.380
+4, 2, 5, 1, 6, 3, and postorder
+
+00:11:45.380 --> 00:11:47.851
+4, 5, 2, 6, 3, 1.
+
+00:11:47.851 --> 00:11:49.970
+Then give its preorder.
+
+00:11:50.320 --> 00:11:52.988
+Next lecture: binary search trees
+
+00:11:52.988 --> 00:11:56.440
+where the inorder finally comes out sorted.
+

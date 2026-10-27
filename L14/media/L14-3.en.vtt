@@ -1,0 +1,815 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.707
+To insert a key v, first search for it.
+
+00:00:03.707 --> 00:00:07.114
+Say we insert 13 into this tree.
+
+00:00:07.114 --> 00:00:09.997
+The search goes right at 12
+
+00:00:09.997 --> 00:00:13.055
+left at 18, left at 15
+
+00:00:13.055 --> 00:00:15.151
+and falls off the tree
+
+00:00:15.151 --> 00:00:17.510
+15 has no left child.
+
+00:00:17.598 --> 00:00:20.480
+That empty spot is the only place
+
+00:00:20.568 --> 00:00:23.888
+where 13 can go without breaking
+
+00:00:23.975 --> 00:00:25.460
+the BST property.
+
+00:00:25.810 --> 00:00:28.282
+So the new node goes there
+
+00:00:28.282 --> 00:00:29.930
+and it is a leaf.
+
+00:00:29.930 --> 00:00:34.051
+Nothing else in the tree moves: no shifting
+
+00:00:34.051 --> 00:00:37.530
+as in an array, and no restructuring.
+
+00:00:38.110 --> 00:00:39.670
+There is one catch.
+
+00:00:39.670 --> 00:00:42.543
+The search pointer x ends up null
+
+00:00:42.625 --> 00:00:44.513
+and null cannot tell us
+
+00:00:44.595 --> 00:00:46.400
+whose child to change.
+
+00:00:46.400 --> 00:00:49.273
+So we walk down with two pointers.
+
+00:00:49.273 --> 00:00:51.161
+x is the current node.
+
+00:00:51.161 --> 00:00:53.213
+y, the trailing pointer
+
+00:00:53.213 --> 00:00:55.430
+is always the parent of x.
+
+00:00:55.430 --> 00:00:58.056
+13 is larger than 12
+
+00:00:58.056 --> 00:01:01.750
+y moves to 12, x goes right to 18.
+
+00:01:02.100 --> 00:01:05.316
+13 is smaller than 18
+
+00:01:05.316 --> 00:01:09.573
+y moves to 18, x goes left to 15.
+
+00:01:09.573 --> 00:01:12.789
+13 is smaller than 15
+
+00:01:12.789 --> 00:01:16.289
+y moves to 15, and x goes left
+
+00:01:16.289 --> 00:01:17.140
+to null.
+
+00:01:17.490 --> 00:01:20.222
+Now x is null, and y is 15
+
+00:01:20.222 --> 00:01:23.551
+y is the node that gets the new child.
+
+00:01:23.551 --> 00:01:26.454
+13 is smaller than 15
+
+00:01:26.539 --> 00:01:28.844
+so the new node becomes the
+
+00:01:28.929 --> 00:01:30.807
+left child of 15.
+
+00:01:30.807 --> 00:01:34.222
+If the tree was empty, y is still null
+
+00:01:34.222 --> 00:01:37.210
+and the new node becomes the root.
+
+00:01:37.790 --> 00:01:41.962
+In Java, insert first makes the new node z.
+
+00:01:41.962 --> 00:01:46.230
+y starts as null, and x starts at the root.
+
+00:01:46.580 --> 00:01:50.854
+While x is not null, y catches up with x
+
+00:01:50.958 --> 00:01:53.982
+and x moves left if z.key
+
+00:01:54.086 --> 00:01:56.796
+is smaller than x.key
+
+00:01:56.796 --> 00:01:58.986
+and right otherwise.
+
+00:01:58.986 --> 00:02:02.217
+When the loop ends, x is null
+
+00:02:02.217 --> 00:02:06.700
+and y is the last node on the search path.
+
+00:02:07.280 --> 00:02:09.759
+Then z.parent is set to y.
+
+00:02:09.759 --> 00:02:12.569
+If y is null, the tree was empty
+
+00:02:12.569 --> 00:02:14.552
+and z becomes the root.
+
+00:02:14.635 --> 00:02:17.444
+Otherwise z becomes the left child
+
+00:02:17.527 --> 00:02:19.758
+of y if its key is smaller
+
+00:02:19.758 --> 00:02:22.320
+and the right child otherwise.
+
+00:02:22.670 --> 00:02:25.177
+InsertDemo builds the tree from
+
+00:02:25.258 --> 00:02:27.523
+before and inserts 13
+
+00:02:27.523 --> 00:02:30.677
+it lands as the left child of 15
+
+00:02:30.677 --> 00:02:33.832
+and the parent of 13 is 15.
+
+00:02:33.832 --> 00:02:36.177
+The loop goes down one path
+
+00:02:36.177 --> 00:02:38.361
+and the rest is O(1)
+
+00:02:38.361 --> 00:02:41.030
+so insertion takes O(h) time.
+
+00:02:41.610 --> 00:02:44.510
+The slides ask you to build
+
+00:02:44.618 --> 00:02:49.236
+the tree for 15, 6, 18, 3
+
+00:02:49.236 --> 00:02:53.211
+7, 17, 20, 2, 4.
+
+00:02:53.211 --> 00:02:57.722
+The first key, 15, becomes the root
+
+00:02:57.722 --> 00:03:01.052
+and it stays the root forever.
+
+00:03:01.052 --> 00:03:04.274
+6 is smaller: it goes left.
+
+00:03:04.274 --> 00:03:06.530
+18 goes right.
+
+00:03:06.880 --> 00:03:09.590
+3 goes left, then left.
+
+00:03:09.590 --> 00:03:12.500
+7 goes left, then right.
+
+00:03:12.500 --> 00:03:16.515
+17 and 20 go below 18.
+
+00:03:16.515 --> 00:03:20.228
+2 walks down to 3's left side
+
+00:03:20.228 --> 00:03:23.440
+and 4 to 3's right side.
+
+00:03:23.790 --> 00:03:25.944
+Each later key walks down from
+
+00:03:26.016 --> 00:03:28.026
+the root and becomes a leaf
+
+00:03:28.026 --> 00:03:30.682
+and InsertDemo prints the same tree.
+
+00:03:30.682 --> 00:03:32.190
+Its height is 3.
+
+00:03:32.770 --> 00:03:35.563
+What if the key is already in the tree?
+
+00:03:35.563 --> 00:03:38.428
+Our code sends equal keys to the right
+
+00:03:38.499 --> 00:03:40.433
+because z.key < x.key
+
+00:03:40.505 --> 00:03:41.866
+is false.
+
+00:03:41.937 --> 00:03:44.014
+So a second copy lands in the
+
+00:03:44.086 --> 00:03:46.019
+right subtree of the first.
+
+00:03:46.019 --> 00:03:47.810
+Then the property reads
+
+00:03:47.810 --> 00:03:49.672
+smaller keys on the left
+
+00:03:49.672 --> 00:03:52.250
+greater or equal keys on the right.
+
+00:03:52.600 --> 00:03:54.506
+Most libraries do neither.
+
+00:03:54.579 --> 00:03:56.411
+A TreeSet simply ignores
+
+00:03:56.485 --> 00:03:58.024
+a key it already has
+
+00:03:58.097 --> 00:04:00.076
+and a TreeMap replaces the
+
+00:04:00.150 --> 00:04:01.689
+value stored with it.
+
+00:04:01.689 --> 00:04:02.568
+To do that
+
+00:04:02.568 --> 00:04:05.720
+stop the walk when the two keys are equal.
+
+00:04:06.300 --> 00:04:08.715
+The same keys inserted in different
+
+00:04:08.784 --> 00:04:10.717
+orders give different trees.
+
+00:04:10.717 --> 00:04:13.477
+Insert 1 to 5 in increasing order
+
+00:04:13.546 --> 00:04:15.340
+each key becomes the right
+
+00:04:15.409 --> 00:04:17.065
+child of the one before
+
+00:04:17.065 --> 00:04:19.205
+a chain of height n - 1
+
+00:04:19.205 --> 00:04:20.309
+the worst case.
+
+00:04:20.309 --> 00:04:22.793
+Insert 3, 1, 4, 2, 5
+
+00:04:22.793 --> 00:04:24.380
+and the tree is bushy.
+
+00:04:24.730 --> 00:04:27.840
+HeightDemo does this with 1000 keys.
+
+00:04:27.915 --> 00:04:30.062
+In sorted order the height is
+
+00:04:30.136 --> 00:04:31.988
+999
+
+00:04:32.062 --> 00:04:34.135
+so a search may walk through
+
+00:04:34.209 --> 00:04:35.616
+all 1000 nodes.
+
+00:04:35.616 --> 00:04:38.134
+Shuffled, the height is 18
+
+00:04:38.134 --> 00:04:40.430
+twice the best possible, 9
+
+00:04:40.430 --> 00:04:43.170
+and 50 times less than the chain.
+
+00:04:43.520 --> 00:04:46.263
+Input that arrives already sorted
+
+00:04:46.346 --> 00:04:48.174
+is common in practice
+
+00:04:48.174 --> 00:04:51.000
+that is why balanced trees exist.
+
+00:04:51.580 --> 00:04:53.200
+Deletion is harder
+
+00:04:53.285 --> 00:04:55.417
+we must remove a node and
+
+00:04:55.502 --> 00:04:57.378
+keep the BST property.
+
+00:04:57.463 --> 00:04:59.851
+How hard depends on how many
+
+00:04:59.936 --> 00:05:01.982
+children the node z has.
+
+00:05:01.982 --> 00:05:04.881
+Our example tree has 12 keys.
+
+00:05:04.881 --> 00:05:08.547
+Case 1: z has no children, it is a leaf
+
+00:05:08.547 --> 00:05:09.826
+like 13.
+
+00:05:09.826 --> 00:05:11.276
+Just cut it off
+
+00:05:11.276 --> 00:05:14.260
+12's right child becomes null.
+
+00:05:14.840 --> 00:05:17.052
+Case 2: z has one child.
+
+00:05:17.052 --> 00:05:20.455
+16 has only a right child, 20.
+
+00:05:20.455 --> 00:05:21.646
+Splice z out
+
+00:05:21.646 --> 00:05:25.389
+link z's parent directly to z's only child
+
+00:05:25.389 --> 00:05:27.856
+and set that child's parent.
+
+00:05:27.856 --> 00:05:31.089
+15's right child becomes 20.
+
+00:05:31.174 --> 00:05:33.300
+The child's whole subtree
+
+00:05:33.385 --> 00:05:35.002
+moves up one level
+
+00:05:35.087 --> 00:05:37.639
+with 18 and 23
+
+00:05:37.724 --> 00:05:39.000
+still below it.
+
+00:05:39.350 --> 00:05:40.706
+Why is that safe?
+
+00:05:40.786 --> 00:05:43.419
+Every key in that subtree lies on
+
+00:05:43.499 --> 00:05:45.972
+the same side of every ancestor
+
+00:05:46.051 --> 00:05:48.126
+of 16 as 16 did
+
+00:05:48.126 --> 00:05:51.077
+all of them are larger than 15.
+
+00:05:51.077 --> 00:05:53.710
+So the BST property still holds.
+
+00:05:54.290 --> 00:05:57.754
+Case 3: z has two children, like 5.
+
+00:05:57.754 --> 00:05:59.816
+We cannot splice it out
+
+00:05:59.816 --> 00:06:01.878
+its parent has one link
+
+00:06:01.878 --> 00:06:05.178
+but 5 has two subtrees to hand over.
+
+00:06:05.178 --> 00:06:05.920
+Instead
+
+00:06:05.920 --> 00:06:09.137
+find a key that can take 5's place.
+
+00:06:09.219 --> 00:06:11.941
+It must be larger than everything
+
+00:06:12.024 --> 00:06:15.323
+on the left, and smaller than everything
+
+00:06:15.405 --> 00:06:16.890
+else on the right.
+
+00:06:17.240 --> 00:06:19.225
+That is the successor y
+
+00:06:19.225 --> 00:06:22.038
+the minimum of z's right subtree
+
+00:06:22.038 --> 00:06:25.181
+go right to 12, then left to 10
+
+00:06:25.181 --> 00:06:26.670
+then left to 6.
+
+00:06:26.670 --> 00:06:28.572
+6 has no left child
+
+00:06:28.572 --> 00:06:30.640
+so the walk stops there.
+
+00:06:30.990 --> 00:06:33.027
+So: copy y's key into z
+
+00:06:33.027 --> 00:06:35.404
+and then delete the node y.
+
+00:06:35.404 --> 00:06:38.545
+y has no left child by construction
+
+00:06:38.545 --> 00:06:42.196
+because we went left until there was none.
+
+00:06:42.196 --> 00:06:45.506
+So removing y is case 1 or case 2
+
+00:06:45.506 --> 00:06:47.544
+never case 3 again
+
+00:06:47.544 --> 00:06:50.430
+case 3 recurses at most once.
+
+00:06:51.010 --> 00:06:53.238
+Before we run it, predict.
+
+00:06:53.238 --> 00:06:54.609
+In delete(5)
+
+00:06:54.609 --> 00:06:57.607
+which node object leaves the tree
+
+00:06:57.607 --> 00:06:59.664
+the one that held 5
+
+00:06:59.664 --> 00:07:01.891
+or the one that held 6?
+
+00:07:01.891 --> 00:07:04.290
+Pause the video and decide.
+
+00:07:07.870 --> 00:07:11.562
+6 is copied into the node that held 5.
+
+00:07:11.647 --> 00:07:13.794
+The node object that held
+
+00:07:13.880 --> 00:07:17.571
+5 stays where it was, and now holds 6.
+
+00:07:17.571 --> 00:07:20.490
+The old node 6 leaves the tree
+
+00:07:20.490 --> 00:07:22.980
+it is spliced out, case 2
+
+00:07:22.980 --> 00:07:26.070
+and 10's left child becomes 7.
+
+00:07:26.420 --> 00:07:28.817
+DeleteDemo prints the same tree.
+
+00:07:28.817 --> 00:07:30.165
+So the answer is
+
+00:07:30.165 --> 00:07:32.787
+the node that held 6 disappears.
+
+00:07:32.787 --> 00:07:35.484
+For a set of integers that is fine.
+
+00:07:35.484 --> 00:07:38.180
+But a reference to the node of 6
+
+00:07:38.180 --> 00:07:40.352
+kept elsewhere in a program
+
+00:07:40.352 --> 00:07:42.674
+now points at a detached node.
+
+00:07:42.749 --> 00:07:45.146
+So CLRS moves the successor node
+
+00:07:45.221 --> 00:07:47.468
+itself into z's place instead
+
+00:07:47.468 --> 00:07:49.940
+with a helper called TRANSPLANT.
+
+00:07:50.520 --> 00:07:51.293
+In Java
+
+00:07:51.293 --> 00:07:54.964
+delete(z) first handles case 3.
+
+00:07:54.964 --> 00:07:57.283
+If z has both children
+
+00:07:57.283 --> 00:08:01.630
+y is BstMinMax.findMin(z.right), the successor
+
+00:08:01.630 --> 00:08:04.045
+which has no left child.
+
+00:08:04.045 --> 00:08:06.557
+z.key = y.key
+
+00:08:06.557 --> 00:08:10.131
+and then z = y: from now on
+
+00:08:10.131 --> 00:08:12.160
+we remove y instead.
+
+00:08:12.510 --> 00:08:15.624
+What remains is always the same job
+
+00:08:15.624 --> 00:08:18.910
+remove a node with at most one child.
+
+00:08:19.490 --> 00:08:22.455
+Cases 1 and 2 share their code.
+
+00:08:22.540 --> 00:08:24.488
+The only child is z.left
+
+00:08:24.573 --> 00:08:28.300
+if there is one, otherwise z.right.
+
+00:08:28.300 --> 00:08:30.925
+In case 1 it is simply null.
+
+00:08:30.925 --> 00:08:32.704
+If there is a child
+
+00:08:32.704 --> 00:08:35.330
+its parent becomes z's parent.
+
+00:08:35.680 --> 00:08:38.570
+If z has no parent, z is the root
+
+00:08:38.570 --> 00:08:41.630
+and the field root changes instead.
+
+00:08:41.630 --> 00:08:45.370
+Otherwise, if z is its parent's left child
+
+00:08:45.370 --> 00:08:48.855
+z.parent.left becomes the child
+
+00:08:48.855 --> 00:08:52.000
+if not, z.parent.right does.
+
+00:08:52.350 --> 00:08:54.629
+The slides write case 3
+
+00:08:54.714 --> 00:08:56.233
+with two branches.
+
+00:08:56.233 --> 00:08:58.428
+Both are this one splice
+
+00:08:58.428 --> 00:09:00.200
+y has no left child
+
+00:09:00.200 --> 00:09:03.070
+so its only child is y.right.
+
+00:09:03.650 --> 00:09:06.610
+Deleting the root works the same way.
+
+00:09:06.610 --> 00:09:08.690
+15 has two children.
+
+00:09:08.690 --> 00:09:10.770
+Its successor is 16
+
+00:09:10.770 --> 00:09:13.490
+the minimum of the right subtree.
+
+00:09:13.490 --> 00:09:16.130
+16 is copied into the root
+
+00:09:16.130 --> 00:09:19.010
+and the old 16 is spliced out
+
+00:09:19.010 --> 00:09:21.650
+its right child 20 moves up.
+
+00:09:22.000 --> 00:09:22.905
+One pitfall.
+
+00:09:22.905 --> 00:09:24.414
+When z is the root
+
+00:09:24.414 --> 00:09:27.129
+there is no z.parent to update
+
+00:09:27.129 --> 00:09:30.373
+the tree's root field must change instead
+
+00:09:30.448 --> 00:09:32.258
+and the child that moves
+
+00:09:32.334 --> 00:09:33.993
+up gets a null parent.
+
+00:09:34.069 --> 00:09:36.860
+Code that sets the root and then also
+
+00:09:36.935 --> 00:09:39.877
+asks whether z is z.parent.left
+
+00:09:39.952 --> 00:09:42.366
+throws a NullPointerException.
+
+00:09:42.366 --> 00:09:45.760
+The parent update belongs in an else branch.
+
+00:09:46.340 --> 00:09:47.194
+The cost.
+
+00:09:47.288 --> 00:09:50.228
+Cases 1 and 2 take constant
+
+00:09:50.323 --> 00:09:52.314
+time once z is found.
+
+00:09:52.409 --> 00:09:54.969
+Case 3 adds a walk down
+
+00:09:55.064 --> 00:09:56.676
+to the successor.
+
+00:09:56.676 --> 00:10:00.184
+And finding z from a key is O(h).
+
+00:10:00.184 --> 00:10:02.460
+So deletion is O(h).
+
+00:10:02.810 --> 00:10:04.572
+There is a subtle problem.
+
+00:10:04.639 --> 00:10:06.875
+Every case 3 deletion takes a
+
+00:10:06.943 --> 00:10:08.975
+node out of z's right subtree.
+
+00:10:08.975 --> 00:10:11.956
+After many deletions mixed with insertions
+
+00:10:11.956 --> 00:10:13.921
+the right subtrees thin out
+
+00:10:13.989 --> 00:10:16.292
+and the tree leans to the left and
+
+00:10:16.360 --> 00:10:18.528
+gets taller than it needs to be.
+
+00:10:18.596 --> 00:10:21.306
+Choosing at random between the successor
+
+00:10:21.374 --> 00:10:23.135
+and the predecessor helps
+
+00:10:23.135 --> 00:10:24.490
+but proves nothing.
+
+00:10:24.840 --> 00:10:27.366
+The rigorous solution is a balanced
+
+00:10:27.438 --> 00:10:28.809
+binary search tree
+
+00:10:28.881 --> 00:10:31.407
+which repairs its shape after every
+
+00:10:31.479 --> 00:10:33.139
+insertion and deletion
+
+00:10:33.139 --> 00:10:35.304
+AVL trees in Lecture 15
+
+00:10:35.304 --> 00:10:38.190
+and red-black trees in Lecture 16.
+
+00:10:38.190 --> 00:10:39.634
+Both add rotations
+
+00:10:39.634 --> 00:10:42.520
+and keep the height O(log n) always.
+
+00:10:43.100 --> 00:10:43.880
+To sum up.
+
+00:10:43.880 --> 00:10:46.609
+1: insertion searches with x and
+
+00:10:46.687 --> 00:10:48.481
+the trailing pointer y
+
+00:10:48.481 --> 00:10:50.820
+and hangs a new leaf below y
+
+00:10:50.820 --> 00:10:52.145
+in O(h) time.
+
+00:10:52.145 --> 00:10:54.251
+2: deletion cuts a leaf
+
+00:10:54.251 --> 00:10:56.980
+splices out a node with one child
+
+00:10:57.058 --> 00:10:59.163
+and for two children copies
+
+00:10:59.241 --> 00:11:00.801
+the successor's key
+
+00:11:00.801 --> 00:11:03.140
+whose node has no left child.
+
+00:11:03.490 --> 00:11:04.044
+3:
+
+00:11:04.044 --> 00:11:07.921
+the order of insertion decides the shape.
+
+00:11:07.921 --> 00:11:10.506
+Sorted input makes a chain
+
+00:11:10.598 --> 00:11:13.182
+and random input gives
+
+00:11:13.275 --> 00:11:15.490
+O(log n) height on average.
+
+00:11:15.840 --> 00:11:16.665
+Try this.
+
+00:11:16.665 --> 00:11:19.871
+Take the running tree of part two
+
+00:11:19.871 --> 00:11:22.253
+with 15 at the root.
+
+00:11:22.253 --> 00:11:25.550
+Delete 6, which has two children.
+
+00:11:25.550 --> 00:11:27.566
+What is the new tree?
+
+00:11:27.566 --> 00:11:30.680
+Hint: find 6's successor first.
+
+00:11:31.030 --> 00:11:32.016
+In part 4:
+
+00:11:32.016 --> 00:11:34.821
+do insertions and deletions commute?
+
+00:11:34.821 --> 00:11:37.854
+Then sorting with a binary search tree
+
+00:11:37.854 --> 00:11:41.190
+and the lowest common ancestor of two keys.
+

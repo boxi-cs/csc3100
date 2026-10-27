@@ -1,0 +1,680 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.375
+So far this course has met
+
+00:00:02.455 --> 00:00:04.370
+five sorting algorithms.
+
+00:00:04.370 --> 00:00:05.408
+Bubble sort
+
+00:00:05.488 --> 00:00:09.957
+insertion sort and selection sort take time proportional
+
+00:00:10.037 --> 00:00:12.511
+to n² in the worst case.
+
+00:00:12.511 --> 00:00:15.624
+Merge sort and QuickSort take n log n
+
+00:00:15.624 --> 00:00:17.380
+QuickSort on average.
+
+00:00:17.730 --> 00:00:20.201
+All five are comparison-based
+
+00:00:20.283 --> 00:00:22.506
+the only thing they ever do
+
+00:00:22.589 --> 00:00:26.130
+with two elements is ask, is a less than b?
+
+00:00:26.480 --> 00:00:29.629
+And any comparison sort needs on the order
+
+00:00:29.704 --> 00:00:32.778
+of n log n comparisons in the worst case.
+
+00:00:32.853 --> 00:00:35.402
+It must tell apart all n factorial
+
+00:00:35.477 --> 00:00:36.976
+orders of its input
+
+00:00:36.976 --> 00:00:40.200
+and each comparison has only two outcomes.
+
+00:00:40.550 --> 00:00:42.440
+This lecture has two parts.
+
+00:00:42.440 --> 00:00:45.240
+First, ShellSort, which still compares
+
+00:00:45.310 --> 00:00:47.340
+but makes insertion sort much
+
+00:00:47.410 --> 00:00:48.740
+faster in practice.
+
+00:00:48.810 --> 00:00:50.700
+Then three sorts that never
+
+00:00:50.770 --> 00:00:53.290
+compare two elements: counting sort
+
+00:00:53.290 --> 00:00:55.250
+bucket sort and radix sort.
+
+00:00:55.250 --> 00:00:58.190
+On suitable keys they run in linear time.
+
+00:00:58.770 --> 00:01:00.806
+Here are the 13 numbers
+
+00:01:00.876 --> 00:01:02.702
+of today's worked example.
+
+00:01:02.702 --> 00:01:05.370
+Look at the 15 at the far right.
+
+00:01:05.720 --> 00:01:08.064
+Insertion sort moves an element
+
+00:01:08.140 --> 00:01:10.257
+left one position at a time.
+
+00:01:10.332 --> 00:01:12.298
+Ten larger values stand in
+
+00:01:12.374 --> 00:01:13.962
+front of the 15
+
+00:01:13.962 --> 00:01:16.911
+so it needs 10 shifts, one step each.
+
+00:01:16.911 --> 00:01:20.313
+On a reversed array every element does this
+
+00:01:20.313 --> 00:01:23.640
+and that is where the n² comes from.
+
+00:01:23.990 --> 00:01:24.792
+ShellSort
+
+00:01:24.792 --> 00:01:28.160
+from Donald Shell in 1959
+
+00:01:28.160 --> 00:01:31.126
+lets elements make long jumps first.
+
+00:01:31.206 --> 00:01:33.211
+It compares elements that
+
+00:01:33.291 --> 00:01:35.055
+are h positions apart
+
+00:01:35.055 --> 00:01:37.060
+so with h equal to 5
+
+00:01:37.140 --> 00:01:39.706
+the 15 can jump 5 places
+
+00:01:39.786 --> 00:01:41.550
+left in a single move.
+
+00:01:42.130 --> 00:01:43.879
+The key definition.
+
+00:01:43.971 --> 00:01:47.928
+An array is h-sorted if every element is at
+
+00:01:48.021 --> 00:01:51.610
+most the element h places to its right.
+
+00:01:51.960 --> 00:01:53.197
+Equivalently
+
+00:01:53.197 --> 00:01:56.432
+take the elements h places apart
+
+00:01:56.432 --> 00:02:00.333
+starting from position 0: 0, 5
+
+00:02:00.333 --> 00:02:00.808
+10.
+
+00:02:00.808 --> 00:02:03.948
+Then from 1: 1, 6, 11.
+
+00:02:03.948 --> 00:02:06.327
+Then 2, 7, 12.
+
+00:02:06.327 --> 00:02:07.944
+3 and 8.
+
+00:02:07.944 --> 00:02:09.752
+And 4 and 9.
+
+00:02:09.752 --> 00:02:11.845
+With h = 5
+
+00:02:11.845 --> 00:02:15.080
+there are 5 such subsequences.
+
+00:02:15.430 --> 00:02:17.531
+The array is h-sorted when
+
+00:02:17.612 --> 00:02:19.470
+each of them is sorted.
+
+00:02:19.551 --> 00:02:21.571
+And a 1-sorted array is
+
+00:02:21.652 --> 00:02:23.430
+simply a sorted array.
+
+00:02:24.010 --> 00:02:26.181
+So ShellSort runs like this.
+
+00:02:26.181 --> 00:02:28.740
+Choose a sequence of increments
+
+00:02:28.740 --> 00:02:31.299
+also called gaps, ending in 1
+
+00:02:31.299 --> 00:02:34.090
+and use them from the largest down.
+
+00:02:34.440 --> 00:02:35.840
+For the current h
+
+00:02:35.840 --> 00:02:39.028
+split the array into its h subsequences
+
+00:02:39.028 --> 00:02:42.061
+and sort each one with insertion sort.
+
+00:02:42.061 --> 00:02:44.160
+The array is now h-sorted.
+
+00:02:44.510 --> 00:02:48.096
+Then move to the next smaller h, and repeat
+
+00:02:48.096 --> 00:02:50.377
+ending with h = 1
+
+00:02:50.377 --> 00:02:52.333
+a plain insertion sort
+
+00:02:52.333 --> 00:02:55.185
+so the result is certainly sorted.
+
+00:02:55.267 --> 00:02:57.548
+The earlier passes are there
+
+00:02:57.630 --> 00:02:59.830
+to make the last one cheap.
+
+00:03:00.180 --> 00:03:02.709
+Here are some common sequences.
+
+00:03:02.709 --> 00:03:05.319
+Shell's own halves n each time.
+
+00:03:05.319 --> 00:03:08.663
+Knuth's goes 1, 4, 13, 40
+
+00:03:08.663 --> 00:03:11.273
+3 times the last, plus 1.
+
+00:03:11.355 --> 00:03:14.699
+We will see in part two that the sequence
+
+00:03:14.781 --> 00:03:16.820
+decides the running time.
+
+00:03:17.400 --> 00:03:19.493
+Now the worked example
+
+00:03:19.493 --> 00:03:22.952
+with the increments 5, 3, 1.
+
+00:03:22.952 --> 00:03:24.863
+First h = 5
+
+00:03:24.954 --> 00:03:27.594
+and the 5 subsequences are
+
+00:03:27.685 --> 00:03:29.960
+sorted one after another.
+
+00:03:30.310 --> 00:03:31.813
+Positions 0
+
+00:03:31.813 --> 00:03:36.120
+5 and 10 hold 81, 35
+
+00:03:36.120 --> 00:03:37.222
+41.
+
+00:03:37.222 --> 00:03:41.630
+Sorted: 35, 41, 81.
+
+00:03:41.980 --> 00:03:46.205
+Positions 1, 6 and 11: 94
+
+00:03:46.205 --> 00:03:48.661
+17, 75.
+
+00:03:48.661 --> 00:03:51.903
+Sorted: 17, 75
+
+00:03:51.903 --> 00:03:53.180
+94.
+
+00:03:53.530 --> 00:03:57.307
+Positions 2, 7 and 12: 11
+
+00:03:57.307 --> 00:03:59.384
+95, 15.
+
+00:03:59.384 --> 00:04:02.971
+Sorted: 11, 15, 95.
+
+00:04:02.971 --> 00:04:06.370
+The 15 has jumped 5 places.
+
+00:04:06.720 --> 00:04:08.683
+Positions 3 and 8
+
+00:04:08.683 --> 00:04:11.778
+96 and 28 swap places.
+
+00:04:11.778 --> 00:04:13.967
+And positions 4 and 9
+
+00:04:13.967 --> 00:04:15.779
+12 and 58
+
+00:04:15.779 --> 00:04:17.440
+are already in order.
+
+00:04:17.690 --> 00:04:20.037
+Look how far 81 went
+
+00:04:20.037 --> 00:04:22.950
+from position 0 to position 10
+
+00:04:22.950 --> 00:04:24.406
+in a single move.
+
+00:04:24.406 --> 00:04:26.834
+The array is now 5-sorted
+
+00:04:26.834 --> 00:04:28.290
+after 6 shifts.
+
+00:04:28.870 --> 00:04:32.790
+Next, h equals 3: 3 subsequences.
+
+00:04:33.140 --> 00:04:35.651
+Positions 0, 3, 6
+
+00:04:35.651 --> 00:04:38.812
+9 and 12 hold 35
+
+00:04:38.812 --> 00:04:42.625
+28, 75, 58
+
+00:04:42.625 --> 00:04:43.834
+95.
+
+00:04:43.834 --> 00:04:47.460
+They become 28, 35
+
+00:04:47.460 --> 00:04:51.180
+58, 75, 95.
+
+00:04:51.530 --> 00:04:55.480
+Positions 1, 4, 7 and 10
+
+00:04:55.480 --> 00:04:59.993
+17, 12, 15, 81.
+
+00:04:59.993 --> 00:05:04.056
+Sorted: 12, 15, 17
+
+00:05:04.056 --> 00:05:05.410
+81.
+
+00:05:05.760 --> 00:05:09.746
+Positions 2, 5, 8 and 11
+
+00:05:09.746 --> 00:05:14.362
+11, 41, 96, 94.
+
+00:05:14.362 --> 00:05:16.880
+Only the last two swap.
+
+00:05:17.230 --> 00:05:19.648
+The array is now 3-sorted
+
+00:05:19.648 --> 00:05:21.583
+after 5 more shifts.
+
+00:05:21.583 --> 00:05:23.276
+It is almost sorted
+
+00:05:23.356 --> 00:05:26.016
+only a few small values are still
+
+00:05:26.097 --> 00:05:27.870
+slightly out of place.
+
+00:05:28.450 --> 00:05:30.152
+Before the last pass
+
+00:05:30.152 --> 00:05:33.476
+the row is 28, 12, 11
+
+00:05:33.476 --> 00:05:36.150
+35, 15, and so on.
+
+00:05:36.150 --> 00:05:39.312
+The last pass is plain insertion sort.
+
+00:05:39.312 --> 00:05:40.609
+Here is a hint
+
+00:05:40.690 --> 00:05:43.283
+insertion sort makes exactly one
+
+00:05:43.364 --> 00:05:45.391
+shift for each inversion
+
+00:05:45.472 --> 00:05:47.823
+a pair of positions where the
+
+00:05:47.904 --> 00:05:49.930
+larger value comes first.
+
+00:05:50.280 --> 00:05:53.249
+How many shifts does the last pass make?
+
+00:05:53.249 --> 00:05:56.440
+Pause the video, and count the inversions.
+
+00:06:00.020 --> 00:06:02.337
+There are 12 inversions
+
+00:06:02.337 --> 00:06:03.827
+so 12 shifts.
+
+00:06:03.827 --> 00:06:04.820
+Watch them.
+
+00:06:05.170 --> 00:06:08.300
+12 goes in front of 28
+
+00:06:08.300 --> 00:06:09.231
+1 shift.
+
+00:06:09.231 --> 00:06:12.953
+11 passes 28 and 12: 2.
+
+00:06:12.953 --> 00:06:16.761
+15 passes 35 and 28
+
+00:06:16.761 --> 00:06:17.184
+2.
+
+00:06:17.184 --> 00:06:20.821
+17 passes 4 values: 58
+
+00:06:20.821 --> 00:06:24.290
+41, 35 and 28.
+
+00:06:24.540 --> 00:06:27.044
+75 passes 94
+
+00:06:27.044 --> 00:06:29.470
+81 passes 94
+
+00:06:29.470 --> 00:06:32.208
+and 95 passes 96
+
+00:06:32.208 --> 00:06:33.460
+1 shift each.
+
+00:06:33.710 --> 00:06:35.902
+Sorted, after 12 shifts.
+
+00:06:35.980 --> 00:06:38.799
+Plain insertion sort on the original
+
+00:06:38.877 --> 00:06:41.382
+row would need 41 shifts
+
+00:06:41.382 --> 00:06:44.670
+one for each of its 41 inversions.
+
+00:06:45.020 --> 00:06:48.268
+So ShellSort with the increments 5
+
+00:06:48.353 --> 00:06:50.661
+3 and 1 made 6 plus
+
+00:06:50.746 --> 00:06:53.994
+5 plus 12, 23 shifts
+
+00:06:53.994 --> 00:06:55.618
+against 41.
+
+00:06:55.618 --> 00:06:58.780
+And the saving grows quickly with n.
+
+00:06:59.360 --> 00:07:01.795
+Here is the code from the slides
+
+00:07:01.795 --> 00:07:03.934
+with Shell's own increments.
+
+00:07:03.934 --> 00:07:06.959
+The outer loop starts gap at n / 2
+
+00:07:06.959 --> 00:07:09.393
+and divides it by 2 each time
+
+00:07:09.393 --> 00:07:11.680
+while it is greater than 0.
+
+00:07:12.030 --> 00:07:14.903
+Read the rest from the inside out.
+
+00:07:14.903 --> 00:07:18.284
+The two inner loops are insertion sort
+
+00:07:18.284 --> 00:07:20.988
+with every 1 replaced by gap.
+
+00:07:20.988 --> 00:07:24.030
+tmp is the element being inserted.
+
+00:07:24.380 --> 00:07:27.701
+It is compared with a[j - gap]
+
+00:07:27.701 --> 00:07:31.740
+the previous element of its own subsequence.
+
+00:07:31.830 --> 00:07:34.253
+A larger element shifts gap
+
+00:07:34.343 --> 00:07:36.407
+positions to the right
+
+00:07:36.407 --> 00:07:39.100
+and tmp drops into the hole.
+
+00:07:39.450 --> 00:07:42.294
+One difference from the worked example
+
+00:07:42.294 --> 00:07:45.064
+the loop walks i from gap to the end
+
+00:07:45.137 --> 00:07:46.960
+so it inserts one element
+
+00:07:47.033 --> 00:07:48.491
+of subsequence 0
+
+00:07:48.491 --> 00:07:50.606
+then one of subsequence 1
+
+00:07:50.606 --> 00:07:53.522
+then one of subsequence 2, and so on.
+
+00:07:53.522 --> 00:07:54.543
+That is fine.
+
+00:07:54.543 --> 00:07:57.605
+The subsequences use different positions
+
+00:07:57.678 --> 00:08:00.230
+so sorting them in any interleaving
+
+00:08:00.303 --> 00:08:02.490
+gives the same h-sorted array.
+
+00:08:03.070 --> 00:08:05.679
+The notes' ShellSort class also has
+
+00:08:05.754 --> 00:08:07.916
+a version that counts shifts
+
+00:08:07.990 --> 00:08:10.525
+and the program ShellExample runs
+
+00:08:10.599 --> 00:08:12.612
+it on our 13 numbers.
+
+00:08:12.612 --> 00:08:14.699
+The rows match the machine
+
+00:08:14.699 --> 00:08:17.085
+6 shifts for h equal to 5
+
+00:08:17.085 --> 00:08:19.470
+5 for 3, 12 for 1
+
+00:08:19.470 --> 00:08:22.750
+against 41 for insertion sort alone.
+
+00:08:23.100 --> 00:08:25.224
+The last two lines run the
+
+00:08:25.306 --> 00:08:27.267
+version from the slides.
+
+00:08:27.267 --> 00:08:29.309
+For n equal to 13
+
+00:08:29.309 --> 00:08:32.577
+Shell's increments are 6, 3, 1.
+
+00:08:32.659 --> 00:08:34.620
+13 / 2 is 6
+
+00:08:34.701 --> 00:08:38.214
+in integer division, 6 / 2 is 3
+
+00:08:38.214 --> 00:08:40.420
+and 3 / 2 is 1.
+
+00:08:41.000 --> 00:08:42.790
+Three common slips.
+
+00:08:42.790 --> 00:08:45.899
+Comparing with a[j - 1]
+
+00:08:45.899 --> 00:08:48.632
+instead of a[j - gap].
+
+00:08:48.632 --> 00:08:52.400
+Or starting i at 1 instead of at gap.
+
+00:08:52.400 --> 00:08:56.640
+Either way, the pass is no longer an h-sort.
+
+00:08:56.990 --> 00:09:00.535
+And forgetting the final pass with gap 1.
+
+00:09:00.535 --> 00:09:03.997
+This row is 5-sorted and 3-sorted
+
+00:09:03.997 --> 00:09:05.810
+but it is not sorted
+
+00:09:05.810 --> 00:09:09.190
+28 still stands before 12.
+
+00:09:09.770 --> 00:09:10.682
+To sum up.
+
+00:09:10.682 --> 00:09:13.509
+1: ShellSort insertion-sorts
+
+00:09:13.600 --> 00:09:17.247
+the elements h apart, for a shrinking h
+
+00:09:17.247 --> 00:09:19.800
+ending with h equal to 1.
+
+00:09:19.800 --> 00:09:22.718
+2: the long jumps come first
+
+00:09:22.718 --> 00:09:26.548
+so the last pass, a plain insertion sort
+
+00:09:26.548 --> 00:09:29.010
+finds few inversions left.
+
+00:09:29.360 --> 00:09:32.019
+3: on our 13 numbers
+
+00:09:32.019 --> 00:09:33.820
+the increments 5
+
+00:09:33.820 --> 00:09:37.251
+3 and 1 made 23 shifts
+
+00:09:37.251 --> 00:09:38.880
+against 41.
+
+00:09:39.230 --> 00:09:42.355
+Try this yourself: sort 9, 8, 7
+
+00:09:42.355 --> 00:09:45.116
+down to 1, with Shell's increments
+
+00:09:45.116 --> 00:09:48.313
+n/2, then half of that, down to 1.
+
+00:09:48.313 --> 00:09:50.711
+Write the array after each pass
+
+00:09:50.711 --> 00:09:52.310
+and count the shifts.
+
+00:09:52.660 --> 00:09:55.971
+In part 2: how fast ShellSort really is
+
+00:09:55.971 --> 00:09:59.124
+why Shell's own increments can be slow
+
+00:09:59.124 --> 00:10:02.278
+and our first sort that never compares
+
+00:10:02.278 --> 00:10:03.460
+counting sort.
+

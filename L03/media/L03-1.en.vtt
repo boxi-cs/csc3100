@@ -1,0 +1,764 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.826
+Arrays are among the oldest and most
+
+00:00:02.897 --> 00:00:04.721
+important data structures.
+
+00:00:04.721 --> 00:00:07.809
+Almost every language has them, and stacks
+
+00:00:07.809 --> 00:00:10.476
+queues, heaps and hash tables are all
+
+00:00:10.546 --> 00:00:12.020
+built on top of them.
+
+00:00:12.370 --> 00:00:15.388
+Think of a row of numbered pigeonholes.
+
+00:00:15.388 --> 00:00:18.869
+Every hole has a number, starting from zero.
+
+00:00:18.869 --> 00:00:20.726
+If you know the number
+
+00:00:20.726 --> 00:00:22.970
+you go straight to the hole.
+
+00:00:23.320 --> 00:00:26.233
+So here is the question for this part.
+
+00:00:26.310 --> 00:00:28.763
+How does the computer reach cell
+
+00:00:28.840 --> 00:00:30.680
+number four in one step
+
+00:00:30.680 --> 00:00:33.900
+without walking past cells zero to three?
+
+00:00:33.900 --> 00:00:37.120
+And why does the numbering start at zero
+
+00:00:37.120 --> 00:00:38.040
+not at one?
+
+00:00:38.620 --> 00:00:41.325
+An abstract data type, or ADT
+
+00:00:41.325 --> 00:00:44.570
+says what operations a type offers
+
+00:00:44.570 --> 00:00:47.275
+not how they are implemented.
+
+00:00:47.275 --> 00:00:49.529
+The array ADT has three.
+
+00:00:49.529 --> 00:00:53.586
+createArray(n) makes an array of n cells
+
+00:00:53.586 --> 00:00:55.660
+in Java, new int[n].
+
+00:00:56.010 --> 00:00:59.331
+retrieve(arr, i) takes the array and an index i
+
+00:00:59.331 --> 00:01:02.901
+and returns the item stored in position i.
+
+00:01:02.901 --> 00:01:05.309
+In Java we write arr[i].
+
+00:01:05.309 --> 00:01:08.547
+Retrieve position three of this array
+
+00:01:08.547 --> 00:01:10.290
+and you get fifteen.
+
+00:01:10.640 --> 00:01:13.686
+And store(arr, i, item)
+
+00:01:13.686 --> 00:01:16.636
+puts the item into position i
+
+00:01:16.636 --> 00:01:18.920
+arr[i] = item.
+
+00:01:19.270 --> 00:01:22.350
+The ADT hides how the array is laid out
+
+00:01:22.350 --> 00:01:25.431
+so we can design algorithms against it.
+
+00:01:25.431 --> 00:01:27.587
+Linear search, for example
+
+00:01:27.587 --> 00:01:31.053
+only needs retrieve: look at positions zero
+
+00:01:31.053 --> 00:01:32.670
+one, two, and so on.
+
+00:01:33.250 --> 00:01:35.332
+Here is an algorithm written
+
+00:01:35.406 --> 00:01:38.678
+against the ADT: the element-wise product of
+
+00:01:38.752 --> 00:01:40.388
+two vectors a1 and a2
+
+00:01:40.388 --> 00:01:42.916
+also called the Hadamard product.
+
+00:01:42.990 --> 00:01:44.774
+Our method takes the two
+
+00:01:44.849 --> 00:01:46.410
+arrays as parameters.
+
+00:01:46.760 --> 00:01:48.745
+createArray makes a3
+
+00:01:48.745 --> 00:01:51.091
+with as many cells as a1.
+
+00:01:51.091 --> 00:01:54.880
+A new int array starts filled with zeros.
+
+00:01:55.230 --> 00:01:57.240
+Then, for every i
+
+00:01:57.240 --> 00:02:01.707
+retrieve a1[i] and a2[i], multiply
+
+00:02:01.707 --> 00:02:05.503
+and store the product in a3[i].
+
+00:02:05.503 --> 00:02:08.183
+One times four is four.
+
+00:02:08.183 --> 00:02:10.752
+Two times five is ten.
+
+00:02:10.752 --> 00:02:13.990
+Three times six is eighteen.
+
+00:02:14.340 --> 00:02:16.407
+The method returns a3
+
+00:02:16.407 --> 00:02:20.540
+and the program prints 4, 10, 18.
+
+00:02:21.120 --> 00:02:24.020
+The method first checks that the two
+
+00:02:24.100 --> 00:02:26.355
+arrays have the same length.
+
+00:02:26.436 --> 00:02:29.174
+The demo also calls it with a1 and
+
+00:02:29.255 --> 00:02:31.913
+a new array of only two elements
+
+00:02:31.913 --> 00:02:32.960
+1 and 2.
+
+00:02:33.310 --> 00:02:34.556
+Without the check
+
+00:02:34.556 --> 00:02:36.911
+the loop would ask for a2[2]
+
+00:02:36.911 --> 00:02:38.850
+a cell that does not exist.
+
+00:02:38.850 --> 00:02:41.689
+With it, the method throws an exception
+
+00:02:41.689 --> 00:02:43.836
+and the program prints: Error
+
+00:02:43.836 --> 00:02:46.190
+arrays must have the same length.
+
+00:02:46.540 --> 00:02:48.590
+Create, retrieve, store
+
+00:02:48.590 --> 00:02:50.812
+and care with the length
+
+00:02:50.812 --> 00:02:53.460
+that is all this method needs.
+
+00:02:54.040 --> 00:02:55.662
+Now the Java syntax.
+
+00:02:55.662 --> 00:02:58.582
+Give the length of an array a name
+
+00:02:58.582 --> 00:03:01.988
+here a constant, N_JUDGES, equal to 5
+
+00:03:01.988 --> 00:03:04.664
+so the number appears only once.
+
+00:03:04.664 --> 00:03:07.989
+new double[N_JUDGES] makes 5 cells
+
+00:03:07.989 --> 00:03:08.800
+all 0.
+
+00:03:09.150 --> 00:03:12.704
+The loop stores a score in every cell
+
+00:03:12.704 --> 00:03:15.228
+7 + 0.5 * i.
+
+00:03:15.228 --> 00:03:17.566
+So cell 0 gets 7
+
+00:03:17.566 --> 00:03:20.372
+then 7.5, 8
+
+00:03:20.372 --> 00:03:22.990
+8.5, and 9.
+
+00:03:23.340 --> 00:03:25.216
+Notice the loop condition
+
+00:03:25.216 --> 00:03:27.452
+i < scores.length.
+
+00:03:27.452 --> 00:03:29.905
+Length is a field of every array
+
+00:03:29.905 --> 00:03:31.998
+written without parentheses
+
+00:03:31.998 --> 00:03:35.100
+and it is fixed when the array is created.
+
+00:03:35.680 --> 00:03:38.615
+The index can be any int expression.
+
+00:03:38.615 --> 00:03:41.957
+With a equal to 1 and b equal to 4
+
+00:03:42.039 --> 00:03:43.913
+scores of (a + b) over
+
+00:03:43.995 --> 00:03:45.707
+2 is scores[2]
+
+00:03:45.788 --> 00:03:48.315
+because dividing one integer by
+
+00:03:48.397 --> 00:03:50.680
+another rounds towards 0
+
+00:03:50.680 --> 00:03:52.473
+5 / 2 is 2.
+
+00:03:52.473 --> 00:03:55.000
+So it prints 8.0.
+
+00:03:55.350 --> 00:03:57.231
+To add up the scores we do
+
+00:03:57.304 --> 00:04:00.198
+not need the positions, only the values.
+
+00:04:00.198 --> 00:04:01.573
+The for-each loop
+
+00:04:01.573 --> 00:04:03.599
+for (double value : scores)
+
+00:04:03.599 --> 00:04:05.842
+hands us each element in turn
+
+00:04:05.842 --> 00:04:08.230
+from the first cell to the last.
+
+00:04:08.580 --> 00:04:10.286
+The total is 40.
+
+00:04:10.286 --> 00:04:13.697
+Use the indexed loop when you need i
+
+00:04:13.697 --> 00:04:16.300
+or want to change the cells
+
+00:04:16.300 --> 00:04:20.250
+use for-each when you only read the values.
+
+00:04:21.440 --> 00:04:23.428
+So how is an array stored?
+
+00:04:23.428 --> 00:04:25.875
+Take this array of 12 ints.
+
+00:04:25.951 --> 00:04:28.016
+An array is a collection of
+
+00:04:28.093 --> 00:04:29.851
+items of the same type
+
+00:04:29.851 --> 00:04:32.069
+stored in contiguous memory
+
+00:04:32.069 --> 00:04:35.280
+the cells sit side by side, with no gaps
+
+00:04:35.280 --> 00:04:37.880
+and every cell has the same size.
+
+00:04:38.230 --> 00:04:40.427
+The address of the first cell
+
+00:04:40.503 --> 00:04:43.760
+is the base address; say it is 200.
+
+00:04:43.760 --> 00:04:45.654
+An int takes 4 bytes
+
+00:04:45.654 --> 00:04:48.684
+so cell 1 starts at 204
+
+00:04:48.684 --> 00:04:51.032
+cell 2 at 208
+
+00:04:51.032 --> 00:04:52.926
+then 212
+
+00:04:52.926 --> 00:04:55.350
+216, and so on.
+
+00:04:55.700 --> 00:04:59.005
+So the address of cell i is the base
+
+00:04:59.005 --> 00:05:02.400
+plus i times the size of one element.
+
+00:05:02.400 --> 00:05:06.420
+This one line is the whole secret of arrays.
+
+00:05:07.000 --> 00:05:09.213
+Where is cell 11?
+
+00:05:09.213 --> 00:05:13.111
+200, plus 11 times 4
+
+00:05:13.111 --> 00:05:15.640
+244.
+
+00:05:15.990 --> 00:05:18.870
+The computer does one multiplication
+
+00:05:18.950 --> 00:05:21.910
+and one addition, whatever the index
+
+00:05:21.910 --> 00:05:24.390
+and however long the array is.
+
+00:05:24.470 --> 00:05:26.550
+So reading or writing a[i]
+
+00:05:26.630 --> 00:05:29.190
+takes constant time, O(1).
+
+00:05:29.190 --> 00:05:31.590
+This is called random access
+
+00:05:31.590 --> 00:05:35.190
+and it is the defining strength of an array.
+
+00:05:35.540 --> 00:05:38.942
+It also explains why indices start at 0.
+
+00:05:39.021 --> 00:05:40.840
+The index is the offset
+
+00:05:40.920 --> 00:05:42.660
+from the base address
+
+00:05:42.660 --> 00:05:46.220
+cell 0 is 0 cells away from the start.
+
+00:05:46.570 --> 00:05:48.863
+Java never shows real addresses
+
+00:05:48.863 --> 00:05:51.157
+so our base address is made up
+
+00:05:51.228 --> 00:05:53.307
+In C you could print them and
+
+00:05:53.378 --> 00:05:55.170
+see exactly this pattern.
+
+00:05:55.750 --> 00:05:56.704
+Your turn.
+
+00:05:56.704 --> 00:05:59.663
+Here is an array d of doubles
+
+00:05:59.663 --> 00:06:02.622
+each double takes 8 bytes.
+
+00:06:02.622 --> 00:06:06.630
+The array starts at address 1000.
+
+00:06:06.980 --> 00:06:08.437
+Where is d[5]?
+
+00:06:08.513 --> 00:06:10.660
+And where would d[5] be
+
+00:06:10.737 --> 00:06:12.730
+if indices started at 1?
+
+00:06:12.730 --> 00:06:15.260
+Pause the video and work it out.
+
+00:06:19.840 --> 00:06:23.953
+d[5] is 5 cells from the start
+
+00:06:23.953 --> 00:06:27.749
+1000 plus 5 times 8
+
+00:06:27.749 --> 00:06:30.280
+1040.
+
+00:06:30.630 --> 00:06:33.363
+If the numbering started at 1
+
+00:06:33.449 --> 00:06:35.841
+the cell numbered 5 would
+
+00:06:35.926 --> 00:06:37.463
+be the fifth cell
+
+00:06:37.463 --> 00:06:39.770
+4 cells from the start
+
+00:06:39.770 --> 00:06:42.674
+1000 plus (5 minus 1)
+
+00:06:42.674 --> 00:06:43.784
+times 8
+
+00:06:43.784 --> 00:06:47.030
+which is 1032.
+
+00:06:47.380 --> 00:06:49.378
+So every access would need
+
+00:06:49.455 --> 00:06:51.068
+an extra subtraction.
+
+00:06:51.145 --> 00:06:53.142
+Starting at zero makes the
+
+00:06:53.219 --> 00:06:55.140
+index exactly the offset.
+
+00:06:55.720 --> 00:06:58.265
+Java has two kinds of arrays.
+
+00:06:58.265 --> 00:07:01.862
+Here is an int array, nums, holding 10
+
+00:07:01.862 --> 00:07:03.880
+20, 30, 40.
+
+00:07:03.880 --> 00:07:07.214
+In a primitive array, of int, double
+
+00:07:07.214 --> 00:07:08.706
+char or boolean
+
+00:07:08.706 --> 00:07:12.040
+the cells hold the values themselves.
+
+00:07:12.390 --> 00:07:13.574
+Here is names
+
+00:07:13.574 --> 00:07:16.619
+a new String array of length 3.
+
+00:07:16.619 --> 00:07:18.310
+In an object array
+
+00:07:18.310 --> 00:07:20.594
+the cells hold references
+
+00:07:20.679 --> 00:07:22.962
+arrows to objects that live
+
+00:07:23.047 --> 00:07:25.161
+somewhere else in memory.
+
+00:07:25.161 --> 00:07:28.206
+A new one holds null in every cell
+
+00:07:28.206 --> 00:07:29.390
+no arrow yet.
+
+00:07:29.740 --> 00:07:33.075
+names[0] = "Ada" puts an arrow
+
+00:07:33.163 --> 00:07:35.884
+to the string Ada in cell zero.
+
+00:07:35.972 --> 00:07:38.517
+names[1] = "Alan" does
+
+00:07:38.605 --> 00:07:40.448
+the same in cell one.
+
+00:07:40.448 --> 00:07:43.871
+Printed, the array is Ada, Alan, null
+
+00:07:43.871 --> 00:07:45.100
+length 3.
+
+00:07:45.450 --> 00:07:48.170
+In both cases the variable itself
+
+00:07:48.170 --> 00:07:49.370
+nums or names
+
+00:07:49.370 --> 00:07:51.930
+holds a reference to the array
+
+00:07:51.930 --> 00:07:53.770
+an array is an object.
+
+00:07:53.850 --> 00:07:55.770
+A Python list works like
+
+00:07:55.850 --> 00:07:57.450
+a Java object array
+
+00:07:57.450 --> 00:07:59.610
+every cell is a reference.
+
+00:08:00.190 --> 00:08:04.492
+The general form is type[] name
+
+00:08:04.492 --> 00:08:07.324
+equals new type[length].
+
+00:08:07.429 --> 00:08:09.947
+Java fills the new array
+
+00:08:10.052 --> 00:08:12.150
+with default values.
+
+00:08:12.500 --> 00:08:14.843
+0 for whole numbers
+
+00:08:14.843 --> 00:08:17.797
+0.0 for doubles
+
+00:08:17.797 --> 00:08:22.380
+false for booleans, and null for references.
+
+00:08:22.730 --> 00:08:25.828
+A char array gets the null character
+
+00:08:25.828 --> 00:08:26.749
+code 0.
+
+00:08:26.749 --> 00:08:29.930
+A new Java array never holds garbage.
+
+00:08:30.510 --> 00:08:33.448
+Using an index outside 0 to length
+
+00:08:33.528 --> 00:08:35.910
+minus 1 is a run-time error.
+
+00:08:35.910 --> 00:08:38.292
+This array has 5 elements
+
+00:08:38.372 --> 00:08:40.516
+so the last one is at index
+
+00:08:40.595 --> 00:08:43.137
+length minus 1, which is 4
+
+00:08:43.137 --> 00:08:46.710
+and the program prints: last element, 50.
+
+00:08:47.060 --> 00:08:49.084
+The next line asks for the
+
+00:08:49.162 --> 00:08:51.732
+element at index length, that is
+
+00:08:51.732 --> 00:08:54.067
+index 5: one past the end.
+
+00:08:54.067 --> 00:08:56.092
+Java checks every access
+
+00:08:56.169 --> 00:08:58.817
+so the program stops with an array
+
+00:08:58.894 --> 00:09:01.230
+index out of bounds exception
+
+00:09:01.230 --> 00:09:04.500
+index 5 out of bounds for length 5.
+
+00:09:04.850 --> 00:09:06.088
+C does not check.
+
+00:09:06.161 --> 00:09:08.637
+It silently reads whatever happens
+
+00:09:08.710 --> 00:09:10.312
+to be in memory there
+
+00:09:10.312 --> 00:09:12.570
+which is much harder to debug.
+
+00:09:13.150 --> 00:09:16.950
+The classic mistake is being off by one.
+
+00:09:16.950 --> 00:09:20.845
+The last element is at length - 1
+
+00:09:20.845 --> 00:09:22.270
+not at length.
+
+00:09:22.620 --> 00:09:26.718
+So a loop over the array runs while i is
+
+00:09:26.820 --> 00:09:30.918
+less than the length of the array: 0
+
+00:09:30.918 --> 00:09:35.220
+1, 2, 3, 4, and then it stops.
+
+00:09:35.570 --> 00:09:37.499
+Write <= 
+
+00:09:37.499 --> 00:09:40.893
+and the loop tries index 5, and crashes.
+
+00:09:42.070 --> 00:09:44.354
+Why do we need arrays at all?
+
+00:09:44.354 --> 00:09:47.111
+Suppose a class has five students
+
+00:09:47.111 --> 00:09:50.497
+and we keep their marks in five variables
+
+00:09:50.497 --> 00:09:51.836
+v1 to v5.
+
+00:09:51.836 --> 00:09:55.302
+To add them up we must name every variable.
+
+00:09:55.381 --> 00:09:58.137
+With 500 students we would
+
+00:09:58.216 --> 00:10:00.106
+need 500 names
+
+00:10:00.106 --> 00:10:02.390
+and a 500-term sum.
+
+00:10:02.740 --> 00:10:05.127
+An array represents many values
+
+00:10:05.204 --> 00:10:06.590
+with one variable
+
+00:10:06.667 --> 00:10:08.823
+marks[0] up to
+
+00:10:08.900 --> 00:10:10.825
+marks[499].
+
+00:10:10.825 --> 00:10:13.212
+And one loop handles them all
+
+00:10:13.212 --> 00:10:15.060
+however many there are.
+
+00:10:15.410 --> 00:10:18.873
+A loop visits marks[0], marks[1], marks[2]
+
+00:10:18.873 --> 00:10:20.331
+marks[3] and marks[4]
+
+00:10:20.331 --> 00:10:24.250
+and it would do the same for 500.
+
+00:10:24.830 --> 00:10:25.731
+To sum up.
+
+00:10:25.731 --> 00:10:29.786
+One: an array is a row of cells of one type
+
+00:10:29.786 --> 00:10:33.750
+side by side in memory, numbered from zero.
+
+00:10:34.100 --> 00:10:37.491
+Two: the address of a[i] is the base
+
+00:10:37.580 --> 00:10:40.257
+plus i times the element size
+
+00:10:40.257 --> 00:10:44.005
+so access by index is one step, O(1).
+
+00:10:44.005 --> 00:10:47.306
+Three: primitive arrays hold values
+
+00:10:47.306 --> 00:10:50.072
+object arrays hold references
+
+00:10:50.072 --> 00:10:52.660
+and Java checks every index.
+
+00:10:53.010 --> 00:10:53.670
+Try this.
+
+00:10:53.744 --> 00:10:55.505
+Our array of ints starts
+
+00:10:55.578 --> 00:10:57.266
+at address 200.
+
+00:10:57.266 --> 00:11:00.347
+Where are arr[6] and arr[9]?
+
+00:11:00.421 --> 00:11:03.356
+Then check your answers with the address
+
+00:11:03.429 --> 00:11:05.410
+table program in the notes.
+
+00:11:05.760 --> 00:11:09.184
+In part two, we meet the kinds of arrays
+
+00:11:09.184 --> 00:11:10.770
+fixed and dynamic
+
+00:11:10.770 --> 00:11:14.110
+two- and three-dimensional, and jagged
+
+00:11:14.110 --> 00:11:17.200
+and the loops that visit every cell.
+

@@ -1,0 +1,659 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:04.222
+Selection sort can be described recursively
+
+00:00:04.222 --> 00:00:05.649
+in three steps.
+
+00:00:05.649 --> 00:00:09.660
+Scan all n elements to find the largest one.
+
+00:00:10.010 --> 00:00:12.085
+Swap it with the last element
+
+00:00:12.085 --> 00:00:14.782
+now the largest is in its final place.
+
+00:00:14.782 --> 00:00:17.203
+What is left is a smaller problem
+
+00:00:17.203 --> 00:00:19.762
+sort the first n − 1 elements
+
+00:00:19.762 --> 00:00:20.730
+the same way.
+
+00:00:21.310 --> 00:00:26.477
+Trace it on 4, 2, 3, 6, 9,
+
+00:00:26.477 --> 00:00:27.252
+5.
+
+00:00:27.252 --> 00:00:31.773
+The scan starts with maxNum 4
+
+00:00:31.773 --> 00:00:33.710
+at index 0.
+
+00:00:34.060 --> 00:00:35.754
+2: not larger.
+
+00:00:35.754 --> 00:00:37.765
+3: not larger.
+
+00:00:37.765 --> 00:00:41.046
+6 is larger: maxNum is 6
+
+00:00:41.046 --> 00:00:42.740
+at index 3.
+
+00:00:42.990 --> 00:00:46.864
+9 is larger again: index 4.
+
+00:00:46.864 --> 00:00:48.390
+5 is not.
+
+00:00:48.640 --> 00:00:49.386
+Then swap
+
+00:00:49.386 --> 00:00:52.447
+arr[4] gets the last element, 5
+
+00:00:52.447 --> 00:00:54.388
+and 9 goes to the end.
+
+00:00:54.388 --> 00:00:57.000
+Now the call sorts the first 5.
+
+00:00:57.580 --> 00:01:00.313
+Size 5: the largest is 6
+
+00:01:00.313 --> 00:01:02.409
+which swaps with 5.
+
+00:01:02.409 --> 00:01:05.142
+Size 4: the largest, 5
+
+00:01:05.142 --> 00:01:09.060
+is already last, so it copies onto itself.
+
+00:01:09.310 --> 00:01:12.792
+Size 3: 4 swaps with 3.
+
+00:01:12.792 --> 00:01:16.070
+Size 2: 3 swaps with 2.
+
+00:01:16.320 --> 00:01:19.150
+Size 1 is the base case
+
+00:01:19.150 --> 00:01:23.830
+and the array is sorted: 2, 3, 4
+
+00:01:23.830 --> 00:01:25.680
+5, 6, 9.
+
+00:01:26.260 --> 00:01:26.916
+In Java
+
+00:01:26.916 --> 00:01:30.034
+selectionSort takes the array and n
+
+00:01:30.034 --> 00:01:32.660
+the number of elements to sort.
+
+00:01:32.660 --> 00:01:35.860
+0 or 1 element is already sorted.
+
+00:01:36.210 --> 00:01:38.521
+The loop finds the largest of
+
+00:01:38.600 --> 00:01:40.512
+arr[0] to arr[n − 1]
+
+00:01:40.512 --> 00:01:42.743
+and counts the comparisons.
+
+00:01:42.743 --> 00:01:45.930
+The two assignments move it to the end.
+
+00:01:46.280 --> 00:01:48.060
+And the last line sorts
+
+00:01:48.137 --> 00:01:50.846
+the first n − 1, recursively.
+
+00:01:50.846 --> 00:01:53.400
+That call is the only recursion.
+
+00:01:53.980 --> 00:01:56.163
+On our 6 numbers it makes
+
+00:01:56.243 --> 00:01:57.860
+15 comparisons.
+
+00:01:58.210 --> 00:02:02.139
+For 10, 100 and 1000 elements
+
+00:02:02.139 --> 00:02:05.977
+the count is exactly n * (n − 1)
+
+00:02:05.977 --> 00:02:08.810
+/ 2, whatever the values.
+
+00:02:09.160 --> 00:02:12.109
+The scan for size k always makes
+
+00:02:12.201 --> 00:02:15.980
+k − 1 comparisons, and (n − 1)
+
+00:02:15.980 --> 00:02:19.759
++ (n − 2), and so on down to 1
+
+00:02:19.759 --> 00:02:22.800
+is n * (n - 1) / 2.
+
+00:02:23.380 --> 00:02:24.642
+Now the cost.
+
+00:02:24.642 --> 00:02:26.583
+The base-case test
+
+00:02:26.583 --> 00:02:30.757
+the assignments and the swap are constant
+
+00:02:30.757 --> 00:02:34.349
+and the loop runs n - 1 times
+
+00:02:34.349 --> 00:02:38.037
+everything except the call is O(n).
+
+00:02:38.037 --> 00:02:41.629
+The call sorts n - 1 elements
+
+00:02:41.629 --> 00:02:45.900
+so by definition it costs T(n - 1).
+
+00:02:46.250 --> 00:02:49.962
+O(n) means at most cn
+
+00:02:49.962 --> 00:02:54.632
+so T(n) is at most T(n - 1)
+
+00:02:54.632 --> 00:02:55.829
+plus cn.
+
+00:02:55.829 --> 00:02:58.942
+Unroll: T(n - 2)
+
+00:02:58.942 --> 00:03:03.253
+plus c * (n - 1), plus cn.
+
+00:03:03.253 --> 00:03:04.570
+And again.
+
+00:03:04.920 --> 00:03:09.010
+Down to T(1), plus c * 2
+
+00:03:09.010 --> 00:03:10.996
+up to cn.
+
+00:03:10.996 --> 00:03:16.137
+That is at most c * n * (n + 1)
+
+00:03:16.137 --> 00:03:18.240
+over 2, plus b.
+
+00:03:18.590 --> 00:03:21.573
+So T(n) is O(n²).
+
+00:03:21.573 --> 00:03:25.622
+The problem shrinks by one each time
+
+00:03:25.622 --> 00:03:29.458
+so there are n levels of recursion
+
+00:03:29.458 --> 00:03:30.630
+not log n.
+
+00:03:30.980 --> 00:03:33.689
+A common mistake is to write
+
+00:03:33.785 --> 00:03:36.687
+T(n - 1), plus O(n)
+
+00:03:36.687 --> 00:03:38.138
+equals O(n).
+
+00:03:38.138 --> 00:03:40.557
+Each level costs O(n)
+
+00:03:40.557 --> 00:03:42.878
+but there are n levels.
+
+00:03:42.878 --> 00:03:45.780
+Unroll before you drop the T.
+
+00:03:46.360 --> 00:03:47.461
+For practice
+
+00:03:47.546 --> 00:03:50.425
+maxInArray1 finds the largest
+
+00:03:50.510 --> 00:03:52.543
+of the first n elements.
+
+00:03:52.543 --> 00:03:55.253
+One element is its own maximum.
+
+00:03:55.337 --> 00:03:57.878
+Otherwise it finds the largest
+
+00:03:57.963 --> 00:04:00.080
+of the first n - 1
+
+00:04:00.430 --> 00:04:03.630
+and returns the larger of that
+
+00:04:03.737 --> 00:04:05.977
+and the last element.
+
+00:04:06.083 --> 00:04:09.390
+The call costs T(n - 1)
+
+00:04:09.497 --> 00:04:12.163
+and the rest is constant
+
+00:04:12.163 --> 00:04:16.323
+so T(n) is at most T(n - 1)
+
+00:04:16.323 --> 00:04:17.177
+plus c.
+
+00:04:17.177 --> 00:04:21.870
+Unrolling gives at most cn + a: O(n).
+
+00:04:22.220 --> 00:04:24.846
+The same shape as selection sort
+
+00:04:24.846 --> 00:04:27.074
+but constant work per call
+
+00:04:27.074 --> 00:04:29.620
+so linear instead of quadratic.
+
+00:04:30.200 --> 00:04:32.957
+The second method, maxInArray2
+
+00:04:32.957 --> 00:04:34.565
+does it differently.
+
+00:04:34.565 --> 00:04:37.246
+It splits the range in the middle
+
+00:04:37.246 --> 00:04:40.616
+finds the maximum of each half recursively
+
+00:04:40.616 --> 00:04:42.760
+and returns the larger one.
+
+00:04:43.110 --> 00:04:45.014
+This is divide and conquer
+
+00:04:45.084 --> 00:04:47.270
+divide the problem into smaller
+
+00:04:47.340 --> 00:04:49.173
+problems of the same kind
+
+00:04:49.173 --> 00:04:51.006
+conquer them recursively
+
+00:04:51.006 --> 00:04:52.910
+and combine their answers.
+
+00:04:53.260 --> 00:04:56.036
+maxInArray2 makes two recursive
+
+00:04:56.114 --> 00:04:57.579
+calls in each call.
+
+00:04:57.579 --> 00:05:00.895
+On 8 elements, does it make more calls
+
+00:05:00.972 --> 00:05:02.669
+than maxInArray1?
+
+00:05:02.669 --> 00:05:03.980
+Pause and think.
+
+00:05:07.560 --> 00:05:10.881
+Here is its call tree on 8 numbers.
+
+00:05:10.881 --> 00:05:13.946
+The first call is on 0 to 7.
+
+00:05:13.946 --> 00:05:16.927
+It calls itself on the two halves
+
+00:05:16.927 --> 00:05:18.800
+and they split again
+
+00:05:19.150 --> 00:05:22.321
+down to 8 single elements: the leaves
+
+00:05:22.321 --> 00:05:24.510
+which make no further calls.
+
+00:05:24.860 --> 00:05:28.327
+maxInArray1 makes 8 calls
+
+00:05:28.327 --> 00:05:30.011
+one per element.
+
+00:05:30.011 --> 00:05:33.180
+maxInArray2 makes 15.
+
+00:05:33.530 --> 00:05:35.630
+In general 2n - 1
+
+00:05:35.630 --> 00:05:38.353
+one call for each of the n leaves
+
+00:05:38.431 --> 00:05:40.220
+and n - 1 for the
+
+00:05:40.298 --> 00:05:42.009
+ranges that are split.
+
+00:05:42.009 --> 00:05:45.043
+About twice as many, but still O(n)
+
+00:05:45.121 --> 00:05:47.065
+and the recursion is only
+
+00:05:47.143 --> 00:05:49.010
+about log₂ n deep.
+
+00:05:49.590 --> 00:05:52.892
+Every line of maxInArray2 except
+
+00:05:52.982 --> 00:05:55.302
+the two calls is constant
+
+00:05:55.302 --> 00:05:58.515
+and each call is on half the range
+
+00:05:58.515 --> 00:06:01.996
+T(n) is at most 2T(n/2)
+
+00:06:01.996 --> 00:06:02.710
+plus c.
+
+00:06:03.060 --> 00:06:07.166
+Unroll it for n = 2ˣ.
+
+00:06:07.166 --> 00:06:09.867
+Replace T(n/2)
+
+00:06:09.867 --> 00:06:14.513
+4T(n/4) + c + 2c.
+
+00:06:14.513 --> 00:06:18.835
+Again: 8T(n/8) + c
+
+00:06:18.835 --> 00:06:20.780
+2c and 4c.
+
+00:06:21.130 --> 00:06:25.975
+After x steps: 2ˣ * T(1)
+
+00:06:25.975 --> 00:06:30.144
+plus c * (1 + 2 + 4)
+
+00:06:30.144 --> 00:06:33.524
+up to 2ˣ⁻¹.
+
+00:06:33.524 --> 00:06:37.130
+That is bn + cn - c.
+
+00:06:37.480 --> 00:06:40.873
+Be careful that the factor 2 multiplies
+
+00:06:40.956 --> 00:06:43.439
+everything inside the bracket.
+
+00:06:43.439 --> 00:06:47.080
+T(n) is O(n), as the call counter said.
+
+00:06:47.660 --> 00:06:50.540
+Unrolling a recurrence with several
+
+00:06:50.622 --> 00:06:52.844
+calls is easy to get wrong.
+
+00:06:52.926 --> 00:06:55.394
+A recursion tree organises the
+
+00:06:55.477 --> 00:06:58.850
+same sum as a picture: one node per call
+
+00:06:58.850 --> 00:07:01.895
+with the work that call does itself.
+
+00:07:01.895 --> 00:07:04.857
+Take 2T(n/2) + cn.
+
+00:07:04.857 --> 00:07:06.420
+The root does cn.
+
+00:07:06.770 --> 00:07:10.710
+Its two children do cn/2 each
+
+00:07:10.710 --> 00:07:12.162
+cn in total.
+
+00:07:12.162 --> 00:07:16.310
+Four grandchildren, cn/4 each
+
+00:07:16.310 --> 00:07:17.450
+cn again.
+
+00:07:17.800 --> 00:07:23.440
+At the bottom are n leaves, b each: bn.
+
+00:07:23.790 --> 00:07:28.154
+So every level above the leaves costs cn
+
+00:07:28.154 --> 00:07:32.310
+and there are log₂ n such levels.
+
+00:07:32.660 --> 00:07:35.945
+T(n) is cn log₂ n, plus bn
+
+00:07:35.945 --> 00:07:37.297
+O(n log n).
+
+00:07:37.297 --> 00:07:40.775
+We will meet this recurrence again
+
+00:07:40.775 --> 00:07:42.900
+for maximum subarray.
+
+00:07:43.480 --> 00:07:46.399
+For 2T(n/2) + c
+
+00:07:46.399 --> 00:07:50.503
+the levels cost c, 2c, 4c: they grow
+
+00:07:50.503 --> 00:07:53.787
+and the bottom level, with n nodes
+
+00:07:53.787 --> 00:07:55.520
+dominates: O(n).
+
+00:07:55.870 --> 00:07:57.310
+For binary search
+
+00:07:57.390 --> 00:07:59.710
+the tree is a single chain of
+
+00:07:59.790 --> 00:08:02.750
+log₂ n + 1 nodes: O(log n).
+
+00:08:02.830 --> 00:08:05.550
+How the level sums change from top
+
+00:08:05.630 --> 00:08:07.950
+to bottom is the whole story.
+
+00:08:08.530 --> 00:08:11.784
+Unrolling and trees find an answer.
+
+00:08:11.784 --> 00:08:15.131
+The substitution method proves one:
+
+00:08:15.131 --> 00:08:19.221
+guess the form, then prove it by induction.
+
+00:08:19.221 --> 00:08:23.312
+The tree suggests that 2T(n/2)
+
+00:08:23.312 --> 00:08:26.659
++ n, with T(1) = 1
+
+00:08:26.659 --> 00:08:28.890
+is n log₂ n + n.
+
+00:08:29.240 --> 00:08:35.000
+Base case: 1 * 0 + 1 = 1.
+
+00:08:35.350 --> 00:08:38.591
+Step: assume the formula
+
+00:08:38.684 --> 00:08:40.721
+for n/2 and substitute it.
+
+00:08:40.721 --> 00:08:44.888
+2 * (the formula at n/2) + n
+
+00:08:44.888 --> 00:08:48.870
+simplifies to exactly n log₂ n + n.
+
+00:08:49.220 --> 00:08:50.309
+Be careful.
+
+00:08:50.407 --> 00:08:54.464
+A wrong proof that this is O(n) assumes
+
+00:08:54.563 --> 00:08:58.521
+T(n/2) is at most cn/2
+
+00:08:58.521 --> 00:09:02.677
+and gets cn + n: (c + 1) * n.
+
+00:09:02.677 --> 00:09:06.734
+The constant grew, so nothing is proved.
+
+00:09:06.833 --> 00:09:09.999
+The induction must prove exactly
+
+00:09:10.098 --> 00:09:11.780
+the guessed form.
+
+00:09:12.360 --> 00:09:14.890
+We can also compute these recurrences
+
+00:09:14.959 --> 00:09:16.531
+exactly with a program
+
+00:09:16.531 --> 00:09:18.309
+all constants set to 1
+
+00:09:18.309 --> 00:09:21.044
+and compare them with the closed forms.
+
+00:09:21.113 --> 00:09:23.233
+Each recurrence has its formula
+
+00:09:23.301 --> 00:09:24.600
+in the next column.
+
+00:09:24.950 --> 00:09:26.742
+At 1024
+
+00:09:26.742 --> 00:09:27.958
+11 and 11,
+
+00:09:28.022 --> 00:09:30.134
+524800
+
+00:09:30.198 --> 00:09:31.606
+in both,
+
+00:09:31.606 --> 00:09:33.782
+2047 in both,
+
+00:09:33.846 --> 00:09:35.830
+and 11264
+
+00:09:35.894 --> 00:09:37.110
+in both.
+
+00:09:37.460 --> 00:09:39.584
+Every pair of columns agrees
+
+00:09:39.584 --> 00:09:42.220
+so the four closed forms are right.
+
+00:09:42.800 --> 00:09:43.729
+To sum up.
+
+00:09:43.729 --> 00:09:47.261
+One: when the problem shrinks by one
+
+00:09:47.261 --> 00:09:49.119
+there are n levels
+
+00:09:49.119 --> 00:09:52.279
+selection sort is O(n²)
+
+00:09:52.279 --> 00:09:54.881
+maxInArray1 is O(n).
+
+00:09:54.881 --> 00:09:56.832
+Two: when it halves
+
+00:09:56.925 --> 00:09:59.249
+a recursion tree adds the
+
+00:09:59.342 --> 00:10:01.200
+work level by level.
+
+00:10:01.550 --> 00:10:04.225
+Three: the substitution method proves
+
+00:10:04.297 --> 00:10:05.815
+a guess by induction
+
+00:10:05.815 --> 00:10:07.550
+with the same constant.
+
+00:10:07.900 --> 00:10:11.441
+Try this: draw the recursion tree of
+
+00:10:11.539 --> 00:10:14.392
+4T(n/2) + n.
+
+00:10:14.392 --> 00:10:17.244
+What is the work on level t
+
+00:10:17.244 --> 00:10:19.900
+and which level dominates?
+
+00:10:20.250 --> 00:10:22.328
+Next: the master theorem
+
+00:10:22.328 --> 00:10:25.570
+which reads the answer off a, b and d.
+

@@ -1,0 +1,701 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:01.952
+Now the running time.
+
+00:00:02.030 --> 00:00:05.412
+Partition on a range of m elements compares
+
+00:00:05.491 --> 00:00:08.479
+each of the other m - 1 elements
+
+00:00:08.558 --> 00:00:11.783
+with the pivot once, so it costs Θ(m).
+
+00:00:11.861 --> 00:00:14.299
+The total depends on how evenly
+
+00:00:14.378 --> 00:00:16.580
+the pivots split the ranges.
+
+00:00:16.930 --> 00:00:19.936
+The worst split is maximally unbalanced
+
+00:00:19.936 --> 00:00:21.364
+one side is empty
+
+00:00:21.440 --> 00:00:24.070
+and the other has all the remaining
+
+00:00:24.145 --> 00:00:25.724
+n - 1 elements.
+
+00:00:25.799 --> 00:00:28.354
+That happens when the pivot is the
+
+00:00:28.429 --> 00:00:31.661
+smallest or the largest value; for example
+
+00:00:31.736 --> 00:00:34.818
+when the last element is always the pivot
+
+00:00:34.893 --> 00:00:37.298
+and the input is already sorted.
+
+00:00:37.298 --> 00:00:39.853
+The next level costs n - 1
+
+00:00:39.853 --> 00:00:43.010
+then n - 2, and so on, down to 2.
+
+00:00:43.360 --> 00:00:46.926
+The recursion tree is a path of depth n
+
+00:00:46.926 --> 00:00:50.848
+and the costs add up to
+
+00:00:50.848 --> 00:00:52.720
+n(n + 1)/2: quadratic.
+
+00:00:53.300 --> 00:00:55.892
+The best split is balanced
+
+00:00:55.892 --> 00:01:00.020
+both sides have about n / 2 elements.
+
+00:01:00.020 --> 00:01:03.476
+Then T(n) is 2T(n / 2)
+
+00:01:03.476 --> 00:01:04.820
+plus O(n)
+
+00:01:05.170 --> 00:01:07.939
+the same recurrence as merge sort.
+
+00:01:07.939 --> 00:01:11.360
+Every level of the tree costs n in total
+
+00:01:11.360 --> 00:01:14.210
+and there are log₂ n levels.
+
+00:01:14.560 --> 00:01:16.932
+So the best case is n log n.
+
+00:01:17.016 --> 00:01:19.473
+But surely we cannot hope for
+
+00:01:19.558 --> 00:01:21.760
+perfect splits every time.
+
+00:01:22.340 --> 00:01:25.182
+What about a split that looks quite bad?
+
+00:01:25.253 --> 00:01:28.095
+Suppose every partition puts 10%
+
+00:01:28.166 --> 00:01:30.155
+of the elements on one side
+
+00:01:30.155 --> 00:01:32.500
+and 90% on the other.
+
+00:01:32.850 --> 00:01:34.563
+In the recursion tree
+
+00:01:34.563 --> 00:01:37.055
+every full level still costs n
+
+00:01:37.133 --> 00:01:40.015
+each level splits the same n elements
+
+00:01:40.092 --> 00:01:41.650
+into smaller pieces.
+
+00:01:42.000 --> 00:01:44.478
+The shortest path keeps taking
+
+00:01:44.561 --> 00:01:47.287
+the 1/10 side and ends after
+
+00:01:47.369 --> 00:01:49.434
+log₁₀ n levels.
+
+00:01:49.517 --> 00:01:51.500
+The longest keeps taking
+
+00:01:51.582 --> 00:01:53.317
+the 9/10 side
+
+00:01:53.399 --> 00:01:56.208
+and ends after
+
+00:01:56.291 --> 00:01:59.760
+log_{10/9} n levels; deeper levels cost at most n.
+
+00:02:00.110 --> 00:02:03.089
+Both bounds are constants times n log n
+
+00:02:03.089 --> 00:02:05.322
+so this split is n log n too.
+
+00:02:05.322 --> 00:02:08.599
+The same works for any constant proportion
+
+00:02:08.599 --> 00:02:10.758
+99 to 1 included.
+
+00:02:10.833 --> 00:02:14.035
+Only splits that peel off a constant number
+
+00:02:14.109 --> 00:02:16.790
+of elements per level are quadratic.
+
+00:02:17.370 --> 00:02:19.716
+Now the expected time of
+
+00:02:19.814 --> 00:02:21.867
+randomized quicksort.
+
+00:02:21.965 --> 00:02:24.995
+Elements are only ever compared
+
+00:02:25.093 --> 00:02:28.808
+with a pivot, so we count comparisons.
+
+00:02:28.808 --> 00:02:30.568
+Let e_1, e_2
+
+00:02:30.568 --> 00:02:34.772
+up to e_n be the elements in sorted order.
+
+00:02:34.772 --> 00:02:37.802
+When are e_i and e_j compared?
+
+00:02:37.802 --> 00:02:40.148
+Take e_3 and e_6
+
+00:02:40.148 --> 00:02:43.570
+and the set from e_3 to e_6.
+
+00:02:43.920 --> 00:02:45.836
+Until some element of this
+
+00:02:45.910 --> 00:02:47.753
+set is chosen as a pivot
+
+00:02:47.753 --> 00:02:50.480
+they all stay together in one range.
+
+00:02:50.553 --> 00:02:52.838
+If the first pivot from the set
+
+00:02:52.912 --> 00:02:55.786
+lies strictly between them, say e_4
+
+00:02:55.786 --> 00:02:59.103
+then e_3 goes left and e_6 goes right
+
+00:02:59.103 --> 00:03:01.240
+and they are never compared.
+
+00:03:01.590 --> 00:03:03.992
+If the first pivot from the set
+
+00:03:04.069 --> 00:03:06.161
+is e_3 or e_6 itself
+
+00:03:06.161 --> 00:03:08.950
+the two are compared, exactly once.
+
+00:03:09.300 --> 00:03:12.384
+So e_i and e_j are compared if and
+
+00:03:12.474 --> 00:03:15.376
+only if one of them is the first
+
+00:03:15.467 --> 00:03:17.916
+of e_i to e_j to be picked.
+
+00:03:18.006 --> 00:03:21.543
+Each of the j − i + 1 elements
+
+00:03:21.634 --> 00:03:24.355
+is equally likely to be first
+
+00:03:24.445 --> 00:03:26.713
+so the probability is
+
+00:03:26.803 --> 00:03:28.980
+2/(j − i + 1).
+
+00:03:29.330 --> 00:03:31.693
+Neighbours are always compared
+
+00:03:31.769 --> 00:03:34.513
+the smallest and largest of 10 only
+
+00:03:34.590 --> 00:03:36.876
+with probability 2/10.
+
+00:03:36.876 --> 00:03:40.002
+A simulation agrees: 0.201
+
+00:03:40.002 --> 00:03:41.450
+against 0.2.
+
+00:03:42.030 --> 00:03:45.506
+Add it up with indicator random variables.
+
+00:03:45.506 --> 00:03:48.982
+X_{i,j} is 1 if e_i and e_j are compared
+
+00:03:48.982 --> 00:03:50.637
+and 0 otherwise
+
+00:03:50.637 --> 00:03:54.030
+its expectation is just the probability
+
+00:03:54.030 --> 00:03:56.430
+2/(j − i + 1).
+
+00:03:56.780 --> 00:03:59.745
+Each pair is compared at most once
+
+00:03:59.830 --> 00:04:02.711
+so the total number of comparisons
+
+00:04:02.796 --> 00:04:05.168
+is the sum of all the X_{i,j}.
+
+00:04:05.168 --> 00:04:07.625
+By linearity of expectation
+
+00:04:07.710 --> 00:04:10.336
+the expectation of a sum is the
+
+00:04:10.421 --> 00:04:12.455
+sum of the expectations
+
+00:04:12.455 --> 00:04:15.420
+even when the terms are dependent.
+
+00:04:15.770 --> 00:04:18.662
+Group the pairs by their distance x
+
+00:04:18.662 --> 00:04:20.268
+which is j − i.
+
+00:04:20.268 --> 00:04:22.839
+Distance x has n − x pairs
+
+00:04:22.839 --> 00:04:25.650
+and the sum splits into two parts.
+
+00:04:26.000 --> 00:04:29.097
+What is left is the harmonic series
+
+00:04:29.185 --> 00:04:31.220
+without its first term
+
+00:04:31.309 --> 00:04:33.609
+and H_n is
+
+00:04:33.698 --> 00:04:35.556
+ln n plus a constant.
+
+00:04:35.644 --> 00:04:38.918
+So the expected number of comparisons
+
+00:04:39.007 --> 00:04:42.015
+is 2(n+1)H_n
+
+00:04:42.015 --> 00:04:44.581
+minus 4n: O(n log n)
+
+00:04:44.581 --> 00:04:48.120
+about 1.39 n log₂ n.
+
+00:04:48.700 --> 00:04:51.570
+This program counts the comparisons
+
+00:04:51.652 --> 00:04:54.769
+on sorted input, for both pivot rules.
+
+00:04:54.769 --> 00:04:58.213
+The columns are n, the last-element rule
+
+00:04:58.295 --> 00:05:00.264
+the random rule averaged
+
+00:05:00.346 --> 00:05:03.380
+over 100 runs, and the formula.
+
+00:05:03.730 --> 00:05:05.538
+For 1000 elements
+
+00:05:05.614 --> 00:05:08.251
+the last-element rule makes exactly
+
+00:05:08.326 --> 00:05:10.511
+n(n − 1)/2,
+
+00:05:10.587 --> 00:05:13.073
+499,500
+
+00:05:13.149 --> 00:05:15.032
+comparisons.
+
+00:05:15.108 --> 00:05:16.916
+The random rule averages
+
+00:05:16.991 --> 00:05:18.574
+close to the formula
+
+00:05:18.574 --> 00:05:21.060
+about 10,900
+
+00:05:21.060 --> 00:05:23.170
+some 46 times fewer.
+
+00:05:23.520 --> 00:05:26.513
+And note what the expectation is over
+
+00:05:26.513 --> 00:05:29.821
+the algorithm's own random pivot choices
+
+00:05:29.821 --> 00:05:31.003
+not the input.
+
+00:05:31.003 --> 00:05:34.311
+No input is bad for randomized quicksort
+
+00:05:34.311 --> 00:05:36.595
+only unlucky coin flips are
+
+00:05:36.595 --> 00:05:38.800
+and they are very unlikely.
+
+00:05:39.380 --> 00:05:41.938
+Which pivot rule turns sorted
+
+00:05:42.026 --> 00:05:44.319
+input into the worst case?
+
+00:05:44.319 --> 00:05:46.171
+A: the last element.
+
+00:05:46.171 --> 00:05:48.024
+B: a random element.
+
+00:05:48.024 --> 00:05:51.992
+C: the median of the first, center and last.
+
+00:05:51.992 --> 00:05:53.580
+Pause and decide.
+
+00:05:57.160 --> 00:05:57.748
+Only A.
+
+00:05:57.748 --> 00:06:00.437
+With C, if the input is sorted
+
+00:06:00.521 --> 00:06:03.126
+the median of the three samples
+
+00:06:03.210 --> 00:06:06.487
+is the center element, the true median
+
+00:06:06.487 --> 00:06:09.680
+so every split is perfectly balanced.
+
+00:06:10.030 --> 00:06:13.324
+But median-of-three is not worst-case-proof
+
+00:06:13.398 --> 00:06:15.794
+specially constructed inputs can
+
+00:06:15.869 --> 00:06:17.890
+still force quadratic time.
+
+00:06:17.965 --> 00:06:19.911
+Only randomization removes
+
+00:06:19.986 --> 00:06:22.830
+bad inputs altogether, in expectation.
+
+00:06:23.410 --> 00:06:26.217
+Here are all the sorting algorithms
+
+00:06:26.297 --> 00:06:27.420
+of the course.
+
+00:06:27.420 --> 00:06:28.302
+Quicksort
+
+00:06:28.302 --> 00:06:31.350
+n log n in the best and average case
+
+00:06:31.350 --> 00:06:34.558
+quadratic in the worst; no extra array
+
+00:06:34.558 --> 00:06:36.643
+only the recursion stack
+
+00:06:36.643 --> 00:06:39.530
+which is log n deep in expectation.
+
+00:06:39.880 --> 00:06:41.886
+One more column: stable.
+
+00:06:41.970 --> 00:06:45.230
+A sort is stable if elements with equal
+
+00:06:45.313 --> 00:06:47.654
+keys keep their input order.
+
+00:06:47.738 --> 00:06:50.580
+That matters when you sort records
+
+00:06:50.663 --> 00:06:52.920
+by one field after another.
+
+00:06:53.500 --> 00:06:55.894
+Quicksort is not stable.
+
+00:06:55.894 --> 00:07:00.083
+The slides' example sorts
+
+00:07:00.083 --> 00:07:01.080
+5, 1, 2, 1*
+
+00:07:01.080 --> 00:07:05.269
+where the star only marks the second 1
+
+00:07:05.269 --> 00:07:08.959
+using the last element as the pivot.
+
+00:07:08.959 --> 00:07:11.253
+The pivot is 1*.
+
+00:07:11.253 --> 00:07:14.046
+No key is smaller than 1
+
+00:07:14.046 --> 00:07:16.340
+so next stays at 0
+
+00:07:16.690 --> 00:07:18.731
+and the final swap sends
+
+00:07:18.816 --> 00:07:20.687
+1* to the front
+
+00:07:20.687 --> 00:07:22.983
+in front of the other 1.
+
+00:07:22.983 --> 00:07:26.810
+The program prints 1*, 1, 2, 5.
+
+00:07:27.160 --> 00:07:31.492
+A stable sort would give
+
+00:07:31.492 --> 00:07:32.082
+1, 1*, 2, 5.
+
+00:07:32.082 --> 00:07:34.248
+And a common pitfall
+
+00:07:34.248 --> 00:07:38.383
+quicksort is n log n only in expectation
+
+00:07:38.383 --> 00:07:39.860
+or on average.
+
+00:07:39.860 --> 00:07:43.207
+If you need a guaranteed n log n
+
+00:07:43.207 --> 00:07:46.160
+or stability, use merge sort.
+
+00:07:46.740 --> 00:07:50.134
+Last question: can any sort beat n log n?
+
+00:07:50.216 --> 00:07:52.782
+Not if the only thing it may do
+
+00:07:52.865 --> 00:07:55.017
+with keys is compare them
+
+00:07:55.017 --> 00:07:56.590
+as insertion sort
+
+00:07:56.590 --> 00:07:58.990
+merge sort and quicksort do.
+
+00:07:59.073 --> 00:08:02.632
+Every comparison sort needs on the order of
+
+00:08:02.715 --> 00:08:05.860
+n log n comparisons in the worst case.
+
+00:08:06.210 --> 00:08:09.533
+Fix a comparison sort and an input size.
+
+00:08:09.533 --> 00:08:12.357
+Its behaviour is a decision tree
+
+00:08:12.357 --> 00:08:14.766
+each node is one comparison
+
+00:08:14.766 --> 00:08:16.676
+such as a < b
+
+00:08:16.676 --> 00:08:20.165
+the two edges are the answers yes and no
+
+00:08:20.165 --> 00:08:23.405
+and each leaf is a final sorted order.
+
+00:08:23.405 --> 00:08:24.734
+For 3 keys
+
+00:08:24.734 --> 00:08:27.890
+insertion sort's tree has 6 leaves
+
+00:08:27.890 --> 00:08:30.050
+one for each permutation.
+
+00:08:30.400 --> 00:08:32.747
+Running the algorithm follows one
+
+00:08:32.818 --> 00:08:34.880
+path from the root to a leaf
+
+00:08:34.880 --> 00:08:38.080
+and the number of comparisons is its length.
+
+00:08:38.080 --> 00:08:41.280
+The longest path here has 3 comparisons.
+
+00:08:41.630 --> 00:08:44.577
+Any tree that sorts must reach every
+
+00:08:44.659 --> 00:08:47.115
+one of the n! orders
+
+00:08:47.115 --> 00:08:50.307
+so it has at least n! leaves.
+
+00:08:50.389 --> 00:08:52.763
+A binary tree of height h has
+
+00:08:52.845 --> 00:08:55.137
+at most 2^h leaves.
+
+00:08:55.219 --> 00:08:57.265
+So the height is at least
+
+00:08:57.347 --> 00:08:59.230
+log₂(n!).
+
+00:08:59.580 --> 00:09:03.487
+And n! lies between
+
+00:09:03.598 --> 00:09:08.509
+(n/2)^(n/2) and n^n.
+
+00:09:08.509 --> 00:09:13.420
+So log₂(n!) is Θ(n log n).
+
+00:09:14.000 --> 00:09:14.883
+The numbers:
+
+00:09:14.956 --> 00:09:17.383
+3 keys need 3 comparisons
+
+00:09:17.456 --> 00:09:18.780
+in the worst case
+
+00:09:18.780 --> 00:09:21.280
+and the tree we drew achieves it.
+
+00:09:21.630 --> 00:09:24.564
+1000 keys need at least
+
+00:09:24.648 --> 00:09:27.078
+8,530.
+
+00:09:27.078 --> 00:09:28.084
+Merge sort
+
+00:09:28.084 --> 00:09:31.521
+and randomized quicksort in expectation
+
+00:09:31.521 --> 00:09:34.622
+are optimal up to a constant factor.
+
+00:09:34.706 --> 00:09:37.472
+Algorithms that beat n log n must
+
+00:09:37.556 --> 00:09:40.070
+look at more than comparisons.
+
+00:09:40.650 --> 00:09:42.648
+To sum up the lecture.
+
+00:09:42.648 --> 00:09:46.462
+One: quicksort's worst case is quadratic
+
+00:09:46.462 --> 00:09:48.187
+and its best case
+
+00:09:48.187 --> 00:09:51.729
+like any split by a constant fraction
+
+00:09:51.729 --> 00:09:52.819
+is n log n.
+
+00:09:52.819 --> 00:09:55.089
+Two: with random pivots
+
+00:09:55.180 --> 00:09:58.540
+the expected number of comparisons is
+
+00:09:58.631 --> 00:10:01.446
+2(n+1)H_n
+
+00:10:01.446 --> 00:10:04.170
+minus 4n, on every input.
+
+00:10:04.520 --> 00:10:08.148
+Three: quicksort is in place but not stable
+
+00:10:08.231 --> 00:10:11.859
+and no comparison sort can beat
+
+00:10:11.942 --> 00:10:15.240
+log₂(n!) comparisons in the worst case.
+
+00:10:15.590 --> 00:10:16.288
+Try this
+
+00:10:16.288 --> 00:10:19.158
+in a run on 100 distinct keys
+
+00:10:19.235 --> 00:10:22.726
+what is the probability that the smallest and
+
+00:10:22.803 --> 00:10:25.673
+the second smallest key are compared?
+
+00:10:25.673 --> 00:10:28.310
+And the smallest and the largest?
+
+00:10:28.660 --> 00:10:32.061
+Next lecture: counting sort and radix sort
+
+00:10:32.140 --> 00:10:35.778
+which beat n log n by looking at the digits of
+
+00:10:35.857 --> 00:10:39.020
+the keys instead of only comparing them.
+

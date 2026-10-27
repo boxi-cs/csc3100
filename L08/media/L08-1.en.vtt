@@ -1,0 +1,746 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.197
+Lecture 7 built the linked list.
+
+00:00:03.197 --> 00:00:04.967
+This lecture uses it.
+
+00:00:05.047 --> 00:00:07.300
+Two applications show why we
+
+00:00:07.381 --> 00:00:09.231
+want linked structures
+
+00:00:09.231 --> 00:00:11.886
+polynomials and sparse matrices
+
+00:00:11.886 --> 00:00:14.461
+where most of the data is zero.
+
+00:00:14.542 --> 00:00:17.116
+And three classic exercises show
+
+00:00:17.197 --> 00:00:19.369
+how to think with pointers.
+
+00:00:19.369 --> 00:00:21.220
+First, a quick review.
+
+00:00:21.800 --> 00:00:24.403
+First, a review of the four kinds of
+
+00:00:24.475 --> 00:00:26.210
+list from lecture 7.
+
+00:00:26.210 --> 00:00:27.801
+A singly linked list
+
+00:00:27.873 --> 00:00:30.115
+each node holds one element and
+
+00:00:30.187 --> 00:00:32.284
+a reference to the next node
+
+00:00:32.284 --> 00:00:34.236
+and the last next is null.
+
+00:00:34.236 --> 00:00:37.201
+The slides draw each node at an address
+
+00:00:37.273 --> 00:00:39.297
+and write the address of the
+
+00:00:39.370 --> 00:00:40.816
+next node inside it.
+
+00:00:40.816 --> 00:00:43.274
+That is what a Java reference is
+
+00:00:43.346 --> 00:00:45.009
+a value that says where
+
+00:00:45.082 --> 00:00:46.600
+another object lives.
+
+00:00:46.950 --> 00:00:50.083
+A doubly linked list also has prev
+
+00:00:50.083 --> 00:00:52.500
+so you can walk both ways.
+
+00:00:52.500 --> 00:00:56.350
+The first prev and the last next are null.
+
+00:00:56.700 --> 00:00:59.412
+A circular list is singly linked
+
+00:00:59.494 --> 00:01:01.877
+but the last next points back
+
+00:01:01.959 --> 00:01:04.260
+to the head instead of null.
+
+00:01:04.610 --> 00:01:06.853
+And a doubly circular list
+
+00:01:06.940 --> 00:01:08.838
+is circular both ways
+
+00:01:08.838 --> 00:01:11.168
+the last next is the head
+
+00:01:11.168 --> 00:01:14.447
+and the head's prev is the last node
+
+00:01:14.447 --> 00:01:16.690
+at address 300.
+
+00:01:17.270 --> 00:01:19.322
+A circular list has no null
+
+00:01:19.398 --> 00:01:21.222
+where a walk could stop.
+
+00:01:21.298 --> 00:01:24.186
+So a traversal stops when it gets back
+
+00:01:24.262 --> 00:01:26.390
+to the node it started from.
+
+00:01:26.390 --> 00:01:27.986
+Start p at the head.
+
+00:01:27.986 --> 00:01:31.406
+A do-while loop fits: it prints 7 first
+
+00:01:31.406 --> 00:01:33.078
+and tests afterwards.
+
+00:01:33.078 --> 00:01:36.194
+p moves to 8, which is not the head
+
+00:01:36.194 --> 00:01:37.790
+so the loop goes on.
+
+00:01:37.790 --> 00:01:38.550
+Then 10.
+
+00:01:38.900 --> 00:01:41.439
+Now p is back at the head
+
+00:01:41.439 --> 00:01:43.392
+and the test fails.
+
+00:01:43.392 --> 00:01:47.102
+The program prints 7, 8, 10
+
+00:01:47.102 --> 00:01:48.860
+back at the head.
+
+00:01:49.440 --> 00:01:50.958
+A word of warning.
+
+00:01:50.958 --> 00:01:54.668
+A while loop that tests first never starts
+
+00:01:54.668 --> 00:01:57.197
+because p starts at the head.
+
+00:01:57.197 --> 00:02:00.907
+And a loop that waits for null never stops.
+
+00:02:00.907 --> 00:02:04.702
+With circular lists, decide where you start
+
+00:02:04.702 --> 00:02:07.400
+and test for back at the start.
+
+00:02:07.750 --> 00:02:10.310
+Why a list rather than an array?
+
+00:02:10.390 --> 00:02:12.310
+Reading the k-th element
+
+00:02:12.390 --> 00:02:14.230
+is instant in an array
+
+00:02:14.230 --> 00:02:15.990
+but a walk in a list.
+
+00:02:16.070 --> 00:02:17.910
+Inserting after a known
+
+00:02:17.990 --> 00:02:19.670
+node shifts an array
+
+00:02:19.670 --> 00:02:22.710
+but changes two references in a list.
+
+00:02:22.710 --> 00:02:25.670
+And a list has one node per element.
+
+00:02:25.670 --> 00:02:28.790
+This lecture uses those last two rows.
+
+00:02:29.370 --> 00:02:30.843
+Now polynomials.
+
+00:02:30.935 --> 00:02:34.066
+The obvious way to store one is an
+
+00:02:34.158 --> 00:02:36.920
+array indexed by the exponent
+
+00:02:37.012 --> 00:02:40.511
+coeffArray[i] holds the coefficient
+
+00:02:40.603 --> 00:02:41.892
+of x^i.
+
+00:02:41.892 --> 00:02:45.390
+For 4x^3 + 2x + 1
+
+00:02:45.390 --> 00:02:47.508
+slot 3 holds 4
+
+00:02:47.508 --> 00:02:51.375
+and highPower records the degree, 3.
+
+00:02:51.467 --> 00:02:53.677
+And 3x^2 + 5
+
+00:02:53.769 --> 00:02:55.610
+has degree 2.
+
+00:02:55.960 --> 00:02:59.242
+Adding is one pass over the exponents.
+
+00:02:59.242 --> 00:03:01.401
+First, clear the result.
+
+00:03:01.401 --> 00:03:04.596
+Its degree is the larger of the two.
+
+00:03:04.596 --> 00:03:06.755
+Then, from the top down
+
+00:03:06.755 --> 00:03:10.209
+add the two coefficients of x^i.
+
+00:03:10.209 --> 00:03:13.059
+4 + 0, 0 + 3
+
+00:03:13.059 --> 00:03:16.600
+2 + 0, and 1 + 5 is 6.
+
+00:03:16.950 --> 00:03:18.882
+But clearing the result
+
+00:03:18.966 --> 00:03:20.814
+loops over every slot
+
+00:03:20.814 --> 00:03:23.502
+all 3001 of them
+
+00:03:23.502 --> 00:03:26.778
+so even adding costs O(MAX_DEGREE).
+
+00:03:26.778 --> 00:03:30.390
+The array always pays for its full length.
+
+00:03:30.970 --> 00:03:33.489
+Multiplying uses a·x^i
+
+00:03:33.489 --> 00:03:35.168
+* b·x^j
+
+00:03:35.168 --> 00:03:37.686
+= ab·x^(i+j).
+
+00:03:37.770 --> 00:03:40.625
+Every term of the first polynomial
+
+00:03:40.709 --> 00:03:43.311
+meets every term of the second
+
+00:03:43.311 --> 00:03:46.669
+and the product lands in slot i + j.
+
+00:03:46.669 --> 00:03:50.363
+2x * 3x^2 is 6x^3
+
+00:03:50.363 --> 00:03:52.546
+so it goes to slot 3.
+
+00:03:52.546 --> 00:03:55.988
+Several pairs can land in the same slot
+
+00:03:55.988 --> 00:03:59.010
+which is why the code adds into it.
+
+00:03:59.590 --> 00:04:03.223
+The demo prints both polynomials, their sum
+
+00:04:03.223 --> 00:04:06.691
+and their product: 12x^5
+
+00:04:06.691 --> 00:04:08.755
++ 26x^3
+
+00:04:08.755 --> 00:04:12.470
++ 3x^2 + 10x + 5.
+
+00:04:13.050 --> 00:04:13.829
+Your turn.
+
+00:04:13.829 --> 00:04:15.697
+In this multiplication
+
+00:04:15.697 --> 00:04:19.200
+how many times does the inner statement run?
+
+00:04:19.278 --> 00:04:21.691
+How many of those runs multiply
+
+00:04:21.769 --> 00:04:23.793
+2 non-zero coefficients?
+
+00:04:23.871 --> 00:04:26.128
+And which slot of the product
+
+00:04:26.206 --> 00:04:28.308
+receives 2 contributions?
+
+00:04:28.308 --> 00:04:30.410
+Pause the video and count.
+
+00:04:33.990 --> 00:04:36.341
+i runs from 0 to 3
+
+00:04:36.435 --> 00:04:38.598
+and j from 0 to 2.
+
+00:04:38.598 --> 00:04:42.265
+Row 0, row 1, row 2, all zeros
+
+00:04:42.265 --> 00:04:45.368
+and row 3: 4 times 3
+
+00:04:45.368 --> 00:04:46.590
+12 runs.
+
+00:04:46.940 --> 00:04:49.032
+But P has 3 non-zero terms
+
+00:04:49.119 --> 00:04:50.862
+and Q has 2
+
+00:04:50.862 --> 00:04:54.174
+so only 6 of the 12 are useful.
+
+00:04:54.174 --> 00:04:57.137
+The other 6 multiply by a 0.
+
+00:04:57.137 --> 00:05:00.536
+And slot 3 gets 2 contributions
+
+00:05:00.536 --> 00:05:04.284
+4x^3 times 5 is 20x^3
+
+00:05:04.371 --> 00:05:07.072
+and 2x times 3x^2
+
+00:05:07.160 --> 00:05:10.820
+is 6x^3, 26x^3 in all.
+
+00:05:11.400 --> 00:05:14.632
+The array is fine for dense polynomials
+
+00:05:14.632 --> 00:05:17.702
+where most coefficients are non-zero.
+
+00:05:17.702 --> 00:05:20.126
+Now take the slides' example.
+
+00:05:20.126 --> 00:05:21.984
+P1 has 3 terms
+
+00:05:21.984 --> 00:05:25.054
+but needs 1001 slots.
+
+00:05:25.054 --> 00:05:26.831
+P2 has 4 terms
+
+00:05:26.912 --> 00:05:29.094
+and needs
+
+00:05:29.174 --> 00:05:30.709
+1991 slots.
+
+00:05:30.709 --> 00:05:33.456
+Almost every coefficient is 0
+
+00:05:33.456 --> 00:05:35.880
+these polynomials are sparse.
+
+00:05:36.230 --> 00:05:38.618
+Multiply them with the array code
+
+00:05:38.688 --> 00:05:40.796
+and the inner loop runs almost
+
+00:05:40.866 --> 00:05:42.130
+2 million times.
+
+00:05:42.130 --> 00:05:45.291
+Only 12 of those multiplications matter
+
+00:05:45.291 --> 00:05:48.452
+most of the time is spent multiplying zeros.
+
+00:05:48.452 --> 00:05:50.910
+And memory is wasted the same way.
+
+00:05:51.490 --> 00:05:54.546
+So store only the terms that exist.
+
+00:05:54.546 --> 00:05:58.125
+Each node holds one term: a coefficient
+
+00:05:58.125 --> 00:06:01.181
+an exponent, and a next reference.
+
+00:06:01.181 --> 00:06:03.538
+P1 becomes 3 nodes
+
+00:06:03.538 --> 00:06:07.118
+10 and 1000, 5 and 14
+
+00:06:07.118 --> 00:06:08.340
+1 and 0.
+
+00:06:08.340 --> 00:06:10.610
+P2 becomes 4 nodes.
+
+00:06:10.960 --> 00:06:13.916
+The nodes are kept sorted by exponent
+
+00:06:13.916 --> 00:06:15.082
+highest first.
+
+00:06:15.160 --> 00:06:17.416
+Now the space is proportional
+
+00:06:17.493 --> 00:06:20.760
+to the number of terms, not to the degree.
+
+00:06:21.340 --> 00:06:24.679
+Because both lists are sorted by exponent
+
+00:06:24.679 --> 00:06:28.255
+adding them is the merge step of merge sort
+
+00:06:28.255 --> 00:06:29.766
+from lecture 4.
+
+00:06:29.845 --> 00:06:32.627
+Walk both lists at once and compare
+
+00:06:32.707 --> 00:06:35.250
+the exponents at the two fronts.
+
+00:06:35.250 --> 00:06:37.396
+If p's exponent is larger
+
+00:06:37.396 --> 00:06:39.701
+copy p's term and advance p.
+
+00:06:39.701 --> 00:06:41.132
+If q's is larger
+
+00:06:41.132 --> 00:06:43.437
+copy q's term and advance q.
+
+00:06:43.437 --> 00:06:46.696
+If they are equal, add the coefficients
+
+00:06:46.696 --> 00:06:50.114
+keep the term only if the sum is not 0
+
+00:06:50.114 --> 00:06:52.260
+and advance in both lists.
+
+00:06:52.610 --> 00:06:55.116
+The result is built at its tail.
+
+00:06:55.194 --> 00:06:57.779
+A dummy node at the front saves a
+
+00:06:57.857 --> 00:07:00.363
+special case for the first term
+
+00:07:00.363 --> 00:07:02.634
+we always append after tail
+
+00:07:02.634 --> 00:07:05.845
+and at the end we return dummy.next.
+
+00:07:05.845 --> 00:07:07.724
+When one list runs out
+
+00:07:07.724 --> 00:07:11.170
+a second loop copies the rest of the other.
+
+00:07:11.750 --> 00:07:14.368
+Let's trace P1 + P2.
+
+00:07:14.368 --> 00:07:17.256
+p and q start at the two heads.
+
+00:07:17.256 --> 00:07:20.416
+The result is just the dummy node
+
+00:07:20.416 --> 00:07:21.950
+with tail on it.
+
+00:07:22.300 --> 00:07:26.170
+1990 is larger than 1000
+
+00:07:26.170 --> 00:07:29.160
+so copy q's term, and q moves on.
+
+00:07:29.160 --> 00:07:32.853
+1000 against 1492
+
+00:07:32.853 --> 00:07:34.700
+copy q's term again.
+
+00:07:35.050 --> 00:07:39.050
+1000 against 1: copy p's term
+
+00:07:39.050 --> 00:07:40.750
+and now p moves.
+
+00:07:40.750 --> 00:07:43.850
+14 against 1: p again.
+
+00:07:44.200 --> 00:07:47.016
+0 against 1: copy 11x.
+
+00:07:47.016 --> 00:07:50.184
+0 against 0: equal exponents
+
+00:07:50.184 --> 00:07:52.384
+so add the coefficients
+
+00:07:52.384 --> 00:07:54.320
+1 + 5 is 6
+
+00:07:54.320 --> 00:07:57.488
+and both pointers move on, to null.
+
+00:07:57.488 --> 00:08:00.392
+Six comparisons for seven terms.
+
+00:08:00.392 --> 00:08:04.264
+Each comparison advances at least one list
+
+00:08:04.264 --> 00:08:07.520
+so adding takes O(m + n) time.
+
+00:08:08.100 --> 00:08:11.106
+Two details make the merge correct.
+
+00:08:11.106 --> 00:08:13.853
+Add x + 1 and x - 1.
+
+00:08:13.853 --> 00:08:15.914
+The x terms give 2x.
+
+00:08:15.914 --> 00:08:19.692
+The constant terms give 1 + (-1)
+
+00:08:19.692 --> 00:08:20.980
+which is 0.
+
+00:08:20.980 --> 00:08:24.415
+The test c != 0 skips that term
+
+00:08:24.415 --> 00:08:26.476
+so no node is appended.
+
+00:08:26.476 --> 00:08:29.396
+Then tail.next is still null
+
+00:08:29.396 --> 00:08:32.143
+and tail must stay where it is
+
+00:08:32.229 --> 00:08:34.548
+that is why tail only moves
+
+00:08:34.633 --> 00:08:36.780
+when a node was appended.
+
+00:08:37.130 --> 00:08:41.865
+So the sum is 2x, not 2x + 0.
+
+00:08:41.865 --> 00:08:46.945
+And the product prints x² - 1
+
+00:08:46.945 --> 00:08:49.370
+with no 0x term.
+
+00:08:49.950 --> 00:08:53.529
+Multiplying Q by one term, c·x^e
+
+00:08:53.619 --> 00:08:56.571
+multiplies every coefficient by c
+
+00:08:56.661 --> 00:08:59.255
+and adds e to every exponent
+
+00:08:59.255 --> 00:09:02.924
+so each partial product is still sorted.
+
+00:09:02.924 --> 00:09:06.055
+10x^1000 times Q
+
+00:09:06.055 --> 00:09:09.098
+5x^14 times Q
+
+00:09:09.098 --> 00:09:10.619
+and 1 times Q.
+
+00:09:10.708 --> 00:09:13.482
+The method multiply merges them
+
+00:09:13.571 --> 00:09:17.150
+into the result one at a time, with add.
+
+00:09:17.500 --> 00:09:19.198
+12 term products
+
+00:09:19.198 --> 00:09:21.624
+all with different exponents
+
+00:09:21.624 --> 00:09:24.049
+the product has 12 terms.
+
+00:09:24.049 --> 00:09:25.666
+A few short merges
+
+00:09:25.666 --> 00:09:28.900
+instead of 2 million multiplications.
+
+00:09:29.480 --> 00:09:31.211
+How much does it cost?
+
+00:09:31.211 --> 00:09:34.358
+The result can grow to m times n terms
+
+00:09:34.437 --> 00:09:37.270
+and merging the i-th partial product
+
+00:09:37.348 --> 00:09:39.709
+into it costs about i times n
+
+00:09:39.787 --> 00:09:42.620
+so the m merges cost O(m²n)
+
+00:09:42.699 --> 00:09:44.272
+in the worst case.
+
+00:09:44.272 --> 00:09:46.082
+For P1 times P2
+
+00:09:46.082 --> 00:09:48.206
+that is a few dozen steps
+
+00:09:48.206 --> 00:09:50.960
+against 2 million for the array.
+
+00:09:51.310 --> 00:09:52.273
+One pitfall.
+
+00:09:52.273 --> 00:09:54.840
+Add must not modify its inputs.
+
+00:09:54.920 --> 00:09:56.846
+Our version copies every
+
+00:09:56.926 --> 00:09:58.530
+term into new nodes.
+
+00:09:58.611 --> 00:10:02.221
+A version that re-links the input nodes would
+
+00:10:02.301 --> 00:10:05.670
+destroy Q the first time multiply uses it.
+
+00:10:06.020 --> 00:10:08.376
+And if you merge the partial products
+
+00:10:08.460 --> 00:10:11.657
+in pairs, as merge sort does
+
+00:10:11.657 --> 00:10:14.601
+the cost drops to O(mn log m).
+
+00:10:14.601 --> 00:10:16.620
+That is exercise 7.
+
+00:10:17.200 --> 00:10:18.034
+To sum up.
+
+00:10:18.034 --> 00:10:21.705
+One: a linked list stores only what exists.
+
+00:10:21.788 --> 00:10:24.375
+A sparse polynomial in an array
+
+00:10:24.458 --> 00:10:26.377
+wastes memory on zeros
+
+00:10:26.377 --> 00:10:28.879
+and time on multiplying them.
+
+00:10:28.879 --> 00:10:32.300
+Two: with term lists sorted by exponent
+
+00:10:32.300 --> 00:10:35.887
+adding is a merge, in O(m + n) time
+
+00:10:35.887 --> 00:10:38.556
+and a zero sum is never stored.
+
+00:10:38.556 --> 00:10:39.140
+Three
+
+00:10:39.140 --> 00:10:42.394
+multiplying merges m partial products
+
+00:10:42.394 --> 00:10:45.480
+and add must leave its inputs alone.
+
+00:10:45.830 --> 00:10:48.113
+Try this: write evaluate
+
+00:10:48.113 --> 00:10:52.223
+which returns the value of a term list at x.
+
+00:10:52.223 --> 00:10:55.694
+For 4x^3 + 2x + 1
+
+00:10:55.694 --> 00:10:58.982
+it should give 37 at 2
+
+00:10:58.982 --> 00:11:01.630
+and -5 at -1.
+
+00:11:01.980 --> 00:11:04.936
+Next, in part two: sparse matrices
+
+00:11:04.936 --> 00:11:08.060
+where the same idea saves even more.
+

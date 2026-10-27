@@ -1,0 +1,677 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.120
+Randomized quicksort has
+
+00:00:02.196 --> 00:00:03.713
+two practical costs.
+
+00:00:03.713 --> 00:00:06.596
+Random numbers take time to generate
+
+00:00:06.672 --> 00:00:09.782
+and a program that behaves differently on
+
+00:00:09.858 --> 00:00:12.740
+every run is harder to test and debug.
+
+00:00:13.090 --> 00:00:14.366
+Weiss's textbook
+
+00:00:14.441 --> 00:00:16.618
+Data Structures and Algorithm
+
+00:00:16.693 --> 00:00:19.095
+Analysis in Java, chapter seven
+
+00:00:19.095 --> 00:00:22.023
+gives a version that is deterministic
+
+00:00:22.023 --> 00:00:24.050
+and very good in practice.
+
+00:00:24.400 --> 00:00:26.603
+It differs from the randomized
+
+00:00:26.676 --> 00:00:28.292
+version in three ways
+
+00:00:28.292 --> 00:00:30.128
+how the pivot is chosen
+
+00:00:30.128 --> 00:00:31.670
+how partition scans
+
+00:00:31.670 --> 00:00:34.240
+and what happens for small ranges.
+
+00:00:34.820 --> 00:00:39.858
+Here is the plan, on the slides' example
+
+00:00:39.858 --> 00:00:45.020
+8, 1, 4, 9, 6, 3, 5
+
+00:00:45.020 --> 00:00:47.232
+2, 7, 0.
+
+00:00:47.232 --> 00:00:49.567
+Look at the first
+
+00:00:49.567 --> 00:00:54.359
+center and last elements of the range
+
+00:00:54.359 --> 00:00:56.940
+8, 6 and 0.
+
+00:00:57.290 --> 00:00:59.596
+The pivot is their median, 6.
+
+00:00:59.671 --> 00:01:02.870
+The first element alone would be a terrible
+
+00:01:02.944 --> 00:01:05.251
+pivot for already-sorted input
+
+00:01:05.325 --> 00:01:08.376
+the median of three is never the smallest
+
+00:01:08.450 --> 00:01:10.980
+or the largest value in the range.
+
+00:01:11.054 --> 00:01:12.988
+Then hide the pivot at the
+
+00:01:13.063 --> 00:01:15.890
+second-last position, right - 1.
+
+00:01:16.240 --> 00:01:19.543
+Two pointers: i starts at the second element
+
+00:01:19.618 --> 00:01:20.819
+and moves right
+
+00:01:20.819 --> 00:01:23.971
+skipping elements smaller than the pivot.
+
+00:01:24.046 --> 00:01:25.998
+j starts at the third-last
+
+00:01:26.073 --> 00:01:27.800
+element and moves left
+
+00:01:27.800 --> 00:01:30.877
+skipping elements larger than the pivot.
+
+00:01:30.877 --> 00:01:32.679
+When both have stopped
+
+00:01:32.679 --> 00:01:34.705
+and they have not crossed
+
+00:01:34.705 --> 00:01:37.182
+swap the two elements and go on.
+
+00:01:37.182 --> 00:01:40.560
+When they cross, swap the pivot with a[i].
+
+00:01:41.140 --> 00:01:44.492
+The method median3 does this.
+
+00:01:44.492 --> 00:01:48.140
+Center is (left + right) / 2.
+
+00:01:48.490 --> 00:01:50.771
+Three compare-and-swaps sort
+
+00:01:50.852 --> 00:01:53.052
+the three samples in place
+
+00:01:53.052 --> 00:01:56.473
+if a[center] is smaller than a[left]
+
+00:01:56.473 --> 00:01:57.369
+swap them
+
+00:01:57.369 --> 00:02:00.709
+if a[right] is smaller than a[left]
+
+00:02:00.709 --> 00:02:03.968
+swap them; and if a[right] is smaller
+
+00:02:04.049 --> 00:02:06.330
+than a[center], swap them.
+
+00:02:06.680 --> 00:02:07.884
+Now a[left]
+
+00:02:07.884 --> 00:02:11.412
+a[center] and a[right] are in order
+
+00:02:11.412 --> 00:02:13.992
+so the median sits at center.
+
+00:02:13.992 --> 00:02:16.917
+It is swapped to right - 1
+
+00:02:16.917 --> 00:02:19.240
+and returned as the pivot.
+
+00:02:19.820 --> 00:02:21.385
+On our example.
+
+00:02:21.385 --> 00:02:26.081
+a[center], 6, is smaller than a[left]
+
+00:02:26.081 --> 00:02:27.959
+8: swap them.
+
+00:02:27.959 --> 00:02:32.655
+a[right], 0, is smaller than a[left]
+
+00:02:32.655 --> 00:02:34.220
+now 6: swap.
+
+00:02:34.570 --> 00:02:36.770
+And a[right], now 6
+
+00:02:36.770 --> 00:02:40.620
+is smaller than a[center], 8: swap.
+
+00:02:40.620 --> 00:02:44.103
+The samples are now 0, 6, 8.
+
+00:02:44.103 --> 00:02:46.395
+Finally the median, 6
+
+00:02:46.395 --> 00:02:49.970
+moves to index 8, right - 1.
+
+00:02:50.320 --> 00:02:51.388
+A small bonus
+
+00:02:51.465 --> 00:02:54.364
+a[left] is now at most the pivot and
+
+00:02:54.440 --> 00:02:56.729
+a[right] at least the pivot
+
+00:02:56.729 --> 00:02:59.934
+so they are already on the correct sides
+
+00:03:00.010 --> 00:03:02.452
+and partition only looks at
+
+00:03:02.528 --> 00:03:04.665
+left + 1 to right - 2.
+
+00:03:04.665 --> 00:03:06.572
+They are also sentinels
+
+00:03:06.572 --> 00:03:08.938
+j cannot run off the left end
+
+00:03:08.938 --> 00:03:12.371
+because it stops at a[left] at the latest
+
+00:03:12.371 --> 00:03:14.355
+and i stops at the pivot.
+
+00:03:14.355 --> 00:03:17.560
+So the inner loops need no bounds checks.
+
+00:03:18.140 --> 00:03:20.051
+Here is the full method.
+
+00:03:20.051 --> 00:03:23.555
+If the range has more than CUTOFF elements
+
+00:03:23.555 --> 00:03:26.740
+median3 picks and hides the pivot.
+
+00:03:27.090 --> 00:03:29.212
+Then i starts at left and
+
+00:03:29.297 --> 00:03:31.080
+j at right - 1.
+
+00:03:31.080 --> 00:03:34.560
+Each inner loop first moves its pointer
+
+00:03:34.560 --> 00:03:38.295
+then tests: ++i, and --j.
+
+00:03:38.380 --> 00:03:41.690
+So the first elements examined are
+
+00:03:41.775 --> 00:03:44.237
+left + 1 and right - 2
+
+00:03:44.237 --> 00:03:45.595
+as in the plan
+
+00:03:45.595 --> 00:03:49.330
+and after every swap both pointers move on.
+
+00:03:49.680 --> 00:03:51.426
+If i is at least j
+
+00:03:51.426 --> 00:03:54.550
+the pointers have crossed: break.
+
+00:03:54.550 --> 00:03:57.674
+Otherwise swap a[i] and a[j]
+
+00:03:57.674 --> 00:03:58.960
+and continue.
+
+00:03:59.310 --> 00:04:02.611
+After the loop, swap the pivot back from
+
+00:04:02.694 --> 00:04:05.830
+right - 1 to i, its final place.
+
+00:04:06.410 --> 00:04:10.438
+Then the two sides are sorted recursively
+
+00:04:10.438 --> 00:04:12.452
+left to i - 1
+
+00:04:12.452 --> 00:04:14.850
+and i + 1 to right.
+
+00:04:15.200 --> 00:04:18.150
+And small ranges go to insertion sort.
+
+00:04:18.227 --> 00:04:20.478
+For tiny ranges the recursion
+
+00:04:20.556 --> 00:04:22.496
+costs more than the work
+
+00:04:22.574 --> 00:04:25.291
+and insertion sort is fast on small
+
+00:04:25.368 --> 00:04:27.231
+or nearly sorted arrays.
+
+00:04:27.231 --> 00:04:28.473
+The test means
+
+00:04:28.473 --> 00:04:31.656
+the range has more than CUTOFF elements.
+
+00:04:31.656 --> 00:04:34.528
+The textbook uses 10; we use 3
+
+00:04:34.528 --> 00:04:37.633
+so the small examples really partition.
+
+00:04:37.633 --> 00:04:39.573
+It must be at least 2
+
+00:04:39.573 --> 00:04:41.436
+on a 2-element range
+
+00:04:41.436 --> 00:04:43.920
+j would step outside the range.
+
+00:04:44.270 --> 00:04:45.562
+One more detail.
+
+00:04:45.643 --> 00:04:48.309
+Both inner loops stop on elements
+
+00:04:48.390 --> 00:04:49.924
+equal to the pivot
+
+00:04:49.924 --> 00:04:52.994
+they test less than and greater than
+
+00:04:52.994 --> 00:04:54.528
+not less-or-equal.
+
+00:04:54.609 --> 00:04:56.790
+That costs some unnecessary
+
+00:04:56.871 --> 00:04:58.486
+swaps on duplicates
+
+00:04:58.567 --> 00:05:01.394
+but i and j then meet in the middle
+
+00:05:01.475 --> 00:05:03.333
+of a run of equal keys
+
+00:05:03.414 --> 00:05:06.483
+so an array of equal elements is split
+
+00:05:06.564 --> 00:05:09.310
+evenly and still sorts in O(n log n).
+
+00:05:09.890 --> 00:05:13.766
+Let us run the first partition.
+
+00:05:13.766 --> 00:05:19.142
+After median3: 0, 1, 4, 9
+
+00:05:19.142 --> 00:05:23.768
+7, 3, 5, 2, 6, 8
+
+00:05:23.768 --> 00:05:29.019
+with the pivot 6 hidden at index 8.
+
+00:05:29.019 --> 00:05:32.770
+i starts at 0, j at 8.
+
+00:05:33.120 --> 00:05:36.541
+i skips 1 and 4, and stops at 9
+
+00:05:36.541 --> 00:05:37.653
+index 3.
+
+00:05:37.653 --> 00:05:40.818
+j stops at once at 2, index 7
+
+00:05:40.818 --> 00:05:43.128
+which is smaller than 6.
+
+00:05:43.128 --> 00:05:46.720
+They have not crossed: swap 9 and 2.
+
+00:05:46.970 --> 00:05:51.648
+i skips 2 and stops at 7, index 4
+
+00:05:51.648 --> 00:05:56.326
+j skips 9 and stops at 5, index 6.
+
+00:05:56.326 --> 00:05:58.610
+Swap 7 and 5.
+
+00:05:58.860 --> 00:06:02.698
+i skips 5 and 3 and stops at 7
+
+00:06:02.698 --> 00:06:06.811
+index 6; j skips 7 and stops at 3
+
+00:06:06.811 --> 00:06:07.908
+index 5.
+
+00:06:07.908 --> 00:06:10.192
+Now i is greater than j
+
+00:06:10.192 --> 00:06:12.660
+the pointers have crossed.
+
+00:06:12.910 --> 00:06:14.430
+Swap a[i], 7
+
+00:06:14.430 --> 00:06:16.910
+with the pivot at index 8.
+
+00:06:16.910 --> 00:06:20.270
+The pivot 6 is at index 6, with
+
+00:06:20.270 --> 00:06:23.630
+0, 1, 4, 2, 5, 3, all smaller,
+
+00:06:23.630 --> 00:06:26.030
+on its left, and 9, 7, 8
+
+00:06:26.030 --> 00:06:27.630
+on its right.
+
+00:06:28.210 --> 00:06:32.139
+An exercise from the slides: sort
+
+00:06:32.139 --> 00:06:35.664
+5, 7, 4, 1, 0, 2, 9.
+
+00:06:35.664 --> 00:06:39.593
+The first step is to select the pivot.
+
+00:06:39.593 --> 00:06:42.716
+Which value becomes the pivot
+
+00:06:42.716 --> 00:06:45.133
+and where is it hidden?
+
+00:06:45.133 --> 00:06:47.450
+Pause and work it out.
+
+00:06:51.030 --> 00:06:55.092
+The samples are a[0], 5; a[3], 1;
+
+00:06:55.092 --> 00:06:57.400
+and a[6], 9.
+
+00:06:57.400 --> 00:07:01.555
+median3 swaps 5 and 1, giving
+
+00:07:01.555 --> 00:07:04.879
+1, 7, 4, 5, 0, 2, 9.
+
+00:07:04.879 --> 00:07:06.910
+So 5 is the pivot.
+
+00:07:07.260 --> 00:07:10.973
+Then it hides 5 at index 5,
+
+00:07:10.973 --> 00:07:15.475
+right - 1: 1, 7, 4, 2,
+
+00:07:15.475 --> 00:07:17.500
+0, 5, 9.
+
+00:07:18.080 --> 00:07:20.143
+Here is the whole sort
+
+00:07:20.143 --> 00:07:22.653
+with a print in every call
+
+00:07:22.653 --> 00:07:24.268
+and CUTOFF = 3.
+
+00:07:24.268 --> 00:07:26.420
+In the first partition
+
+00:07:26.420 --> 00:07:29.827
+i stops at 7 and j at 0: swap.
+
+00:07:29.827 --> 00:07:33.594
+Then i stops at 7 again and j at 2
+
+00:07:33.594 --> 00:07:37.360
+crossed, so the pivot goes to index 4.
+
+00:07:37.710 --> 00:07:40.420
+The left part, 1, 0, 4, 2,
+
+00:07:40.420 --> 00:07:43.506
+has 4 elements, more than the cutoff
+
+00:07:43.506 --> 00:07:45.613
+so it is partitioned again.
+
+00:07:45.613 --> 00:07:48.624
+The median of 1, 0 and 2 is 1.
+
+00:07:48.624 --> 00:07:50.430
+1 lands at index 1.
+
+00:07:50.780 --> 00:07:53.130
+Every other range is small enough
+
+00:07:53.202 --> 00:07:55.837
+for insertion sort: index 0 alone
+
+00:07:55.837 --> 00:07:57.403
+indices 2 to 3
+
+00:07:57.403 --> 00:07:59.540
+and 5 to 6 on the right.
+
+00:07:59.890 --> 00:08:02.283
+The last line checks that sort also
+
+00:08:02.351 --> 00:08:05.086
+handles the first example: 0 to 9
+
+00:08:05.086 --> 00:08:05.770
+in order.
+
+00:08:06.350 --> 00:08:09.657
+A pitfall: the slides write the partition
+
+00:08:09.738 --> 00:08:11.109
+loop differently.
+
+00:08:11.190 --> 00:08:13.610
+They start with i at left + 1
+
+00:08:13.691 --> 00:08:16.030
+and j at right - 2
+
+00:08:16.380 --> 00:08:18.809
+and the inner loops test first
+
+00:08:18.809 --> 00:08:21.630
+and move only while the test holds.
+
+00:08:21.630 --> 00:08:22.962
+So after a swap
+
+00:08:23.040 --> 00:08:25.547
+neither pointer moves unless the
+
+00:08:25.626 --> 00:08:27.820
+swapped values make it move.
+
+00:08:27.820 --> 00:08:30.719
+With distinct elements that is fine
+
+00:08:30.719 --> 00:08:34.010
+after a swap, both tests succeed and both
+
+00:08:34.088 --> 00:08:35.420
+pointers move on.
+
+00:08:36.000 --> 00:08:40.724
+But take all-equal data: 5, 5, 5,
+
+00:08:40.724 --> 00:08:42.074
+5, 5.
+
+00:08:42.074 --> 00:08:45.111
+i starts at 1, j at 2.
+
+00:08:45.111 --> 00:08:48.373
+Both values equal the pivot
+
+00:08:48.373 --> 00:08:50.960
+so neither loop moves.
+
+00:08:51.310 --> 00:08:53.817
+They have not crossed, so swap
+
+00:08:53.817 --> 00:08:55.031
+5 and 5.
+
+00:08:55.031 --> 00:08:56.406
+Nothing changes.
+
+00:08:56.406 --> 00:08:58.913
+Both loops stop at once again
+
+00:08:58.913 --> 00:09:02.310
+and the same swap happens again, forever.
+
+00:09:02.660 --> 00:09:04.681
+The program in the notes
+
+00:09:04.765 --> 00:09:06.533
+adds a round counter
+
+00:09:06.533 --> 00:09:08.553
+after 1 million rounds
+
+00:09:08.553 --> 00:09:11.500
+i is still 1 and j is still 2.
+
+00:09:11.850 --> 00:09:14.905
+The fix is the one in our method
+
+00:09:14.905 --> 00:09:18.052
+move the pointers before testing
+
+00:09:18.145 --> 00:09:20.644
+starting from i at left and
+
+00:09:20.736 --> 00:09:22.680
+j at right - 1
+
+00:09:22.773 --> 00:09:25.550
+or add i++ and j--
+
+00:09:25.642 --> 00:09:27.586
+after the swap.
+
+00:09:27.679 --> 00:09:30.271
+For distinct keys both forms
+
+00:09:30.363 --> 00:09:32.770
+do exactly the same steps.
+
+00:09:33.350 --> 00:09:34.264
+To sum up.
+
+00:09:34.264 --> 00:09:37.098
+One: median-of-three takes the
+
+00:09:37.189 --> 00:09:39.017
+median of the first,
+
+00:09:39.017 --> 00:09:42.582
+center, and last elements as the pivot
+
+00:09:42.582 --> 00:09:45.599
+and hides it at right - 1.
+
+00:09:45.599 --> 00:09:48.981
+The sorted samples act as sentinels.
+
+00:09:48.981 --> 00:09:52.363
+Two: i and j move towards each other
+
+00:09:52.454 --> 00:09:54.739
+and swap misplaced pairs
+
+00:09:54.739 --> 00:09:57.390
+and they stop on equal keys.
+
+00:09:57.740 --> 00:10:01.405
+Three: ranges of at most CUTOFF elements
+
+00:10:01.496 --> 00:10:03.420
+go to insertion sort.
+
+00:10:03.770 --> 00:10:07.130
+Try this: why must CUTOFF be at least 2?
+
+00:10:07.210 --> 00:10:10.330
+Trace median3 and the two pointers
+
+00:10:10.410 --> 00:10:12.570
+on a range of 2 elements
+
+00:10:12.570 --> 00:10:14.330
+and see where j goes.
+
+00:10:14.680 --> 00:10:17.368
+Next: the running time of quicksort.
+
+00:10:17.368 --> 00:10:19.683
+The worst case, the best case,
+
+00:10:19.683 --> 00:10:22.520
+and why the expected time is n log n.
+

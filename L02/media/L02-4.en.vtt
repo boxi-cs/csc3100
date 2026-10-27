@@ -1,0 +1,704 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:01.736
+Here is a warm-up.
+
+00:00:01.736 --> 00:00:03.730
+a holds 6 * 7
+
+00:00:03.730 --> 00:00:06.601
+and the third line prints the text
+
+00:00:06.601 --> 00:00:09.712
+6 * 7 equals, followed by a.
+
+00:00:09.712 --> 00:00:10.908
+The output is
+
+00:00:10.908 --> 00:00:13.620
+6 * 7 equals 42.
+
+00:00:13.970 --> 00:00:15.750
+Now the last line.
+
+00:00:15.750 --> 00:00:19.804
+It prints the text, "1 + 2 equals"
+
+00:00:19.804 --> 00:00:22.770
+then + 1, then + 2.
+
+00:00:23.120 --> 00:00:24.656
+What does it print?
+
+00:00:24.656 --> 00:00:26.920
+Pause the video and decide.
+
+00:00:30.500 --> 00:00:33.687
+Java evaluates plus from left to right.
+
+00:00:33.687 --> 00:00:35.485
+First comes a String.
+
+00:00:35.485 --> 00:00:38.836
+A String + a number is concatenation
+
+00:00:38.836 --> 00:00:42.269
+the 1 is turned into text and glued on
+
+00:00:42.269 --> 00:00:44.884
+giving "1 + 2 equals 1".
+
+00:00:44.884 --> 00:00:46.845
+That is still a String
+
+00:00:46.845 --> 00:00:49.461
+so the 2 is glued on as well.
+
+00:00:49.461 --> 00:00:52.566
+The line prints:
+
+00:00:52.566 --> 00:00:53.220
+"1 + 2 = 12".
+
+00:00:53.570 --> 00:00:55.687
+To add the numbers first
+
+00:00:55.687 --> 00:00:57.550
+put them in brackets.
+
+00:00:57.550 --> 00:01:00.938
+Now 1 + 2 is computed as an int
+
+00:01:00.938 --> 00:01:04.410
+3, and only then joined to the text.
+
+00:01:04.990 --> 00:01:08.016
+System.out.print writes its argument
+
+00:01:08.085 --> 00:01:09.941
+and stays on the same line.
+
+00:01:09.941 --> 00:01:12.967
+println writes it and then a line break
+
+00:01:13.036 --> 00:01:14.893
+so the first two calls make
+
+00:01:14.961 --> 00:01:16.268
+one line of output.
+
+00:01:16.268 --> 00:01:18.950
+The next println starts a new line.
+
+00:01:19.300 --> 00:01:21.642
+And printf formats numbers.
+
+00:01:21.642 --> 00:01:24.069
+%.3f means
+
+00:01:24.069 --> 00:01:26.578
+a number with three decimals
+
+00:01:26.578 --> 00:01:29.172
+and %n is a line break.
+
+00:01:29.255 --> 00:01:31.347
+So pi is printed as
+
+00:01:31.431 --> 00:01:33.020
+3.142.
+
+00:01:33.600 --> 00:01:35.817
+An array is a fixed number
+
+00:01:35.902 --> 00:01:39.653
+of elements of one type, numbered from 0.
+
+00:01:39.653 --> 00:01:43.490
+Declaring the variable, `int[] someInts`
+
+00:01:43.490 --> 00:01:46.900
+creates only a reference, no array yet.
+
+00:01:46.900 --> 00:01:50.481
+`new int[5]` creates the array object
+
+00:01:50.481 --> 00:01:52.272
+5 ints, all 0
+
+00:01:52.272 --> 00:01:55.000
+and `someInts` now refers to it.
+
+00:01:55.350 --> 00:01:58.595
+The loop runs `i` from 0 while `i` is
+
+00:01:58.685 --> 00:02:01.480
+less than `someInts.length`.
+
+00:02:01.480 --> 00:02:04.815
+`length` is a field, with no brackets
+
+00:02:04.815 --> 00:02:06.708
+and here it is 5.
+
+00:02:06.708 --> 00:02:09.322
+Each element gets `i * i`
+
+00:02:09.322 --> 00:02:13.379
+so the program prints 0, 1, 4, 9
+
+00:02:13.379 --> 00:02:14.190
+16.
+
+00:02:14.540 --> 00:02:17.396
+The last index is length - 1
+
+00:02:17.396 --> 00:02:18.294
+here 4.
+
+00:02:18.294 --> 00:02:20.334
+Every access is checked;
+
+00:02:20.334 --> 00:02:23.354
+index 5 would throw an exception.
+
+00:02:23.435 --> 00:02:25.720
+And the length is fixed when
+
+00:02:25.802 --> 00:02:27.515
+the array is created.
+
+00:02:27.515 --> 00:02:29.474
+Since indices are ints,
+
+00:02:29.556 --> 00:02:32.249
+no array can have more than about
+
+00:02:32.330 --> 00:02:34.860
+2.1 billion elements.
+
+00:02:35.440 --> 00:02:37.661
+An array of objects is an
+
+00:02:37.750 --> 00:02:39.526
+array of references.
+
+00:02:39.615 --> 00:02:42.014
+new Turtle[3] creates
+
+00:02:42.103 --> 00:02:45.389
+three empty slots, each holding null,
+
+00:02:45.389 --> 00:02:47.077
+not three turtles.
+
+00:02:47.077 --> 00:02:49.920
+So element 0 prints as null.
+
+00:02:50.270 --> 00:02:52.309
+Only new Turtle()
+
+00:02:52.388 --> 00:02:55.054
+creates a turtle, on the heap,
+
+00:02:55.054 --> 00:02:57.799
+and element 0 now refers to it.
+
+00:02:57.799 --> 00:03:00.230
+Calling getX() on it gives 1.
+
+00:03:00.580 --> 00:03:02.837
+An array can also be declared
+
+00:03:02.915 --> 00:03:05.716
+and filled in one line, with braces.
+
+00:03:05.716 --> 00:03:09.141
+Primes has four elements, and the last one
+
+00:03:09.141 --> 00:03:12.020
+at index length - 1, is 7.
+
+00:03:12.600 --> 00:03:14.397
+A String is an object
+
+00:03:14.397 --> 00:03:16.601
+and strings are immutable;
+
+00:03:16.601 --> 00:03:19.459
+no method changes a String object.
+
+00:03:19.459 --> 00:03:22.236
+So s.concat(), on its own line,
+
+00:03:22.236 --> 00:03:24.604
+builds a new, longer string
+
+00:03:24.604 --> 00:03:27.217
+with "Data Structure" at the end,
+
+00:03:27.217 --> 00:03:30.157
+and nobody keeps a reference to it.
+
+00:03:30.157 --> 00:03:32.280
+It is simply thrown away.
+
+00:03:32.630 --> 00:03:36.478
+Printing s still shows the original string.
+
+00:03:36.478 --> 00:03:39.610
+To keep the new string, assign it:
+
+00:03:39.610 --> 00:03:41.669
+s = s.concat().
+
+00:03:41.669 --> 00:03:44.532
+Now s refers to the new object,
+
+00:03:44.532 --> 00:03:48.470
+and the next print shows the longer string.
+
+00:03:48.820 --> 00:03:51.187
+The old string is still unchanged;
+
+00:03:51.187 --> 00:03:52.858
+with no reference left,
+
+00:03:52.858 --> 00:03:55.364
+the garbage collector will free it.
+
+00:03:55.364 --> 00:03:58.358
+Methods such as replace work the same way;
+
+00:03:58.358 --> 00:04:00.168
+they return a new string,
+
+00:04:00.168 --> 00:04:01.700
+so assign the result.
+
+00:04:02.280 --> 00:04:05.365
+Here a refers to the literal "hello".
+
+00:04:05.365 --> 00:04:08.890
+And b is a new String built from "hello",
+
+00:04:08.890 --> 00:04:12.680
+a second object, with the same characters.
+
+00:04:13.030 --> 00:04:13.983
+For objects,
+
+00:04:13.983 --> 00:04:17.081
+equals equals compares the references:
+
+00:04:17.081 --> 00:04:18.908
+is it the same object?
+
+00:04:18.908 --> 00:04:21.529
+These are two different objects,
+
+00:04:21.529 --> 00:04:23.992
+so a == b is false.
+
+00:04:23.992 --> 00:04:27.407
+The method equals compares the characters
+
+00:04:27.407 --> 00:04:29.790
+so a.equals(b) is true.
+
+00:04:30.140 --> 00:04:33.012
+So compare strings with equals
+
+00:04:33.012 --> 00:04:35.420
+never with ==.
+
+00:04:36.000 --> 00:04:38.170
+Java converts a value to a
+
+00:04:38.254 --> 00:04:40.341
+wider type automatically
+
+00:04:40.341 --> 00:04:42.762
+because nothing can be lost
+
+00:04:42.762 --> 00:04:45.350
+from byte to short, int, long
+
+00:04:45.350 --> 00:04:48.689
+float and double, and from char to int.
+
+00:04:48.689 --> 00:04:52.195
+Going the other way can lose information
+
+00:04:52.195 --> 00:04:55.200
+so you must ask for it with a cast.
+
+00:04:55.550 --> 00:04:58.679
+A cast to int truncates towards zero
+
+00:04:58.679 --> 00:05:01.808
+3.99 becomes 3
+
+00:05:01.893 --> 00:05:04.092
+and -3.9
+
+00:05:04.176 --> 00:05:06.291
+9 becomes -3.
+
+00:05:06.291 --> 00:05:08.828
+To round, use Math.round
+
+00:05:08.828 --> 00:05:10.350
+which gives 4.
+
+00:05:10.700 --> 00:05:13.281
+7 / 2, with two ints
+
+00:05:13.281 --> 00:05:15.690
+is integer division: 3.
+
+00:05:15.690 --> 00:05:18.271
+With a double on either side
+
+00:05:18.271 --> 00:05:21.024
+the result is 3.5.
+
+00:05:21.110 --> 00:05:23.605
+Casting 7 to double first
+
+00:05:23.691 --> 00:05:26.100
+also gives 3.5.
+
+00:05:26.450 --> 00:05:30.560
+A char is a number: 'A' is 65
+
+00:05:30.560 --> 00:05:32.801
+66 is 'B'
+
+00:05:32.801 --> 00:05:35.790
+and 'a' + 2 is 'c'.
+
+00:05:35.790 --> 00:05:36.631
+Finally,
+
+00:05:36.724 --> 00:05:40.367
+narrowing the int 200 to a byte
+
+00:05:40.460 --> 00:05:43.262
+keeps only the low 8 bits
+
+00:05:43.262 --> 00:05:44.850
+-56.
+
+00:05:45.430 --> 00:05:47.990
+An array cannot change its length.
+
+00:05:47.990 --> 00:05:50.926
+Java's ArrayList is a resizable array
+
+00:05:50.926 --> 00:05:53.184
+you can keep adding elements
+
+00:05:53.184 --> 00:05:55.367
+and it makes room by itself.
+
+00:05:55.367 --> 00:05:55.970
+Inside,
+
+00:05:55.970 --> 00:05:59.282
+it keeps the elements in an ordinary array
+
+00:05:59.282 --> 00:06:01.390
+usually longer than needed.
+
+00:06:01.740 --> 00:06:03.923
+Add Ann, Bob and Cy
+
+00:06:03.923 --> 00:06:08.071
+they go into cells 0, 1 and 2
+
+00:06:08.071 --> 00:06:10.145
+and size is 3.
+
+00:06:10.145 --> 00:06:12.655
+Add at index 1, Dee
+
+00:06:12.764 --> 00:06:15.602
+Cy and Bob first shift one
+
+00:06:15.711 --> 00:06:17.676
+cell to the right
+
+00:06:17.676 --> 00:06:20.841
+then Dee goes into cell 1.
+
+00:06:20.841 --> 00:06:24.989
+The list prints as Ann, Dee, Bob, Cy
+
+00:06:24.989 --> 00:06:28.700
+size 4, and get(2) is Bob.
+
+00:06:29.050 --> 00:06:32.289
+When an add finds the internal array full
+
+00:06:32.366 --> 00:06:35.373
+the ArrayList creates a new array about
+
+00:06:35.450 --> 00:06:38.457
+1.5 times as long and copies
+
+00:06:38.534 --> 00:06:40.230
+every element into it.
+
+00:06:40.230 --> 00:06:43.546
+Copying takes time, but it happens rarely
+
+00:06:43.623 --> 00:06:45.397
+so adding at the end is
+
+00:06:45.474 --> 00:06:47.170
+still fast on average.
+
+00:06:47.520 --> 00:06:49.196
+Remove by value, Bob
+
+00:06:49.196 --> 00:06:51.990
+the elements behind it shift left.
+
+00:06:51.990 --> 00:06:55.422
+Remove at index 0: the first name goes
+
+00:06:55.422 --> 00:06:58.136
+and two names are left, size 2.
+
+00:06:58.216 --> 00:07:00.131
+Notice that the internal
+
+00:07:00.211 --> 00:07:03.244
+array does not shrink: size goes down
+
+00:07:03.244 --> 00:07:05.160
+but the capacity stays.
+
+00:07:05.740 --> 00:07:06.637
+One trap.
+
+00:07:06.637 --> 00:07:11.120
+An ArrayList of Integer, not int, holds 10,
+
+00:07:11.120 --> 00:07:14.408
+20, 30, 40 and 50.
+
+00:07:14.408 --> 00:07:16.800
+nums.remove(1)
+
+00:07:16.800 --> 00:07:20.088
+an int argument means the index.
+
+00:07:20.088 --> 00:07:24.073
+So it removes the element at index 1
+
+00:07:24.073 --> 00:07:27.660
+which is 20, not the value 1.
+
+00:07:28.010 --> 00:07:30.778
+To remove a value, pass an object
+
+00:07:30.778 --> 00:07:33.057
+Integer.valueOf(40).
+
+00:07:33.057 --> 00:07:36.720
+Now 40 goes, and the list is 10, 30,
+
+00:07:36.720 --> 00:07:37.290
+50.
+
+00:07:37.870 --> 00:07:40.340
+Now a whole program from the slides.
+
+00:07:40.340 --> 00:07:42.809
+A text file holds pairs of numbers
+
+00:07:42.809 --> 00:07:44.112
+one pair per line
+
+00:07:44.181 --> 00:07:46.102
+and we write the sum of each
+
+00:07:46.170 --> 00:07:47.611
+pair to another file.
+
+00:07:47.611 --> 00:07:50.286
+A BufferedReader reads the input file
+
+00:07:50.286 --> 00:07:53.030
+and a BufferedWriter writes the output.
+
+00:07:53.380 --> 00:07:55.357
+readLine returns one line
+
+00:07:55.433 --> 00:07:58.475
+without its line break: "1 3".
+
+00:07:58.475 --> 00:08:01.289
+Split at the space gives two pieces
+
+00:08:01.289 --> 00:08:03.874
+parseInt turns each into an int
+
+00:08:03.874 --> 00:08:06.840
+and the writer writes their sum, 4,
+
+00:08:06.840 --> 00:08:08.057
+and a new line.
+
+00:08:08.057 --> 00:08:11.099
+The next line, 2 and 4, gives 6,
+
+00:08:11.099 --> 00:08:13.380
+and 5 and 6 give 11.
+
+00:08:13.730 --> 00:08:15.426
+At the end of the file
+
+00:08:15.426 --> 00:08:18.670
+readLine returns null, and the loop stops
+
+00:08:18.670 --> 00:08:19.407
+it reads,
+
+00:08:19.407 --> 00:08:22.061
+assigns and tests in one condition.
+
+00:08:22.061 --> 00:08:24.052
+Finally, close the writer.
+
+00:08:24.125 --> 00:08:25.969
+A BufferedWriter collects
+
+00:08:26.042 --> 00:08:27.591
+its output in memory
+
+00:08:27.664 --> 00:08:30.023
+and closing it writes everything
+
+00:08:30.097 --> 00:08:30.982
+to the file.
+
+00:08:31.056 --> 00:08:33.857
+Forgetting to close is the most common
+
+00:08:33.931 --> 00:08:36.290
+reason for an empty output file.
+
+00:08:36.870 --> 00:08:40.172
+Java reads and writes files as streams.
+
+00:08:40.257 --> 00:08:42.797
+A FileInputStream and a
+
+00:08:42.881 --> 00:08:45.337
+FileOutputStream move raw bytes
+
+00:08:45.337 --> 00:08:48.046
+for binary data such as images.
+
+00:08:48.046 --> 00:08:50.925
+Their read returns the next byte
+
+00:08:50.925 --> 00:08:54.057
+from 0 to 255
+
+00:08:54.057 --> 00:08:57.190
+or -1 at the end of the file.
+
+00:08:57.540 --> 00:09:00.276
+For text, use the character streams
+
+00:09:00.276 --> 00:09:02.328
+FileReader and FileWriter
+
+00:09:02.404 --> 00:09:04.988
+and wrap a BufferedReader around a
+
+00:09:05.064 --> 00:09:07.420
+FileReader to read whole lines.
+
+00:09:07.770 --> 00:09:09.430
+Whatever you open, close.
+
+00:09:09.430 --> 00:09:10.360
+Better still,
+
+00:09:10.360 --> 00:09:13.214
+open it in a try-with-resources statement
+
+00:09:13.214 --> 00:09:15.273
+which closes it automatically
+
+00:09:15.273 --> 00:09:17.530
+even when an exception is thrown.
+
+00:09:18.110 --> 00:09:18.862
+To sum up.
+
+00:09:18.862 --> 00:09:21.417
+One: an array has a fixed length
+
+00:09:21.492 --> 00:09:23.672
+and its indices run from 0
+
+00:09:23.747 --> 00:09:25.251
+to length - 1.
+
+00:09:25.251 --> 00:09:27.355
+Two: strings are immutable,
+
+00:09:27.355 --> 00:09:30.587
+so keep the result of every string method
+
+00:09:30.587 --> 00:09:33.068
+and compare strings with equals.
+
+00:09:33.068 --> 00:09:35.999
+Three: narrowing a value needs a cast,
+
+00:09:36.074 --> 00:09:38.855
+and an ArrayList grows by copying its
+
+00:09:38.930 --> 00:09:41.110
+elements into a bigger array.
+
+00:09:41.460 --> 00:09:42.869
+Try this yourself.
+
+00:09:42.869 --> 00:09:45.294
+Write a method, reverseWords,
+
+00:09:45.294 --> 00:09:48.503
+that turns "data structures are fun" into
+
+00:09:48.503 --> 00:09:50.459
+"fun are structures data".
+
+00:09:50.459 --> 00:09:52.963
+Split the string at the spaces
+
+00:09:53.041 --> 00:09:55.311
+and build the result from the
+
+00:09:55.389 --> 00:09:57.580
+last word back to the first.
+
+00:09:57.930 --> 00:09:59.087
+In Lecture 3,
+
+00:09:59.087 --> 00:10:01.266
+we look at arrays more closely:
+
+00:10:01.266 --> 00:10:02.900
+how they sit in memory
+
+00:10:02.900 --> 00:10:05.010
+and what each operation costs.
+

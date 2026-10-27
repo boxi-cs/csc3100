@@ -1,0 +1,698 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.248
+How fast is an algorithm?
+
+00:00:02.248 --> 00:00:05.208
+The most direct answer: implement it
+
+00:00:05.208 --> 00:00:06.844
+run it, and time it.
+
+00:00:06.844 --> 00:00:10.116
+In Java, read System.nanoTime() before
+
+00:00:10.194 --> 00:00:11.674
+and after the call
+
+00:00:11.674 --> 00:00:13.700
+and print the difference.
+
+00:00:14.050 --> 00:00:15.622
+Experiments are useful
+
+00:00:15.622 --> 00:00:17.536
+but they have two problems.
+
+00:00:17.536 --> 00:00:19.724
+First, they only tell you about
+
+00:00:19.792 --> 00:00:21.228
+the inputs you tried.
+
+00:00:21.228 --> 00:00:24.099
+A search can be fast on your test arrays
+
+00:00:24.168 --> 00:00:26.218
+just because the value happens
+
+00:00:26.287 --> 00:00:27.722
+to be near the front.
+
+00:00:27.722 --> 00:00:30.183
+Second, they are hard to make fair.
+
+00:00:30.183 --> 00:00:32.713
+To compare two algorithms by timing
+
+00:00:32.713 --> 00:00:35.516
+both must be written by the same person
+
+00:00:35.516 --> 00:00:38.387
+in the same language, with the same care
+
+00:00:38.455 --> 00:00:40.301
+on the same machine and the
+
+00:00:40.369 --> 00:00:42.147
+same Java virtual machine.
+
+00:00:42.147 --> 00:00:45.223
+Change any of these, and the numbers change
+
+00:00:45.292 --> 00:00:47.479
+a time measured on a laptop says
+
+00:00:47.547 --> 00:00:49.530
+little about a supercomputer.
+
+00:00:49.880 --> 00:00:53.402
+So instead we analyze the algorithm itself
+
+00:00:53.402 --> 00:00:56.760
+on paper: we count its basic operations.
+
+00:00:57.340 --> 00:00:59.988
+A basic operation is a step simple
+
+00:01:00.066 --> 00:01:02.636
+enough that a computer does it in
+
+00:01:02.714 --> 00:01:04.505
+a fixed amount of time.
+
+00:01:04.505 --> 00:01:07.231
+Arithmetic, like a + b * c.
+
+00:01:07.231 --> 00:01:08.711
+Assigning a value.
+
+00:01:08.711 --> 00:01:11.748
+Indexing an array, or reading a field.
+
+00:01:11.748 --> 00:01:15.019
+Calling a method counts as one operation
+
+00:01:15.019 --> 00:01:17.978
+the call itself, not the work inside.
+
+00:01:17.978 --> 00:01:20.860
+Returning, and comparing two values.
+
+00:01:21.210 --> 00:01:23.335
+The assumption is that each basic
+
+00:01:23.399 --> 00:01:25.331
+operation takes constant time.
+
+00:01:25.395 --> 00:01:28.228
+We don't care whether an addition takes 0.
+
+00:01:28.292 --> 00:01:31.061
+3 or 0.5 nanoseconds
+
+00:01:31.061 --> 00:01:33.250
+we only count how many there are.
+
+00:01:33.830 --> 00:01:37.439
+The count becomes the running time, T(n),
+
+00:01:37.439 --> 00:01:40.125
+a function of the input size n.
+
+00:01:40.125 --> 00:01:43.734
+It takes all possible inputs into account
+
+00:01:43.734 --> 00:01:46.084
+not only the ones we tried
+
+00:01:46.084 --> 00:01:49.190
+and it is the same on every machine.
+
+00:01:49.540 --> 00:01:52.065
+Which input of size n do we count for?
+
+00:01:52.065 --> 00:01:53.659
+Usually the worst case
+
+00:01:53.726 --> 00:01:55.985
+the input that makes the algorithm
+
+00:01:56.051 --> 00:01:57.181
+do the most work.
+
+00:01:57.181 --> 00:01:59.307
+A guarantee is what users need
+
+00:01:59.373 --> 00:02:01.233
+if a search engine sometimes
+
+00:02:01.300 --> 00:02:02.894
+takes 100 seconds
+
+00:02:02.961 --> 00:02:05.087
+it does not help that it usually
+
+00:02:05.153 --> 00:02:06.548
+takes a tenth of one.
+
+00:02:06.548 --> 00:02:08.940
+The average case is hard to define
+
+00:02:08.940 --> 00:02:10.734
+average over which inputs?
+
+00:02:10.734 --> 00:02:13.458
+And the best case is rarely interesting
+
+00:02:13.525 --> 00:02:15.385
+almost any algorithm is fast
+
+00:02:15.451 --> 00:02:16.780
+on some lucky input.
+
+00:02:17.360 --> 00:02:20.157
+Our first example sums an array.
+
+00:02:20.157 --> 00:02:23.916
+Line 1 is 1 assignment: 1 operation.
+
+00:02:23.916 --> 00:02:25.839
+Line 2 is the loop.
+
+00:02:25.839 --> 00:02:28.636
+It is really for i = 0
+
+00:02:28.636 --> 00:02:31.084
+i < n; i++.
+
+00:02:31.084 --> 00:02:33.794
+It assigns i = 0 once.
+
+00:02:33.794 --> 00:02:37.465
+It tests i < n, n + 1 times
+
+00:02:37.465 --> 00:02:40.000
+because the last test fails.
+
+00:02:40.000 --> 00:02:42.622
+And it increments i, n times.
+
+00:02:42.622 --> 00:02:44.720
+That is 2n + 2.
+
+00:02:45.070 --> 00:02:47.597
+Line 3 runs n times
+
+00:02:47.597 --> 00:02:52.020
+and each time it indexes A[i] and adds
+
+00:02:52.020 --> 00:02:52.757
+2n.
+
+00:02:52.757 --> 00:02:55.390
+Line 4 is 1 return.
+
+00:02:55.740 --> 00:02:58.420
+In total, T(n) = 1
+
+00:02:58.420 --> 00:03:02.537
++ (2n + 2) + 2n + 1
+
+00:03:02.537 --> 00:03:04.260
+= 4n + 4.
+
+00:03:04.840 --> 00:03:07.346
+Let's run it for n = 2
+
+00:03:07.346 --> 00:03:09.517
+and count with a counter.
+
+00:03:09.517 --> 00:03:12.440
+tempSum = 0: that is 1.
+
+00:03:12.790 --> 00:03:15.525
+i = 0: 2.
+
+00:03:15.525 --> 00:03:20.274
+Test i < n: true, 3.
+
+00:03:20.274 --> 00:03:26.176
+Add A[0]: an index and an addition
+
+00:03:26.176 --> 00:03:27.039
+5.
+
+00:03:27.039 --> 00:03:29.630
+i++: 6.
+
+00:03:29.980 --> 00:03:31.856
+Test again: 7.
+
+00:03:31.856 --> 00:03:33.941
+Add A[1]: 9.
+
+00:03:33.941 --> 00:03:35.609
+Increment: 10.
+
+00:03:35.609 --> 00:03:39.986
+The third test, 2 < 2, fails
+
+00:03:39.986 --> 00:03:40.820
+11.
+
+00:03:41.170 --> 00:03:42.987
+And the return: 12.
+
+00:03:42.987 --> 00:03:45.831
+4 * 2 + 4 = 12
+
+00:03:45.831 --> 00:03:47.490
+as the formula says.
+
+00:03:48.070 --> 00:03:50.824
+The note's Java version, SumCount
+
+00:03:50.905 --> 00:03:53.173
+increases a counter at every
+
+00:03:53.254 --> 00:03:54.550
+basic operation
+
+00:03:54.550 --> 00:03:57.710
+and compares it with 4n + 4.
+
+00:03:57.710 --> 00:03:59.897
+They agree for every size
+
+00:03:59.897 --> 00:04:02.246
+up to n = 1000
+
+00:04:02.246 --> 00:04:04.190
+4004.
+
+00:04:04.770 --> 00:04:07.820
+Draw 4n + 4 against n
+
+00:04:07.820 --> 00:04:09.440
+a straight line.
+
+00:04:09.440 --> 00:04:13.348
+The counted values, for sizes 0, 1
+
+00:04:13.348 --> 00:04:16.970
+2, 5 and 10, sit exactly on it.
+
+00:04:17.320 --> 00:04:19.283
+Counting every operation
+
+00:04:19.365 --> 00:04:21.083
+like this is tedious
+
+00:04:21.165 --> 00:04:23.046
+and the exact constants
+
+00:04:23.128 --> 00:04:24.928
+depend on conventions.
+
+00:04:25.009 --> 00:04:26.973
+Other books count i++
+
+00:04:27.054 --> 00:04:28.936
+as 2 operations.
+
+00:04:28.936 --> 00:04:30.736
+The constants change
+
+00:04:30.736 --> 00:04:32.944
+but what matters does not
+
+00:04:32.944 --> 00:04:35.480
+the cost is proportional to n.
+
+00:04:36.060 --> 00:04:37.639
+For many algorithms
+
+00:04:37.639 --> 00:04:40.245
+the size is not the whole story.
+
+00:04:40.324 --> 00:04:42.141
+Linear search looks for
+
+00:04:42.220 --> 00:04:43.957
+a value x in an array
+
+00:04:43.957 --> 00:04:46.879
+and returns its index, or -1.
+
+00:04:46.879 --> 00:04:48.695
+Here are 9 numbers.
+
+00:04:48.695 --> 00:04:50.117
+Search for 3
+
+00:04:50.117 --> 00:04:53.197
+the first comparison already finds it.
+
+00:04:53.197 --> 00:04:54.460
+1 comparison.
+
+00:04:54.810 --> 00:04:58.412
+Search for 20: the index walks along
+
+00:04:58.412 --> 00:05:00.521
+comparing each element
+
+00:05:00.521 --> 00:05:02.894
+and finds it at index 6
+
+00:05:02.894 --> 00:05:05.090
+after 7 comparisons.
+
+00:05:05.440 --> 00:05:08.181
+Search for 5, which is not there
+
+00:05:08.181 --> 00:05:11.531
+every one of the 9 elements is compared
+
+00:05:11.531 --> 00:05:14.120
+and the search returns -1.
+
+00:05:14.700 --> 00:05:17.891
+The program LinearSearchCount confirms it
+
+00:05:17.891 --> 00:05:21.234
+and adds a fourth search, for 27.
+
+00:05:21.234 --> 00:05:24.425
+3 needs 1 comparison; 27
+
+00:05:24.425 --> 00:05:27.844
+the last element, and 5, the missing one
+
+00:05:27.844 --> 00:05:29.060
+both need 9.
+
+00:05:29.410 --> 00:05:30.886
+So for the same n
+
+00:05:30.886 --> 00:05:33.919
+the cost ranges from 1 comparison
+
+00:05:33.919 --> 00:05:37.525
+the best case, when x comes first, to 9
+
+00:05:37.525 --> 00:05:41.050
+the worst case, when x is last or missing.
+
+00:05:41.400 --> 00:05:42.888
+In the worst case
+
+00:05:42.888 --> 00:05:45.780
+linear search makes n comparisons
+
+00:05:45.780 --> 00:05:48.260
+with the loop and the return
+
+00:05:48.260 --> 00:05:51.814
+about 3n + 3 basic operations.
+
+00:05:51.814 --> 00:05:53.880
+Again proportional to n.
+
+00:05:54.460 --> 00:05:55.260
+Your turn.
+
+00:05:55.340 --> 00:05:57.900
+Linear search on an array of 1000
+
+00:05:57.980 --> 00:06:00.060
+distinct numbers.
+
+00:06:00.060 --> 00:06:03.420
+If x is equally likely to be any of them
+
+00:06:03.500 --> 00:06:06.540
+how many comparisons does a successful
+
+00:06:06.620 --> 00:06:08.460
+search make on average?
+
+00:06:08.810 --> 00:06:10.810
+Pause the video and work it out.
+
+00:06:14.390 --> 00:06:15.879
+If x is at index i
+
+00:06:15.879 --> 00:06:19.093
+the search makes i + 1 comparisons.
+
+00:06:19.093 --> 00:06:21.993
+So the average is 1 + 2 +
+
+00:06:21.993 --> 00:06:25.521
+up to 1000, divided by 1000
+
+00:06:25.521 --> 00:06:27.951
+1001 over 2
+
+00:06:27.951 --> 00:06:29.910
+500.5.
+
+00:06:30.260 --> 00:06:32.650
+About half of the worst case
+
+00:06:32.650 --> 00:06:35.040
+and still proportional to n.
+
+00:06:35.040 --> 00:06:36.935
+This is what we meant
+
+00:06:37.017 --> 00:06:39.325
+the average case is often as
+
+00:06:39.407 --> 00:06:41.220
+bad as the worst case.
+
+00:06:41.800 --> 00:06:43.348
+Now a harder count.
+
+00:06:43.430 --> 00:06:46.607
+maxSubArraySum finds the largest sum
+
+00:06:46.688 --> 00:06:49.540
+of a contiguous piece of the array
+
+00:06:49.540 --> 00:06:52.880
+by trying every start i and every end j.
+
+00:06:53.230 --> 00:06:54.387
+For each i
+
+00:06:54.387 --> 00:06:58.279
+the inner loop runs n - i times
+
+00:06:58.279 --> 00:07:02.486
+n times, then n - 1, down to 1.
+
+00:07:02.486 --> 00:07:06.378
+Call that sum S: n * (n + 1)
+
+00:07:06.378 --> 00:07:07.430
+over 2.
+
+00:07:07.780 --> 00:07:11.892
+Lines 1 to 3 are counted as before.
+
+00:07:11.993 --> 00:07:14.600
+The inner loop's own tests
+
+00:07:14.701 --> 00:07:19.114
+add 2S + 2n; line 5 costs 2S
+
+00:07:19.114 --> 00:07:20.819
+and line 6, S.
+
+00:07:20.819 --> 00:07:25.232
+Line 7 runs only when the test is true
+
+00:07:25.232 --> 00:07:27.940
+so we charge it at most S.
+
+00:07:28.520 --> 00:07:30.310
+Adding up the lines
+
+00:07:30.310 --> 00:07:33.531
+we get 6S + 5n + 5
+
+00:07:33.531 --> 00:07:36.931
+and with S equal to n² + n
+
+00:07:36.931 --> 00:07:40.420
+over 2, that is 3n² +
+
+00:07:40.510 --> 00:07:42.120
+8n + 5.
+
+00:07:42.470 --> 00:07:44.255
+This is an upper bound
+
+00:07:44.255 --> 00:07:46.274
+not the exact worst case.
+
+00:07:46.274 --> 00:07:48.913
+It charges line 7 every time
+
+00:07:48.990 --> 00:07:50.776
+but no input makes that
+
+00:07:50.853 --> 00:07:52.483
+test true every time
+
+00:07:52.561 --> 00:07:54.734
+the very first test compares
+
+00:07:54.812 --> 00:07:57.839
+A[0] with itself, and it is false.
+
+00:07:57.839 --> 00:08:01.099
+The exact worst case is a little smaller
+
+00:08:01.099 --> 00:08:03.350
+and much harder to work out.
+
+00:08:03.930 --> 00:08:06.456
+The program MaxSubArrayCount counts
+
+00:08:06.528 --> 00:08:08.837
+the operations for a few arrays.
+
+00:08:08.837 --> 00:08:10.136
+For 6 elements
+
+00:08:10.136 --> 00:08:12.734
+143 operations
+
+00:08:12.734 --> 00:08:15.765
+below the bound of 161.
+
+00:08:15.765 --> 00:08:18.869
+For 1 to 10: 339
+
+00:08:18.869 --> 00:08:21.250
+below 385.
+
+00:08:21.600 --> 00:08:24.129
+Every count stays below the bound.
+
+00:08:24.129 --> 00:08:25.394
+This is typical
+
+00:08:25.394 --> 00:08:27.551
+exact counts are often hard
+
+00:08:27.551 --> 00:08:30.080
+while a good upper bound is easy.
+
+00:08:30.660 --> 00:08:31.307
+Even so
+
+00:08:31.388 --> 00:08:34.462
+3n² + 8n + 5
+
+00:08:34.542 --> 00:08:36.807
+is more detail than we want.
+
+00:08:36.807 --> 00:08:38.748
+When n is 1000
+
+00:08:38.748 --> 00:08:42.226
+the 3n² term is 3 million
+
+00:08:42.307 --> 00:08:44.410
+while 8n + 5 is
+
+00:08:44.491 --> 00:08:46.432
+8005.
+
+00:08:46.432 --> 00:08:48.292
+Next to the first bar
+
+00:08:48.292 --> 00:08:50.556
+the second one is a sliver
+
+00:08:50.556 --> 00:08:52.740
+the lower terms are noise.
+
+00:08:53.090 --> 00:08:55.654
+What matters is that the count
+
+00:08:55.740 --> 00:08:58.390
+grows like n²: double n
+
+00:08:58.390 --> 00:09:01.210
+and the work roughly quadruples.
+
+00:09:01.560 --> 00:09:03.636
+Asymptotic analysis makes
+
+00:09:03.719 --> 00:09:05.297
+grows like precise.
+
+00:09:05.297 --> 00:09:08.120
+That is the rest of this lecture.
+
+00:09:08.700 --> 00:09:09.542
+To sum up.
+
+00:09:09.542 --> 00:09:12.234
+One: we count basic operations
+
+00:09:12.234 --> 00:09:14.506
+each taking constant time
+
+00:09:14.506 --> 00:09:17.872
+as a function T(n) of the input size.
+
+00:09:17.872 --> 00:09:21.491
+Two: the input matters, not only its size
+
+00:09:21.491 --> 00:09:24.773
+there is a best case and a worst case
+
+00:09:24.773 --> 00:09:27.634
+and we usually analyze the worst.
+
+00:09:27.634 --> 00:09:30.747
+Three: counts like 4n + 4
+
+00:09:30.747 --> 00:09:34.366
+or 3n² + 8n + 5
+
+00:09:34.366 --> 00:09:37.058
+are more detailed than we need
+
+00:09:37.058 --> 00:09:40.340
+only the fastest-growing term matters.
+
+00:09:40.690 --> 00:09:43.652
+Try this: in these two nested loops
+
+00:09:43.652 --> 00:09:45.956
+the inner one runs i times.
+
+00:09:45.956 --> 00:09:47.437
+For n = 10
+
+00:09:47.437 --> 00:09:50.810
+how many times does count++ run?
+
+00:09:51.160 --> 00:09:54.305
+Next, we make grows like precise
+
+00:09:54.305 --> 00:09:55.544
+with Big-Oh
+
+00:09:55.544 --> 00:09:58.880
+an upper bound on the growth rate.
+

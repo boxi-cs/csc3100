@@ -1,0 +1,638 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.264
+The last problem of this lecture
+
+00:00:03.264 --> 00:00:04.880
+maximum subarray.
+
+00:00:04.880 --> 00:00:08.023
+The input is an array of integers.
+
+00:00:08.023 --> 00:00:10.538
+The output is a contiguous
+
+00:00:10.538 --> 00:00:14.220
+non-empty subarray with the largest sum.
+
+00:00:14.570 --> 00:00:17.618
+If all the numbers are positive, as here
+
+00:00:17.618 --> 00:00:19.477
+the whole array is best
+
+00:00:19.477 --> 00:00:21.930
+its sum is 118.
+
+00:00:22.280 --> 00:00:24.188
+With some signs flipped
+
+00:00:24.188 --> 00:00:25.858
+it gets interesting.
+
+00:00:25.858 --> 00:00:28.641
+The best is 17, -5
+
+00:00:28.641 --> 00:00:30.629
+28: sum 40.
+
+00:00:30.709 --> 00:00:33.094
+Taking the -5 is worth
+
+00:00:33.174 --> 00:00:35.480
+it to reach the 28.
+
+00:00:35.480 --> 00:00:38.343
+Taking the -21 is not
+
+00:00:38.422 --> 00:00:40.490
+the 18 after it does
+
+00:00:40.569 --> 00:00:42.080
+not make up for it.
+
+00:00:42.430 --> 00:00:45.167
+And if all the numbers are negative
+
+00:00:45.167 --> 00:00:48.209
+the best is the single largest element
+
+00:00:48.209 --> 00:00:49.198
+-3.
+
+00:00:49.198 --> 00:00:52.467
+A classic use: the numbers are daily price
+
+00:00:52.543 --> 00:00:53.988
+changes of a stock
+
+00:00:54.064 --> 00:00:56.117
+and the answer says when to
+
+00:00:56.193 --> 00:00:57.790
+buy and when to sell.
+
+00:00:58.370 --> 00:01:02.504
+The obvious algorithm tries every subarray.
+
+00:01:02.504 --> 00:01:06.349
+There are n * (n + 1) / 2
+
+00:01:06.349 --> 00:01:07.503
+pairs i, j.
+
+00:01:07.503 --> 00:01:11.733
+Adding up each one takes up to n additions
+
+00:01:11.733 --> 00:01:15.290
+so three nested loops: O(n³).
+
+00:01:15.640 --> 00:01:19.023
+Better: precompute prefix sums.
+
+00:01:19.023 --> 00:01:23.716
+R[i] is the sum of the first i elements.
+
+00:01:23.825 --> 00:01:26.990
+Then the sum from i to j is
+
+00:01:27.099 --> 00:01:30.154
+R[j] - R[i - 1]
+
+00:01:30.154 --> 00:01:32.010
+one subtraction.
+
+00:01:32.010 --> 00:01:35.720
+Two nested loops: O(n²).
+
+00:01:36.070 --> 00:01:39.069
+And no algorithm can beat linear time
+
+00:01:39.069 --> 00:01:41.990
+since it must look at every element.
+
+00:01:42.570 --> 00:01:46.026
+Here is the prefix-sum version in Java.
+
+00:01:46.026 --> 00:01:48.418
+Java arrays start at zero
+
+00:01:48.507 --> 00:01:51.165
+so r[i] is the sum of a[0]
+
+00:01:51.254 --> 00:01:53.292
+up to a[i - 1]
+
+00:01:53.292 --> 00:01:55.330
+and r[0] is zero.
+
+00:01:55.680 --> 00:02:00.285
+Then two loops over all pairs i and j
+
+00:02:00.406 --> 00:02:03.557
+and the sum of a[i..j]
+
+00:02:03.678 --> 00:02:07.920
+is r[j + 1] - r[i].
+
+00:02:08.270 --> 00:02:11.612
+Look at where the inner loop starts
+
+00:02:11.612 --> 00:02:13.190
+at j = i.
+
+00:02:13.770 --> 00:02:14.729
+That matters.
+
+00:02:14.803 --> 00:02:16.941
+Subarrays of a single element
+
+00:02:17.015 --> 00:02:18.490
+must be counted too.
+
+00:02:18.840 --> 00:02:21.706
+If the inner loop started at i + 1
+
+00:02:21.778 --> 00:02:23.497
+a subarray of length 1
+
+00:02:23.569 --> 00:02:25.074
+would never be tried
+
+00:02:25.074 --> 00:02:27.366
+and on this all-negative array
+
+00:02:27.438 --> 00:02:29.301
+whose answer is the single
+
+00:02:29.373 --> 00:02:30.806
+element -3
+
+00:02:30.806 --> 00:02:33.600
+the program would give a wrong answer.
+
+00:02:34.180 --> 00:02:35.917
+Can we beat n²?
+
+00:02:35.917 --> 00:02:38.917
+Follow the divide-and-conquer recipe.
+
+00:02:38.917 --> 00:02:41.285
+One element is the base case.
+
+00:02:41.285 --> 00:02:42.154
+Otherwise
+
+00:02:42.154 --> 00:02:45.312
+divide the array at the middle index k
+
+00:02:45.312 --> 00:02:46.180
+here 4.
+
+00:02:46.530 --> 00:02:49.142
+A maximum subarray lies in exactly
+
+00:02:49.218 --> 00:02:50.755
+one of three places.
+
+00:02:50.755 --> 00:02:52.828
+Entirely in the left half
+
+00:02:52.828 --> 00:02:55.593
+that is the left half's own answer
+
+00:02:55.593 --> 00:02:56.976
+a recursive call.
+
+00:02:56.976 --> 00:02:59.127
+Entirely in the right half
+
+00:02:59.127 --> 00:03:00.970
+another recursive call.
+
+00:03:01.320 --> 00:03:03.230
+Or it crosses the middle
+
+00:03:03.230 --> 00:03:06.668
+starting at or before k and ending after it.
+
+00:03:06.744 --> 00:03:08.731
+That case is not a smaller
+
+00:03:08.807 --> 00:03:10.335
+copy of the problem
+
+00:03:10.412 --> 00:03:12.551
+the crossing subarray is not
+
+00:03:12.627 --> 00:03:14.690
+the answer for either half.
+
+00:03:14.690 --> 00:03:16.600
+It needs its own method.
+
+00:03:17.180 --> 00:03:19.837
+A crossing subarray has two parts
+
+00:03:19.837 --> 00:03:21.400
+one that ends at k
+
+00:03:21.400 --> 00:03:24.135
+and one that starts at k + 1.
+
+00:03:24.135 --> 00:03:27.496
+The two parts can be chosen independently.
+
+00:03:27.496 --> 00:03:30.465
+So take the best part that ends at k
+
+00:03:30.543 --> 00:03:32.341
+plus the best part that
+
+00:03:32.419 --> 00:03:34.060
+starts at k + 1.
+
+00:03:34.410 --> 00:03:37.494
+Before we walk: what is the best crossing
+
+00:03:37.570 --> 00:03:40.880
+subarray of this array, and what is its sum?
+
+00:03:40.880 --> 00:03:42.610
+Pause and work it out.
+
+00:03:46.190 --> 00:03:48.121
+Walk left from k
+
+00:03:48.121 --> 00:03:53.004
+keeping a running sum and the best so far.
+
+00:03:53.004 --> 00:03:57.319
+At 4: -5, best -5.
+
+00:03:57.319 --> 00:04:02.430
+At 3, add 17: 12, a new best.
+
+00:04:02.430 --> 00:04:05.950
+At 2, add -9: 3.
+
+00:04:06.200 --> 00:04:07.523
+At 1: 10.
+
+00:04:07.523 --> 00:04:09.286
+At 0: 7.
+
+00:04:09.286 --> 00:04:14.246
+So the best left part is a[3..4]
+
+00:04:14.246 --> 00:04:16.120
+with sum 12.
+
+00:04:16.370 --> 00:04:20.005
+Now walk right from k + 1.
+
+00:04:20.005 --> 00:04:23.874
+At 5: 28, the best.
+
+00:04:23.874 --> 00:04:25.633
+At 6: 7.
+
+00:04:25.633 --> 00:04:28.330
+At 7: 25.
+
+00:04:28.580 --> 00:04:30.417
+At 8: 19.
+
+00:04:30.417 --> 00:04:32.640
+At 9: 23.
+
+00:04:32.640 --> 00:04:36.700
+The best right part is just 28.
+
+00:04:36.950 --> 00:04:40.585
+Together: indices 3 to 5, 17
+
+00:04:40.585 --> 00:04:42.782
+-5, 28.
+
+00:04:42.782 --> 00:04:45.741
+12 + 28 is 40
+
+00:04:45.741 --> 00:04:47.346
+the answer we saw.
+
+00:04:47.346 --> 00:04:51.150
+Every element was visited once: linear time.
+
+00:04:51.730 --> 00:04:53.877
+Now the recursion puts it together.
+
+00:04:53.938 --> 00:04:55.717
+The two recursive calls solve
+
+00:04:55.778 --> 00:04:57.250
+the halves on their own.
+
+00:04:57.250 --> 00:04:59.765
+The left half's best is 17 alone
+
+00:04:59.826 --> 00:05:01.359
+and the right half's best
+
+00:05:01.421 --> 00:05:02.770
+is 28 alone.
+
+00:05:03.120 --> 00:05:05.572
+The crossing subarray, with 40
+
+00:05:05.572 --> 00:05:06.437
+beats both
+
+00:05:06.437 --> 00:05:09.321
+so the combine step returns case three.
+
+00:05:09.394 --> 00:05:11.124
+Notice that neither half
+
+00:05:11.196 --> 00:05:13.720
+could have found it: it needs both.
+
+00:05:14.300 --> 00:05:14.916
+In Java
+
+00:05:14.916 --> 00:05:18.225
+maxCrossSubarray does exactly this walk.
+
+00:05:18.225 --> 00:05:20.996
+leftSum starts at the smallest int
+
+00:05:20.996 --> 00:05:23.228
+standing for minus infinity
+
+00:05:23.228 --> 00:05:25.460
+and the running sum at zero.
+
+00:05:25.810 --> 00:05:29.407
+p goes from k down to i, adding a[p].
+
+00:05:29.407 --> 00:05:32.358
+Whenever the sum beats leftSum
+
+00:05:32.358 --> 00:05:35.770
+it records the sum and the position.
+
+00:05:36.120 --> 00:05:39.186
+The second loop is the mirror image
+
+00:05:39.186 --> 00:05:41.912
+q goes from k + 1 up to j.
+
+00:05:41.997 --> 00:05:44.041
+It returns both ends and
+
+00:05:44.126 --> 00:05:46.000
+leftSum + rightSum.
+
+00:05:46.580 --> 00:05:48.648
+And the whole algorithm.
+
+00:05:48.648 --> 00:05:52.180
+A range of one element is the base case.
+
+00:05:52.530 --> 00:05:55.205
+Divide at k = (i + j) / 2.
+
+00:05:55.205 --> 00:05:58.312
+Conquer the two halves recursively
+
+00:05:58.312 --> 00:06:01.850
+and find the crossing subarray directly.
+
+00:06:02.200 --> 00:06:02.928
+Combine
+
+00:06:02.928 --> 00:06:06.930
+if the left answer is at least both others
+
+00:06:06.930 --> 00:06:07.931
+return it.
+
+00:06:07.931 --> 00:06:11.296
+Else if the right one is, return it.
+
+00:06:11.296 --> 00:06:14.480
+Otherwise return the crossing one.
+
+00:06:14.830 --> 00:06:17.511
+The tests use greater than or equal
+
+00:06:17.511 --> 00:06:19.894
+so in a tie the left case wins.
+
+00:06:19.969 --> 00:06:22.054
+Any of the tied answers is a
+
+00:06:22.128 --> 00:06:23.990
+correct maximum subarray.
+
+00:06:24.570 --> 00:06:27.592
+The demo runs it on our three examples
+
+00:06:27.592 --> 00:06:30.613
+and finds 118, 40
+
+00:06:30.613 --> 00:06:31.930
+and -3.
+
+00:06:32.280 --> 00:06:36.990
+A fourth array gives 4, -1, 2
+
+00:06:36.990 --> 00:06:39.120
+1, with sum 6.
+
+00:06:39.470 --> 00:06:40.794
+For every array
+
+00:06:40.794 --> 00:06:44.350
+the brute force and the prefix sums agree.
+
+00:06:44.700 --> 00:06:47.490
+So it is correct on these inputs.
+
+00:06:47.490 --> 00:06:49.180
+But how fast is it?
+
+00:06:49.760 --> 00:06:52.351
+Let T(n) be the worst-case
+
+00:06:52.444 --> 00:06:56.237
+cost on n elements, and add up the lines.
+
+00:06:56.330 --> 00:06:58.921
+The base case and the divide
+
+00:06:59.013 --> 00:07:00.679
+step are constant.
+
+00:07:00.679 --> 00:07:04.472
+Conquering costs T(n/2)
+
+00:07:04.472 --> 00:07:05.120
+twice.
+
+00:07:05.470 --> 00:07:07.550
+The crossing subarray walks
+
+00:07:07.628 --> 00:07:10.941
+the whole range once, so it is linear in n.
+
+00:07:11.018 --> 00:07:13.252
+Picking the best of the three
+
+00:07:13.329 --> 00:07:14.870
+answers is constant.
+
+00:07:15.220 --> 00:07:18.571
+So T(n) is 2T(n/2)
+
+00:07:18.571 --> 00:07:22.634
+plus O(n): the merge-sort recurrence.
+
+00:07:22.634 --> 00:07:25.680
+a is 2, b is 2, d is 1
+
+00:07:25.680 --> 00:07:28.829
+and 2 equals 2 to the 1
+
+00:07:28.829 --> 00:07:32.078
+case one of the master theorem
+
+00:07:32.078 --> 00:07:33.500
+O(n log n).
+
+00:07:33.850 --> 00:07:36.256
+The recursion tree says the same
+
+00:07:36.256 --> 00:07:37.788
+log₂n levels
+
+00:07:37.788 --> 00:07:40.850
+and each level scans n elements in total.
+
+00:07:41.430 --> 00:07:45.303
+What do the three bounds mean in practice?
+
+00:07:45.303 --> 00:07:48.531
+This program counts the additions.
+
+00:07:48.531 --> 00:07:52.036
+For 10 elements: 220
+
+00:07:52.036 --> 00:07:54.710
+65, and 34.
+
+00:07:55.060 --> 00:07:56.974
+For 10,000 elements
+
+00:07:57.047 --> 00:08:00.064
+divide and conquer does about
+
+00:08:00.138 --> 00:08:02.051
+130,000 additions
+
+00:08:02.051 --> 00:08:04.333
+the prefix sums 50 million
+
+00:08:04.406 --> 00:08:06.540
+and the brute force about
+
+00:08:06.614 --> 00:08:08.380
+170 billion.
+
+00:08:08.730 --> 00:08:12.131
+There is even a linear algorithm, Kadane's
+
+00:08:12.131 --> 00:08:13.634
+in exercise 8.
+
+00:08:13.713 --> 00:08:16.797
+But the divide-and-conquer idea and its
+
+00:08:16.877 --> 00:08:19.566
+analysis carry over to merge sort
+
+00:08:19.566 --> 00:08:22.650
+quicksort and many algorithms to come.
+
+00:08:23.230 --> 00:08:25.015
+To sum up the lecture.
+
+00:08:25.015 --> 00:08:28.179
+One: the cost of a recursive algorithm
+
+00:08:28.260 --> 00:08:29.558
+is a recurrence
+
+00:08:29.558 --> 00:08:31.992
+and we solve it by unrolling
+
+00:08:31.992 --> 00:08:33.858
+with a recursion tree
+
+00:08:33.939 --> 00:08:36.049
+or by guessing and proving
+
+00:08:36.130 --> 00:08:37.590
+with substitution.
+
+00:08:37.940 --> 00:08:40.637
+Two: the master theorem.
+
+00:08:40.637 --> 00:08:45.018
+aT(n/b) + O(n^d)
+
+00:08:45.018 --> 00:08:48.726
+is n^d log n, n^d
+
+00:08:48.726 --> 00:08:53.444
+or n^(log_b a), as a equals
+
+00:08:53.444 --> 00:08:58.500
+is less than, or is greater than b^d.
+
+00:08:58.850 --> 00:09:01.421
+Three: maximum subarray takes
+
+00:09:01.504 --> 00:09:03.246
+n³ by brute force
+
+00:09:03.246 --> 00:09:05.568
+n² with prefix sums
+
+00:09:05.568 --> 00:09:08.471
+and n log n by divide and conquer
+
+00:09:08.554 --> 00:09:11.457
+because the crossing case is solved
+
+00:09:11.540 --> 00:09:13.530
+directly in linear time.
+
+00:09:13.880 --> 00:09:15.675
+Try this yourself
+
+00:09:15.675 --> 00:09:19.563
+trace maxSubarray on 2, -4
+
+00:09:19.563 --> 00:09:21.358
+3, -1.
+
+00:09:21.358 --> 00:09:25.446
+List the calls in the order they return
+
+00:09:25.446 --> 00:09:27.440
+with their results.
+
+00:09:27.790 --> 00:09:30.230
+Next lecture: lists.
+

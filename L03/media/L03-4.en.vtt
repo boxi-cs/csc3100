@@ -1,0 +1,725 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.821
+In this last part of the lecture
+
+00:00:02.821 --> 00:00:05.801
+we hand arrays and objects to methods.
+
+00:00:05.801 --> 00:00:08.551
+A method receives an int, an array
+
+00:00:08.551 --> 00:00:09.620
+or an object.
+
+00:00:09.620 --> 00:00:12.676
+Can it change the value the caller has?
+
+00:00:12.753 --> 00:00:15.579
+And can it make the caller's variable
+
+00:00:15.656 --> 00:00:17.260
+point somewhere else?
+
+00:00:17.610 --> 00:00:20.083
+The answers follow from one rule
+
+00:00:20.083 --> 00:00:22.330
+and once you see the machine
+
+00:00:22.330 --> 00:00:23.754
+frames and arrows
+
+00:00:23.829 --> 00:00:25.777
+every example in this part
+
+00:00:25.852 --> 00:00:27.650
+becomes easy to predict.
+
+00:00:28.230 --> 00:00:30.231
+There are two ways a language
+
+00:00:30.300 --> 00:00:31.749
+can pass an argument.
+
+00:00:31.749 --> 00:00:33.129
+With pass by value
+
+00:00:33.129 --> 00:00:35.889
+the value is copied into the parameter
+
+00:00:35.889 --> 00:00:37.614
+which is a new variable
+
+00:00:37.683 --> 00:00:39.685
+so assigning to the parameter
+
+00:00:39.754 --> 00:00:41.617
+does not affect the caller.
+
+00:00:41.617 --> 00:00:43.273
+With pass by reference
+
+00:00:43.342 --> 00:00:45.688
+the parameter is just another name
+
+00:00:45.757 --> 00:00:47.551
+for the caller's variable
+
+00:00:47.620 --> 00:00:49.966
+as with an int & parameter
+
+00:00:50.035 --> 00:00:51.070
+in C++.
+
+00:00:51.420 --> 00:00:53.647
+Java always passes by value.
+
+00:00:53.647 --> 00:00:56.113
+But for an array or an object
+
+00:00:56.193 --> 00:00:58.738
+the value stored in the variable
+
+00:00:58.818 --> 00:01:01.920
+is a reference, an arrow to the object.
+
+00:01:01.920 --> 00:01:05.500
+Passing it copies the arrow, not the object.
+
+00:01:05.850 --> 00:01:08.277
+So a method can change the object
+
+00:01:08.350 --> 00:01:10.556
+through its copy of the arrow
+
+00:01:10.630 --> 00:01:13.130
+but it can never make the caller's
+
+00:01:13.204 --> 00:01:15.410
+variable point somewhere else.
+
+00:01:15.990 --> 00:01:17.550
+Start with an int.
+
+00:01:17.550 --> 00:01:21.017
+main's frame on the call stack holds i
+
+00:01:21.017 --> 00:01:22.317
+equal to 5.
+
+00:01:22.317 --> 00:01:26.043
+The call, change(i), pushes a new frame
+
+00:01:26.043 --> 00:01:28.210
+with its own variable i
+
+00:01:28.210 --> 00:01:31.070
+initialised with a copy of 5.
+
+00:01:31.420 --> 00:01:32.607
+Inside change
+
+00:01:32.607 --> 00:01:35.320
+i = 10 changes that copy
+
+00:01:35.320 --> 00:01:37.015
+and only that copy.
+
+00:01:37.015 --> 00:01:40.576
+When change returns, its frame is popped
+
+00:01:40.576 --> 00:01:42.780
+and the 10 goes with it.
+
+00:01:43.130 --> 00:01:46.158
+So the program prints i = 5
+
+00:01:46.158 --> 00:01:48.850
+both before and after the call.
+
+00:01:49.430 --> 00:01:50.561
+Now an object.
+
+00:01:50.561 --> 00:01:53.791
+In main, s refers to a new StringBuffer
+
+00:01:53.872 --> 00:01:55.003
+holding "Hello".
+
+00:01:55.003 --> 00:01:57.426
+The variable holds the arrow
+
+00:01:57.426 --> 00:01:59.849
+the object lives on the heap.
+
+00:01:59.930 --> 00:02:03.160
+Calling change(s) pushes a frame whose
+
+00:02:03.241 --> 00:02:06.310
+parameter t gets a copy of that arrow.
+
+00:02:06.660 --> 00:02:09.071
+Two arrows, one object.
+
+00:02:09.176 --> 00:02:12.635
+So t.append("world !") changes the
+
+00:02:12.740 --> 00:02:15.780
+very object that s refers to.
+
+00:02:16.130 --> 00:02:19.303
+When change returns, t disappears
+
+00:02:19.303 --> 00:02:22.663
+but the change to the object stays.
+
+00:02:22.663 --> 00:02:26.490
+After the call, main prints "Hello world".
+
+00:02:27.070 --> 00:02:30.299
+A tempting idea: inside change
+
+00:02:30.299 --> 00:02:33.112
+give t a brand-new object
+
+00:02:33.112 --> 00:02:35.404
+and main will see it.
+
+00:02:35.404 --> 00:02:36.758
+Let's check.
+
+00:02:36.862 --> 00:02:39.571
+Again t starts with a copy
+
+00:02:39.675 --> 00:02:41.550
+of the arrow in s.
+
+00:02:41.900 --> 00:02:43.176
+The first line
+
+00:02:43.176 --> 00:02:45.729
+t = new StringBuffer("Hi")
+
+00:02:45.729 --> 00:02:47.941
+points t at a new object.
+
+00:02:47.941 --> 00:02:49.047
+From now on
+
+00:02:49.047 --> 00:02:52.110
+t and s point to different objects.
+
+00:02:52.110 --> 00:02:55.258
+The append changes only the new one
+
+00:02:55.258 --> 00:02:57.300
+which becomes "Hi world".
+
+00:02:57.650 --> 00:03:00.123
+Main's object was never touched.
+
+00:03:00.123 --> 00:03:03.370
+When change returns, its frame is popped
+
+00:03:03.370 --> 00:03:06.539
+and nothing refers to "Hi world" any more
+
+00:03:06.539 --> 00:03:07.930
+so it is garbage.
+
+00:03:08.280 --> 00:03:10.324
+So both lines print "Hello".
+
+00:03:10.402 --> 00:03:13.154
+Assigning to a parameter only moves
+
+00:03:13.232 --> 00:03:15.040
+the method's own arrow.
+
+00:03:15.620 --> 00:03:16.556
+Your turn.
+
+00:03:16.556 --> 00:03:19.083
+An array is an object too.
+
+00:03:19.083 --> 00:03:23.200
+Main makes x, the array {7, 8, 9}.
+
+00:03:23.200 --> 00:03:26.475
+zeroFirst sets a[0] to 0.
+
+00:03:26.569 --> 00:03:28.721
+replace sets a to a new
+
+00:03:28.815 --> 00:03:30.780
+array of three zeros.
+
+00:03:31.130 --> 00:03:34.246
+Main calls zeroFirst(x)
+
+00:03:34.246 --> 00:03:36.439
+then replace(x).
+
+00:03:36.439 --> 00:03:38.978
+What is x afterwards?
+
+00:03:38.978 --> 00:03:42.210
+Pause the video and decide.
+
+00:03:45.790 --> 00:03:48.854
+zeroFirst gets a copy of the arrow in x.
+
+00:03:48.854 --> 00:03:51.993
+Through it, a[0] = 0 changes
+
+00:03:52.068 --> 00:03:53.338
+the array itself.
+
+00:03:53.338 --> 00:03:54.908
+The frame is popped
+
+00:03:54.908 --> 00:03:57.150
+but the array keeps its 0.
+
+00:03:57.500 --> 00:04:00.339
+replace also gets a copy of the arrow.
+
+00:04:00.413 --> 00:04:03.775
+a = new int[] makes the method's own
+
+00:04:03.849 --> 00:04:06.688
+arrow point to a fresh array of zeros.
+
+00:04:06.688 --> 00:04:08.331
+When replace returns
+
+00:04:08.331 --> 00:04:11.020
+that arrow and that array are gone.
+
+00:04:11.370 --> 00:04:13.604
+So x is {0, 8, 9}.
+
+00:04:13.604 --> 00:04:16.440
+The first method is like append
+
+00:04:16.526 --> 00:04:19.533
+the second is like the reassignment
+
+00:04:19.619 --> 00:04:20.650
+we just saw.
+
+00:04:21.230 --> 00:04:25.182
+Here is a job: swap the first and the last
+
+00:04:25.276 --> 00:04:27.158
+element of an array.
+
+00:04:27.158 --> 00:04:31.391
+A natural first try passes the two elements
+
+00:04:31.486 --> 00:04:33.744
+swapWrong of array[0]
+
+00:04:33.838 --> 00:04:35.908
+and array[n - 1].
+
+00:04:36.002 --> 00:04:38.166
+Its frame gets a =
+
+00:04:38.260 --> 00:04:40.330
+1 and b = 5
+
+00:04:40.330 --> 00:04:42.870
+copies of the two numbers.
+
+00:04:43.220 --> 00:04:47.494
+tmp = a, a = b, b = tmp.
+
+00:04:47.494 --> 00:04:51.038
+Inside the method the swap works
+
+00:04:51.038 --> 00:04:53.540
+a is 5 and b is 1.
+
+00:04:53.890 --> 00:04:55.486
+But those were copies.
+
+00:04:55.486 --> 00:04:57.010
+The frame is popped
+
+00:04:57.010 --> 00:04:59.912
+and the array is still 1, 2, 3
+
+00:04:59.912 --> 00:05:00.783
+4, 5.
+
+00:05:00.783 --> 00:05:03.250
+Passing the elements cannot work.
+
+00:05:03.830 --> 00:05:06.286
+The right way passes the array
+
+00:05:06.286 --> 00:05:08.900
+which means a copy of the reference
+
+00:05:08.900 --> 00:05:10.722
+and the two positions
+
+00:05:10.722 --> 00:05:13.416
+swapElements of the array, 0
+
+00:05:13.416 --> 00:05:16.030
+and the last index, n - 1.
+
+00:05:16.380 --> 00:05:19.453
+tmp = a[p1] saves the 1.
+
+00:05:19.536 --> 00:05:22.443
+a[p1] = a[p2] copies
+
+00:05:22.526 --> 00:05:24.353
+the 5 to the front
+
+00:05:24.436 --> 00:05:26.595
+and a[p2] = tmp
+
+00:05:26.678 --> 00:05:28.671
+puts the 1 at the end.
+
+00:05:28.754 --> 00:05:30.748
+These assignments change
+
+00:05:30.831 --> 00:05:32.741
+the cells of the array
+
+00:05:32.741 --> 00:05:34.900
+through the copied reference.
+
+00:05:35.250 --> 00:05:40.760
+After the call, main sees 5, 2, 3
+
+00:05:40.760 --> 00:05:42.170
+4, 1.
+
+00:05:42.750 --> 00:05:45.827
+Now a loop that swaps element i with
+
+00:05:45.912 --> 00:05:48.306
+element n - i - 1
+
+00:05:48.306 --> 00:05:51.126
+while i is less than n / 2.
+
+00:05:51.126 --> 00:05:54.032
+i = 0 swaps the two ends
+
+00:05:54.117 --> 00:05:56.852
+which puts the 1 back in front
+
+00:05:56.938 --> 00:05:58.989
+and the 5 at the end.
+
+00:05:58.989 --> 00:06:02.750
+i = 1 swaps positions 1 and 3
+
+00:06:02.750 --> 00:06:04.630
+the 2 and the 4.
+
+00:06:04.980 --> 00:06:08.563
+The result is 1, 4, 3, 2, 5
+
+00:06:08.563 --> 00:06:10.952
+the array we had, reversed.
+
+00:06:10.952 --> 00:06:13.512
+The loop stops at n / 2.
+
+00:06:13.597 --> 00:06:16.413
+Running it all the way to n would
+
+00:06:16.498 --> 00:06:18.375
+swap every pair twice
+
+00:06:18.375 --> 00:06:21.020
+and leave the array as it was.
+
+00:06:21.600 --> 00:06:24.290
+The same question with objects.
+
+00:06:24.290 --> 00:06:28.194
+Main has two points, obj1 at 1, 2
+
+00:06:28.194 --> 00:06:30.883
+and obj2 at 10, 20
+
+00:06:30.883 --> 00:06:34.787
+and calls swap(obj1, obj2).
+
+00:06:34.874 --> 00:06:37.824
+The parameters objA and objB
+
+00:06:37.911 --> 00:06:40.600
+are copies of the two arrows.
+
+00:06:40.950 --> 00:06:43.155
+tmp = objA
+
+00:06:43.155 --> 00:06:46.305
+tmp also points to 1, 2.
+
+00:06:46.305 --> 00:06:49.035
+objA = objB
+
+00:06:49.035 --> 00:06:52.815
+objA now points to 10, 20.
+
+00:06:52.815 --> 00:06:55.125
+objB = tmp
+
+00:06:55.125 --> 00:06:58.590
+objB now points to 1, 2.
+
+00:06:58.940 --> 00:07:01.125
+Inside swap, the swap worked
+
+00:07:01.125 --> 00:07:03.385
+and the prints there show it.
+
+00:07:03.460 --> 00:07:06.323
+But the method never assigned anything
+
+00:07:06.399 --> 00:07:08.508
+to obj1 or obj2.
+
+00:07:08.584 --> 00:07:10.467
+After the call they point
+
+00:07:10.542 --> 00:07:12.200
+where they always did
+
+00:07:12.200 --> 00:07:14.460
+obj1 is still 1, 2.
+
+00:07:15.040 --> 00:07:16.810
+To swap the contents
+
+00:07:16.810 --> 00:07:19.422
+change the objects themselves
+
+00:07:19.422 --> 00:07:21.107
+through the arrows.
+
+00:07:21.192 --> 00:07:24.478
+swapValues saves the x and y of objA
+
+00:07:24.562 --> 00:07:26.669
+in temporary variables,
+
+00:07:26.753 --> 00:07:29.113
+copies the x and y of objB
+
+00:07:29.197 --> 00:07:30.545
+into objA,
+
+00:07:30.545 --> 00:07:34.000
+and puts the saved values into objB.
+
+00:07:34.350 --> 00:07:37.522
+Now the objects themselves have changed
+
+00:07:37.522 --> 00:07:40.694
+so main sees obj1 at 10, 20
+
+00:07:40.694 --> 00:07:42.914
+and obj2 at 1, 2.
+
+00:07:42.994 --> 00:07:45.531
+Java has no statement that swaps
+
+00:07:45.610 --> 00:07:47.831
+two variables of the caller;
+
+00:07:47.910 --> 00:07:50.368
+you write the three assignments
+
+00:07:50.448 --> 00:07:52.430
+where the variables live.
+
+00:07:53.010 --> 00:07:56.445
+The same rule covers plain assignment.
+
+00:07:56.445 --> 00:08:00.150
+Declaring b = a copies the arrow
+
+00:08:00.150 --> 00:08:03.766
+so a and b are two names for one array
+
+00:08:03.766 --> 00:08:04.579
+aliases.
+
+00:08:04.579 --> 00:08:08.647
+To get a second, independent array, copy it
+
+00:08:08.647 --> 00:08:11.810
+for example by calling clone on a.
+
+00:08:12.160 --> 00:08:15.487
+Now b[0] = 99 changes
+
+00:08:15.570 --> 00:08:18.315
+the one array that a and b share.
+
+00:08:18.315 --> 00:08:21.974
+a and b both print 99, 2, 3
+
+00:08:21.974 --> 00:08:25.218
+while c, the clone, is still 1, 2
+
+00:08:25.218 --> 00:08:25.800
+3.
+
+00:08:26.150 --> 00:08:29.618
+Likewise, == on arrays asks
+
+00:08:29.618 --> 00:08:31.575
+is it the same array?
+
+00:08:31.575 --> 00:08:34.332
+d holds the same numbers as a
+
+00:08:34.332 --> 00:08:36.911
+but it is a different array
+
+00:08:36.911 --> 00:08:39.668
+so a == d is false
+
+00:08:39.668 --> 00:08:41.891
+while Arrays.equals
+
+00:08:41.891 --> 00:08:45.270
+which compares the contents, is true.
+
+00:08:45.850 --> 00:08:47.571
+Let's step back and look
+
+00:08:47.643 --> 00:08:49.149
+at the whole lecture.
+
+00:08:49.221 --> 00:08:51.158
+An array stores elements of
+
+00:08:51.229 --> 00:08:52.807
+one type side by side
+
+00:08:52.807 --> 00:08:54.816
+and we reach them by index.
+
+00:08:54.816 --> 00:08:56.035
+Given the index
+
+00:08:56.035 --> 00:08:58.402
+an element is found in one step
+
+00:08:58.402 --> 00:09:00.195
+random access, O(1).
+
+00:09:00.267 --> 00:09:02.418
+A sorted array can be searched
+
+00:09:02.490 --> 00:09:04.929
+with binary search, in O(log n).
+
+00:09:04.929 --> 00:09:06.650
+And arrays are compact
+
+00:09:06.650 --> 00:09:09.160
+and sit underneath stacks, queues
+
+00:09:09.160 --> 00:09:10.810
+heaps and hash tables.
+
+00:09:11.160 --> 00:09:13.914
+The price: the capacity is fixed when
+
+00:09:13.988 --> 00:09:15.551
+the array is created
+
+00:09:15.551 --> 00:09:18.603
+so growing means a new array and a copy
+
+00:09:18.603 --> 00:09:19.198
+O(n).
+
+00:09:19.273 --> 00:09:22.175
+And inserting or deleting in the middle
+
+00:09:22.250 --> 00:09:25.078
+means shifting all the later elements
+
+00:09:25.078 --> 00:09:26.120
+O(n) again.
+
+00:09:26.700 --> 00:09:28.274
+To sum up this part.
+
+00:09:28.274 --> 00:09:31.579
+One: Java passes every argument by value
+
+00:09:31.579 --> 00:09:34.018
+and for an array or an object
+
+00:09:34.018 --> 00:09:36.142
+that value is a reference.
+
+00:09:36.142 --> 00:09:39.290
+Two: through its copy of the reference
+
+00:09:39.368 --> 00:09:41.729
+a method can change the object
+
+00:09:41.808 --> 00:09:43.460
+or the array's cells.
+
+00:09:43.810 --> 00:09:44.310
+Three
+
+00:09:44.354 --> 00:09:47.308
+assigning to a parameter never changes
+
+00:09:47.386 --> 00:09:49.096
+the caller's variable.
+
+00:09:49.174 --> 00:09:52.127
+That is why swapWrong and swap of two
+
+00:09:52.205 --> 00:09:54.770
+points do nothing for the caller.
+
+00:09:55.120 --> 00:09:56.811
+Try this yourself.
+
+00:09:56.811 --> 00:10:00.943
+Move all the zeros of 1, 0, 2, 0
+
+00:10:00.943 --> 00:10:03.760
+0, 3, 4 to the end
+
+00:10:03.760 --> 00:10:07.611
+keeping the order of the other elements
+
+00:10:07.611 --> 00:10:09.301
+in a single pass.
+
+00:10:09.301 --> 00:10:12.400
+Hint: keep a write index for the
+
+00:10:12.494 --> 00:10:14.560
+next non-zero element.
+
+00:10:14.910 --> 00:10:18.413
+Next lecture, we put arrays to work
+
+00:10:18.413 --> 00:10:21.430
+insertion sort and merge sort.
+

@@ -1,0 +1,722 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.183
+Last lecture we counted the
+
+00:00:02.253 --> 00:00:03.647
+operations of loops.
+
+00:00:03.717 --> 00:00:06.019
+But a recursive method has a line
+
+00:00:06.088 --> 00:00:07.832
+we cannot count directly
+
+00:00:07.832 --> 00:00:09.227
+the call to itself.
+
+00:00:09.227 --> 00:00:11.040
+What does this call cost?
+
+00:00:11.040 --> 00:00:14.108
+That depends on what a binary search costs
+
+00:00:14.108 --> 00:00:16.340
+the very thing we want to find.
+
+00:00:16.690 --> 00:00:19.456
+The way out is to write the cost as
+
+00:00:19.535 --> 00:00:22.222
+an equation that refers to itself
+
+00:00:22.222 --> 00:00:23.328
+a recurrence.
+
+00:00:23.328 --> 00:00:25.778
+We will solve it by unrolling
+
+00:00:25.778 --> 00:00:29.176
+with recursion trees, and by substitution.
+
+00:00:29.255 --> 00:00:32.337
+Then come the master theorem and a real
+
+00:00:32.416 --> 00:00:34.708
+divide-and-conquer algorithm
+
+00:00:34.708 --> 00:00:36.130
+maximum subarray.
+
+00:00:36.710 --> 00:00:39.010
+First, a quick review.
+
+00:00:39.115 --> 00:00:43.088
+g(n) is O(f(n)) if there are
+
+00:00:43.193 --> 00:00:46.957
+positive constants c and n₀ with
+
+00:00:47.062 --> 00:00:50.198
+g(n) ≤ c * f(n)
+
+00:00:50.198 --> 00:00:54.590
+for all n from n₀ on: an upper bound.
+
+00:00:54.940 --> 00:00:58.083
+Big Omega is the same with at least
+
+00:00:58.083 --> 00:00:59.393
+a lower bound.
+
+00:00:59.393 --> 00:01:02.100
+If both hold, it is big Theta.
+
+00:01:02.450 --> 00:01:05.873
+A worst-case analysis counts the basic
+
+00:01:05.963 --> 00:01:09.566
+operations in the worst case, as T(n)
+
+00:01:09.566 --> 00:01:13.530
+and then bounds T(n), usually with O.
+
+00:01:14.110 --> 00:01:17.382
+For example, 3n + 5
+
+00:01:17.382 --> 00:01:19.070
+against 4n.
+
+00:01:19.420 --> 00:01:22.452
+3n + 5 ≤ 4n
+
+00:01:22.538 --> 00:01:25.310
+exactly when n ≥ 5.
+
+00:01:25.397 --> 00:01:27.909
+So c = 4 and n₀ = 5
+
+00:01:27.996 --> 00:01:29.641
+work
+
+00:01:29.641 --> 00:01:32.500
+3n + 5 is O(n).
+
+00:01:32.850 --> 00:01:36.138
+Is n² O(100n)?
+
+00:01:36.138 --> 00:01:36.525
+No
+
+00:01:36.525 --> 00:01:40.684
+we would need n ≤ 100c
+
+00:01:40.780 --> 00:01:43.779
+and that fails once n is larger
+
+00:01:43.875 --> 00:01:46.970
+than 100c, whatever c is.
+
+00:01:47.550 --> 00:01:50.818
+Here is binary search, written recursively.
+
+00:01:50.894 --> 00:01:53.174
+It looks for key in the sorted
+
+00:01:53.250 --> 00:01:55.150
+range from left to right.
+
+00:01:55.500 --> 00:01:59.321
+If the range is empty, the key is not there
+
+00:01:59.321 --> 00:02:00.885
+return -1.
+
+00:02:00.885 --> 00:02:02.969
+If one element is left
+
+00:02:02.969 --> 00:02:05.140
+compare it with the key.
+
+00:02:05.490 --> 00:02:08.192
+Otherwise compute the middle index.
+
+00:02:08.192 --> 00:02:11.126
+If the middle element equals the key
+
+00:02:11.126 --> 00:02:12.130
+we are done.
+
+00:02:12.480 --> 00:02:15.110
+If the middle element is smaller
+
+00:02:15.110 --> 00:02:18.697
+search the right half, from middle + 1.
+
+00:02:18.697 --> 00:02:21.247
+Otherwise search the left half
+
+00:02:21.247 --> 00:02:23.160
+up to middle - 1.
+
+00:02:23.510 --> 00:02:26.050
+So each call either finishes
+
+00:02:26.138 --> 00:02:28.503
+or makes one recursive call
+
+00:02:28.591 --> 00:02:30.430
+on half of the range.
+
+00:02:31.010 --> 00:02:33.573
+Let us run it on this sorted
+
+00:02:33.665 --> 00:02:37.418
+array of 8 numbers: 1, 3, 5
+
+00:02:37.418 --> 00:02:41.263
+6, 16, 78, 100
+
+00:02:41.263 --> 00:02:43.552
+135.
+
+00:02:43.552 --> 00:02:46.573
+The demo searches for 4 keys
+
+00:02:46.573 --> 00:02:48.861
+100, 7, 1
+
+00:02:48.861 --> 00:02:51.516
+and 135
+
+00:02:51.516 --> 00:02:53.530
+and counts the calls.
+
+00:02:53.880 --> 00:02:57.442
+Which of these keys needs the most calls?
+
+00:02:57.529 --> 00:03:00.483
+And how many calls can an array of
+
+00:03:00.570 --> 00:03:03.003
+8 elements need at most?
+
+00:03:03.003 --> 00:03:04.480
+Pause and think.
+
+00:03:08.060 --> 00:03:09.503
+Key 100.
+
+00:03:09.503 --> 00:03:12.751
+0 to 7: the middle is 3
+
+00:03:12.751 --> 00:03:15.727
+and 6 is smaller, so go right.
+
+00:03:15.727 --> 00:03:18.884
+4 to 7: the middle is 5
+
+00:03:18.884 --> 00:03:21.590
+78, still smaller.
+
+00:03:21.590 --> 00:03:23.034
+Go right again.
+
+00:03:23.034 --> 00:03:26.010
+6 to 7: the middle is 6
+
+00:03:26.010 --> 00:03:28.265
+and that is 100.
+
+00:03:28.265 --> 00:03:30.340
+Found, in 3 calls.
+
+00:03:30.590 --> 00:03:33.374
+Key 7, which is missing.
+
+00:03:33.374 --> 00:03:37.451
+0 to 7: 6 is smaller, go right.
+
+00:03:37.451 --> 00:03:41.429
+4 to 7: 78 is larger
+
+00:03:41.429 --> 00:03:44.014
+go left, to 4 to 4.
+
+00:03:44.014 --> 00:03:46.998
+1 element is left, 16
+
+00:03:46.998 --> 00:03:48.986
+which is not 7.
+
+00:03:48.986 --> 00:03:51.870
+3 calls, then -1.
+
+00:03:52.120 --> 00:03:52.985
+Key 1.
+
+00:03:52.985 --> 00:03:55.578
+0 to 7, go left.
+
+00:03:55.578 --> 00:03:59.036
+0 to 2: the middle is 1
+
+00:03:59.036 --> 00:04:01.846
+3 is larger, go left.
+
+00:04:01.846 --> 00:04:05.520
+0 to 0: found, 3 calls.
+
+00:04:05.770 --> 00:04:08.327
+Key 135.
+
+00:04:08.327 --> 00:04:10.609
+0 to 7, go right.
+
+00:04:10.609 --> 00:04:12.892
+4 to 7, go right.
+
+00:04:12.892 --> 00:04:16.361
+6 to 7: 100 is smaller
+
+00:04:16.361 --> 00:04:20.196
+so go right once more, to 7 to 7.
+
+00:04:20.196 --> 00:04:22.570
+Found, but in 4 calls.
+
+00:04:22.820 --> 00:04:24.767
+So 135
+
+00:04:24.842 --> 00:04:26.414
+needs the most calls
+
+00:04:26.414 --> 00:04:29.260
+an array of 8 needs at most 4.
+
+00:04:29.840 --> 00:04:33.303
+Binary search is famously easy to get wrong.
+
+00:04:33.381 --> 00:04:35.506
+The first one was published
+
+00:04:35.585 --> 00:04:37.316
+in 1946
+
+00:04:37.316 --> 00:04:40.070
+the first that worked for every n
+
+00:04:40.070 --> 00:04:41.880
+in 1962.
+
+00:04:42.230 --> 00:04:44.630
+When Jon Bentley asked professional
+
+00:04:44.699 --> 00:04:46.413
+programmers to write one,
+
+00:04:46.413 --> 00:04:48.950
+only about 10% got it right.
+
+00:04:49.300 --> 00:04:51.347
+And in 2006
+
+00:04:51.432 --> 00:04:53.479
+Joshua Bloch found a bug
+
+00:04:53.564 --> 00:04:55.440
+in Java's own library
+
+00:04:55.526 --> 00:04:58.084
+left + right overflows once
+
+00:04:58.169 --> 00:05:00.387
+it passes the largest int
+
+00:05:00.387 --> 00:05:02.860
+about 2.1 billion.
+
+00:05:03.210 --> 00:05:06.600
+left + (right - left) / 2
+
+00:05:06.600 --> 00:05:10.525
+gives the same middle without the overflow.
+
+00:05:10.525 --> 00:05:13.290
+Test the small, awkward cases.
+
+00:05:13.870 --> 00:05:17.037
+The version on the slides has exactly
+
+00:05:17.122 --> 00:05:18.920
+such an awkward case.
+
+00:05:19.005 --> 00:05:21.059
+It has a base case for a
+
+00:05:21.145 --> 00:05:22.942
+range of one element
+
+00:05:22.942 --> 00:05:25.424
+but none for an empty range.
+
+00:05:25.424 --> 00:05:27.564
+Searching the array 1, 3
+
+00:05:27.564 --> 00:05:31.158
+for the key 3 works: two calls
+
+00:05:31.158 --> 00:05:32.870
+and it returns 1.
+
+00:05:33.220 --> 00:05:35.030
+Now search for 0,
+
+00:05:35.030 --> 00:05:38.106
+which is smaller than everything.
+
+00:05:38.106 --> 00:05:40.368
+Call 1 is 0 to 1,
+
+00:05:40.368 --> 00:05:43.535
+and call 2 is 0 to -1,
+
+00:05:43.535 --> 00:05:44.983
+an empty range.
+
+00:05:44.983 --> 00:05:48.512
+Call 3 is 0 to -1 again,
+
+00:05:48.512 --> 00:05:50.412
+and so is call 4.
+
+00:05:50.412 --> 00:05:51.860
+It never stops
+
+00:05:51.860 --> 00:05:55.660
+until Java throws a stack overflow error.
+
+00:05:56.010 --> 00:05:59.570
+Why does it repeat the same call?
+
+00:06:00.150 --> 00:06:01.974
+Look at the call stack.
+
+00:06:01.974 --> 00:06:04.670
+The first call is on 0 to 1.
+
+00:06:04.670 --> 00:06:06.255
+The middle is 0
+
+00:06:06.255 --> 00:06:08.555
+and 1 is larger than 0
+
+00:06:08.555 --> 00:06:11.171
+so it calls itself on left 0,
+
+00:06:11.171 --> 00:06:12.519
+right -1.
+
+00:06:12.519 --> 00:06:15.612
+In that call, Java computes the middle
+
+00:06:15.691 --> 00:06:18.308
+as (0 + -1) / 2
+
+00:06:18.308 --> 00:06:19.497
+which is 0
+
+00:06:19.497 --> 00:06:22.510
+integer division rounds towards 0.
+
+00:06:22.860 --> 00:06:25.948
+arr[0] is 1, larger than 0
+
+00:06:26.031 --> 00:06:28.869
+so it calls itself again with left
+
+00:06:28.952 --> 00:06:32.374
+0 and right -1, the same range
+
+00:06:32.374 --> 00:06:33.793
+again and again
+
+00:06:33.793 --> 00:06:36.380
+until the call stack runs out.
+
+00:06:36.730 --> 00:06:39.089
+The fix is one more base case:
+
+00:06:39.089 --> 00:06:41.527
+if left > right
+
+00:06:41.527 --> 00:06:42.943
+return -1.
+
+00:06:42.943 --> 00:06:46.010
+That is the first test in our version.
+
+00:06:46.590 --> 00:06:49.642
+Now count the operations of our version
+
+00:06:49.642 --> 00:06:51.091
+in the worst case.
+
+00:06:51.167 --> 00:06:53.837
+Every line except the two recursive
+
+00:06:53.914 --> 00:06:55.821
+calls does constant work
+
+00:06:55.821 --> 00:06:57.957
+however large the array is.
+
+00:06:57.957 --> 00:07:01.390
+Together they cost some constant: call it a.
+
+00:07:01.740 --> 00:07:04.493
+What remains is the recursive call
+
+00:07:04.493 --> 00:07:07.876
+either the right one or the left one runs
+
+00:07:07.876 --> 00:07:08.820
+never both.
+
+00:07:09.170 --> 00:07:11.166
+We do not know its cost yet.
+
+00:07:11.166 --> 00:07:13.090
+But we can give it a name.
+
+00:07:13.670 --> 00:07:16.514
+Define T(n) as the number of basic
+
+00:07:16.593 --> 00:07:19.595
+operations that binary search executes
+
+00:07:19.674 --> 00:07:23.150
+in the worst case, on a range of n elements.
+
+00:07:23.500 --> 00:07:25.540
+The other lines cost a.
+
+00:07:25.890 --> 00:07:28.611
+The call is a binary search on
+
+00:07:28.701 --> 00:07:31.059
+about n/2 elements
+
+00:07:31.150 --> 00:07:34.143
+so by our own definition it costs
+
+00:07:34.234 --> 00:07:36.410
+at most T(n/2).
+
+00:07:36.760 --> 00:07:40.911
+So T(n) = T(n/2) + a.
+
+00:07:40.911 --> 00:07:42.835
+And T(1) is b
+
+00:07:42.835 --> 00:07:46.480
+the constant cost of the base case.
+
+00:07:46.830 --> 00:07:50.049
+An equation that defines T(n) by T
+
+00:07:50.139 --> 00:07:53.179
+at smaller values is a recurrence.
+
+00:07:53.179 --> 00:07:55.057
+It mirrors the code
+
+00:07:55.057 --> 00:07:57.561
+one call on half the input
+
+00:07:57.561 --> 00:07:59.350
+plus constant work.
+
+00:07:59.930 --> 00:08:02.245
+To solve it, unroll it
+
+00:08:02.346 --> 00:08:04.963
+replace T(n/2) by
+
+00:08:05.064 --> 00:08:08.989
+the recurrence itself, again and again
+
+00:08:08.989 --> 00:08:11.506
+until we reach T(1).
+
+00:08:11.506 --> 00:08:13.519
+A small case first
+
+00:08:13.519 --> 00:08:16.539
+T(4) is T(2) + a
+
+00:08:16.539 --> 00:08:19.961
+which is T(1) + a + a
+
+00:08:19.961 --> 00:08:21.370
+2a + b.
+
+00:08:21.720 --> 00:08:25.114
+Now any n that is a power of two
+
+00:08:25.114 --> 00:08:27.686
+n = 2ˣ.
+
+00:08:27.686 --> 00:08:31.286
+T(n) is T(n/2) + a.
+
+00:08:31.286 --> 00:08:35.297
+Unroll once: T(n/4) + a
+
+00:08:35.297 --> 00:08:36.120
++ a.
+
+00:08:36.120 --> 00:08:40.440
+Again: T(n/8) + 3a.
+
+00:08:40.790 --> 00:08:45.203
+After x steps, T(n / 2ˣ)
+
+00:08:45.203 --> 00:08:46.968
++ xa.
+
+00:08:46.968 --> 00:08:50.498
+And n / 2ˣ is 1
+
+00:08:50.498 --> 00:08:54.470
+so this is T(1) + xa.
+
+00:08:54.820 --> 00:08:59.187
+After x halvings one element is left
+
+00:08:59.187 --> 00:09:01.783
+so x is log₂ n.
+
+00:09:01.783 --> 00:09:06.740
+T(n) is a log₂ n + b: O(log n).
+
+00:09:07.090 --> 00:09:08.062
+Quick check
+
+00:09:08.062 --> 00:09:11.222
+what is T(1024)?
+
+00:09:11.222 --> 00:09:14.787
+1024 is 2 to the 10
+
+00:09:14.787 --> 00:09:16.650
+so it is 10a + b.
+
+00:09:17.230 --> 00:09:20.257
+What if n is not a power of two?
+
+00:09:20.257 --> 00:09:22.906
+Pad the array in your mind
+
+00:09:22.906 --> 00:09:25.934
+take the smallest power of two
+
+00:09:25.934 --> 00:09:29.150
+2 to the x, that is at least n.
+
+00:09:29.500 --> 00:09:32.948
+More elements never cost less
+
+00:09:32.948 --> 00:09:36.740
+so T(n) is at most ax + b.
+
+00:09:37.090 --> 00:09:41.526
+That is at most a log₂ n, plus a plus b
+
+00:09:41.526 --> 00:09:43.383
+still O(log n).
+
+00:09:43.383 --> 00:09:46.890
+From now on we use powers of two.
+
+00:09:47.470 --> 00:09:49.327
+This program checks it with
+
+00:09:49.396 --> 00:09:51.597
+the call counter: for each size
+
+00:09:51.597 --> 00:09:54.485
+the worst number of calls over every key.
+
+00:09:54.485 --> 00:09:55.723
+For 1000
+
+00:09:55.792 --> 00:09:57.718
+1024 and
+
+00:09:57.786 --> 00:09:59.506
+1025
+
+00:09:59.506 --> 00:10:00.950
+it is 10 or 11.
+
+00:10:01.300 --> 00:10:04.620
+For a million elements, 20 calls.
+
+00:10:04.970 --> 00:10:07.941
+In every row it is exactly the
+
+00:10:08.041 --> 00:10:11.210
+floor of log₂ n, plus 1.
+
+00:10:11.790 --> 00:10:12.770
+To sum up.
+
+00:10:12.770 --> 00:10:16.298
+One: the cost of a recursive method
+
+00:10:16.396 --> 00:10:17.964
+is a recurrence.
+
+00:10:17.964 --> 00:10:19.826
+For binary search
+
+00:10:19.826 --> 00:10:23.648
+T(n) equals T(n/2) + a.
+
+00:10:23.648 --> 00:10:26.882
+Two: unroll it down to T(1)
+
+00:10:26.882 --> 00:10:30.214
+and T(n) is a log₂ n + b
+
+00:10:30.214 --> 00:10:31.390
+O(log n).
+
+00:10:31.740 --> 00:10:34.374
+Three: test the small, awkward cases
+
+00:10:34.374 --> 00:10:35.941
+like the empty range
+
+00:10:35.941 --> 00:10:38.860
+and compute the middle without overflow.
+
+00:10:39.210 --> 00:10:40.766
+Try this yourself
+
+00:10:40.853 --> 00:10:43.446
+unroll the same recurrence for
+
+00:10:43.533 --> 00:10:47.250
+n equal to 32, in terms of a and b.
+
+00:10:47.600 --> 00:10:50.800
+Next: recursion that shrinks the problem
+
+00:10:50.880 --> 00:10:54.240
+by one instead of by half, selection sort
+
+00:10:54.240 --> 00:10:55.920
+and recursion trees.
+

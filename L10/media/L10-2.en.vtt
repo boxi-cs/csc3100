@@ -1,0 +1,626 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:01.223
+In part one
+
+00:00:01.223 --> 00:00:03.760
+the array queue ran out of room
+
+00:00:03.760 --> 00:00:06.220
+front and rear only move right.
+
+00:00:06.220 --> 00:00:07.527
+Here is the fix.
+
+00:00:07.527 --> 00:00:09.680
+Bend the cells into a ring
+
+00:00:09.757 --> 00:00:12.140
+so that the cell after the last
+
+00:00:12.217 --> 00:00:13.832
+one is the first one.
+
+00:00:13.832 --> 00:00:15.139
+After cell four
+
+00:00:15.139 --> 00:00:17.753
+the next cell is not off the end
+
+00:00:17.753 --> 00:00:19.060
+it is cell zero.
+
+00:00:19.410 --> 00:00:23.106
+To step from index i to the next cell
+
+00:00:23.106 --> 00:00:26.802
+compute (i + 1) mod capacity.
+
+00:00:26.802 --> 00:00:31.179
+The indices run zero, one, two, three, four
+
+00:00:31.179 --> 00:00:32.930
+and back to zero.
+
+00:00:33.280 --> 00:00:36.571
+In Java, % is the remainder operator
+
+00:00:36.571 --> 00:00:39.251
+with capacity five,
+
+00:00:39.251 --> 00:00:41.011
+(4 + 1) % 5 is 0.
+
+00:00:41.088 --> 00:00:43.231
+This is called a ring buffer
+
+00:00:43.307 --> 00:00:44.762
+or circular buffer.
+
+00:00:44.762 --> 00:00:47.824
+Nothing in memory is actually circular
+
+00:00:47.824 --> 00:00:50.120
+only the index arithmetic is.
+
+00:00:50.700 --> 00:00:52.765
+The cleanest circular queue
+
+00:00:52.842 --> 00:00:54.831
+stores two numbers: front
+
+00:00:54.831 --> 00:00:58.043
+the index of the front element, and size
+
+00:00:58.043 --> 00:00:59.879
+the number of elements.
+
+00:00:59.879 --> 00:01:02.862
+Here front is three and size is three
+
+00:01:02.862 --> 00:01:06.075
+so the elements sit in cells three, four
+
+00:01:06.075 --> 00:01:08.140
+and, wrapping round, zero.
+
+00:01:08.490 --> 00:01:10.261
+The rear is computed
+
+00:01:10.261 --> 00:01:14.057
+(front + size - 1) mod capacity.
+
+00:01:14.057 --> 00:01:17.093
+Three plus three minus one is five
+
+00:01:17.093 --> 00:01:19.370
+and five mod five is zero.
+
+00:01:19.720 --> 00:01:22.692
+Enqueue puts the new element in the
+
+00:01:22.777 --> 00:01:25.409
+first free cell after the rear
+
+00:01:25.409 --> 00:01:29.231
+(front + size) mod capacity, here cell one
+
+00:01:29.231 --> 00:01:30.929
+and increases size.
+
+00:01:30.929 --> 00:01:33.986
+Dequeue takes the element at front
+
+00:01:33.986 --> 00:01:36.533
+moves front one step forward
+
+00:01:36.533 --> 00:01:39.760
+mod capacity, and decreases size.
+
+00:01:40.340 --> 00:01:42.159
+Why keep size at all
+
+00:01:42.159 --> 00:01:45.017
+rather than just front and rear?
+
+00:01:45.017 --> 00:01:46.317
+Fill the ring
+
+00:01:46.317 --> 00:01:49.088
+front is three and rear is two.
+
+00:01:49.088 --> 00:01:52.380
+The cell after the rear is the front.
+
+00:01:52.730 --> 00:01:55.557
+Now empty it by dequeuing everything
+
+00:01:55.557 --> 00:01:58.231
+front has moved on to three again
+
+00:01:58.231 --> 00:01:59.988
+and rear is still two.
+
+00:01:59.988 --> 00:02:03.425
+Again, the cell after the rear is the front.
+
+00:02:03.425 --> 00:02:05.488
+With only the two indices
+
+00:02:05.565 --> 00:02:07.933
+a full queue and an empty queue
+
+00:02:08.009 --> 00:02:09.690
+look exactly the same.
+
+00:02:10.040 --> 00:02:12.708
+So every circular queue needs one
+
+00:02:12.789 --> 00:02:14.891
+more piece of information.
+
+00:02:14.891 --> 00:02:17.397
+Keep a size counter, as we do
+
+00:02:17.478 --> 00:02:20.307
+or use special values such as
+
+00:02:20.388 --> 00:02:22.248
+−1 for an empty queue
+
+00:02:22.248 --> 00:02:24.592
+or never fill the last cell
+
+00:02:24.673 --> 00:02:27.260
+so a queue with capacity n holds
+
+00:02:27.341 --> 00:02:29.685
+at most n minus one elements.
+
+00:02:29.685 --> 00:02:33.000
+That is the choice in the CLRS textbook.
+
+00:02:33.580 --> 00:02:35.101
+Here is the class
+
+00:02:35.101 --> 00:02:38.651
+with capacity four for the slides' trace.
+
+00:02:38.651 --> 00:02:42.285
+Enqueue first throws if the queue is full
+
+00:02:42.285 --> 00:02:44.820
+size equals the array length.
+
+00:02:45.170 --> 00:02:48.720
+Then int rear equals front plus size
+
+00:02:48.720 --> 00:02:51.215
+% array.length
+
+00:02:51.215 --> 00:02:54.669
+the first free cell after the rear.
+
+00:02:54.669 --> 00:02:58.316
+It stores x there and increases size.
+
+00:02:58.316 --> 00:03:01.770
+Enqueue 14 goes to cell zero.
+
+00:03:02.120 --> 00:03:05.348
+Enqueue 22 goes to cell one
+
+00:03:05.348 --> 00:03:07.680
+and 13 to cell two.
+
+00:03:08.260 --> 00:03:11.128
+Dequeue throws on an empty queue.
+
+00:03:11.128 --> 00:03:14.951
+Otherwise it takes x equals array[front]
+
+00:03:14.951 --> 00:03:15.820
+14.
+
+00:03:16.170 --> 00:03:18.551
+Front moves one step forward
+
+00:03:18.551 --> 00:03:20.521
+mod the length, to one
+
+00:03:20.521 --> 00:03:22.409
+and size drops to two.
+
+00:03:22.409 --> 00:03:24.133
+It returns 14.
+
+00:03:24.133 --> 00:03:27.170
+The rear, front plus size minus one
+
+00:03:27.170 --> 00:03:28.730
+is still cell two.
+
+00:03:29.310 --> 00:03:31.674
+The demo prints each step.
+
+00:03:31.674 --> 00:03:34.946
+Enqueue 15 goes to cell three
+
+00:03:34.946 --> 00:03:36.310
+the last cell.
+
+00:03:36.660 --> 00:03:39.939
+Enqueue 4: the last cell is taken
+
+00:03:39.939 --> 00:03:43.926
+but cell zero is free, and 4 lands there.
+
+00:03:43.926 --> 00:03:46.496
+Check it by hand: before it
+
+00:03:46.496 --> 00:03:49.154
+front was one and size three
+
+00:03:49.154 --> 00:03:52.965
+so the new element goes to one plus three
+
+00:03:52.965 --> 00:03:55.180
+mod four, which is zero.
+
+00:03:55.530 --> 00:03:57.181
+Read from the front
+
+00:03:57.181 --> 00:04:00.813
+the queue is 22, 13, 15,
+
+00:04:00.813 --> 00:04:01.308
+4.
+
+00:04:01.308 --> 00:04:03.371
+The rear, at index zero
+
+00:04:03.371 --> 00:04:06.920
+is to the left of the front, at index one.
+
+00:04:06.920 --> 00:04:09.232
+That is what wrapped means.
+
+00:04:09.232 --> 00:04:11.130
+And the queue is full.
+
+00:04:11.710 --> 00:04:15.072
+Continue the trace: dequeue twice
+
+00:04:15.072 --> 00:04:16.950
+then enqueue 9.
+
+00:04:17.300 --> 00:04:19.700
+Which cells hold which values
+
+00:04:19.700 --> 00:04:22.500
+and what are front, size and rear?
+
+00:04:22.500 --> 00:04:25.140
+Pause the video and work it out.
+
+00:04:28.720 --> 00:04:31.748
+The two dequeues return 22
+
+00:04:31.837 --> 00:04:32.994
+and 13.
+
+00:04:32.994 --> 00:04:36.467
+Front moves to 3, and size is 2
+
+00:04:36.467 --> 00:04:38.960
+the queue is 15, 4.
+
+00:04:39.310 --> 00:04:42.524
+Enqueue 9 goes to 3 + 2
+
+00:04:42.524 --> 00:04:45.113
+mod 4, which is cell 1.
+
+00:04:45.113 --> 00:04:48.862
+The cells are 4, 9, empty, 15
+
+00:04:48.862 --> 00:04:52.790
+with front 3, size 3, and rear 1.
+
+00:04:53.370 --> 00:04:54.148
+Two traps.
+
+00:04:54.148 --> 00:04:56.949
+If you forget the % capacity
+
+00:04:57.027 --> 00:04:58.972
+front + size runs past
+
+00:04:59.050 --> 00:05:00.684
+the end of the array
+
+00:05:00.762 --> 00:05:03.096
+and Java throws an array index
+
+00:05:03.174 --> 00:05:05.042
+out of bounds exception.
+
+00:05:05.120 --> 00:05:07.143
+The array is only circular
+
+00:05:07.220 --> 00:05:09.010
+because of the modulus.
+
+00:05:09.360 --> 00:05:12.949
+Second, when you step an index backward
+
+00:05:12.949 --> 00:05:15.821
+as the Deque of part three does
+
+00:05:15.821 --> 00:05:19.858
+-1 % 5 is -1 in Java
+
+00:05:19.858 --> 00:05:20.756
+not 4.
+
+00:05:20.756 --> 00:05:23.986
+So write i - 1 + capacity
+
+00:05:23.986 --> 00:05:25.960
+all % capacity.
+
+00:05:26.540 --> 00:05:28.940
+The slides also give a version
+
+00:05:29.020 --> 00:05:32.220
+that stores front and rear, and no size.
+
+00:05:32.220 --> 00:05:35.740
+Both start at -1, which means empty.
+
+00:05:36.090 --> 00:05:38.835
+Enqueue first checks for overflow
+
+00:05:38.835 --> 00:05:41.903
+the queue is full when rear + 1
+
+00:05:41.903 --> 00:05:43.760
+mod MAX, equals front.
+
+00:05:43.760 --> 00:05:45.617
+If the queue is empty
+
+00:05:45.698 --> 00:05:47.959
+the first element sets front
+
+00:05:48.039 --> 00:05:49.412
+and rear to 0
+
+00:05:49.412 --> 00:05:52.561
+otherwise rear moves forward, mod MAX.
+
+00:05:52.561 --> 00:05:55.548
+With MAX 5, enqueue 10 to 50
+
+00:05:55.548 --> 00:05:57.970
+rear walks from 0 to 4.
+
+00:05:58.320 --> 00:06:00.686
+Dequeue takes the front element.
+
+00:06:00.686 --> 00:06:02.904
+If that was the only element
+
+00:06:02.904 --> 00:06:04.309
+front equals rear
+
+00:06:04.309 --> 00:06:06.748
+and both are reset to -1
+
+00:06:06.748 --> 00:06:09.040
+otherwise front moves forward.
+
+00:06:09.620 --> 00:06:13.247
+Dequeue gives 10, and front moves to 1.
+
+00:06:13.247 --> 00:06:15.147
+Dequeue gives 20
+
+00:06:15.147 --> 00:06:17.220
+and front moves to 2.
+
+00:06:17.570 --> 00:06:21.618
+Enqueue 60: rear wraps from 4 to 0.
+
+00:06:21.618 --> 00:06:24.930
+Enqueue 70: rear moves to 1.
+
+00:06:25.280 --> 00:06:28.611
+Now rear + 1 is 2, which is front
+
+00:06:28.611 --> 00:06:32.023
+the queue is full, and 80 is refused
+
+00:06:32.104 --> 00:06:34.135
+even though nothing is at
+
+00:06:34.216 --> 00:06:35.922
+the end of the array.
+
+00:06:36.003 --> 00:06:38.359
+We added that last enqueue to
+
+00:06:38.440 --> 00:06:40.633
+see the overflow test fire.
+
+00:06:40.633 --> 00:06:41.446
+And note
+
+00:06:41.446 --> 00:06:44.858
+one element looks like front equals rear
+
+00:06:44.858 --> 00:06:46.401
+both real indices
+
+00:06:46.401 --> 00:06:48.919
+while empty is both minus one.
+
+00:06:48.919 --> 00:06:51.600
+That is why dequeue resets them.
+
+00:06:52.180 --> 00:06:54.309
+Circular queues are everywhere
+
+00:06:54.380 --> 00:06:55.515
+in systems code.
+
+00:06:55.586 --> 00:06:57.644
+A ring buffer reuses the same
+
+00:06:57.715 --> 00:07:00.696
+block of memory forever: keyboard buffers
+
+00:07:00.696 --> 00:07:02.612
+audio and network buffers
+
+00:07:02.612 --> 00:07:05.095
+and logging systems work this way.
+
+00:07:05.095 --> 00:07:08.147
+And a queue can cycle through a fixed set.
+
+00:07:08.147 --> 00:07:10.702
+The traffic light queue holds zero
+
+00:07:10.702 --> 00:07:13.540
+one and two, for red, yellow and green.
+
+00:07:13.890 --> 00:07:17.605
+Every minute, dequeue the light whose turn
+
+00:07:17.693 --> 00:07:20.877
+it is and print it: minute one, red.
+
+00:07:20.877 --> 00:07:22.912
+Then enqueue it again
+
+00:07:22.912 --> 00:07:25.477
+back at the end of the line.
+
+00:07:25.477 --> 00:07:28.130
+Yellow, green, and red again.
+
+00:07:28.480 --> 00:07:31.019
+Operating systems use the same trick
+
+00:07:31.019 --> 00:07:33.146
+called round-robin scheduling
+
+00:07:33.215 --> 00:07:35.136
+to give each waiting process
+
+00:07:35.205 --> 00:07:36.440
+a turn on the CPU.
+
+00:07:37.020 --> 00:07:40.309
+Here are the four queues side by side.
+
+00:07:40.309 --> 00:07:43.771
+Every one of them enqueues in O(1)
+
+00:07:43.857 --> 00:07:45.934
+but the linear array may
+
+00:07:46.021 --> 00:07:48.011
+refuse with free cells.
+
+00:07:48.011 --> 00:07:51.300
+Dequeue is O(n) only when we shift.
+
+00:07:51.650 --> 00:07:53.894
+The circular array is usually the
+
+00:07:53.962 --> 00:07:55.729
+fastest queue in practice
+
+00:07:55.729 --> 00:07:58.041
+no node is allocated per element
+
+00:07:58.109 --> 00:07:59.808
+and the cells sit next to
+
+00:07:59.876 --> 00:08:01.304
+each other in memory.
+
+00:08:01.304 --> 00:08:03.547
+Its limit is the fixed capacity.
+
+00:08:03.615 --> 00:08:05.179
+Doubling the array when
+
+00:08:05.247 --> 00:08:06.743
+it is full removes it
+
+00:08:06.743 --> 00:08:09.530
+and that is what Java's ArrayDeque does.
+
+00:08:10.110 --> 00:08:11.119
+To sum up.
+
+00:08:11.119 --> 00:08:13.741
+One: in a circular queue
+
+00:08:13.741 --> 00:08:16.666
+the next cell is
+
+00:08:16.666 --> 00:08:18.481
+(i + 1) mod the capacity
+
+00:08:18.481 --> 00:08:21.910
+so the array behaves like a ring.
+
+00:08:22.260 --> 00:08:25.181
+Two: front and rear alone cannot
+
+00:08:25.272 --> 00:08:27.188
+tell full from empty.
+
+00:08:27.188 --> 00:08:29.105
+Keep a size counter
+
+00:08:29.105 --> 00:08:31.660
+or use minus one for empty.
+
+00:08:32.010 --> 00:08:35.160
+Three: every operation is O(1)
+
+00:08:35.160 --> 00:08:37.410
+within a fixed capacity.
+
+00:08:37.760 --> 00:08:38.712
+Try this.
+
+00:08:38.712 --> 00:08:42.413
+A circular queue of capacity 5.
+
+00:08:42.413 --> 00:08:45.691
+Enqueue 1, 2, 3, 4
+
+00:08:45.691 --> 00:08:49.921
+dequeue 3 times; then enqueue 5,
+
+00:08:49.921 --> 00:08:51.507
+6 and 7.
+
+00:08:51.507 --> 00:08:56.160
+Write down the cells, front, size and rear.
+
+00:08:56.510 --> 00:08:57.544
+In part 3
+
+00:08:57.544 --> 00:08:59.907
+queues that do not follow FIFO.
+
+00:08:59.907 --> 00:09:03.230
+Priority queues, and the double-ended queue.
+

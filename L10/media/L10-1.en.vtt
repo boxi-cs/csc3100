@@ -1,0 +1,599 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:04.112
+Here is a queue, and here is a stack
+
+00:00:04.112 --> 00:00:05.348
+both empty.
+
+00:00:05.348 --> 00:00:09.573
+We do the same seven operations on both
+
+00:00:09.573 --> 00:00:13.488
+insert 1, insert 2, insert 3
+
+00:00:13.488 --> 00:00:17.300
+remove, insert 4, remove, remove.
+
+00:00:17.650 --> 00:00:20.734
+Which numbers does each structure give back
+
+00:00:20.734 --> 00:00:21.435
+in order?
+
+00:00:21.435 --> 00:00:23.257
+And what is left in each?
+
+00:00:23.257 --> 00:00:25.570
+Pause the video and work it out.
+
+00:00:29.150 --> 00:00:31.727
+Insert 1, 2 and 3.
+
+00:00:31.727 --> 00:00:35.889
+In the queue they line up from the front
+
+00:00:35.889 --> 00:00:40.150
+in the stack they pile up from the bottom.
+
+00:00:40.500 --> 00:00:41.181
+Remove.
+
+00:00:41.181 --> 00:00:43.711
+The queue gives back 1
+
+00:00:43.711 --> 00:00:45.658
+the oldest element.
+
+00:00:45.658 --> 00:00:49.551
+The stack gives back 3, the newest.
+
+00:00:49.551 --> 00:00:53.930
+Insert 4: it joins the rear of the queue
+
+00:00:53.930 --> 00:00:56.460
+and the top of the stack.
+
+00:00:56.810 --> 00:00:58.977
+Remove: the queue gives 2
+
+00:00:58.977 --> 00:01:00.680
+the stack gives 4.
+
+00:01:00.680 --> 00:01:03.544
+Remove again: the queue gives 3
+
+00:01:03.544 --> 00:01:05.170
+the stack gives 2.
+
+00:01:05.520 --> 00:01:09.374
+So the queue gives back 1, 2, 3
+
+00:01:09.374 --> 00:01:11.493
+and still holds 4.
+
+00:01:11.493 --> 00:01:15.251
+The stack gives back 3, 4, 2
+
+00:01:15.251 --> 00:01:17.274
+and still holds 1.
+
+00:01:17.274 --> 00:01:21.417
+A queue always returns the oldest element
+
+00:01:21.417 --> 00:01:23.440
+a stack, the newest.
+
+00:01:24.020 --> 00:01:25.786
+As an abstract data type
+
+00:01:25.786 --> 00:01:27.552
+a queue has two updates
+
+00:01:27.552 --> 00:01:29.036
+each at its own end.
+
+00:01:29.036 --> 00:01:31.862
+Enqueue inserts an element at the rear
+
+00:01:31.862 --> 00:01:33.416
+also called the tail.
+
+00:01:33.416 --> 00:01:36.383
+Dequeue removes the element at the front
+
+00:01:36.383 --> 00:01:38.220
+the head, and returns it.
+
+00:01:38.570 --> 00:01:41.613
+Together they give the rule first in
+
+00:01:41.613 --> 00:01:45.314
+first out, FIFO: the element that has waited
+
+00:01:45.397 --> 00:01:47.124
+longest leaves first.
+
+00:01:47.124 --> 00:01:50.825
+A stack inserts and removes at the same end
+
+00:01:50.825 --> 00:01:53.210
+so it is last in, first out.
+
+00:01:53.560 --> 00:01:56.096
+A queue usually also has peek
+
+00:01:56.180 --> 00:01:58.209
+which looks at the front
+
+00:01:58.294 --> 00:02:01.252
+without removing it, is empty, and
+
+00:02:01.252 --> 00:02:03.872
+for a fixed capacity, is full.
+
+00:02:03.957 --> 00:02:06.408
+Dequeuing from an empty queue
+
+00:02:06.493 --> 00:02:08.183
+is called underflow
+
+00:02:08.183 --> 00:02:11.480
+enqueuing into a full one is overflow.
+
+00:02:12.060 --> 00:02:14.854
+Queues are everywhere in computing
+
+00:02:14.854 --> 00:02:17.727
+buffers for music and network data
+
+00:02:17.727 --> 00:02:20.201
+processes waiting for the CPU
+
+00:02:20.201 --> 00:02:23.314
+and jobs waiting for a shared printer.
+
+00:02:23.314 --> 00:02:25.548
+Java has a Queue interface
+
+00:02:25.548 --> 00:02:29.140
+and ArrayDeque is the usual class behind it.
+
+00:02:29.490 --> 00:02:34.306
+Offer enqueues at the rear: report.pdf
+
+00:02:34.306 --> 00:02:39.010
+then photo.png, then slides.pptx.
+
+00:02:39.360 --> 00:02:43.174
+Printing the queue lists it from the front
+
+00:02:43.174 --> 00:02:45.214
+report, photo, slides.
+
+00:02:45.214 --> 00:02:49.205
+Peek looks at the front without removing it
+
+00:02:49.205 --> 00:02:51.600
+next up is report.pdf.
+
+00:02:52.180 --> 00:02:54.822
+While the queue is not empty
+
+00:02:54.913 --> 00:02:57.464
+poll dequeues from the front
+
+00:02:57.555 --> 00:02:59.650
+and the job is printed.
+
+00:02:59.650 --> 00:03:01.745
+Report, photo, slides
+
+00:03:01.745 --> 00:03:04.660
+exactly the order they arrived.
+
+00:03:05.010 --> 00:03:08.520
+Poll on an empty queue does not crash
+
+00:03:08.520 --> 00:03:10.090
+it returns null.
+
+00:03:10.440 --> 00:03:13.240
+The Queue interface has two methods
+
+00:03:13.320 --> 00:03:14.840
+for each operation.
+
+00:03:14.840 --> 00:03:17.720
+Offer, poll and peek report failure
+
+00:03:17.800 --> 00:03:20.360
+by returning false or null; add
+
+00:03:20.440 --> 00:03:22.360
+remove and element throw
+
+00:03:22.440 --> 00:03:24.120
+an exception instead.
+
+00:03:24.700 --> 00:03:26.518
+Now the implementations.
+
+00:03:26.518 --> 00:03:29.926
+A queue must reach both of its ends quickly.
+
+00:03:29.926 --> 00:03:31.365
+A linked list can
+
+00:03:31.441 --> 00:03:33.410
+the slides build it on the
+
+00:03:33.486 --> 00:03:35.152
+list of lecture seven
+
+00:03:35.152 --> 00:03:37.121
+with a dummy header node.
+
+00:03:37.121 --> 00:03:39.469
+Our Java version has no dummy.
+
+00:03:39.469 --> 00:03:41.817
+Head refers to the front node
+
+00:03:41.817 --> 00:03:43.407
+the next to dequeue
+
+00:03:43.407 --> 00:03:45.452
+and tail to the rear node
+
+00:03:45.452 --> 00:03:47.573
+the most recently enqueued.
+
+00:03:47.573 --> 00:03:49.769
+Here the queue holds only A
+
+00:03:49.769 --> 00:03:52.420
+so head and tail both point at it.
+
+00:03:52.770 --> 00:03:55.296
+A size counter makes isEmpty
+
+00:03:55.383 --> 00:03:56.951
+and size O(1).
+
+00:03:56.951 --> 00:03:59.913
+And isFull always returns false
+
+00:03:59.913 --> 00:04:02.613
+a linked list can always grow
+
+00:04:02.613 --> 00:04:06.010
+until the computer runs out of memory.
+
+00:04:06.590 --> 00:04:07.501
+Enqueue B.
+
+00:04:07.501 --> 00:04:10.142
+First, a new node holding B.
+
+00:04:10.142 --> 00:04:12.327
+The queue is not empty
+
+00:04:12.418 --> 00:04:15.515
+so tail.next = node links
+
+00:04:15.606 --> 00:04:18.065
+it behind the current rear.
+
+00:04:18.065 --> 00:04:21.070
+Then tail moves to the new node.
+
+00:04:21.420 --> 00:04:23.220
+And size goes up by one.
+
+00:04:23.570 --> 00:04:26.599
+Enqueue C works the same way: a new node
+
+00:04:26.599 --> 00:04:29.407
+linked behind B, and tail moves to C.
+
+00:04:29.407 --> 00:04:31.919
+Only an empty queue is different
+
+00:04:31.919 --> 00:04:35.170
+then the new node becomes the head as well.
+
+00:04:35.750 --> 00:04:38.619
+Dequeue first checks for underflow
+
+00:04:38.619 --> 00:04:42.062
+on an empty queue it throws an exception.
+
+00:04:42.062 --> 00:04:45.750
+Otherwise it remembers the front element, A.
+
+00:04:46.100 --> 00:04:48.424
+head = head.next
+
+00:04:48.517 --> 00:04:50.656
+unlinks the front node
+
+00:04:50.656 --> 00:04:52.701
+head now points at B.
+
+00:04:52.701 --> 00:04:56.792
+A is returned, and the old node is garbage.
+
+00:04:56.792 --> 00:05:00.976
+The queue is B, C, with peek B and size 2
+
+00:05:00.976 --> 00:05:03.300
+just as the demo prints.
+
+00:05:03.650 --> 00:05:06.091
+Why is the front at the head
+
+00:05:06.091 --> 00:05:07.858
+and not at the tail?
+
+00:05:07.858 --> 00:05:10.888
+Enqueue at the head would be cheap
+
+00:05:10.972 --> 00:05:13.749
+but dequeue at the tail must find
+
+00:05:13.833 --> 00:05:15.937
+the node before the tail
+
+00:05:15.937 --> 00:05:18.041
+to set its next to null.
+
+00:05:18.041 --> 00:05:21.240
+A singly linked list has no way back
+
+00:05:21.240 --> 00:05:24.690
+so that is a walk from the head: O(n).
+
+00:05:25.270 --> 00:05:26.408
+One more case.
+
+00:05:26.408 --> 00:05:29.822
+Suppose the queue holds a single element
+
+00:05:29.822 --> 00:05:31.935
+7, and we dequeue it.
+
+00:05:31.935 --> 00:05:35.430
+head becomes head.next, which is null.
+
+00:05:35.780 --> 00:05:37.178
+If we stopped there
+
+00:05:37.178 --> 00:05:40.252
+tail would still refer to the removed node
+
+00:05:40.322 --> 00:05:43.606
+and the next enqueue would link its node behind
+
+00:05:43.676 --> 00:05:46.331
+a node that is no longer in the queue
+
+00:05:46.331 --> 00:05:48.008
+while head stayed null.
+
+00:05:48.078 --> 00:05:50.314
+That is why dequeue sets tail to
+
+00:05:50.384 --> 00:05:52.340
+null when head becomes null.
+
+00:05:52.920 --> 00:05:54.715
+The demo enqueues 7
+
+00:05:54.715 --> 00:05:57.182
+and the first dequeue prints it.
+
+00:05:57.257 --> 00:06:00.248
+The second dequeue finds the queue empty
+
+00:06:00.323 --> 00:06:03.164
+and throws an IllegalStateException
+
+00:06:03.164 --> 00:06:06.080
+underflow, so nothing more is printed.
+
+00:06:06.430 --> 00:06:09.650
+Every operation of the linked queue changes
+
+00:06:09.725 --> 00:06:13.020
+a constant number of references, so enqueue,
+
+00:06:13.020 --> 00:06:16.390
+dequeue, peek, and isEmpty are all O(1).
+
+00:06:16.970 --> 00:06:18.013
+Now an array.
+
+00:06:18.013 --> 00:06:21.141
+The elements sit in consecutive cells
+
+00:06:21.141 --> 00:06:23.146
+with two indices: front,
+
+00:06:23.146 --> 00:06:25.713
+the index of the front element
+
+00:06:25.713 --> 00:06:27.959
+starting at 0, and rear,
+
+00:06:27.959 --> 00:06:30.445
+the index of the rear element
+
+00:06:30.445 --> 00:06:32.290
+starting at -1.
+
+00:06:32.640 --> 00:06:35.402
+Enqueue refuses, and returns false
+
+00:06:35.402 --> 00:06:38.480
+when rear is already at the last cell.
+
+00:06:38.830 --> 00:06:42.495
+Otherwise it increases size and rear
+
+00:06:42.495 --> 00:06:45.565
+and stores x at array[rear].
+
+00:06:45.565 --> 00:06:49.428
+Enqueue 10, 20, 30, and 40
+
+00:06:49.428 --> 00:06:52.499
+rear walks from 0 to 3.
+
+00:06:52.499 --> 00:06:55.470
+Now rear is at the last cell.
+
+00:06:56.050 --> 00:06:59.024
+dequeue takes array[front]
+
+00:06:59.024 --> 00:07:03.228
+then decreases size and increases front.
+
+00:07:03.228 --> 00:07:07.638
+dequeue gives 10, and front moves to 1.
+
+00:07:07.638 --> 00:07:10.509
+dequeue again gives 20
+
+00:07:10.509 --> 00:07:12.970
+and front moves to 2.
+
+00:07:13.320 --> 00:07:16.131
+Both operations are O(1).
+
+00:07:16.131 --> 00:07:18.360
+But watch the indices.
+
+00:07:18.940 --> 00:07:21.756
+The demo prints the full array
+
+00:07:21.756 --> 00:07:23.845
+then the two dequeues
+
+00:07:23.845 --> 00:07:27.932
+and the array with front 2 and rear 3.
+
+00:07:27.932 --> 00:07:31.020
+Then enqueue(50) returns false.
+
+00:07:31.370 --> 00:07:33.169
+The queue holds only two
+
+00:07:33.244 --> 00:07:34.968
+elements in four cells
+
+00:07:34.968 --> 00:07:36.991
+and still refuses a third
+
+00:07:36.991 --> 00:07:39.165
+cells 0 and 1 are free
+
+00:07:39.165 --> 00:07:42.237
+but front and rear only ever move right.
+
+00:07:42.237 --> 00:07:45.460
+Used forever, enqueue 1 and dequeue 1
+
+00:07:45.460 --> 00:07:48.458
+a queue walks off the end of any array
+
+00:07:48.458 --> 00:07:49.582
+however large.
+
+00:07:49.582 --> 00:07:52.130
+The array queue runs out of room.
+
+00:07:52.480 --> 00:07:56.147
+One way out is to shift: after each dequeue
+
+00:07:56.147 --> 00:07:58.980
+move every element one cell left
+
+00:07:58.980 --> 00:08:00.980
+so front stays at 0.
+
+00:08:00.980 --> 00:08:01.980
+That works
+
+00:08:01.980 --> 00:08:05.480
+but a dequeue now costs Θ(n) moves.
+
+00:08:05.830 --> 00:08:08.086
+The other way is to wrap around
+
+00:08:08.086 --> 00:08:09.990
+when rear reaches the end
+
+00:08:09.990 --> 00:08:11.612
+continue at cell 0
+
+00:08:11.612 --> 00:08:13.798
+which the dequeues have freed.
+
+00:08:13.798 --> 00:08:15.772
+That is the circular queue
+
+00:08:15.772 --> 00:08:18.310
+and every operation stays O(1).
+
+00:08:18.890 --> 00:08:19.938
+To sum up.
+
+00:08:19.938 --> 00:08:23.501
+One: a queue enqueues at the rear
+
+00:08:23.605 --> 00:08:26.330
+and dequeues at the front.
+
+00:08:26.330 --> 00:08:28.530
+First in, first out.
+
+00:08:28.880 --> 00:08:31.168
+Two: on a linked list with head
+
+00:08:31.242 --> 00:08:32.717
+and tail references
+
+00:08:32.717 --> 00:08:35.300
+every queue operation is O(1)
+
+00:08:35.300 --> 00:08:37.440
+and the queue is never full.
+
+00:08:37.790 --> 00:08:41.426
+Three: a plain array queue runs out of room
+
+00:08:41.509 --> 00:08:43.740
+because front and rear only
+
+00:08:43.823 --> 00:08:45.310
+move to the right.
+
+00:08:45.660 --> 00:08:46.370
+Try this.
+
+00:08:46.449 --> 00:08:48.814
+Why does the linked queue keep
+
+00:08:48.893 --> 00:08:50.786
+a tail reference at all?
+
+00:08:50.786 --> 00:08:53.940
+And what would enqueue cost without it?
+
+00:08:54.290 --> 00:08:58.222
+In part two, we bend the array into a ring
+
+00:08:58.222 --> 00:09:00.050
+the circular queue.
+

@@ -1,0 +1,791 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.376
+Our running example is the tree
+
+00:00:03.475 --> 00:00:07.642
+built by inserting 15, 6, 18
+
+00:00:07.642 --> 00:00:12.008
+3, 7, 17, 20, 2, 4
+
+00:00:12.008 --> 00:00:13.893
+13 and 9.
+
+00:00:13.893 --> 00:00:15.977
+The root is 15
+
+00:00:15.977 --> 00:00:19.152
+with children 6 and 18.
+
+00:00:19.152 --> 00:00:23.120
+7 has only a right child, 13
+
+00:00:23.120 --> 00:00:25.700
+whose left child is 9.
+
+00:00:26.050 --> 00:00:29.389
+To search for a key k in the subtree at x
+
+00:00:29.389 --> 00:00:31.456
+compare k with x.key.
+
+00:00:31.456 --> 00:00:34.398
+If they are equal, we have found it.
+
+00:00:34.398 --> 00:00:35.750
+If k is smaller
+
+00:00:35.829 --> 00:00:38.294
+then by the BST property it can
+
+00:00:38.373 --> 00:00:40.600
+only be in the left subtree
+
+00:00:40.600 --> 00:00:41.951
+so search there.
+
+00:00:41.951 --> 00:00:45.370
+If it is larger, search the right subtree.
+
+00:00:45.720 --> 00:00:48.911
+Each comparison throws away a whole subtree
+
+00:00:48.911 --> 00:00:52.103
+as binary search throws away half an array.
+
+00:00:52.103 --> 00:00:55.004
+If we fall off the tree, reaching null
+
+00:00:55.004 --> 00:00:56.600
+the key is not there.
+
+00:00:57.180 --> 00:00:58.652
+Search for 13.
+
+00:00:58.652 --> 00:01:00.049
+Start at the root
+
+00:01:00.049 --> 00:01:03.213
+13 is less than 15, so go left.
+
+00:01:03.287 --> 00:01:05.788
+The whole right subtree of 15
+
+00:01:05.862 --> 00:01:07.260
+is out of the game.
+
+00:01:07.610 --> 00:01:11.332
+At 6: 13 is larger, so go right.
+
+00:01:11.332 --> 00:01:14.497
+3, 2 and 4 are gone too.
+
+00:01:14.497 --> 00:01:17.847
+At 7: 13 is larger again
+
+00:01:17.847 --> 00:01:18.777
+go right.
+
+00:01:18.777 --> 00:01:20.639
+At 13: equal.
+
+00:01:20.639 --> 00:01:21.290
+Found.
+
+00:01:21.640 --> 00:01:25.625
+The path is 15, 6, 7, 13
+
+00:01:25.625 --> 00:01:28.092
+4 nodes out of 11
+
+00:01:28.186 --> 00:01:30.653
+and the program SearchDemo
+
+00:01:30.748 --> 00:01:33.120
+prints exactly this path.
+
+00:01:33.700 --> 00:01:38.269
+In Java, find(x, k) returns the node
+
+00:01:38.381 --> 00:01:42.504
+with key k in the subtree x, or null.
+
+00:01:42.504 --> 00:01:46.628
+If x is null, or k equals x.key
+
+00:01:46.628 --> 00:01:50.640
+return x: that one line covers both
+
+00:01:50.751 --> 00:01:52.980
+found and not found.
+
+00:01:53.330 --> 00:01:56.060
+If k is less than x.key
+
+00:01:56.060 --> 00:01:59.278
+return find(x.left, k).
+
+00:01:59.278 --> 00:02:03.667
+Otherwise, return find(x.right, k).
+
+00:02:03.764 --> 00:02:06.885
+The code follows the description
+
+00:02:06.982 --> 00:02:08.250
+line by line.
+
+00:02:08.830 --> 00:02:10.843
+The recursive call is the
+
+00:02:10.924 --> 00:02:12.615
+last thing find does.
+
+00:02:12.615 --> 00:02:14.548
+That is tail recursion
+
+00:02:14.548 --> 00:02:17.366
+and it turns directly into a loop
+
+00:02:17.366 --> 00:02:20.910
+while x is not null and k is not x.key
+
+00:02:20.910 --> 00:02:24.292
+move x to its left child if k is smaller
+
+00:02:24.292 --> 00:02:27.030
+and to its right child otherwise.
+
+00:02:27.380 --> 00:02:29.651
+When the loop stops, return x.
+
+00:02:29.651 --> 00:02:32.452
+The loop uses no extra stack frames
+
+00:02:32.452 --> 00:02:34.420
+it is what libraries use.
+
+00:02:35.000 --> 00:02:36.503
+Two more searches.
+
+00:02:36.503 --> 00:02:38.924
+17: right at 15
+
+00:02:38.924 --> 00:02:42.514
+left at 18, found after three nodes.
+
+00:02:42.514 --> 00:02:46.104
+And 15 is found at once, at the root.
+
+00:02:46.104 --> 00:02:49.360
+That is the best case: one comparison.
+
+00:02:49.710 --> 00:02:52.750
+Now a key that is not in the tree.
+
+00:02:53.330 --> 00:02:56.967
+Searching for 5 visits 15, 6
+
+00:02:56.967 --> 00:03:01.165
+3 and 4, and then falls off the tree.
+
+00:03:01.165 --> 00:03:03.589
+Why does it stop at 4?
+
+00:03:03.683 --> 00:03:06.108
+And where would 5 be if
+
+00:03:06.201 --> 00:03:08.066
+it were in the tree?
+
+00:03:08.066 --> 00:03:12.170
+Pause the video and follow the comparisons.
+
+00:03:15.750 --> 00:03:17.952
+5 is less than 15
+
+00:03:17.952 --> 00:03:19.561
+and less than 6
+
+00:03:19.561 --> 00:03:23.203
+so it would be in the left subtree of 6.
+
+00:03:23.203 --> 00:03:25.490
+5 is larger than 3
+
+00:03:25.575 --> 00:03:27.862
+so it would be in the right
+
+00:03:27.946 --> 00:03:31.080
+subtree of 3, which is node 4.
+
+00:03:31.080 --> 00:03:33.282
+5 is larger than 4
+
+00:03:33.282 --> 00:03:36.670
+so it would be the right child of 4.
+
+00:03:37.020 --> 00:03:38.438
+That child is null
+
+00:03:38.438 --> 00:03:40.528
+so 5 is not in the tree.
+
+00:03:40.603 --> 00:03:43.290
+And that empty spot is exactly where
+
+00:03:43.365 --> 00:03:46.500
+insert(5) will put it, in part three.
+
+00:03:46.850 --> 00:03:49.238
+Each step moves one level down
+
+00:03:49.318 --> 00:03:51.627
+and does constant work there
+
+00:03:51.627 --> 00:03:55.209
+so a search visits at most h + 1 nodes.
+
+00:03:55.209 --> 00:03:56.642
+It costs O(h)
+
+00:03:56.642 --> 00:03:58.871
+O(1) in the best case
+
+00:03:58.871 --> 00:04:01.180
+when the key is at the root
+
+00:04:01.180 --> 00:04:03.170
+and O(n) for a chain.
+
+00:04:03.750 --> 00:04:07.173
+The smallest key is found by following
+
+00:04:07.263 --> 00:04:11.047
+left pointers from the root: 15, 6
+
+00:04:11.047 --> 00:04:14.830
+3, 2, until there is no left child.
+
+00:04:15.180 --> 00:04:17.032
+Why is 2 the minimum?
+
+00:04:17.032 --> 00:04:18.964
+It has no left subtree
+
+00:04:18.964 --> 00:04:21.540
+so nothing below it is smaller.
+
+00:04:21.540 --> 00:04:24.760
+And every ancestor we passed is larger
+
+00:04:24.760 --> 00:04:27.980
+because we went left from each of them.
+
+00:04:28.330 --> 00:04:29.560
+Symmetrically
+
+00:04:29.648 --> 00:04:32.459
+the largest key is at the end of
+
+00:04:32.547 --> 00:04:35.709
+the path of right pointers: 15
+
+00:04:35.709 --> 00:04:37.291
+18, 20.
+
+00:04:37.378 --> 00:04:39.838
+MinMaxDemo prints
+
+00:04:39.926 --> 00:04:42.210
+min = 2 and max = 20.
+
+00:04:42.790 --> 00:04:43.514
+In Java
+
+00:04:43.604 --> 00:04:47.314
+the findMin method keeps moving x to
+
+00:04:47.404 --> 00:04:50.933
+x.left while there is a left child
+
+00:04:50.933 --> 00:04:54.281
+and returns the node where it stops.
+
+00:04:54.281 --> 00:04:57.990
+findMax does the same with x.right.
+
+00:04:58.340 --> 00:04:59.860
+One step per level
+
+00:04:59.860 --> 00:05:02.020
+so both take O(h) time.
+
+00:05:02.600 --> 00:05:04.988
+Both methods work on any subtree.
+
+00:05:05.060 --> 00:05:06.941
+The minimum of the subtree
+
+00:05:07.014 --> 00:05:08.823
+at 7 is 7 itself
+
+00:05:08.823 --> 00:05:11.211
+because 7 has no left child.
+
+00:05:11.211 --> 00:05:13.960
+It does have a right child, 13.
+
+00:05:14.310 --> 00:05:17.594
+And the maximum of the subtree at 6
+
+00:05:17.594 --> 00:05:20.619
+right to 7, right to 13
+
+00:05:20.619 --> 00:05:22.867
+which has no right child.
+
+00:05:22.867 --> 00:05:23.990
+So 13.
+
+00:05:24.340 --> 00:05:27.206
+So the minimum is not always a leaf.
+
+00:05:27.206 --> 00:05:30.469
+It is the first node with no left child
+
+00:05:30.469 --> 00:05:32.936
+and it may have a right child.
+
+00:05:32.936 --> 00:05:36.120
+And both methods need a non-empty tree
+
+00:05:36.200 --> 00:05:38.190
+findMin(null) throws a
+
+00:05:38.269 --> 00:05:40.100
+NullPointerException.
+
+00:05:40.680 --> 00:05:43.774
+The successor of a node x is the
+
+00:05:43.871 --> 00:05:47.158
+node whose key is the smallest key
+
+00:05:47.254 --> 00:05:49.671
+larger than x.key.
+
+00:05:49.768 --> 00:05:52.958
+That is the node that comes right
+
+00:05:53.055 --> 00:05:57.019
+after x in the in-order walk: 2, 3
+
+00:05:57.019 --> 00:06:00.500
+4, 6, and so on, up to 20.
+
+00:06:00.500 --> 00:06:04.560
+So the successor of 15 is 17.
+
+00:06:04.910 --> 00:06:07.616
+The predecessor is the node with the
+
+00:06:07.691 --> 00:06:10.321
+largest key smaller than x.key
+
+00:06:10.321 --> 00:06:12.200
+the one right before it
+
+00:06:12.200 --> 00:06:15.207
+the predecessor of 15 is 13.
+
+00:06:15.207 --> 00:06:18.438
+The largest key, 20, has no successor
+
+00:06:18.438 --> 00:06:21.670
+and the smallest, 2, has no predecessor.
+
+00:06:22.020 --> 00:06:24.129
+We could find these by walking
+
+00:06:24.199 --> 00:06:27.151
+the whole tree in order, which is O(n).
+
+00:06:27.221 --> 00:06:30.384
+The shape of the tree gives an O(h) method
+
+00:06:30.455 --> 00:06:32.704
+that never compares keys at all.
+
+00:06:32.704 --> 00:06:34.180
+There are two cases.
+
+00:06:34.760 --> 00:06:37.445
+Case 1: x has a right subtree.
+
+00:06:37.529 --> 00:06:39.878
+Every key in that subtree is
+
+00:06:39.962 --> 00:06:41.808
+larger than x.key.
+
+00:06:41.808 --> 00:06:45.248
+And the smallest of them is its minimum
+
+00:06:45.248 --> 00:06:49.024
+go right once, then left as far as possible.
+
+00:06:49.107 --> 00:06:51.792
+The successor of 15 is
+
+00:06:51.876 --> 00:06:55.400
+findMin of the subtree at 18: 17.
+
+00:06:55.750 --> 00:06:58.511
+Could a key outside that subtree
+
+00:06:58.597 --> 00:06:59.977
+come in between?
+
+00:06:59.977 --> 00:07:00.322
+No.
+
+00:07:00.322 --> 00:07:03.773
+The larger keys outside it sit above x
+
+00:07:03.859 --> 00:07:06.016
+in places where the whole
+
+00:07:06.103 --> 00:07:08.087
+subtree of x went left
+
+00:07:08.087 --> 00:07:11.710
+so they are larger than everything in it.
+
+00:07:12.060 --> 00:07:13.387
+Another example
+
+00:07:13.470 --> 00:07:16.373
+the successor of 6 is the minimum
+
+00:07:16.456 --> 00:07:18.447
+of the subtree at 7.
+
+00:07:18.447 --> 00:07:20.520
+7 has no left child
+
+00:07:20.520 --> 00:07:23.340
+so the successor is 7 itself.
+
+00:07:23.920 --> 00:07:26.844
+Case 2: x has no right subtree.
+
+00:07:26.844 --> 00:07:27.819
+Take 9.
+
+00:07:27.819 --> 00:07:31.008
+9 is the left child of 13
+
+00:07:31.097 --> 00:07:33.844
+so 13 is larger than 9
+
+00:07:33.932 --> 00:07:36.059
+and everything below it
+
+00:07:36.059 --> 00:07:39.160
+the successor of 9 is 13.
+
+00:07:39.510 --> 00:07:40.513
+Now 13
+
+00:07:40.513 --> 00:07:43.059
+which has no right child either.
+
+00:07:43.059 --> 00:07:45.913
+Walk up with two pointers: x, and y
+
+00:07:45.913 --> 00:07:46.839
+its parent.
+
+00:07:46.839 --> 00:07:49.770
+13 is the right child of 7
+
+00:07:49.770 --> 00:07:52.547
+so 7 is smaller: keep climbing.
+
+00:07:52.547 --> 00:07:55.093
+7 is the right child of 6
+
+00:07:55.093 --> 00:07:56.250
+keep climbing.
+
+00:07:56.250 --> 00:07:58.873
+6 is the left child of 15.
+
+00:07:58.950 --> 00:08:01.727
+So 15 is larger than everything
+
+00:08:01.804 --> 00:08:03.270
+we climbed through
+
+00:08:03.270 --> 00:08:06.510
+and the successor of 13 is 15.
+
+00:08:06.860 --> 00:08:07.536
+In short
+
+00:08:07.536 --> 00:08:10.688
+go up until you move up and to the right.
+
+00:08:10.688 --> 00:08:12.940
+That parent is the successor.
+
+00:08:13.520 --> 00:08:14.864
+What about 20?
+
+00:08:14.864 --> 00:08:17.477
+It is the right child of 18
+
+00:08:17.477 --> 00:08:20.240
+which is the right child of 15
+
+00:08:20.240 --> 00:08:20.987
+the root.
+
+00:08:21.061 --> 00:08:23.301
+We reach the root without ever
+
+00:08:23.376 --> 00:08:25.467
+coming up from a left child
+
+00:08:25.467 --> 00:08:26.960
+and y becomes null.
+
+00:08:27.310 --> 00:08:29.939
+Every step went up and to the left
+
+00:08:30.014 --> 00:08:31.968
+so 20 is the rightmost
+
+00:08:32.043 --> 00:08:34.747
+node of the whole tree: the maximum
+
+00:08:34.747 --> 00:08:36.550
+which has no successor.
+
+00:08:37.130 --> 00:08:41.077
+In Java: if x.right is not null
+
+00:08:41.077 --> 00:08:45.681
+case 1: return findMin(x.right).
+
+00:08:45.681 --> 00:08:50.504
+Otherwise, case 2: let y be x.parent.
+
+00:08:50.504 --> 00:08:55.108
+While y is not null and x is y.right
+
+00:08:55.108 --> 00:08:57.301
+climb: x becomes y
+
+00:08:57.301 --> 00:09:00.370
+and y becomes y.parent.
+
+00:09:00.720 --> 00:09:01.912
+Then return y.
+
+00:09:01.997 --> 00:09:04.124
+It is null exactly when x
+
+00:09:04.209 --> 00:09:06.082
+holds the largest key.
+
+00:09:06.082 --> 00:09:09.231
+Notice that no key is ever compared
+
+00:09:09.231 --> 00:09:12.720
+the shape of the tree does all the work.
+
+00:09:13.300 --> 00:09:16.480
+The predecessor is the mirror image
+
+00:09:16.480 --> 00:09:19.307
+swap left and right everywhere.
+
+00:09:19.307 --> 00:09:22.399
+Case one: if x has a left subtree
+
+00:09:22.399 --> 00:09:25.226
+the predecessor is its maximum.
+
+00:09:25.226 --> 00:09:27.523
+For fifteen: left to six
+
+00:09:27.523 --> 00:09:30.527
+then right to seven and thirteen.
+
+00:09:30.527 --> 00:09:34.060
+The predecessor of fifteen is thirteen.
+
+00:09:34.410 --> 00:09:35.969
+Case two: otherwise
+
+00:09:36.047 --> 00:09:38.151
+climb until you arrive at a
+
+00:09:38.228 --> 00:09:40.254
+node from its right child.
+
+00:09:40.254 --> 00:09:41.112
+Take nine.
+
+00:09:41.112 --> 00:09:43.917
+Nine is the left child of thirteen
+
+00:09:43.917 --> 00:09:45.086
+keep climbing.
+
+00:09:45.086 --> 00:09:48.047
+Thirteen is the right child of seven
+
+00:09:48.047 --> 00:09:50.930
+so the predecessor of nine is seven.
+
+00:09:51.280 --> 00:09:53.891
+And two climbs through three and
+
+00:09:53.972 --> 00:09:56.828
+six to the root without ever coming
+
+00:09:56.909 --> 00:10:00.254
+up from a right child: it is the minimum
+
+00:10:00.254 --> 00:10:01.967
+with no predecessor.
+
+00:10:02.049 --> 00:10:04.007
+Both methods go down one
+
+00:10:04.088 --> 00:10:05.720
+path or up one path.
+
+00:10:06.300 --> 00:10:09.521
+SuccessorDemo prints the predecessor and the
+
+00:10:09.594 --> 00:10:12.741
+successor of every key of the running tree.
+
+00:10:12.814 --> 00:10:15.156
+Fifteen has predecessor thirteen
+
+00:10:15.229 --> 00:10:16.986
+and successor seventeen
+
+00:10:16.986 --> 00:10:20.060
+and seventeen is the key of the next row.
+
+00:10:20.410 --> 00:10:24.085
+Every row's successor is the next row's key
+
+00:10:24.168 --> 00:10:26.089
+the successor really is
+
+00:10:26.172 --> 00:10:27.926
+next in sorted order.
+
+00:10:28.009 --> 00:10:30.598
+Case one goes down one path and
+
+00:10:30.682 --> 00:10:32.853
+case two goes up one path
+
+00:10:32.853 --> 00:10:34.690
+so both take O(h).
+
+00:10:35.040 --> 00:10:36.329
+One more fact
+
+00:10:36.421 --> 00:10:39.644
+starting at the minimum and calling
+
+00:10:39.736 --> 00:10:42.866
+successor n - 1 times visits
+
+00:10:42.958 --> 00:10:44.984
+all the keys in order
+
+00:10:44.984 --> 00:10:47.378
+in O(n) time in total
+
+00:10:47.378 --> 00:10:50.600
+each edge is walked at most twice.
+
+00:10:51.180 --> 00:10:51.870
+To sum up.
+
+00:10:51.870 --> 00:10:53.872
+One: search compares the key
+
+00:10:53.941 --> 00:10:55.460
+with the current node
+
+00:10:55.529 --> 00:10:57.669
+and moves left if it is smaller
+
+00:10:57.738 --> 00:10:59.532
+and right if it is larger
+
+00:10:59.601 --> 00:11:01.672
+and falling off the tree means
+
+00:11:01.741 --> 00:11:03.191
+the key is not there.
+
+00:11:03.191 --> 00:11:05.330
+Two: the minimum is at the end
+
+00:11:05.399 --> 00:11:06.849
+of the left pointers
+
+00:11:06.918 --> 00:11:08.713
+and the maximum at the end
+
+00:11:08.782 --> 00:11:10.300
+of the right pointers.
+
+00:11:10.650 --> 00:11:13.517
+Three: the successor is the minimum
+
+00:11:13.599 --> 00:11:17.122
+of the right subtree, or, if there is none
+
+00:11:17.203 --> 00:11:19.825
+the first ancestor that we reach
+
+00:11:19.907 --> 00:11:22.200
+coming up from a left child.
+
+00:11:22.200 --> 00:11:24.330
+All of them cost O(h).
+
+00:11:24.680 --> 00:11:25.443
+Try this.
+
+00:11:25.443 --> 00:11:27.225
+In the running tree
+
+00:11:27.225 --> 00:11:29.854
+what is the successor of 4
+
+00:11:29.854 --> 00:11:31.720
+and which case is it?
+
+00:11:31.720 --> 00:11:33.840
+4 has no right child.
+
+00:11:34.190 --> 00:11:38.144
+In part 3 we change the tree: insertion
+
+00:11:38.144 --> 00:11:40.750
+and deletion in 3 cases.
+

@@ -1,0 +1,695 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.944
+Here is an array of five numbers: 10
+
+00:00:02.944 --> 00:00:05.032
+20, 30, 40, 50.
+
+00:00:05.032 --> 00:00:08.094
+We want to insert 25 at index 2
+
+00:00:08.094 --> 00:00:09.972
+between 20 and 30
+
+00:00:09.972 --> 00:00:12.060
+and keep the others in order.
+
+00:00:12.410 --> 00:00:14.648
+Insertion has four steps.
+
+00:00:14.648 --> 00:00:16.976
+First, find the position.
+
+00:00:16.976 --> 00:00:17.692
+Second,
+
+00:00:17.782 --> 00:00:21.095
+shift the elements from that position
+
+00:00:21.184 --> 00:00:23.960
+onwards one place to the right
+
+00:00:23.960 --> 00:00:25.213
+to make room.
+
+00:00:25.213 --> 00:00:28.705
+Third, put the new value into the gap.
+
+00:00:28.705 --> 00:00:31.301
+And fourth, update the size
+
+00:00:31.301 --> 00:00:33.450
+if the array keeps one.
+
+00:00:33.800 --> 00:00:36.503
+But a Java array cannot grow.
+
+00:00:36.503 --> 00:00:39.579
+This one has exactly five cells
+
+00:00:39.579 --> 00:00:43.680
+so there is no cell for 50 to move into.
+
+00:00:44.260 --> 00:00:46.108
+The simplest correct method
+
+00:00:46.177 --> 00:00:48.572
+makes a new array, one cell longer
+
+00:00:48.572 --> 00:00:51.037
+and copies the old elements across
+
+00:00:51.037 --> 00:00:53.980
+putting the new one in at the right place.
+
+00:00:54.330 --> 00:00:58.612
+Two indices walk along: i in the new array
+
+00:00:58.612 --> 00:01:00.803
+and j in the old one.
+
+00:01:00.803 --> 00:01:04.190
+At i 0, we copy arr[j], 10
+
+00:01:04.190 --> 00:01:06.381
+and at i 1, 20
+
+00:01:06.381 --> 00:01:08.970
+and both indices move on.
+
+00:01:09.320 --> 00:01:11.941
+At i 2, i equals index
+
+00:01:11.941 --> 00:01:15.924
+so we store the element, 25
+
+00:01:15.924 --> 00:01:18.440
+and j does not advance.
+
+00:01:18.790 --> 00:01:22.237
+From then on, each old element lands one
+
+00:01:22.323 --> 00:01:25.339
+place further right: 30, 40
+
+00:01:25.339 --> 00:01:26.287
+and 50.
+
+00:01:26.287 --> 00:01:29.734
+The result is 10, 20, 25
+
+00:01:29.734 --> 00:01:31.630
+30, 40, 50.
+
+00:01:32.210 --> 00:01:34.663
+Real code, including ArrayList
+
+00:01:34.663 --> 00:01:36.008
+avoids the copy.
+
+00:01:36.008 --> 00:01:38.540
+It keeps a partly filled array
+
+00:01:38.540 --> 00:01:42.100
+data has spare room at the end, and a count
+
+00:01:42.100 --> 00:01:45.107
+size, says how many cells are in use.
+
+00:01:45.107 --> 00:01:46.610
+Here size is 5.
+
+00:01:46.960 --> 00:01:50.040
+To insert 25 at index 2
+
+00:01:50.040 --> 00:01:52.416
+insertAt shifts in place
+
+00:01:52.416 --> 00:01:54.968
+starting from the right end.
+
+00:01:54.968 --> 00:01:57.080
+k starts at size, 5
+
+00:01:57.080 --> 00:02:00.512
+data[5] gets data[4], 50.
+
+00:02:00.512 --> 00:02:03.152
+Then data[4] gets 40
+
+00:02:03.152 --> 00:02:05.880
+and data[3] gets 30.
+
+00:02:06.230 --> 00:02:09.351
+Now k equals index, so the loop stops.
+
+00:02:09.351 --> 00:02:11.980
+data[index] gets 25
+
+00:02:11.980 --> 00:02:15.430
+and the method returns the new size, 6.
+
+00:02:15.780 --> 00:02:18.343
+Every value was moved before the cell
+
+00:02:18.412 --> 00:02:20.420
+it came from was overwritten.
+
+00:02:20.420 --> 00:02:23.260
+That is why the shift starts at the end.
+
+00:02:23.840 --> 00:02:26.747
+Now suppose someone writes the
+
+00:02:26.844 --> 00:02:29.558
+shift from the left instead.
+
+00:02:29.558 --> 00:02:32.368
+For k from index up to size
+
+00:02:32.368 --> 00:02:35.760
+data[k + 1] = data[k];
+
+00:02:36.110 --> 00:02:39.723
+We insert 25 at index 2 of 10
+
+00:02:39.723 --> 00:02:42.303
+20, 30, 40, 50.
+
+00:02:42.303 --> 00:02:45.485
+What will the array hold afterwards?
+
+00:02:45.485 --> 00:02:49.270
+Pause the video now, and trace it yourself.
+
+00:02:52.850 --> 00:02:56.727
+k is 2: data[3] = data[2];
+
+00:02:56.727 --> 00:02:59.375
+so 30 overwrites 40.
+
+00:02:59.375 --> 00:03:03.630
+k is 3: data[4] = data[3];
+
+00:03:03.630 --> 00:03:05.616
+which is now 30
+
+00:03:05.616 --> 00:03:08.264
+so 30 overwrites 50.
+
+00:03:08.264 --> 00:03:12.330
+k is 4: data[5] = 30 again.
+
+00:03:12.680 --> 00:03:15.282
+40 and 50 are gone before
+
+00:03:15.366 --> 00:03:17.129
+they were ever moved.
+
+00:03:17.129 --> 00:03:20.151
+After data[2] gets 25
+
+00:03:20.151 --> 00:03:23.425
+the array is 10, 20, 25
+
+00:03:23.425 --> 00:03:25.440
+30, 30, 30.
+
+00:03:25.790 --> 00:03:28.030
+So a shift to the right must
+
+00:03:28.110 --> 00:03:29.950
+start at the right end
+
+00:03:30.030 --> 00:03:32.190
+so that each value is moved
+
+00:03:32.270 --> 00:03:34.270
+before it is overwritten.
+
+00:03:34.850 --> 00:03:36.921
+Deletion is the mirror image.
+
+00:03:36.921 --> 00:03:39.349
+Find the position of the element
+
+00:03:39.420 --> 00:03:41.348
+shift the elements after it
+
+00:03:41.420 --> 00:03:44.490
+one place to the left, and update the size.
+
+00:03:44.840 --> 00:03:48.168
+Let's delete at index 2, the 30.
+
+00:03:48.168 --> 00:03:49.832
+k starts at index
+
+00:03:49.832 --> 00:03:53.248
+data[2] = data[3], 40.
+
+00:03:53.248 --> 00:03:55.963
+Then data[3] = 50.
+
+00:03:55.963 --> 00:03:58.940
+The loop stops at size - 1
+
+00:03:58.940 --> 00:04:01.480
+and the method returns 4.
+
+00:04:01.830 --> 00:04:05.085
+The old 50 is still in cell 4
+
+00:04:05.085 --> 00:04:07.164
+but it is beyond size
+
+00:04:07.164 --> 00:04:09.334
+so it no longer counts.
+
+00:04:09.334 --> 00:04:12.950
+The array is 10, 20, 40, 50.
+
+00:04:13.530 --> 00:04:16.432
+Here is the run of the test program
+
+00:04:16.432 --> 00:04:18.851
+on an array with eight cells.
+
+00:04:18.851 --> 00:04:21.431
+Five appends give 10 to 50.
+
+00:04:21.431 --> 00:04:24.091
+Insert 25 at index 2
+
+00:04:24.091 --> 00:04:26.993
+then 5 at index 0, the front
+
+00:04:26.993 --> 00:04:29.170
+every element has to move.
+
+00:04:29.520 --> 00:04:32.499
+Delete at 3 removes the 25.
+
+00:04:32.499 --> 00:04:34.956
+Delete at 0 removes the 5
+
+00:04:34.956 --> 00:04:36.818
+again moving everything
+
+00:04:36.892 --> 00:04:39.052
+and deleting the last element
+
+00:04:39.126 --> 00:04:40.690
+moves nothing at all.
+
+00:04:40.690 --> 00:04:43.520
+Same array, same count, no new array.
+
+00:04:44.100 --> 00:04:46.399
+So what does all this cost?
+
+00:04:46.484 --> 00:04:50.570
+Inserting at index k of an array with n elements
+
+00:04:50.655 --> 00:04:53.890
+moves the n - k elements after it.
+
+00:04:53.890 --> 00:04:57.381
+Reading or writing a[i] moves nothing
+
+00:04:57.381 --> 00:04:58.232
+O(1).
+
+00:04:58.232 --> 00:05:01.127
+At the end, nothing moves either
+
+00:05:01.127 --> 00:05:03.340
+as long as there is room.
+
+00:05:03.690 --> 00:05:06.229
+At the front, all n elements move
+
+00:05:06.304 --> 00:05:08.395
+and in the middle about half
+
+00:05:08.470 --> 00:05:09.889
+of them on average.
+
+00:05:09.889 --> 00:05:11.158
+Both are O(n).
+
+00:05:11.158 --> 00:05:14.146
+The copying versions always copy all n
+
+00:05:14.146 --> 00:05:16.610
+and need a second array as well.
+
+00:05:16.960 --> 00:05:19.517
+This is the big weakness of arrays
+
+00:05:19.517 --> 00:05:21.635
+changing the middle is slow
+
+00:05:21.708 --> 00:05:23.900
+because the elements must stay
+
+00:05:23.973 --> 00:05:25.726
+contiguous and in order.
+
+00:05:25.726 --> 00:05:28.283
+The linked list, in lecture seven
+
+00:05:28.283 --> 00:05:29.744
+fixes exactly this
+
+00:05:29.744 --> 00:05:32.520
+at the price of losing random access.
+
+00:05:33.100 --> 00:05:34.293
+Now, searching.
+
+00:05:34.293 --> 00:05:35.486
+Linear search
+
+00:05:35.486 --> 00:05:37.951
+also called sequential search
+
+00:05:38.030 --> 00:05:41.608
+traverses the array one element at a time and
+
+00:05:41.688 --> 00:05:44.709
+compares each element with the target.
+
+00:05:44.709 --> 00:05:47.652
+If they match, it returns the index.
+
+00:05:47.652 --> 00:05:51.071
+If nothing matches all the way to the end
+
+00:05:51.071 --> 00:05:52.820
+it returns -1.
+
+00:05:53.170 --> 00:05:55.494
+Search for 30.
+
+00:05:55.494 --> 00:05:57.044
+20: no.
+
+00:05:57.044 --> 00:05:58.594
+12: no.
+
+00:05:58.594 --> 00:06:01.822
+30: yes, return 2
+
+00:06:01.822 --> 00:06:05.050
+after three comparisons.
+
+00:06:05.400 --> 00:06:07.420
+Search for 35
+
+00:06:07.420 --> 00:06:09.791
+all five comparisons fail
+
+00:06:09.791 --> 00:06:12.251
+so the answer is -1.
+
+00:06:12.338 --> 00:06:14.534
+And 16 is found only
+
+00:06:14.622 --> 00:06:17.520
+at the last position, index 4.
+
+00:06:17.870 --> 00:06:20.279
+The best case is one comparison.
+
+00:06:20.279 --> 00:06:21.860
+The worst case is n.
+
+00:06:21.935 --> 00:06:24.645
+If the target is present and equally
+
+00:06:24.720 --> 00:06:26.376
+likely to be anywhere
+
+00:06:26.376 --> 00:06:29.161
+the average is (n + 1)/2.
+
+00:06:29.161 --> 00:06:31.269
+So linear search is O(n)
+
+00:06:31.269 --> 00:06:34.430
+and it works on any array, sorted or not.
+
+00:06:35.010 --> 00:06:36.713
+If the array is sorted
+
+00:06:36.713 --> 00:06:38.416
+we can do much better.
+
+00:06:38.416 --> 00:06:41.304
+Binary search uses divide and conquer.
+
+00:06:41.304 --> 00:06:42.859
+Left starts at 0
+
+00:06:42.859 --> 00:06:45.007
+and right at the last index.
+
+00:06:45.007 --> 00:06:48.265
+Compare the target with the middle element.
+
+00:06:48.265 --> 00:06:50.116
+If they are equal, stop.
+
+00:06:50.116 --> 00:06:51.967
+If the target is larger
+
+00:06:51.967 --> 00:06:54.485
+it can only be in the right half.
+
+00:06:54.485 --> 00:06:57.521
+If it is smaller, only in the left half.
+
+00:06:57.595 --> 00:06:59.965
+Each comparison throws away half
+
+00:07:00.039 --> 00:07:01.742
+of the remaining range
+
+00:07:01.816 --> 00:07:03.667
+until the target is found
+
+00:07:03.741 --> 00:07:05.370
+or the range is empty.
+
+00:07:05.950 --> 00:07:10.043
+Let's search for 35 in 10, 20
+
+00:07:10.043 --> 00:07:12.089
+30, 40, 50.
+
+00:07:12.089 --> 00:07:15.066
+Left is 0 and right is 4
+
+00:07:15.066 --> 00:07:16.740
+so middle is 2.
+
+00:07:16.740 --> 00:07:19.809
+30 is less than 35
+
+00:07:19.809 --> 00:07:23.530
+so the answer can only be to the right
+
+00:07:23.530 --> 00:07:25.390
+left becomes 3.
+
+00:07:25.740 --> 00:07:29.050
+Now the middle of 3 and 4 is 3.
+
+00:07:29.050 --> 00:07:31.809
+40 is greater than 35
+
+00:07:31.809 --> 00:07:34.883
+so the answer can only be to the left
+
+00:07:34.883 --> 00:07:36.380
+right becomes 2.
+
+00:07:36.730 --> 00:07:40.538
+Left, 3, is greater than right, 2
+
+00:07:40.538 --> 00:07:42.443
+the range is empty.
+
+00:07:42.443 --> 00:07:44.537
+Not found, -1
+
+00:07:44.537 --> 00:07:48.250
+after 2 comparisons instead of 5.
+
+00:07:48.600 --> 00:07:51.108
+Searching for 30 finds it
+
+00:07:51.194 --> 00:07:54.308
+at the very first middle, index 2.
+
+00:07:54.308 --> 00:07:57.853
+Searching for 10 goes left: middle 2
+
+00:07:57.853 --> 00:08:00.880
+then middle 0, and it is found.
+
+00:08:01.460 --> 00:08:04.381
+Why is the middle written as left
+
+00:08:04.381 --> 00:08:07.217
++ (right - left) / 2?
+
+00:08:07.217 --> 00:08:10.396
+It equals (left + right) / 2
+
+00:08:10.396 --> 00:08:13.317
+but left + right can overflow.
+
+00:08:13.403 --> 00:08:16.324
+An int cannot hold more than about
+
+00:08:16.410 --> 00:08:18.300
+2100000000.
+
+00:08:18.650 --> 00:08:20.935
+With left at 1500000000
+
+00:08:21.001 --> 00:08:22.633
+and right at 2000000000
+
+00:08:22.698 --> 00:08:25.114
+the simple average prints
+
+00:08:25.180 --> 00:08:27.073
+-397483648
+
+00:08:27.073 --> 00:08:29.424
+
+
+00:08:29.424 --> 00:08:31.056
+
+
+00:08:31.122 --> 00:08:33.015
+while the safe form gives 1
+
+00:08:33.081 --> 00:08:34.713
+point 75 billion.
+
+00:08:34.713 --> 00:08:36.802
+The sum was too big for an int
+
+00:08:36.802 --> 00:08:39.610
+so it wrapped around to a negative number.
+
+00:08:40.190 --> 00:08:43.257
+Each step halves the range: n
+
+00:08:43.257 --> 00:08:46.835
+then n / 2, then n / 4
+
+00:08:46.835 --> 00:08:48.163
+down to 1.
+
+00:08:48.163 --> 00:08:51.843
+So at most about log₂ n
+
+00:08:51.843 --> 00:08:54.706
++ 1 steps are needed.
+
+00:08:54.706 --> 00:08:57.670
+Binary search is O(log n).
+
+00:08:58.020 --> 00:08:59.596
+For eight elements,
+
+00:08:59.596 --> 00:09:03.163
+that is four comparisons instead of eight.
+
+00:09:03.163 --> 00:09:06.730
+For a thousand, ten instead of a thousand.
+
+00:09:06.730 --> 00:09:10.380
+For a billion, thirty instead of a billion.
+
+00:09:10.730 --> 00:09:13.514
+But binary search needs sorted data.
+
+00:09:13.514 --> 00:09:16.607
+On an unsorted array it does not crash.
+
+00:09:16.607 --> 00:09:19.159
+It silently gives wrong answers
+
+00:09:19.237 --> 00:09:21.634
+because the half it throws away
+
+00:09:21.711 --> 00:09:23.490
+may contain the target.
+
+00:09:24.070 --> 00:09:24.874
+To sum up.
+
+00:09:24.874 --> 00:09:27.528
+One: insertion and deletion keep
+
+00:09:27.608 --> 00:09:30.985
+the order by shifting, which costs O(n)
+
+00:09:30.985 --> 00:09:32.513
+except at the end.
+
+00:09:32.513 --> 00:09:32.915
+Two:
+
+00:09:32.915 --> 00:09:36.212
+shift right starting from the right end
+
+00:09:36.212 --> 00:09:39.750
+and shift left starting just after the gap.
+
+00:09:40.100 --> 00:09:43.576
+Three: linear search is O(n) and
+
+00:09:43.678 --> 00:09:45.620
+works on any array.
+
+00:09:45.620 --> 00:09:48.585
+Binary search is O(log n)
+
+00:09:48.585 --> 00:09:51.140
+but only on sorted data.
+
+00:09:51.490 --> 00:09:53.218
+Try this yourself.
+
+00:09:53.218 --> 00:09:57.346
+In the sorted array 3, 8, 15,
+
+00:09:57.346 --> 00:10:01.570
+21, 30, 42, 57,
+
+00:10:01.570 --> 00:10:05.602
+64, which comparisons does binary
+
+00:10:05.698 --> 00:10:08.386
+search make for 57?
+
+00:10:08.386 --> 00:10:09.730
+And for 4?
+
+00:10:10.080 --> 00:10:11.083
+In part four,
+
+00:10:11.083 --> 00:10:14.090
+we pass arrays and objects to methods
+
+00:10:14.090 --> 00:10:17.560
+and see what a method can and cannot change.
+

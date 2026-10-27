@@ -1,0 +1,719 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.265
+Deletion from an AVL tree
+
+00:00:02.344 --> 00:00:05.646
+is similar to insertion, but more complex.
+
+00:00:05.646 --> 00:00:08.476
+First, search downward for the key.
+
+00:00:08.476 --> 00:00:09.105
+Second
+
+00:00:09.105 --> 00:00:12.564
+delete it as in a plain binary search tree.
+
+00:00:12.564 --> 00:00:14.608
+A leaf is simply removed.
+
+00:00:14.686 --> 00:00:16.573
+A node with one child is
+
+00:00:16.652 --> 00:00:18.460
+replaced by that child.
+
+00:00:18.810 --> 00:00:20.812
+A node with two children gets
+
+00:00:20.881 --> 00:00:22.607
+the key of its successor
+
+00:00:22.607 --> 00:00:25.299
+the smallest key in its right subtree
+
+00:00:25.368 --> 00:00:27.646
+and then the successor is deleted
+
+00:00:27.715 --> 00:00:29.855
+from the right subtree instead.
+
+00:00:29.855 --> 00:00:31.650
+It has at most one child.
+
+00:00:32.000 --> 00:00:32.442
+Third
+
+00:00:32.442 --> 00:00:35.540
+walk back up the search path to the root
+
+00:00:35.540 --> 00:00:37.678
+correcting heights as we go
+
+00:00:37.752 --> 00:00:40.038
+and at every node whose balance
+
+00:00:40.112 --> 00:00:42.840
+has become +2 or -2, rotate.
+
+00:00:43.190 --> 00:00:45.336
+The difference from insertion
+
+00:00:45.336 --> 00:00:47.911
+a deletion makes a subtree shorter
+
+00:00:47.982 --> 00:00:50.557
+and after a rotation the subtree may
+
+00:00:50.629 --> 00:00:52.989
+still be one shorter than before.
+
+00:00:52.989 --> 00:00:55.778
+So the imbalance can propagate upward
+
+00:00:55.850 --> 00:00:58.353
+and several rotations may be needed
+
+00:00:58.425 --> 00:01:00.070
+on the way to the root.
+
+00:01:00.650 --> 00:01:04.731
+Take the tree 10, 5, 15, with 2
+
+00:01:04.731 --> 00:01:08.432
+9, 12, 20 below, and 3
+
+00:01:08.432 --> 00:01:11.564
+17, 30 at the bottom.
+
+00:01:11.564 --> 00:01:14.411
+Every balance factor is fine.
+
+00:01:14.411 --> 00:01:18.113
+Delete 17: the search goes 10
+
+00:01:18.113 --> 00:01:20.770
+15, 20, 17.
+
+00:01:21.120 --> 00:01:22.676
+17 is a leaf
+
+00:01:22.676 --> 00:01:24.620
+so it is simply removed.
+
+00:01:24.620 --> 00:01:26.798
+20 drops to height 1
+
+00:01:26.798 --> 00:01:28.664
+with balance -1.
+
+00:01:28.664 --> 00:01:30.687
+15 keeps height 2
+
+00:01:30.687 --> 00:01:32.709
+and nothing else changes.
+
+00:01:32.709 --> 00:01:33.720
+No rotation.
+
+00:01:34.300 --> 00:01:36.352
+Back to the original tree
+
+00:01:36.352 --> 00:01:38.561
+and delete 15 instead.
+
+00:01:38.561 --> 00:01:40.613
+15 has two children.
+
+00:01:40.613 --> 00:01:42.822
+Its successor is 17
+
+00:01:42.822 --> 00:01:45.900
+the smallest key in its right subtree.
+
+00:01:46.250 --> 00:01:48.518
+Copy 17 into the node
+
+00:01:48.596 --> 00:01:50.942
+then delete the leaf 17
+
+00:01:51.020 --> 00:01:52.819
+from the right subtree.
+
+00:01:52.819 --> 00:01:55.165
+20 has balance -1
+
+00:01:55.165 --> 00:01:58.371
+the new 17 has balance -1
+
+00:01:58.371 --> 00:02:00.404
+and nothing else changes.
+
+00:02:00.404 --> 00:02:01.890
+Again no rotation.
+
+00:02:02.470 --> 00:02:05.209
+Now delete 12 from this tree.
+
+00:02:05.209 --> 00:02:07.865
+17 loses its left child.
+
+00:02:07.948 --> 00:02:10.936
+It has an empty left subtree against
+
+00:02:11.019 --> 00:02:14.090
+the subtree at 20, of height 1
+
+00:02:14.090 --> 00:02:15.667
+balance -2.
+
+00:02:15.667 --> 00:02:19.070
+So 17 is unbalanced on the right.
+
+00:02:19.420 --> 00:02:22.407
+Let y be its right child, 20.
+
+00:02:22.407 --> 00:02:25.122
+20 has balance -1
+
+00:02:25.122 --> 00:02:29.014
+it is heavy on the same side as 17.
+
+00:02:29.014 --> 00:02:31.820
+That is the right-right shape.
+
+00:02:32.170 --> 00:02:34.303
+A single left rotation at
+
+00:02:34.388 --> 00:02:36.862
+17 repairs it: 20
+
+00:02:36.862 --> 00:02:39.932
+with children 17 and 30.
+
+00:02:39.932 --> 00:02:40.785
+Above it
+
+00:02:40.785 --> 00:02:44.283
+10 has subtrees of heights 2 and 1
+
+00:02:44.283 --> 00:02:45.818
+balance +1.
+
+00:02:45.818 --> 00:02:46.330
+Fine.
+
+00:02:47.003 --> 00:02:50.391
+Now a bigger tree, of height 4.
+
+00:02:50.391 --> 00:02:52.483
+Delete 9, a leaf.
+
+00:02:52.833 --> 00:02:55.918
+Node 5 is left with the subtree at 2
+
+00:02:55.918 --> 00:02:57.975
+of height 1, on the left
+
+00:02:57.975 --> 00:03:01.208
+and nothing on the right: balance +2
+
+00:03:01.208 --> 00:03:02.089
+left-heavy.
+
+00:03:02.089 --> 00:03:05.321
+Its left child, 2, has balance -1
+
+00:03:05.321 --> 00:03:07.599
+it is heavy on the other side.
+
+00:03:07.599 --> 00:03:10.537
+That is a dog-leg, the left-right case
+
+00:03:10.537 --> 00:03:12.153
+so a double rotation.
+
+00:03:12.503 --> 00:03:15.640
+A left rotation at 2 lifts 3.
+
+00:03:15.640 --> 00:03:19.583
+A right rotation at 5 lifts 3 again.
+
+00:03:19.583 --> 00:03:21.914
+The subtree is now 3
+
+00:03:21.914 --> 00:03:24.423
+with children 2 and 5.
+
+00:03:25.003 --> 00:03:27.031
+But we are not finished.
+
+00:03:27.031 --> 00:03:30.074
+The subtree at 5 had height 2
+
+00:03:30.074 --> 00:03:33.877
+and the new subtree at 3 has height 1.
+
+00:03:33.961 --> 00:03:36.497
+So the root 10 now has a left
+
+00:03:36.581 --> 00:03:39.370
+subtree of height 1 and a right
+
+00:03:39.455 --> 00:03:43.089
+subtree of height 3: balance -2.
+
+00:03:43.089 --> 00:03:45.878
+The imbalance has propagated up.
+
+00:03:45.878 --> 00:03:48.244
+The tall side is the right
+
+00:03:48.244 --> 00:03:49.850
+so y is 17
+
+00:03:49.850 --> 00:03:52.554
+and 17 has balance 0.
+
+00:03:52.554 --> 00:03:55.597
+Single rotation or double rotation?
+
+00:03:55.597 --> 00:03:57.963
+Pause the video and decide.
+
+00:04:01.543 --> 00:04:04.044
+A single left rotation at 10.
+
+00:04:04.044 --> 00:04:06.377
+17 becomes the root
+
+00:04:06.377 --> 00:04:08.711
+10 becomes its left child
+
+00:04:08.711 --> 00:04:11.212
+and 17's left subtree
+
+00:04:11.212 --> 00:04:12.796
+the one at 12
+
+00:04:12.796 --> 00:04:16.463
+moves across to become 10's right subtree.
+
+00:04:16.813 --> 00:04:19.293
+Two rotations for one deletion
+
+00:04:19.293 --> 00:04:21.453
+a double rotation at 5
+
+00:04:21.453 --> 00:04:23.533
+then a single one at 10.
+
+00:04:23.613 --> 00:04:26.013
+The final tree has height 4
+
+00:04:26.093 --> 00:04:28.093
+and passes the AVL check.
+
+00:04:28.093 --> 00:04:29.533
+Unlike insertion
+
+00:04:29.533 --> 00:04:31.853
+one rotation was not enough.
+
+00:04:32.433 --> 00:04:36.081
+In insertion we chose the rotation by comparing
+
+00:04:36.159 --> 00:04:38.720
+the new key with the child's key.
+
+00:04:38.720 --> 00:04:41.281
+In deletion there is no new key
+
+00:04:41.281 --> 00:04:44.075
+so the choice is made from heights.
+
+00:04:44.153 --> 00:04:46.249
+Let z have balance +2
+
+00:04:46.326 --> 00:04:48.189
+and y be its left child.
+
+00:04:48.189 --> 00:04:50.673
+If y's balance is 0 or more
+
+00:04:50.673 --> 00:04:53.467
+it is left-left: a single rotation.
+
+00:04:53.467 --> 00:04:55.718
+If y's balance is −1
+
+00:04:55.718 --> 00:04:58.589
+it is left-right: a double rotation.
+
+00:04:58.589 --> 00:05:01.073
+The mirror image for −2.
+
+00:05:01.423 --> 00:05:03.920
+Balance 0 at y never happens
+
+00:05:04.000 --> 00:05:05.530
+after an insertion
+
+00:05:05.611 --> 00:05:08.108
+because the new key made one of
+
+00:05:08.188 --> 00:05:10.524
+y's subtrees strictly taller.
+
+00:05:10.524 --> 00:05:13.503
+But it does happen after a deletion
+
+00:05:13.503 --> 00:05:14.389
+as at 10.
+
+00:05:14.389 --> 00:05:17.047
+Then a single rotation is right
+
+00:05:17.047 --> 00:05:20.590
+it leaves z at +1 and y at −1.
+
+00:05:20.590 --> 00:05:23.329
+A double rotation can fail there
+
+00:05:23.329 --> 00:05:25.503
+leaving ±2.
+
+00:05:25.853 --> 00:05:27.629
+The slides show this same
+
+00:05:27.700 --> 00:05:29.405
+tree fixed a second way
+
+00:05:29.476 --> 00:05:31.253
+by a double rotation that
+
+00:05:31.324 --> 00:05:32.673
+puts 12 on top.
+
+00:05:32.673 --> 00:05:35.515
+That happens to give a valid tree here
+
+00:05:35.515 --> 00:05:36.794
+but only by luck.
+
+00:05:36.865 --> 00:05:38.996
+Always choose from the child's
+
+00:05:39.067 --> 00:05:40.133
+balance factor.
+
+00:05:40.713 --> 00:05:42.783
+Both insertion and deletion
+
+00:05:42.859 --> 00:05:45.005
+can use one method, balance
+
+00:05:45.005 --> 00:05:47.918
+which makes this choice from heights.
+
+00:05:47.995 --> 00:05:50.218
+If the left side is more than
+
+00:05:50.294 --> 00:05:52.287
+one taller than the right
+
+00:05:52.287 --> 00:05:55.353
+the allowed imbalance, t is left-heavy.
+
+00:05:55.703 --> 00:05:57.812
+Then compare the heights of
+
+00:05:57.890 --> 00:05:59.921
+t.left's two subtrees.
+
+00:05:59.921 --> 00:06:02.186
+Greater or equal: left-left
+
+00:06:02.186 --> 00:06:04.060
+rotate with left child.
+
+00:06:04.060 --> 00:06:06.403
+The equal case, balance 0
+
+00:06:06.403 --> 00:06:08.512
+takes the single rotation.
+
+00:06:08.512 --> 00:06:10.309
+Otherwise: left-right
+
+00:06:10.309 --> 00:06:12.183
+double with left child.
+
+00:06:12.533 --> 00:06:15.634
+The right side is the mirror image
+
+00:06:15.634 --> 00:06:19.177
+and at the end t recomputes its height.
+
+00:06:19.266 --> 00:06:22.632
+For insertions this test is equivalent
+
+00:06:22.721 --> 00:06:25.733
+to the slides' comparison of keys.
+
+00:06:26.313 --> 00:06:27.802
+And here is remove.
+
+00:06:27.802 --> 00:06:30.545
+Search left or right, recursively.
+
+00:06:30.624 --> 00:06:32.896
+When the key is found and the
+
+00:06:32.975 --> 00:06:34.699
+node has two children
+
+00:06:34.699 --> 00:06:37.363
+copy the successor's key into it
+
+00:06:37.442 --> 00:06:39.401
+then remove the successor
+
+00:06:39.479 --> 00:06:41.282
+from the right subtree
+
+00:06:41.282 --> 00:06:43.633
+with a second recursive call.
+
+00:06:43.983 --> 00:06:45.974
+With zero or one child
+
+00:06:45.974 --> 00:06:49.003
+the node is replaced by its child
+
+00:06:49.003 --> 00:06:50.042
+or by null.
+
+00:06:50.128 --> 00:06:52.206
+And every call ends with
+
+00:06:52.292 --> 00:06:54.023
+return balance(t).
+
+00:06:54.373 --> 00:06:56.340
+So balance runs on every node
+
+00:06:56.408 --> 00:06:59.054
+of the search path, from the bottom up
+
+00:06:59.054 --> 00:07:01.971
+exactly walk back up, correct the heights
+
+00:07:01.971 --> 00:07:03.666
+and rotate where needed.
+
+00:07:03.666 --> 00:07:05.701
+When a successor was removed
+
+00:07:05.769 --> 00:07:07.736
+the nodes on that second path
+
+00:07:07.804 --> 00:07:09.093
+are rebalanced too.
+
+00:07:09.673 --> 00:07:11.465
+The cost of deletion.
+
+00:07:11.465 --> 00:07:14.194
+The search down is O(log n)
+
+00:07:14.280 --> 00:07:16.753
+finding the successor at most
+
+00:07:16.839 --> 00:07:18.545
+another O(log n)
+
+00:07:18.630 --> 00:07:21.104
+and each node on the way back
+
+00:07:21.189 --> 00:07:23.066
+up does constant work.
+
+00:07:23.066 --> 00:07:25.710
+So deletion costs O(log n).
+
+00:07:25.710 --> 00:07:27.587
+But unlike insertion
+
+00:07:27.587 --> 00:07:30.999
+there may be a rotation at every level
+
+00:07:30.999 --> 00:07:33.473
+up to O(log n) rotations.
+
+00:07:33.823 --> 00:07:36.582
+A large random test checks the claims.
+
+00:07:36.654 --> 00:07:39.703
+After 100,000 random insertions
+
+00:07:39.776 --> 00:07:41.445
+the height is 19
+
+00:07:41.445 --> 00:07:44.639
+below the bound of 23.9.
+
+00:07:44.712 --> 00:07:46.890
+After 50,000 deletions
+
+00:07:46.962 --> 00:07:49.866
+it is 17, and the tree passes the
+
+00:07:49.939 --> 00:07:51.463
+AVL check every time.
+
+00:07:51.813 --> 00:07:53.700
+The worst case for deletion
+
+00:07:53.770 --> 00:07:55.167
+is a Fibonacci tree
+
+00:07:55.167 --> 00:07:58.241
+where every node already leans to one side.
+
+00:07:58.311 --> 00:08:01.526
+Deleting the largest key of the Fibonacci tree
+
+00:08:01.595 --> 00:08:04.111
+of height 6 takes 3 rotations
+
+00:08:04.111 --> 00:08:06.137
+one per level on the way up.
+
+00:08:06.137 --> 00:08:08.373
+It is an exercise in the notes.
+
+00:08:08.953 --> 00:08:11.848
+So, the pros and cons of AVL trees.
+
+00:08:11.848 --> 00:08:12.510
+Search
+
+00:08:12.510 --> 00:08:16.150
+insertion and deletion are all O(log n)
+
+00:08:16.150 --> 00:08:19.128
+always, and the balancing adds only
+
+00:08:19.211 --> 00:08:20.700
+a constant factor.
+
+00:08:20.700 --> 00:08:22.271
+On the other hand
+
+00:08:22.271 --> 00:08:25.828
+AVL trees are harder to program and debug
+
+00:08:25.828 --> 00:08:29.302
+four rotation cases, and deletion on top.
+
+00:08:29.385 --> 00:08:31.453
+And each node needs extra
+
+00:08:31.536 --> 00:08:33.273
+space for its height.
+
+00:08:33.623 --> 00:08:35.823
+In practice, red-black trees
+
+00:08:35.823 --> 00:08:38.098
+which rotate less on updates
+
+00:08:38.174 --> 00:08:40.752
+are often preferred when there are
+
+00:08:40.828 --> 00:08:43.104
+many insertions and deletions.
+
+00:08:43.104 --> 00:08:46.137
+AVL trees shine when searches dominate.
+
+00:08:46.137 --> 00:08:47.123
+And on disk
+
+00:08:47.123 --> 00:08:50.233
+where every node visited is a disk read
+
+00:08:50.233 --> 00:08:53.494
+databases use B-trees: many keys per node
+
+00:08:53.494 --> 00:08:55.694
+so the tree is very shallow.
+
+00:08:55.694 --> 00:08:56.983
+Both come later.
+
+00:08:57.563 --> 00:08:58.382
+To sum up.
+
+00:08:58.382 --> 00:09:01.656
+One: delete as in a binary search tree
+
+00:09:01.738 --> 00:09:04.767
+then walk back up and rotate wherever
+
+00:09:04.848 --> 00:09:07.550
+the balance is +2 or −2.
+
+00:09:07.550 --> 00:09:10.660
+Two: choose from the child's balance.
+
+00:09:10.660 --> 00:09:14.098
+Zero or the same side: a single rotation.
+
+00:09:14.098 --> 00:09:16.963
+The other side: a double rotation.
+
+00:09:17.313 --> 00:09:20.076
+Three: the imbalance can propagate
+
+00:09:20.155 --> 00:09:22.759
+so a deletion may need a rotation
+
+00:09:22.838 --> 00:09:24.022
+at every level.
+
+00:09:24.022 --> 00:09:26.153
+That is still O(log n).
+
+00:09:26.503 --> 00:09:27.461
+Try this.
+
+00:09:27.461 --> 00:09:30.973
+Build an AVL tree from 1, 2
+
+00:09:30.973 --> 00:09:32.570
+up to 15
+
+00:09:32.570 --> 00:09:35.976
+a perfect tree with root 8.
+
+00:09:35.976 --> 00:09:39.701
+Then delete 1, 3, 2, 5
+
+00:09:39.701 --> 00:09:42.894
+7 and 6, in this order.
+
+00:09:42.894 --> 00:09:46.406
+Which deletions cause rotations
+
+00:09:46.406 --> 00:09:50.983
+and what is the child's balance each time?
+
+00:09:51.333 --> 00:09:53.832
+Next lecture: red-black trees
+
+00:09:53.832 --> 00:09:57.413
+the balanced trees inside Java's TreeMap.
+

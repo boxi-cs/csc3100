@@ -1,0 +1,626 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:04.255
+Part three of lecture eight is a classic
+
+00:00:04.353 --> 00:00:06.825
+puzzle with two pointers.
+
+00:00:06.825 --> 00:00:10.187
+Here are two singly linked lists.
+
+00:00:10.187 --> 00:00:13.647
+List one is a1, a2, a3
+
+00:00:13.647 --> 00:00:15.822
+then c1 and c2.
+
+00:00:15.822 --> 00:00:18.392
+List two is b1, b2
+
+00:00:18.392 --> 00:00:21.853
+and then the same c1 and c2.
+
+00:00:21.853 --> 00:00:23.336
+From c1 on
+
+00:00:23.336 --> 00:00:26.598
+the two lists share their nodes
+
+00:00:26.598 --> 00:00:28.180
+they intersect.
+
+00:00:28.530 --> 00:00:32.816
+The task is to find the first common node
+
+00:00:32.816 --> 00:00:34.041
+here c1.
+
+00:00:34.041 --> 00:00:38.531
+List one has M nodes, list two has N nodes
+
+00:00:38.531 --> 00:00:41.491
+and we want the answer fast
+
+00:00:41.491 --> 00:00:44.450
+with almost no extra memory.
+
+00:00:45.030 --> 00:00:46.303
+Notice the shape.
+
+00:00:46.303 --> 00:00:48.475
+Once two lists share a node
+
+00:00:48.475 --> 00:00:50.871
+they share everything after it
+
+00:00:50.946 --> 00:00:52.892
+because each node has only
+
+00:00:52.967 --> 00:00:54.390
+one next reference.
+
+00:00:54.740 --> 00:00:57.028
+So two intersecting lists look
+
+00:00:57.105 --> 00:00:59.164
+like a Y lying on its side.
+
+00:00:59.164 --> 00:01:01.529
+They can never look like an X
+
+00:01:01.605 --> 00:01:03.817
+after the meeting point there
+
+00:01:03.894 --> 00:01:05.572
+is only one way to go.
+
+00:01:05.572 --> 00:01:07.860
+The lists cannot split again.
+
+00:01:08.440 --> 00:01:10.470
+What does common mean here?
+
+00:01:10.470 --> 00:01:12.802
+It means the same node object
+
+00:01:12.802 --> 00:01:15.584
+not a node that holds the same data.
+
+00:01:15.584 --> 00:01:17.915
+These are two different nodes
+
+00:01:17.915 --> 00:01:20.246
+and both hold the label c1.
+
+00:01:20.246 --> 00:01:20.923
+In Java
+
+00:01:20.998 --> 00:01:24.834
+a == b on two references is true exactly
+
+00:01:24.909 --> 00:01:27.541
+when they refer to the same object
+
+00:01:27.541 --> 00:01:29.120
+so here it is false.
+
+00:01:29.120 --> 00:01:31.902
+Comparing the labels would say true
+
+00:01:31.902 --> 00:01:34.309
+and that answer would be wrong.
+
+00:01:34.309 --> 00:01:36.640
+Always compare the references.
+
+00:01:36.990 --> 00:01:40.192
+Our node class is as small as it gets
+
+00:01:40.192 --> 00:01:43.310
+a string label and a next reference.
+
+00:01:43.890 --> 00:01:46.188
+Method one is the obvious one.
+
+00:01:46.188 --> 00:01:48.640
+Walk list one with a pointer a.
+
+00:01:48.640 --> 00:01:49.559
+For each a
+
+00:01:49.559 --> 00:01:52.547
+walk all of list two with a pointer b
+
+00:01:52.547 --> 00:01:55.994
+and check whether a and b are the same node.
+
+00:01:56.071 --> 00:01:58.599
+The first a that turns up in list
+
+00:01:58.676 --> 00:02:00.898
+two is the first common node
+
+00:02:00.974 --> 00:02:02.813
+because we try the nodes
+
+00:02:02.889 --> 00:02:04.498
+of list one in order.
+
+00:02:04.498 --> 00:02:06.873
+A static counter, comparisons,
+
+00:02:06.873 --> 00:02:08.252
+counts the tests.
+
+00:02:08.252 --> 00:02:11.010
+If nothing matches, we return null.
+
+00:02:11.590 --> 00:02:13.235
+Let's run it.
+
+00:02:13.235 --> 00:02:18.929
+a starts at a1, and b walks b1, b2
+
+00:02:18.929 --> 00:02:22.979
+c1, c2: four comparisons
+
+00:02:22.979 --> 00:02:24.750
+and no match.
+
+00:02:25.100 --> 00:02:28.226
+a moves on to a2: four more.
+
+00:02:28.226 --> 00:02:32.260
+Then a3: four more, twelve so far.
+
+00:02:32.610 --> 00:02:34.481
+Now a is at c1.
+
+00:02:34.481 --> 00:02:38.430
+b tries b1, b2, and then c1
+
+00:02:38.430 --> 00:02:39.989
+the same node.
+
+00:02:39.989 --> 00:02:42.172
+Fifteen comparisons
+
+00:02:42.172 --> 00:02:44.770
+and the answer is c1.
+
+00:02:45.120 --> 00:02:47.869
+In the worst case the common node
+
+00:02:47.952 --> 00:02:50.534
+is the last node of both lists
+
+00:02:50.534 --> 00:02:52.617
+or there is none at all
+
+00:02:52.617 --> 00:02:56.032
+and the inner loop runs M * N times.
+
+00:02:56.032 --> 00:02:58.031
+That is O(MN) time
+
+00:02:58.031 --> 00:03:00.280
+with constant extra space.
+
+00:03:00.860 --> 00:03:02.396
+First, a special case.
+
+00:03:02.396 --> 00:03:05.468
+Suppose the two lists have the same length.
+
+00:03:05.538 --> 00:03:08.191
+Then they also have the same number of
+
+00:03:08.260 --> 00:03:10.704
+nodes before the first common node
+
+00:03:10.774 --> 00:03:12.379
+because the shared tail
+
+00:03:12.449 --> 00:03:13.915
+is the same for both.
+
+00:03:13.985 --> 00:03:16.289
+So start one pointer at each head
+
+00:03:16.359 --> 00:03:19.361
+and move them together, one step at a time.
+
+00:03:19.431 --> 00:03:21.595
+They arrive at the first common
+
+00:03:21.665 --> 00:03:23.340
+node at the same moment.
+
+00:03:23.690 --> 00:03:26.188
+That takes at most M steps
+
+00:03:26.188 --> 00:03:28.130
+and no extra memory.
+
+00:03:28.710 --> 00:03:32.668
+When the lengths differ, we make them equal
+
+00:03:32.668 --> 00:03:35.006
+without copying anything.
+
+00:03:35.006 --> 00:03:38.874
+Imagine a longer list, L1′: list one
+
+00:03:38.874 --> 00:03:40.853
+followed by list two.
+
+00:03:40.853 --> 00:03:43.011
+And L2′: list two
+
+00:03:43.011 --> 00:03:44.990
+followed by list one.
+
+00:03:45.340 --> 00:03:47.537
+Both have M + N nodes.
+
+00:03:47.537 --> 00:03:50.963
+And their last two nodes are the same
+
+00:03:50.963 --> 00:03:52.457
+c1 and c2.
+
+00:03:52.457 --> 00:03:54.653
+So, by the special case
+
+00:03:54.741 --> 00:03:58.607
+two pointers moving together on L1′ and
+
+00:03:58.695 --> 00:04:02.121
+L2′ meet at the first common node
+
+00:04:02.121 --> 00:04:05.460
+here, c1, the eighth node of each.
+
+00:04:06.040 --> 00:04:08.869
+We never build L1′ or L2′.
+
+00:04:08.869 --> 00:04:10.912
+Pointer a walks list one
+
+00:04:10.990 --> 00:04:13.819
+and when it reaches the end it jumps
+
+00:04:13.898 --> 00:04:15.784
+to the head of list two.
+
+00:04:15.784 --> 00:04:17.827
+Pointer b walks list two
+
+00:04:17.827 --> 00:04:20.970
+and then jumps to the head of list one.
+
+00:04:20.970 --> 00:04:23.877
+Before each step we compare a and b
+
+00:04:23.955 --> 00:04:26.077
+and we stop as soon as they
+
+00:04:26.156 --> 00:04:27.570
+are the same node.
+
+00:04:27.570 --> 00:04:30.320
+This is the version on the slides.
+
+00:04:30.900 --> 00:04:33.267
+Watch it on our lists.
+
+00:04:33.267 --> 00:04:36.494
+a is at a1 and b at b1
+
+00:04:36.494 --> 00:04:38.215
+comparison 1.
+
+00:04:38.215 --> 00:04:41.227
+Both step: a2 and b2.
+
+00:04:41.227 --> 00:04:43.271
+a3 and c1.
+
+00:04:43.271 --> 00:04:45.100
+c1 and c2.
+
+00:04:45.450 --> 00:04:48.551
+Now b is at the end of list two
+
+00:04:48.551 --> 00:04:52.815
+so it jumps to the head of list one, a1
+
+00:04:52.815 --> 00:04:55.141
+while a moves to c2.
+
+00:04:55.141 --> 00:04:59.404
+Next, a reaches the end and jumps to b1
+
+00:04:59.404 --> 00:05:01.730
+while b moves to a2.
+
+00:05:02.080 --> 00:05:03.763
+b2 and a3.
+
+00:05:03.763 --> 00:05:07.689
+And now both are at c1: the same node
+
+00:05:07.689 --> 00:05:10.680
+found on the 8th comparison.
+
+00:05:11.260 --> 00:05:12.800
+Why does it work?
+
+00:05:12.890 --> 00:05:15.788
+Say list one has x private nodes
+
+00:05:15.879 --> 00:05:19.411
+before the common part, list two has y
+
+00:05:19.411 --> 00:05:22.399
+and the common part has z nodes.
+
+00:05:22.399 --> 00:05:26.022
+Here x is 3, y is 2 and z is 2.
+
+00:05:26.022 --> 00:05:29.373
+So M is x + z, and N is y + z.
+
+00:05:29.463 --> 00:05:32.995
+Pointer a reaches the first common node
+
+00:05:33.086 --> 00:05:36.346
+after walking x + z + y nodes
+
+00:05:36.346 --> 00:05:37.885
+all of list one
+
+00:05:37.885 --> 00:05:41.055
+then the private part of list two.
+
+00:05:41.055 --> 00:05:45.040
+Pointer b reaches it after y + z + x.
+
+00:05:45.040 --> 00:05:48.300
+The same count, so the same moment.
+
+00:05:48.650 --> 00:05:51.968
+If x = y, they meet even earlier
+
+00:05:51.968 --> 00:05:53.627
+on the first pass.
+
+00:05:53.715 --> 00:05:55.810
+Either way the loop runs
+
+00:05:55.898 --> 00:05:59.740
+at most M + N times: O(M + N) time
+
+00:05:59.740 --> 00:06:02.010
+and constant extra space.
+
+00:06:02.590 --> 00:06:03.332
+One catch.
+
+00:06:03.406 --> 00:06:05.409
+The slides' version assumes
+
+00:06:05.483 --> 00:06:08.747
+the lists do intersect, as the problem says.
+
+00:06:08.747 --> 00:06:09.859
+If they don't
+
+00:06:09.859 --> 00:06:12.307
+a and b are never the same node
+
+00:06:12.307 --> 00:06:15.126
+and the while true loop runs forever.
+
+00:06:15.126 --> 00:06:17.870
+We can fix that with a small change.
+
+00:06:18.450 --> 00:06:21.436
+The safe version loops while a is not b.
+
+00:06:21.436 --> 00:06:23.675
+It counts every pointer move.
+
+00:06:23.750 --> 00:06:26.064
+And a pointer at the end of its
+
+00:06:26.139 --> 00:06:28.154
+list first steps onto null
+
+00:06:28.229 --> 00:06:30.095
+and only on the next move
+
+00:06:30.169 --> 00:06:31.961
+jumps to the other head.
+
+00:06:31.961 --> 00:06:33.528
+When the loop stops
+
+00:06:33.528 --> 00:06:36.290
+a is the first common node, or null.
+
+00:06:36.640 --> 00:06:38.781
+If there is no common node
+
+00:06:38.861 --> 00:06:40.843
+both pointers become null
+
+00:06:40.923 --> 00:06:42.430
+at the same moment
+
+00:06:42.430 --> 00:06:44.888
+after M + N + 1 moves
+
+00:06:44.888 --> 00:06:47.664
+so the loop ends and returns null.
+
+00:06:47.664 --> 00:06:50.360
+The cost is still O(M + N).
+
+00:06:50.940 --> 00:06:53.763
+The demo runs all three on our lists.
+
+00:06:53.839 --> 00:06:55.975
+Method 1 finds c1 after
+
+00:06:56.051 --> 00:06:57.577
+15 comparisons.
+
+00:06:57.577 --> 00:07:00.857
+The slides' Method 2: c1 after 8.
+
+00:07:00.933 --> 00:07:03.298
+And the safe version also needs
+
+00:07:03.375 --> 00:07:04.900
+8 pointer moves.
+
+00:07:05.250 --> 00:07:07.442
+Then a list d1, d2
+
+00:07:07.442 --> 00:07:10.598
+which shares nothing with L1
+
+00:07:10.598 --> 00:07:13.316
+the safe version returns null.
+
+00:07:13.404 --> 00:07:16.121
+The slides' version would never
+
+00:07:16.209 --> 00:07:18.050
+have returned at all.
+
+00:07:18.630 --> 00:07:22.839
+Now you try, with the slides' Method 2.
+
+00:07:22.839 --> 00:07:26.020
+L1 is a1, then c1
+
+00:07:26.020 --> 00:07:27.971
+c2 and c3.
+
+00:07:27.971 --> 00:07:32.384
+L2 is b1, b2, b3, b4
+
+00:07:32.384 --> 00:07:34.950
+and then the same c1.
+
+00:07:35.300 --> 00:07:37.255
+List the nodes that a visits
+
+00:07:37.325 --> 00:07:40.396
+until it meets b, and count the comparisons.
+
+00:07:40.396 --> 00:07:42.700
+Pause the video and work it out.
+
+00:07:46.280 --> 00:07:51.215
+Here x is 1, y is 4 and z is 3.
+
+00:07:51.215 --> 00:07:56.520
+Both start at their heads: comparison 1.
+
+00:07:56.870 --> 00:08:00.565
+a walks c1, c2 and c3
+
+00:08:00.565 --> 00:08:03.364
+while b walks to b4.
+
+00:08:03.364 --> 00:08:07.730
+Then a jumps to b1 and walks b2
+
+00:08:07.730 --> 00:08:12.320
+b3 and b4, while b walks c1
+
+00:08:12.320 --> 00:08:16.350
+c2, c3, and jumps to a1.
+
+00:08:16.700 --> 00:08:19.969
+On the next step both reach c1.
+
+00:08:19.969 --> 00:08:22.757
+They meet after 8 moves
+
+00:08:22.757 --> 00:08:25.161
+on the 9th comparison
+
+00:08:25.161 --> 00:08:27.660
+x + y + z + 1.
+
+00:08:28.240 --> 00:08:29.055
+To sum up.
+
+00:08:29.055 --> 00:08:31.907
+One: lists that share a node share
+
+00:08:31.988 --> 00:08:35.247
+everything after it, a Y and never an X
+
+00:08:35.247 --> 00:08:38.018
+and common means the same object
+
+00:08:38.018 --> 00:08:40.218
+so compare the references.
+
+00:08:40.218 --> 00:08:40.625
+Two
+
+00:08:40.625 --> 00:08:44.128
+comparing every pair takes O(MN) time
+
+00:08:44.128 --> 00:08:47.469
+switching heads makes the lengths equal
+
+00:08:47.551 --> 00:08:50.321
+and finds the node in O(M + N) time
+
+00:08:50.402 --> 00:08:53.091
+with constant extra space.
+
+00:08:53.091 --> 00:08:56.432
+Three: the slides' version loops forever
+
+00:08:56.513 --> 00:08:58.876
+when there is no common node
+
+00:08:58.876 --> 00:09:02.054
+the safe version steps onto null once
+
+00:09:02.054 --> 00:09:03.520
+and returns null.
+
+00:09:03.870 --> 00:09:06.788
+Try exercise 2: count both lengths
+
+00:09:06.867 --> 00:09:09.470
+advance the pointer on the longer
+
+00:09:09.548 --> 00:09:11.362
+list by the difference
+
+00:09:11.441 --> 00:09:13.965
+then move both pointers together
+
+00:09:14.044 --> 00:09:15.305
+until they meet
+
+00:09:15.305 --> 00:09:17.750
+and explain why it is correct.
+
+00:09:18.100 --> 00:09:21.275
+Next, in part 4: cycles in a list
+
+00:09:21.275 --> 00:09:24.020
+and removing duplicate letters.
+

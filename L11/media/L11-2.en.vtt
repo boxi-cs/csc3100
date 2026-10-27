@@ -1,0 +1,635 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:02.497
+In the last part we saw what
+
+00:00:02.576 --> 00:00:03.988
+partition must do.
+
+00:00:03.988 --> 00:00:05.636
+Now, how it does it.
+
+00:00:05.636 --> 00:00:08.696
+This version, named after Nico Lomuto
+
+00:00:08.696 --> 00:00:11.992
+scans the range once, from left to right.
+
+00:00:11.992 --> 00:00:14.660
+First it records the pivot value.
+
+00:00:15.010 --> 00:00:16.952
+Then it parks the pivot at the
+
+00:00:17.017 --> 00:00:19.541
+right end of the range, out of the way.
+
+00:00:19.541 --> 00:00:21.871
+nextSmallPos starts at left
+
+00:00:21.936 --> 00:00:24.137
+it is where the next value smaller
+
+00:00:24.201 --> 00:00:25.690
+than the pivot will go.
+
+00:00:26.040 --> 00:00:29.690
+Index j runs from left to right - 1.
+
+00:00:29.777 --> 00:00:32.383
+Whenever arr[j] is smaller
+
+00:00:32.470 --> 00:00:34.295
+than the pivot value
+
+00:00:34.295 --> 00:00:37.597
+it is swapped to nextSmallPos
+
+00:00:37.597 --> 00:00:41.160
+and nextSmallPos moves on by 1.
+
+00:00:41.510 --> 00:00:44.549
+After the loop, one last swap puts the pivot
+
+00:00:44.618 --> 00:00:46.206
+at nextSmallPos
+
+00:00:46.206 --> 00:00:47.795
+between the two parts
+
+00:00:47.795 --> 00:00:50.350
+and partition returns that position.
+
+00:00:50.930 --> 00:00:53.032
+During the loop the range is
+
+00:00:53.108 --> 00:00:55.060
+divided into four regions.
+
+00:00:55.135 --> 00:00:57.763
+From left up to nextSmallPos
+
+00:00:57.838 --> 00:01:00.466
+are the values seen so far that are
+
+00:01:00.541 --> 00:01:02.268
+smaller than the pivot.
+
+00:01:02.343 --> 00:01:05.347
+From nextSmallPos up to j are the
+
+00:01:05.422 --> 00:01:08.050
+values seen so far that are larger.
+
+00:01:08.400 --> 00:01:12.338
+From j to right - 1: not yet examined.
+
+00:01:12.338 --> 00:01:15.560
+And at right sits the parked pivot.
+
+00:01:15.910 --> 00:01:18.009
+When arr[j] is small
+
+00:01:18.093 --> 00:01:20.193
+swapping it with
+
+00:01:20.276 --> 00:01:23.887
+arr[nextSmallPos], the first large value,
+
+00:01:23.971 --> 00:01:26.742
+and advancing nextSmallPos
+
+00:01:26.826 --> 00:01:29.513
+extends the small region by 1
+
+00:01:29.513 --> 00:01:32.956
+and keeps the large region in one piece.
+
+00:01:32.956 --> 00:01:35.139
+When arr[j] is large
+
+00:01:35.139 --> 00:01:38.750
+just moving j on extends the large region.
+
+00:01:39.100 --> 00:01:42.030
+At the end, nextSmallPos is the
+
+00:01:42.107 --> 00:01:43.726
+first large position.
+
+00:01:43.803 --> 00:01:46.270
+Swapping the pivot there puts it
+
+00:01:46.347 --> 00:01:48.660
+right between the two regions.
+
+00:01:49.240 --> 00:01:52.477
+In Java it is the same, line for line.
+
+00:01:52.477 --> 00:01:56.139
+Record the pivot value and park the pivot.
+
+00:01:56.139 --> 00:01:59.120
+Start nextSmallPos at left.
+
+00:01:59.470 --> 00:02:01.776
+The for loop runs j from left
+
+00:02:01.855 --> 00:02:04.002
+while j is less than right
+
+00:02:04.081 --> 00:02:06.307
+and tests arr[j] against
+
+00:02:06.387 --> 00:02:07.659
+the pivot value.
+
+00:02:07.738 --> 00:02:09.646
+A small value is swapped
+
+00:02:09.726 --> 00:02:13.224
+to nextSmallPos, which then moves on.
+
+00:02:13.224 --> 00:02:16.483
+Finally the pivot is swapped into place
+
+00:02:16.483 --> 00:02:18.630
+and its index is returned.
+
+00:02:18.980 --> 00:02:21.244
+The slides write this test once
+
+00:02:21.317 --> 00:02:22.851
+with the pivot value
+
+00:02:22.924 --> 00:02:24.897
+and once as arr[j]
+
+00:02:24.970 --> 00:02:26.430
+< arr[right].
+
+00:02:26.430 --> 00:02:28.914
+They are the same: after parking
+
+00:02:28.914 --> 00:02:31.836
+the pivot value sits at arr[right]
+
+00:02:31.836 --> 00:02:34.100
+and the loop never touches it.
+
+00:02:34.680 --> 00:02:38.988
+Let us trace the slides' example:
+
+00:02:38.988 --> 00:02:42.024
+4, 2, 3, 6, 9, 5, 7
+
+00:02:42.024 --> 00:02:44.374
+with pivot index 3.
+
+00:02:44.374 --> 00:02:46.724
+The pivot value is 6
+
+00:02:46.724 --> 00:02:50.151
+and it is parked at the right end
+
+00:02:50.151 --> 00:02:52.795
+7 and 6 swap places.
+
+00:02:52.795 --> 00:02:56.320
+nextSmallPos starts at 0.
+
+00:02:56.670 --> 00:02:59.098
+j is 0: 4 is small.
+
+00:02:59.098 --> 00:03:01.234
+It swaps with itself
+
+00:03:01.234 --> 00:03:04.827
+and nextSmallPos becomes 1.
+
+00:03:04.827 --> 00:03:08.712
+j is 1: 2 is small, the same again.
+
+00:03:08.712 --> 00:03:11.237
+j is 2: 3 is small
+
+00:03:11.237 --> 00:03:14.150
+nextSmallPos is 3.
+
+00:03:14.730 --> 00:03:17.117
+j is 3: 7 is large.
+
+00:03:17.117 --> 00:03:20.829
+Skip; nextSmallPos stays at 3.
+
+00:03:20.829 --> 00:03:23.127
+j is 4: 9 is large.
+
+00:03:23.127 --> 00:03:24.188
+Skip again.
+
+00:03:24.188 --> 00:03:27.370
+The large block is now 7, 9.
+
+00:03:27.620 --> 00:03:29.776
+j is 5: 5 is small.
+
+00:03:29.776 --> 00:03:32.363
+It swaps with arr[3]
+
+00:03:32.363 --> 00:03:34.346
+the first large value
+
+00:03:34.346 --> 00:03:37.192
+5 jumps over the large block
+
+00:03:37.192 --> 00:03:40.468
+and nextSmallPos becomes 4.
+
+00:03:40.468 --> 00:03:43.314
+While all the values were small
+
+00:03:43.314 --> 00:03:46.246
+each swap was a swap with itself.
+
+00:03:46.246 --> 00:03:48.660
+This is the first real one.
+
+00:03:49.010 --> 00:03:50.781
+The loop is over.
+
+00:03:50.781 --> 00:03:55.158
+The pivot swaps with arr[4]:
+
+00:03:55.158 --> 00:03:58.909
+4, 2, 3, 5, 6, 7, 9.
+
+00:03:58.909 --> 00:04:01.410
+Partition returns 4.
+
+00:04:01.990 --> 00:04:03.016
+Your turn.
+
+00:04:03.016 --> 00:04:06.709
+10, 80, 30, 90, 40
+
+00:04:06.811 --> 00:04:09.683
+with the pivot 40 already
+
+00:04:09.786 --> 00:04:13.376
+at the right end, pivot index 4.
+
+00:04:13.376 --> 00:04:16.966
+Write down j, nextSmallPos
+
+00:04:16.966 --> 00:04:20.146
+and the array after each step.
+
+00:04:20.146 --> 00:04:23.019
+What does partition return?
+
+00:04:23.019 --> 00:04:25.070
+Pause and trace it.
+
+00:04:28.650 --> 00:04:31.740
+nextSmallPos starts at 0.
+
+00:04:31.740 --> 00:04:34.918
+10 is small: it swaps with itself
+
+00:04:34.918 --> 00:04:37.389
+nextSmallPos is 1.
+
+00:04:37.389 --> 00:04:38.890
+80 is large.
+
+00:04:39.140 --> 00:04:42.775
+30 is small: it swaps with 80
+
+00:04:42.775 --> 00:04:45.453
+giving 10, 30, 80
+
+00:04:45.453 --> 00:04:48.514
+and nextSmallPos is 2.
+
+00:04:48.514 --> 00:04:50.140
+90 is large.
+
+00:04:50.390 --> 00:04:54.157
+Finally the pivot swaps with arr[2]
+
+00:04:54.157 --> 00:04:58.192
+which is 80:
+
+00:04:58.192 --> 00:04:58.909
+10, 30, 40, 90, 80.
+
+00:04:58.909 --> 00:05:02.766
+Partition returns 2, the index of 40.
+
+00:05:02.855 --> 00:05:05.366
+Here is the program's output
+
+00:05:05.456 --> 00:05:07.070
+for both examples.
+
+00:05:07.420 --> 00:05:10.308
+A quick check for any partition trace:
+
+00:05:10.384 --> 00:05:13.120
+the returned index equals the number
+
+00:05:13.196 --> 00:05:16.540
+of values smaller than the pivot, plus left.
+
+00:05:16.540 --> 00:05:18.668
+Two values, 10 and 30,
+
+00:05:18.668 --> 00:05:20.492
+are smaller than 40,
+
+00:05:20.492 --> 00:05:23.380
+so the answer must be 2, not 3.
+
+00:05:23.960 --> 00:05:27.572
+Now the whole randomized quicksort in Java.
+
+00:05:27.572 --> 00:05:29.840
+If left is at least right,
+
+00:05:29.840 --> 00:05:33.200
+there are 0 or 1 elements: return.
+
+00:05:33.550 --> 00:05:37.619
+The pivot index is
+
+00:05:37.714 --> 00:05:40.836
+left + rng.nextInt(right - left + 1).
+
+00:05:40.931 --> 00:05:43.959
+nextInt returns an integer from
+
+00:05:44.054 --> 00:05:46.419
+0 to right - left,
+
+00:05:46.514 --> 00:05:49.353
+so the sum is a uniform random
+
+00:05:49.447 --> 00:05:51.813
+index from left to right,
+
+00:05:51.813 --> 00:05:55.030
+exactly RANDOM(left, right).
+
+00:05:55.380 --> 00:05:56.763
+Partition around it,
+
+00:05:56.832 --> 00:05:59.252
+and sort the values below the pivot
+
+00:05:59.321 --> 00:06:00.980
+and the values above it.
+
+00:06:01.560 --> 00:06:03.232
+To watch the recursion,
+
+00:06:03.232 --> 00:06:05.776
+the notes print one line per call
+
+00:06:05.776 --> 00:06:08.248
+on the 10 numbers from part 1.
+
+00:06:08.248 --> 00:06:09.702
+With seed 19,
+
+00:06:09.702 --> 00:06:11.955
+the first pivot is 65,
+
+00:06:11.955 --> 00:06:13.918
+as in the slides' picture.
+
+00:06:13.918 --> 00:06:16.680
+65 is now in its final place.
+
+00:06:17.030 --> 00:06:21.311
+Left part, 0 to 5: pivot 31.
+
+00:06:21.311 --> 00:06:24.369
+Then 0 to 2: pivot 0.
+
+00:06:24.369 --> 00:06:27.630
+And 1 to 2: pivot 13.
+
+00:06:27.880 --> 00:06:30.856
+4 to 5: pivot 43.
+
+00:06:30.856 --> 00:06:33.553
+On the right, 7 to 9:
+
+00:06:33.553 --> 00:06:35.226
+pivot 92.
+
+00:06:35.226 --> 00:06:38.760
+And 7 to 8: pivot 81.
+
+00:06:39.010 --> 00:06:39.523
+Sorted.
+
+00:06:39.523 --> 00:06:42.528
+26, 57 and 75
+
+00:06:42.602 --> 00:06:43.921
+were never pivots;
+
+00:06:43.921 --> 00:06:47.146
+each ended up alone in a range of size 1,
+
+00:06:47.219 --> 00:06:49.565
+and calls on ranges of size 0
+
+00:06:49.638 --> 00:06:52.570
+or 1 return at once, printing nothing.
+
+00:06:53.150 --> 00:06:55.986
+Same input, seed 2026.
+
+00:06:55.986 --> 00:06:59.633
+The first pivot is 0, the smallest value.
+
+00:06:59.714 --> 00:07:02.145
+The left part is empty and the
+
+00:07:02.226 --> 00:07:05.630
+right part has 9 elements: a bad split.
+
+00:07:05.980 --> 00:07:08.813
+1 to 9: pivot 65.
+
+00:07:08.813 --> 00:07:11.551
+1 to 5: pivot 13.
+
+00:07:11.551 --> 00:07:13.911
+2 to 5: 31.
+
+00:07:13.911 --> 00:07:16.460
+4 to 5: 43.
+
+00:07:16.710 --> 00:07:19.256
+Then 75 and 81
+
+00:07:19.336 --> 00:07:20.370
+on the right.
+
+00:07:20.370 --> 00:07:22.280
+The same sorted result
+
+00:07:22.280 --> 00:07:25.542
+but the recursion went one level deeper.
+
+00:07:25.542 --> 00:07:28.804
+Same input, same result, different work
+
+00:07:28.804 --> 00:07:31.350
+that is a randomized algorithm.
+
+00:07:31.700 --> 00:07:34.144
+And the question from part one
+
+00:07:34.144 --> 00:07:37.535
+how many times can one element be a pivot?
+
+00:07:37.535 --> 00:07:38.639
+At most once.
+
+00:07:38.718 --> 00:07:40.689
+After partition the pivot
+
+00:07:40.768 --> 00:07:42.503
+is in its final place
+
+00:07:42.503 --> 00:07:45.420
+and both recursive calls exclude it.
+
+00:07:46.000 --> 00:07:47.861
+Merge sort and quicksort are
+
+00:07:47.928 --> 00:07:49.523
+both divide-and-conquer
+
+00:07:49.523 --> 00:07:52.381
+but they put the work in different places.
+
+00:07:52.381 --> 00:07:54.375
+Merge sort divides trivially
+
+00:07:54.375 --> 00:07:56.103
+by cutting in the middle
+
+00:07:56.103 --> 00:07:58.761
+quicksort's real work is the partition.
+
+00:07:58.761 --> 00:08:01.220
+Merge sort's real work is the merge
+
+00:08:01.220 --> 00:08:03.480
+quicksort has nothing to combine.
+
+00:08:03.830 --> 00:08:07.272
+Merging needs a temporary array of size n
+
+00:08:07.272 --> 00:08:10.468
+partition swaps inside the same array
+
+00:08:10.468 --> 00:08:11.287
+in place.
+
+00:08:11.287 --> 00:08:13.746
+Merge sort is O(n log n) always
+
+00:08:13.746 --> 00:08:16.286
+quicksort is O(n log n) expected
+
+00:08:16.286 --> 00:08:18.990
+and quadratic in the worst case.
+
+00:08:19.340 --> 00:08:22.548
+Yet in practice quicksort is typically
+
+00:08:22.633 --> 00:08:24.828
+two to three times faster.
+
+00:08:24.828 --> 00:08:27.276
+The constant factors decide
+
+00:08:27.360 --> 00:08:30.906
+partition is a simple sequential scan with
+
+00:08:30.990 --> 00:08:33.861
+few data moves and no extra array
+
+00:08:33.861 --> 00:08:36.140
+which suits the CPU cache.
+
+00:08:36.720 --> 00:08:37.616
+To sum up.
+
+00:08:37.616 --> 00:08:40.483
+One: the Lomuto partition parks
+
+00:08:40.573 --> 00:08:43.529
+the pivot at right, scans j once
+
+00:08:43.619 --> 00:08:45.859
+and swaps small values to
+
+00:08:45.948 --> 00:08:47.740
+nextSmallPos.
+
+00:08:47.740 --> 00:08:51.682
+Two: the pivot ends at nextSmallPos
+
+00:08:51.682 --> 00:08:55.535
+which equals the number of smaller values
+
+00:08:55.535 --> 00:08:56.520
+plus left.
+
+00:08:56.870 --> 00:08:59.830
+Three: randomized quicksort gives the
+
+00:08:59.910 --> 00:09:01.910
+same result on every run
+
+00:09:01.910 --> 00:09:03.590
+with different work
+
+00:09:03.590 --> 00:09:06.950
+and each element is a pivot at most once.
+
+00:09:07.300 --> 00:09:11.501
+Try this: partition
+
+00:09:11.501 --> 00:09:13.697
+3, 8, 2, 5, 1, 4, 7, 6
+
+00:09:13.697 --> 00:09:15.892
+with pivot index 5.
+
+00:09:15.892 --> 00:09:19.043
+Write the array after each step
+
+00:09:19.043 --> 00:09:21.143
+and the return value.
+
+00:09:21.143 --> 00:09:24.580
+Count the small values to check it.
+
+00:09:24.930 --> 00:09:26.757
+Next: median-of-three
+
+00:09:26.840 --> 00:09:29.331
+a deterministic quicksort that
+
+00:09:29.414 --> 00:09:31.490
+is very fast in practice.
+

@@ -1,0 +1,677 @@
+WEBVTT
+
+00:00:00.300 --> 00:00:03.959
+Here is a short program with a Turtle class.
+
+00:00:03.959 --> 00:00:06.619
+First it declares a variable t
+
+00:00:06.619 --> 00:00:08.282
+with no object yet.
+
+00:00:08.365 --> 00:00:10.444
+Then new Turtle creates a
+
+00:00:10.527 --> 00:00:13.437
+Turtle at 100, 100
+
+00:00:13.437 --> 00:00:17.179
+and t.jumpTo moves it to
+
+00:00:17.179 --> 00:00:18.260
+300, 200.
+
+00:00:18.610 --> 00:00:22.009
+Now we write: Turtle u = t
+
+00:00:22.009 --> 00:00:25.090
+and we move u to 5, 5.
+
+00:00:25.440 --> 00:00:26.975
+Where is t now?
+
+00:00:26.975 --> 00:00:29.840
+Pause the video and decide.
+
+00:00:33.420 --> 00:00:36.755
+To answer that, we need classes and objects.
+
+00:00:36.755 --> 00:00:38.574
+A class is a blueprint.
+
+00:00:38.574 --> 00:00:41.908
+It declares the fields, which are the data
+
+00:00:41.908 --> 00:00:45.092
+and the methods, which are the behavior
+
+00:00:45.092 --> 00:00:47.820
+that all objects of one kind share.
+
+00:00:48.170 --> 00:00:51.196
+An object is an instance of a class
+
+00:00:51.196 --> 00:00:54.978
+one concrete thing built from the blueprint
+
+00:00:54.978 --> 00:00:58.004
+with its own values for the fields.
+
+00:00:58.004 --> 00:01:01.618
+The class Dog has the fields name, color
+
+00:01:01.618 --> 00:01:03.215
+height and length
+
+00:01:03.299 --> 00:01:05.737
+the object tommy has the name
+
+00:01:05.821 --> 00:01:08.090
+Tommy and the color green.
+
+00:01:08.440 --> 00:01:11.993
+Of the ideas of object-oriented programming
+
+00:01:11.993 --> 00:01:14.820
+this course uses one all the time
+
+00:01:14.820 --> 00:01:16.031
+encapsulation.
+
+00:01:16.031 --> 00:01:18.050
+Keep the fields private
+
+00:01:18.050 --> 00:01:21.200
+and let other classes use the methods.
+
+00:01:21.780 --> 00:01:24.608
+Here is the Turtle class from the slides.
+
+00:01:24.608 --> 00:01:26.746
+Its fields, penDown, x and y
+
+00:01:26.746 --> 00:01:28.953
+are declared in the class body
+
+00:01:29.022 --> 00:01:30.953
+and every Turtle object gets
+
+00:01:31.022 --> 00:01:32.471
+its own copy of them.
+
+00:01:32.471 --> 00:01:35.160
+Statements, such as these assignments
+
+00:01:35.229 --> 00:01:37.299
+can only appear inside methods
+
+00:01:37.367 --> 00:01:38.540
+and constructors.
+
+00:01:38.890 --> 00:01:40.722
+This is the constructor.
+
+00:01:40.722 --> 00:01:42.935
+It initializes a new object
+
+00:01:43.012 --> 00:01:45.607
+and runs automatically right after
+
+00:01:45.683 --> 00:01:47.897
+new has allocated the memory.
+
+00:01:47.897 --> 00:01:50.644
+Its name is exactly the class name
+
+00:01:50.644 --> 00:01:53.850
+and it has no return type, not even void.
+
+00:01:54.200 --> 00:01:56.439
+Writing a constructor is optional.
+
+00:01:56.505 --> 00:01:58.744
+A class without one gets a default
+
+00:01:58.810 --> 00:02:00.851
+constructor with no parameters
+
+00:02:00.917 --> 00:02:02.497
+which leaves every field
+
+00:02:02.563 --> 00:02:03.946
+at its default value.
+
+00:02:03.946 --> 00:02:06.712
+But as soon as you write any constructor
+
+00:02:06.712 --> 00:02:09.280
+the default one is no longer provided.
+
+00:02:09.860 --> 00:02:12.333
+Java has three kinds of methods.
+
+00:02:12.333 --> 00:02:14.420
+The main method is static
+
+00:02:14.420 --> 00:02:17.743
+it belongs to the class, not to an object
+
+00:02:17.820 --> 00:02:20.061
+so the JVM can call it before
+
+00:02:20.138 --> 00:02:21.530
+any object exists.
+
+00:02:21.530 --> 00:02:23.152
+Its parameter, args
+
+00:02:23.152 --> 00:02:25.780
+holds the command-line arguments.
+
+00:02:26.130 --> 00:02:28.965
+The second kind is the constructor
+
+00:02:28.965 --> 00:02:30.989
+which we have just seen.
+
+00:02:30.989 --> 00:02:34.634
+And a general method has an access modifier
+
+00:02:34.634 --> 00:02:38.278
+a return type, a name, a list of parameters
+
+00:02:38.278 --> 00:02:39.250
+and a body.
+
+00:02:39.600 --> 00:02:43.521
+getX() has no parameters and returns an int
+
+00:02:43.521 --> 00:02:44.707
+with return.
+
+00:02:44.707 --> 00:02:48.719
+jumpTo() takes two ints and returns nothing
+
+00:02:48.719 --> 00:02:51.273
+so its return type is void
+
+00:02:51.273 --> 00:02:54.100
+it changes the object instead.
+
+00:02:54.191 --> 00:02:56.927
+A method that is not static is
+
+00:02:57.018 --> 00:02:59.480
+always called on an object.
+
+00:03:00.060 --> 00:03:02.431
+Who may use a field or a method
+
+00:03:02.507 --> 00:03:04.801
+is set by its access modifier.
+
+00:03:04.801 --> 00:03:06.789
+Public means every class.
+
+00:03:06.866 --> 00:03:09.313
+Protected means the same package
+
+00:03:09.389 --> 00:03:10.842
+and the subclasses.
+
+00:03:10.842 --> 00:03:12.219
+With no modifier
+
+00:03:12.219 --> 00:03:15.125
+only the classes of the same package.
+
+00:03:15.125 --> 00:03:18.260
+And private means only the class itself.
+
+00:03:18.610 --> 00:03:22.367
+The field penDown is private, so this line
+
+00:03:22.367 --> 00:03:25.440
+in another class, does not compile
+
+00:03:25.440 --> 00:03:28.770
+penDown has private access in Turtle.
+
+00:03:29.120 --> 00:03:30.992
+Keep the fields private
+
+00:03:31.070 --> 00:03:32.943
+and let other classes go
+
+00:03:33.021 --> 00:03:35.751
+through its methods, such as getX().
+
+00:03:35.751 --> 00:03:37.546
+This is encapsulation
+
+00:03:37.546 --> 00:03:40.978
+the class controls how its data can change.
+
+00:03:40.978 --> 00:03:43.163
+A linked list, for example
+
+00:03:43.163 --> 00:03:46.049
+keeps its head and its size private
+
+00:03:46.049 --> 00:03:49.560
+so that no outside code can break the links.
+
+00:03:50.140 --> 00:03:51.170
+Let's run it.
+
+00:03:51.249 --> 00:03:53.784
+Turtle t creates a variable that
+
+00:03:53.863 --> 00:03:55.605
+can refer to a Turtle
+
+00:03:55.605 --> 00:03:57.823
+but there is no object yet.
+
+00:03:57.823 --> 00:04:00.675
+new allocates a Turtle on the heap
+
+00:04:00.675 --> 00:04:02.417
+runs the constructor
+
+00:04:02.417 --> 00:04:04.397
+and returns a reference
+
+00:04:04.397 --> 00:04:06.140
+which is stored in t.
+
+00:04:06.490 --> 00:04:08.530
+getX() returns 100
+
+00:04:08.530 --> 00:04:10.414
+which is copied into a
+
+00:04:10.414 --> 00:04:12.297
+and the program prints
+
+00:04:12.297 --> 00:04:14.024
+a equals 100.
+
+00:04:14.102 --> 00:04:16.064
+Then the jump changes the
+
+00:04:16.143 --> 00:04:17.869
+fields of that object,
+
+00:04:17.869 --> 00:04:20.930
+so t is at 300, 200.
+
+00:04:21.280 --> 00:04:23.531
+Now, Turtle u = t.
+
+00:04:23.531 --> 00:04:27.738
+This copies the reference, not the Turtle.
+
+00:04:27.738 --> 00:04:31.457
+u and t are two names for one object.
+
+00:04:31.555 --> 00:04:34.099
+So u.jumpTo moves the
+
+00:04:34.197 --> 00:04:38.013
+only Turtle there is, and t is at
+
+00:04:38.013 --> 00:04:38.600
+5, 5.
+
+00:04:38.950 --> 00:04:41.216
+Only new creates an object.
+
+00:04:41.216 --> 00:04:44.070
+Assigning a reference never does.
+
+00:04:44.650 --> 00:04:47.598
+How does that Turtle ever go away?
+
+00:04:47.598 --> 00:04:49.332
+Java has no delete.
+
+00:04:49.332 --> 00:04:52.800
+When main returns, its frame is popped
+
+00:04:52.800 --> 00:04:55.748
+and t, a and u disappear with it.
+
+00:04:55.748 --> 00:04:59.043
+Now no variable refers to the Turtle,
+
+00:04:59.043 --> 00:05:00.690
+it is unreachable.
+
+00:05:01.040 --> 00:05:03.353
+The garbage collector frees its
+
+00:05:03.427 --> 00:05:05.367
+memory at some later time.
+
+00:05:05.367 --> 00:05:07.978
+You never destroy objects by hand,
+
+00:05:07.978 --> 00:05:10.440
+you just stop referring to them.
+
+00:05:10.514 --> 00:05:12.677
+This removes two classic bugs
+
+00:05:12.752 --> 00:05:15.960
+of C and C++: freeing memory twice
+
+00:05:15.960 --> 00:05:18.720
+and using memory after it was freed.
+
+00:05:19.300 --> 00:05:21.628
+Inside a method or a constructor,
+
+00:05:21.699 --> 00:05:23.322
+the keyword this refers
+
+00:05:23.392 --> 00:05:24.944
+to the current object,
+
+00:05:24.944 --> 00:05:27.061
+the object being constructed
+
+00:05:27.061 --> 00:05:29.672
+or the one the method was called on.
+
+00:05:29.742 --> 00:05:32.282
+Its main use is to tell a field from
+
+00:05:32.353 --> 00:05:34.540
+a parameter with the same name.
+
+00:05:34.890 --> 00:05:38.344
+In ItemWrong, the parameter is called name
+
+00:05:38.344 --> 00:05:39.993
+just like the field.
+
+00:05:39.993 --> 00:05:41.877
+Inside the constructor,
+
+00:05:41.877 --> 00:05:44.389
+every name means the parameter,
+
+00:05:44.468 --> 00:05:46.587
+so name = name assigns
+
+00:05:46.666 --> 00:05:48.550
+the parameter to itself.
+
+00:05:48.550 --> 00:05:51.690
+The field is never set, and stays null.
+
+00:05:52.040 --> 00:05:55.005
+In Item, this.name is the field
+
+00:05:55.005 --> 00:05:57.228
+and name is the parameter.
+
+00:05:57.228 --> 00:06:00.440
+So the demo prints null, and then car.
+
+00:06:01.020 --> 00:06:02.759
+Many things can go wrong
+
+00:06:02.831 --> 00:06:05.657
+while a program runs: division by zero,
+
+00:06:05.657 --> 00:06:07.613
+an index outside an array,
+
+00:06:07.613 --> 00:06:10.294
+a method called on a null reference,
+
+00:06:10.294 --> 00:06:12.540
+or input that is not a number.
+
+00:06:12.612 --> 00:06:14.568
+Java reports such a problem
+
+00:06:14.641 --> 00:06:16.452
+by throwing an exception,
+
+00:06:16.452 --> 00:06:19.060
+an object that describes the error.
+
+00:06:19.410 --> 00:06:21.806
+This method reads a natural
+
+00:06:21.895 --> 00:06:23.759
+number from a string.
+
+00:06:23.759 --> 00:06:27.664
+An empty string throws a new IOException.
+
+00:06:27.664 --> 00:06:31.481
+So does any character that is not a digit.
+
+00:06:31.481 --> 00:06:34.587
+Otherwise, each digit is added on
+
+00:06:34.587 --> 00:06:36.096
+value * 10
+
+00:06:36.096 --> 00:06:40.090
+plus the character - '0'.
+
+00:06:40.440 --> 00:06:42.920
+Throwing stops the method at once
+
+00:06:42.993 --> 00:06:44.816
+and the exception travels
+
+00:06:44.889 --> 00:06:46.566
+back up the call stack
+
+00:06:46.566 --> 00:06:48.754
+until some method catches it.
+
+00:06:48.754 --> 00:06:51.525
+IOException is a checked exception
+
+00:06:51.525 --> 00:06:54.516
+so the method must say so in its header
+
+00:06:54.516 --> 00:06:56.120
+throws IOException.
+
+00:06:56.700 --> 00:06:59.233
+The caller handles an exception
+
+00:06:59.315 --> 00:07:00.868
+with try and catch.
+
+00:07:00.868 --> 00:07:03.973
+CatchDemo calls parse on two inputs
+
+00:07:03.973 --> 00:07:06.261
+21, and '4x2'.
+
+00:07:06.343 --> 00:07:08.386
+The statements in the try
+
+00:07:08.467 --> 00:07:10.020
+block run as usual.
+
+00:07:10.370 --> 00:07:13.475
+For 21, parse returns 21
+
+00:07:13.475 --> 00:07:15.369
+and m becomes 42.
+
+00:07:15.369 --> 00:07:17.111
+There is no exception
+
+00:07:17.111 --> 00:07:19.459
+so the catch block is skipped.
+
+00:07:19.459 --> 00:07:21.807
+The finally block runs anyway
+
+00:07:21.807 --> 00:07:25.215
+and the program prints: n = 21
+
+00:07:25.215 --> 00:07:26.730
+m = 42.
+
+00:07:27.080 --> 00:07:28.282
+For '4x2'
+
+00:07:28.282 --> 00:07:30.687
+parse throws at the letter 'x'.
+
+00:07:30.687 --> 00:07:33.733
+The rest of the try block is skipped
+
+00:07:33.733 --> 00:07:35.657
+so m is never computed.
+
+00:07:35.657 --> 00:07:38.142
+The matching catch block runs
+
+00:07:38.142 --> 00:07:39.985
+it prints the message
+
+00:07:39.985 --> 00:07:42.711
+and uses 1 and 2 as defaults.
+
+00:07:42.711 --> 00:07:45.276
+Finally runs again, and we get
+
+00:07:45.276 --> 00:07:47.520
+n = 1, m = 2.
+
+00:07:47.870 --> 00:07:51.124
+So try runs until something throws
+
+00:07:51.124 --> 00:07:55.215
+catch runs only when the exception matches
+
+00:07:55.215 --> 00:07:58.190
+and finally runs in every case.
+
+00:07:58.770 --> 00:08:01.399
+Most exceptions you will meet in this
+
+00:08:01.470 --> 00:08:03.814
+course are thrown by Java itself.
+
+00:08:03.814 --> 00:08:05.235
+They are unchecked
+
+00:08:05.235 --> 00:08:07.650
+so methods need not declare them.
+
+00:08:08.000 --> 00:08:11.093
+Index 3, in an array of length 3
+
+00:08:11.093 --> 00:08:12.451
+is out of bounds.
+
+00:08:12.526 --> 00:08:15.317
+Calling length on a null string gives
+
+00:08:15.393 --> 00:08:17.278
+a NullPointerException.
+
+00:08:17.354 --> 00:08:19.390
+Integer division by zero is
+
+00:08:19.466 --> 00:08:21.276
+an ArithmeticException
+
+00:08:21.352 --> 00:08:23.539
+but dividing a double by zero
+
+00:08:23.615 --> 00:08:25.350
+is not an error at all
+
+00:08:25.350 --> 00:08:27.160
+the result is infinity.
+
+00:08:27.510 --> 00:08:29.798
+If nobody catches an exception,
+
+00:08:29.798 --> 00:08:33.045
+the program stops and prints the exception
+
+00:08:33.118 --> 00:08:34.594
+and the stack trace.
+
+00:08:34.668 --> 00:08:36.587
+And never swallow one with
+
+00:08:36.660 --> 00:08:39.612
+an empty catch block; at the very least,
+
+00:08:39.612 --> 00:08:40.350
+print it.
+
+00:08:40.930 --> 00:08:41.771
+To sum up.
+
+00:08:41.771 --> 00:08:44.293
+One: A class declares fields,
+
+00:08:44.293 --> 00:08:46.478
+constructors, and methods,
+
+00:08:46.478 --> 00:08:49.757
+and `new` creates an object on the heap.
+
+00:08:49.757 --> 00:08:52.447
+Two: A variable of a class type
+
+00:08:52.531 --> 00:08:54.044
+holds a reference.
+
+00:08:54.044 --> 00:08:57.071
+Copying it never copies the object,
+
+00:08:57.071 --> 00:09:00.013
+and `this` names the current object.
+
+00:09:00.013 --> 00:09:03.207
+Three: `throw` stops a method, and `try`,
+
+00:09:03.207 --> 00:09:06.570
+`catch`, and `finally` handle the exception.
+
+00:09:06.920 --> 00:09:08.225
+Try this yourself.
+
+00:09:08.225 --> 00:09:10.256
+Write a class `BankAccount`
+
+00:09:10.256 --> 00:09:13.085
+with a private `balance`, a constructor,
+
+00:09:13.085 --> 00:09:15.623
+`deposit`, `withdraw`, and `getBalance` methods.
+
+00:09:15.695 --> 00:09:18.524
+`withdraw` must throw an `IllegalArgumentException`
+
+00:09:18.596 --> 00:09:21.135
+when the amount is larger
+
+00:09:21.207 --> 00:09:22.440
+than the balance.
+
+00:09:22.790 --> 00:09:27.109
+In part four, we turn to arrays, strings,
+
+00:09:27.109 --> 00:09:29.110
+casting, and files.
+
